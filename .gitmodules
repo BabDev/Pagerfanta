@@ -1,0 +1,12 @@
+[submodule "vendor/mandango"]
+	path = vendor/mandango
+	url = http://github.com/mandango/mandango.git
+[submodule "vendor/doctrine-mongodb-odm"]
+	path = vendor/doctrine-mongodb-odm
+	url = http://github.com/doctrine/mongodb-odm.git
+[submodule "vendor/doctrine-mongodb"]
+	path = vendor/doctrine-mongodb
+	url = http://github.com/doctrine/mongodb.git
+[submodule "vendor/Symfony/Component/ClassLoader"]
+	path = vendor/Symfony/Component/ClassLoader
+	url = http://github.com/symfony/ClassLoader.git
