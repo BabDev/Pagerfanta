@@ -63,6 +63,8 @@ class Pagerfanta implements PagerfantaInterface
     }
 
     /**
+     * This method implements a fluent interface.
+     *
      * {@inheritdoc}
      */
     public function setMaxPerPage($maxPerPage)
@@ -96,6 +98,8 @@ class Pagerfanta implements PagerfantaInterface
     }
 
     /**
+     * This method implements a fluent interface.
+     *
      * {@inheritdoc}
      */
     public function setCurrentPage($currentPage, $allowOutOfRangePages = false, $normalizeOutOfRangePages = false)
