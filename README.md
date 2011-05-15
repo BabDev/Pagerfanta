@@ -30,6 +30,13 @@ Usage
     $pagerfanta->hasNextPage();
     $pagerfanta->getNextPage();
 
+The *->setMaxPerPage()* and *->setCurrentPage()* methods implement a fluent interface:
+
+    $pagerfanta
+        ->setMaxPerPage($maxPerPage)
+        ->setCurrentPage($currentPage)
+    ;
+
 The *->setMaxPerPage()* method throws an exception if the max per page is not valid:
 
   * *Pagerfanta\\Exception\\NotIntegerMaxPerPageException* (or integer in string)
