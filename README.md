@@ -145,7 +145,7 @@ if you are using Doctrine ORMs Extra Lazy association features:
 
     $adapter = new DoctrineCollectionAdapter($user->getGroups());
 
-## PropelAdapter
+### PropelAdapter
 
 To paginate a propel query:
 
