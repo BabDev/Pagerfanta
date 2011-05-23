@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Pagerfanta\Adapter\Doctrine;
+namespace Pagerfanta\Adapter\DoctrineORM;
 
 use Doctrine\ORM\Query\TreeWalkerAdapter,
     Doctrine\ORM\Query\AST\SelectStatement,

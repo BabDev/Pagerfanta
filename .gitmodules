@@ -16,3 +16,9 @@
 [submodule "vendor/propel"]
 	path = vendor/propel
 	url = git://github.com/Xosofox/propel.git
+[submodule "vendor/doctrine-dbal"]
+	path = vendor/doctrine-dbal
+	url = http://github.com/doctrine/dbal.git
+[submodule "vendor/doctrine-orm"]
+	path = vendor/doctrine-orm
+	url = http://github.com/doctrine/doctrine2.git

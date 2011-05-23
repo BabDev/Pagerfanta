@@ -28,30 +28,21 @@ class DoctrineORMAdapter implements AdapterInterface
      * @var Query
      */
     private $query;
-    
-    /**
-     * @var bool
-     */
-    private $fetchJoin = false;
+
+    private $fetchJoinCollection;
 
     /**
      * Constructor.
      *
-     * @param Query|QueryBuilder $query A Doctrine ORM query or query builder.
-     * @param boolean $fetchJoinCollection Set to true if the passed query fetch joins a collection
-     * 
+     * @param Query   $query               A Doctrine ORM query or query builder.
+     * @param Boolean $fetchJoinCollection Whether the query joins a collection (false by default).
+     *
      * @api
      */
     public function __construct($query, $fetchJoinCollection = false)
     {
-        if ($query instanceof QueryBuilder) {
-            $query = $query->getQuery();
-        } else if (!($query instanceof Query)) {
-            throw new \Pagerfanta\Exception\InvalidArgumentException("Expected either Doctrine\ORM\Query or Doctrine\ORM\QueryBuilder");
-        }
-        
         $this->query = $query;
-        $this->fetchJoin = $fetchJoinCollection;
+        $this->fetchJoin = (Boolean) $fetchJoinCollection;
     }
 
     /**
@@ -67,6 +58,16 @@ class DoctrineORMAdapter implements AdapterInterface
     }
 
     /**
+     * Returns whether the query joins a collection.
+     *
+     * @return Boolean Whether the query joins a collection.
+     */
+    public function getFetchJoinCollection()
+    {
+        $this->fetchJoinCollection;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getNbResults()
@@ -74,9 +75,9 @@ class DoctrineORMAdapter implements AdapterInterface
         /* @var $countQuery Query */
         $countQuery = $this->cloneQuery($this->query);
 
-        $countQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\CountWalker'));
+        $countQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\CountWalker'));
         $countQuery->setFirstResult(null)->setMaxResults(null);
-        
+
         return $countQuery->getSingleScalarResult();
     }
 
@@ -85,48 +86,54 @@ class DoctrineORMAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        if ($this->fetchJoin) {
+        if ($this->fetchJoinCollection) {
             $subQuery = $this->cloneQuery($this->query);
-            $subQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\LimitSubqueryWalker'))
+            $subQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\LimitSubqueryWalker'))
                 ->setFirstResult($offset)
                 ->setMaxResults($length);
-            
+
             $ids = array_map('current', $subQuery->getScalarResult());
-            
+
             // don't do this for an empty id array
             if (count($ids) > 0) {
                 $namespace = 'pg_';
                 $whereInQuery = $this->cloneQuery($this->query);
 
-                $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\WhereInWalker'));
+                $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\WhereInWalker'));
                 $whereInQuery->setHint('id.count', count($ids));
                 $whereInQuery->setHint('pg.ns', $namespace);
                 $whereInQuery->setFirstResult(null)->setMaxResults(null);
                 foreach ($ids as $i => $id) {
-                    $i = $i+1;
+                    $i++;
                     $whereInQuery->setParameter("{$namespace}_{$i}", $id);
                 }
             } else {
                 $whereInQuery = $this->query;
             }
-            
+
             return $whereInQuery->getResult($this->query->getHydrationMode());
-        } else {
-            return $this->query->setMaxResults($length)
-                               ->setFirstResult($offset)
-                               ->getResult($this->query->getHydrationMode());
         }
+
+        return $this->query
+            ->setMaxResults($length)
+            ->setFirstResult($offset)
+            ->getResult($this->query->getHydrationMode())
+        ;
     }
-    
+
     /**
-     * @param Query $query
-     * @return Query
+     * Clones a query.
+     *
+     * @param Query $query The query.
+     *
+     * @return Query The cloned query.
      */
     private function cloneQuery(Query $query)
     {
         /* @var $cloneQuery Query */
         $cloneQuery = clone $query;
         $cloneQuery->setParameters($query->getParameters());
+
         return $cloneQuery;
-    } 
+    }
 }

@@ -13,12 +13,7 @@ $classLoader->registerNamespaces(array(
     'Doctrine\Common'      => __DIR__.'/../vendor/doctrine-common/lib',
     'Doctrine\MongoDB'     => __DIR__.'/../vendor/doctrine-mongodb/lib',
     'Doctrine\ODM\MongoDB' => __DIR__.'/../vendor/doctrine-mongodb-odm/lib',
+    'Doctrine\DBAL'        => __DIR__.'/../vendor/doctrine-dbal/lib',
+    'Doctrine\ORM'         => __DIR__.'/../vendor/doctrine-orm/lib',
 ));
 $classLoader->register();
-
-// Assume Doctrine ORM is insalled via PEAR
-$loader = new \Doctrine\Common\ClassLoader("Doctrine\DBAL");
-$loader->register();
-
-$loader = new \Doctrine\Common\ClassLoader("Doctrine\ORM");
-$loader->register();

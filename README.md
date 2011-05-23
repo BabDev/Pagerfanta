@@ -101,7 +101,7 @@ To paginate [Mandango](http://mandango.org) Queries.
 
 ### DoctrineORMAdapter
 
-To paginate [DoctrineORM](http://www.doctrine-project.org/projects/orm) query objects or query builders.
+To paginate [DoctrineORM](http://www.doctrine-project.org/projects/orm) query objects.
 
     use Pagerfanta\Adapter\DoctrineORMAdapter;
 
@@ -109,17 +109,17 @@ To paginate [DoctrineORM](http://www.doctrine-project.org/projects/orm) query ob
         ->select('u')
         ->from('Model\Article', 'u')
     ;
-    $adapter = new DoctrineORMAdapter($queryBuilder);
+    $adapter = new DoctrineORMAdapter($query->getQuery();
 
 To paginate fetch joined collections correctly you can set the second variable $fetchJoinCollection
 to the constructor to true:
 
     use Pagerfanta\Adapter\DoctrineORMAdapter;
 
-    $dql = "SELECT u, g FROM Pagerfanta\Tests\Adapter\Doctrine\User u INNER JOIN u.groups g";
+    $dql = "SELECT u, g FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u INNER JOIN u.groups g";
     $query = $entityManager->createQuery($dql);
 
-    $adapter = new DoctrineORMAdapter($queryBuilder, true);
+    $adapter = new DoctrineORMAdapter($queryBuilder->getQuery(), true);
 
 This will use a limit subquery + where-in strategy (using 2 queries instead of 1) to determine the
 slice which should be returned.
@@ -141,7 +141,7 @@ if you are using Doctrine ORMs Extra Lazy association features:
 
     use Pagerfanta\Adapter\DoctrineCollectionAdapter;
 
-    $user = $em->find("Pagerfanta\Tests\Adapter\Doctrine\User", 1);
+    $user = $em->find("Pagerfanta\Tests\Adapter\DoctrineORM\User", 1);
 
     $adapter = new DoctrineCollectionAdapter($user->getGroups());
 

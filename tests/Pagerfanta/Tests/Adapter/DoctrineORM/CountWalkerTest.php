@@ -1,16 +1,16 @@
 <?php
 
-namespace Pagerfanta\Tests\Adapter\Doctrine;
+namespace Pagerfanta\Tests\Adapter\DoctrineORM;
 
 use Doctrine\ORM\Query;
 
-class CountWalkerTest extends DoctrineTestCase
+class CountWalkerTest extends DoctrineORMTestCase
 {
     public function testCountQuery()
     {
         $query = $this->entityManager->createQuery(
-                        'SELECT p, c, a FROM Pagerfanta\Tests\Adapter\Doctrine\BlogPost p JOIN p.category c JOIN p.author a');
-        $query->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\CountWalker'));
+                        'SELECT p, c, a FROM Pagerfanta\Tests\Adapter\DoctrineORM\BlogPost p JOIN p.category c JOIN p.author a');
+        $query->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\CountWalker'));
         $query->setFirstResult(null)->setMaxResults(null);
 
         $this->assertEquals(
@@ -21,8 +21,8 @@ class CountWalkerTest extends DoctrineTestCase
     public function testCountQuery_MixedResultsWithName()
     {
         $query = $this->entityManager->createQuery(
-                        'SELECT a, sum(a.name) as foo FROM Pagerfanta\Tests\Adapter\Doctrine\Author a');
-        $query->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\CountWalker'));
+                        'SELECT a, sum(a.name) as foo FROM Pagerfanta\Tests\Adapter\DoctrineORM\Author a');
+        $query->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\CountWalker'));
         $query->setFirstResult(null)->setMaxResults(null);
 
         $this->assertEquals(
@@ -33,8 +33,8 @@ class CountWalkerTest extends DoctrineTestCase
     public function testCountQuery_RemovesGroupBy()
     {
         $query = $this->entityManager->createQuery(
-                        'SELECT b FROM Pagerfanta\Tests\Adapter\Doctrine\BlogPost b GROUP BY b.id');
-        $query->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\CountWalker'));
+                        'SELECT b FROM Pagerfanta\Tests\Adapter\DoctrineORM\BlogPost b GROUP BY b.id');
+        $query->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\CountWalker'));
         $query->setFirstResult(null)->setMaxResults(null);
 
         $this->assertEquals(
@@ -45,8 +45,8 @@ class CountWalkerTest extends DoctrineTestCase
     public function testCountQuery_RemovesOrderBy()
     {
         $query = $this->entityManager->createQuery(
-                        'SELECT p, c, a FROM Pagerfanta\Tests\Adapter\Doctrine\BlogPost p JOIN p.category c JOIN p.author a ORDER BY a.name');
-        $query->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\CountWalker'));
+                        'SELECT p, c, a FROM Pagerfanta\Tests\Adapter\DoctrineORM\BlogPost p JOIN p.category c JOIN p.author a ORDER BY a.name');
+        $query->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\CountWalker'));
         $query->setFirstResult(null)->setMaxResults(null);
 
         $this->assertEquals(
@@ -57,8 +57,8 @@ class CountWalkerTest extends DoctrineTestCase
     public function testCountQuery_RemovesLimits()
     {
         $query = $this->entityManager->createQuery(
-                        'SELECT p, c, a FROM Pagerfanta\Tests\Adapter\Doctrine\BlogPost p JOIN p.category c JOIN p.author a');
-        $query->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\CountWalker'));
+                        'SELECT p, c, a FROM Pagerfanta\Tests\Adapter\DoctrineORM\BlogPost p JOIN p.category c JOIN p.author a');
+        $query->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\CountWalker'));
         $query->setFirstResult(null)->setMaxResults(null);
 
         $this->assertEquals(

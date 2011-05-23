@@ -1,18 +1,18 @@
 <?php
 
-namespace Pagerfanta\Tests\Adapter\Doctrine;
+namespace Pagerfanta\Tests\Adapter\DoctrineORM;
 
 use Doctrine\ORM\Query;
 
-class WhereInWalkerTest extends DoctrineTestCase
+class WhereInWalkerTest extends DoctrineORMTestCase
 {
     public function testWhereInQuery_NoWhere()
     {
         $query = $this->entityManager->createQuery(
-                        'SELECT u, g FROM Pagerfanta\Tests\Adapter\Doctrine\User u JOIN u.groups g'
+                        'SELECT u, g FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u JOIN u.groups g'
         );
         $whereInQuery = clone $query;
-        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\WhereInWalker'));
+        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\WhereInWalker'));
         $whereInQuery->setHint('id.count', 10);
 
         $this->assertEquals(
@@ -23,10 +23,10 @@ class WhereInWalkerTest extends DoctrineTestCase
     public function testCountQuery_MixedResultsWithName()
     {
         $query = $this->entityManager->createQuery(
-                        'SELECT a, sum(a.name) as foo FROM Pagerfanta\Tests\Adapter\Doctrine\Author a'
+                        'SELECT a, sum(a.name) as foo FROM Pagerfanta\Tests\Adapter\DoctrineORM\Author a'
         );
         $whereInQuery = clone $query;
-        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\WhereInWalker'));
+        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\WhereInWalker'));
         $whereInQuery->setHint('id.count', 10);
 
         $this->assertEquals(
@@ -37,10 +37,10 @@ class WhereInWalkerTest extends DoctrineTestCase
     public function testWhereInQuery_SingleWhere()
     {
         $query = $this->entityManager->createQuery(
-                        'SELECT u, g FROM Pagerfanta\Tests\Adapter\Doctrine\User u JOIN u.groups g WHERE 1 = 1'
+                        'SELECT u, g FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u JOIN u.groups g WHERE 1 = 1'
         );
         $whereInQuery = clone $query;
-        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\WhereInWalker'));
+        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\WhereInWalker'));
         $whereInQuery->setHint('id.count', 10);
 
         $this->assertEquals(
@@ -51,10 +51,10 @@ class WhereInWalkerTest extends DoctrineTestCase
     public function testWhereInQuery_MultipleWhereWithAnd()
     {
         $query = $this->entityManager->createQuery(
-                        'SELECT u, g FROM Pagerfanta\Tests\Adapter\Doctrine\User u JOIN u.groups g WHERE 1 = 1 AND 2 = 2'
+                        'SELECT u, g FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u JOIN u.groups g WHERE 1 = 1 AND 2 = 2'
         );
         $whereInQuery = clone $query;
-        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\WhereInWalker'));
+        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\WhereInWalker'));
         $whereInQuery->setHint('id.count', 10);
 
         $this->assertEquals(
@@ -65,10 +65,10 @@ class WhereInWalkerTest extends DoctrineTestCase
     public function testWhereInQuery_MultipleWhereWithOr()
     {
         $query = $this->entityManager->createQuery(
-                        'SELECT u, g FROM Pagerfanta\Tests\Adapter\Doctrine\User u JOIN u.groups g WHERE 1 = 1 OR 2 = 2'
+                        'SELECT u, g FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u JOIN u.groups g WHERE 1 = 1 OR 2 = 2'
         );
         $whereInQuery = clone $query;
-        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\WhereInWalker'));
+        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\WhereInWalker'));
         $whereInQuery->setHint('id.count', 10);
 
         $this->assertEquals(
@@ -79,10 +79,10 @@ class WhereInWalkerTest extends DoctrineTestCase
     public function testWhereInQuery_MultipleWhereWithMixed_1()
     {
         $query = $this->entityManager->createQuery(
-                        'SELECT u, g FROM Pagerfanta\Tests\Adapter\Doctrine\User u JOIN u.groups g WHERE (1 = 1 OR 2 = 2) AND 3 = 3'
+                        'SELECT u, g FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u JOIN u.groups g WHERE (1 = 1 OR 2 = 2) AND 3 = 3'
         );
         $whereInQuery = clone $query;
-        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\WhereInWalker'));
+        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\WhereInWalker'));
         $whereInQuery->setHint('id.count', 10);
 
         $this->assertEquals(
@@ -93,10 +93,10 @@ class WhereInWalkerTest extends DoctrineTestCase
     public function testWhereInQuery_MultipleWhereWithMixed_2()
     {
         $query = $this->entityManager->createQuery(
-                        'SELECT u, g FROM Pagerfanta\Tests\Adapter\Doctrine\User u JOIN u.groups g WHERE 1 = 1 AND 2 = 2 OR 3 = 3'
+                        'SELECT u, g FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u JOIN u.groups g WHERE 1 = 1 AND 2 = 2 OR 3 = 3'
         );
         $whereInQuery = clone $query;
-        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\Doctrine\WhereInWalker'));
+        $whereInQuery->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Pagerfanta\Adapter\DoctrineORM\WhereInWalker'));
         $whereInQuery->setHint('id.count', 10);
 
         $this->assertEquals(

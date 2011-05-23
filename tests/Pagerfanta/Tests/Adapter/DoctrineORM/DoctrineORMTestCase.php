@@ -1,22 +1,18 @@
 <?php
 
-namespace Pagerfanta\Tests\Adapter\Doctrine;
+namespace Pagerfanta\Tests\Adapter\DoctrineORM;
 
-abstract class DoctrineTestCase extends \PHPUnit_Framework_TestCase
+abstract class DoctrineORMTestCase extends \PHPUnit_Framework_TestCase
 {
     public $entityManager;
-    
+
     public function setUp()
     {
-        if (!class_exists('Doctrine\ORM\Version')) {
-            $this->markTestSkipped("Doctrine ORM is not installed, due it through pear.");
-        }
-        
         $config = new \Doctrine\ORM\Configuration();
         $config->setMetadataCacheImpl(new \Doctrine\Common\Cache\ArrayCache);
         $config->setQueryCacheImpl(new \Doctrine\Common\Cache\ArrayCache);
         $config->setProxyDir(__DIR__ . '/_files');
-        $config->setProxyNamespace('Pagerfanta\Tests\Adapter\Doctrine\Proxies');
+        $config->setProxyNamespace('Pagerfanta\Tests\Adapter\DoctrineORM\Proxies');
         $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver());
 
         $conn = array(
