@@ -164,10 +164,10 @@ class Pagerfanta implements PagerfantaInterface
     public function getNbResults()
     {
         if (null === $this->nbResults) {
-            $this->nbAllResults = $this->getAdapter()->getNbResults();
+            $this->nbResults = $this->getAdapter()->getNbResults();
         }
 
-        return $this->nbAllResults;
+        return $this->nbResults;
     }
 
     /**
