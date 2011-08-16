@@ -116,7 +116,7 @@ class Pagerfanta implements PagerfantaInterface, \IteratorAggregate
 
         // less than 1?
         if ($currentPage < 1) {
-            throw new LessThan1CurrentPageException();
+            $currentPage = 1;
         }
 
         // out of range pages
