@@ -69,7 +69,7 @@ class DoctrineORMAdapter implements AdapterInterface
      */
     public function getFetchJoinCollection()
     {
-        $this->fetchJoinCollection;
+        return $this->fetchJoinCollection;
     }
 
     /**
