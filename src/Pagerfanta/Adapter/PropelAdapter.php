@@ -41,7 +41,7 @@ class PropelAdapter implements AdapterInterface
      */
     public function getNbResults()
     {
-        return $this->query->count();
+        return $this->query->limit(0)->count();
     }
 
     /**
