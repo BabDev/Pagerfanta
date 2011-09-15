@@ -33,6 +33,18 @@ class PropelAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $this->query
             ->expects($this->once())
+            ->method('limit')
+            ->with(0)
+            ->will($this->returnValue($this->query))
+        ;
+        $this->query
+            ->expects($this->once())
+            ->method('offset')
+            ->with(0)
+            ->will($this->returnValue($this->query))
+        ;
+        $this->query
+            ->expects($this->once())
             ->method('count')
             ->will($this->returnValue(100))
         ;

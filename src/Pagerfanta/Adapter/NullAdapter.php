@@ -15,7 +15,6 @@ namespace Pagerfanta\Adapter;
  * NullAdapter.
  *
  * @author Benjamin Dulau <benjamin.dulau@anonymation.com>
- *
  */
 class NullAdapter implements AdapterInterface
 {
@@ -30,7 +29,7 @@ class NullAdapter implements AdapterInterface
      */
     public function __construct($nbResults = 0)
     {
-        $this->nbResults = (int)$nbResults;
+        $this->nbResults = (int) $nbResults;
     }
 
     /**
