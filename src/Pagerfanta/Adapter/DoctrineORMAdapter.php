@@ -142,6 +142,9 @@ class DoctrineORMAdapter implements AdapterInterface
         /* @var $cloneQuery Query */
         $cloneQuery = clone $query;
         $cloneQuery->setParameters($query->getParameters());
+        foreach($query->getHints() as $name => $value) {
+            $cloneQuery->setHint($name, $value);
+        }
 
         return $cloneQuery;
     }
