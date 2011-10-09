@@ -189,7 +189,7 @@ RouteGenerator example:
         return '/path?page='.$page;
     }
 
-Pagerfanta comes with two views, the default view and an special optionable view.
+Pagerfanta comes with three views, the default one, one for ![Twitter Bootstrap](https://github.com/twitter/bootstrap) and an special optionable view.
 
 ### DefaultView
 
@@ -269,6 +269,33 @@ Options (default):
         border-color: #ccf;
         color: #cf;
     }
+
+### TwitterBootstrapView
+
+This view generates a pagination for ![Twitter Bootstrap](https://github.com/twitter/bootstrap).
+
+    use Pagerfanta\View\TwitterBootstrapView;
+
+    $view = new TwitterBootstrapView();
+    $html = $view->render($pagerfanta, $routeGenerator, array(
+        'proximity' => 3,
+    ));
+
+Options (default):
+
+  * proximity (3)
+  * prev_message (&larr; Previous)
+  * prev_disabled_href ()
+  * next_message (Next)
+  * next_disabled_href ()
+  * dots_message (&hellip;)
+  * dots_href ()
+  * css_disabled_class (pagination)
+  * css_previous_class (prev)
+  * css_next_class (next)
+  * css_disabled_class (disabled)
+  * css_dots_class (disabled)
+  * css_active_class (active)
 
 ### OptionableView
 
