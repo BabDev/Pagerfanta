@@ -320,8 +320,6 @@ This view is to reuse options in different views.
 Todo
 ----
 
-  * Use count query in the DoctrinORMAdapter
-
 Author
 ------
 
