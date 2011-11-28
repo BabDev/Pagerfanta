@@ -258,4 +258,15 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf('Pagerfanta\Exception\LogicException', $e);
         }
     }
+
+    public function testCountableInterface()
+    {
+        $this->adapter
+            ->expects($this->any())
+            ->method('getNbResults')
+            ->will($this->returnValue(100))
+        ;
+
+        $this->assertSame(100, count($this->pagerfanta));
+    }
 }
