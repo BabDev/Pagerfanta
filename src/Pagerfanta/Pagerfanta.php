@@ -243,7 +243,9 @@ class Pagerfanta implements PagerfantaInterface, \IteratorAggregate
 
         if ($currentPageResults instanceof \Iterator) {
             return $currentPageResults;
-        } else if ($currentPageResults instanceof \IteratorAggregate) {
+        }
+
+        if ($currentPageResults instanceof \IteratorAggregate) {
             return $currentPageResults->getIterator();
         }
 
