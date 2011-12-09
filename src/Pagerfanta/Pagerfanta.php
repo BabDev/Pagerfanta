@@ -239,6 +239,14 @@ class Pagerfanta implements PagerfantaInterface, \IteratorAggregate
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->getCurrentPageResults());
+        $currentPageResults = $this->getCurrentPageResults();
+
+        if ($currentPageResults instanceof \Iterator) {
+            return $currentPageResults;
+        } else if ($currentPageResults instanceof \IteratorAggregate) {
+            return $currentPageResults->getIterator();
+        }
+
+        return new \ArrayIterator($currentPageResults);
     }
 }
