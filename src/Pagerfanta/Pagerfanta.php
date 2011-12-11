@@ -26,7 +26,7 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
  *
  * @api
  */
-class Pagerfanta implements PagerfantaInterface, \IteratorAggregate
+class Pagerfanta implements PagerfantaInterface, \Countable, \IteratorAggregate
 {
     private $adapter;
     private $maxPerPage;
@@ -228,6 +228,18 @@ class Pagerfanta implements PagerfantaInterface, \IteratorAggregate
         }
 
         return $this->currentPage + 1;
+    }
+
+    /**
+     * Implements the \Countable interface.
+     *
+     * Return integer The number of results.
+     *
+     * @api
+     */
+    public function count()
+    {
+        return $this->getNbResults();
     }
 
     /**
