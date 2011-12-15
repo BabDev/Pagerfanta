@@ -31,8 +31,8 @@ class Pagerfanta implements PagerfantaInterface, \Countable, \IteratorAggregate
     private $adapter;
     private $maxPerPage;
     private $currentPage;
-    private $currentPageResults;
     private $nbResults;
+    private $slice;
     private $nbPages;
 
     /**
@@ -82,7 +82,7 @@ class Pagerfanta implements PagerfantaInterface, \Countable, \IteratorAggregate
             throw new LessThan1MaxPerPageException();
         }
 
-        $this->currentPageResults = null;
+        $this->slice = null;
         $this->nbPages = null;
         $this->maxPerPage = $maxPerPage;
 
@@ -130,7 +130,7 @@ class Pagerfanta implements PagerfantaInterface, \Countable, \IteratorAggregate
             }
         }
 
-        $this->currentPageResults = null;
+        $this->slice = null;
         $this->currentPage = $currentPage;
 
         return $this;
@@ -149,13 +149,13 @@ class Pagerfanta implements PagerfantaInterface, \Countable, \IteratorAggregate
      */
     public function getCurrentPageResults()
     {
-        if (null === $this->currentPageResults) {
-            $offset = ($this->getCurrentPage() - 1) * $this->getMaxPerPage();
-            $length = $this->getMaxPerPage();
-            $this->currentPageResults = $this->adapter->getSlice($offset, $length);
+        $this->fetchSlice();
+
+        if ($this->slice instanceof \Iterator || $this->slice instanceof \IteratorAggregate) {
+            return iterator_to_array($this->slice);
         }
 
-        return $this->currentPageResults;
+        return $this->slice;
     }
 
     /**
@@ -251,16 +251,25 @@ class Pagerfanta implements PagerfantaInterface, \Countable, \IteratorAggregate
      */
     public function getIterator()
     {
-        $currentPageResults = $this->getCurrentPageResults();
+        $this->fetchSlice();
 
-        if ($currentPageResults instanceof \Iterator) {
-            return $currentPageResults;
+        if ($this->slice instanceof \Iterator) {
+            return $this->slice;
         }
 
-        if ($currentPageResults instanceof \IteratorAggregate) {
-            return $currentPageResults->getIterator();
+        if ($this->slice instanceof \IteratorAggregate) {
+            return $this->slice->getIterator();
         }
 
-        return new \ArrayIterator($currentPageResults);
+        return new \ArrayIterator($this->slice);
+    }
+
+    private function fetchSlice()
+    {
+        if (null === $this->slice) {
+            $offset = ($this->getCurrentPage() - 1) * $this->getMaxPerPage();
+            $length = $this->getMaxPerPage();
+            $this->slice = $this->adapter->getSlice($offset, $length);
+        }
     }
 }
