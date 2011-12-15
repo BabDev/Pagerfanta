@@ -132,22 +132,6 @@ $queryBuilder = $entityManager->createQueryBuilder()
 $adapter = new DoctrineORMAdapter($query);
 ```
 
-To paginate fetch joined collections correctly you can set the second variable $fetchJoinCollection to the constructor to true:
-
-```php
-<?php
-
-use Pagerfanta\Adapter\DoctrineORMAdapter;
-
-$dql = "SELECT u, g FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u INNER JOIN u.groups g";
-$query = $entityManager->createQuery($dql);
-
-$adapter = new DoctrineORMAdapter($queryBuilder->getQuery(), true);
-```
-
-This will use a limit subquery + where-in strategy (using 2 queries instead of 1) to determine the
-slice which should be returned.
-
 ### DoctrineODMMongoDBAdapter
 
 To paginate [DoctrineODMMongoDB](http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/) query builders.
