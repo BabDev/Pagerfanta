@@ -18,7 +18,7 @@ namespace Pagerfanta;
  *
  * @api
  */
-interface PagerfantaInterface
+interface PagerfantaInterface extends \Countable, \IteratorAggregate
 {
     /**
      * Sets the max per page.

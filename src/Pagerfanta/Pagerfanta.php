@@ -26,7 +26,7 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
  *
  * @api
  */
-class Pagerfanta implements PagerfantaInterface, \Countable, \IteratorAggregate
+class Pagerfanta implements PagerfantaInterface
 {
     private $adapter;
     private $maxPerPage;
