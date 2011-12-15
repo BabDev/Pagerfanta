@@ -76,7 +76,6 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
     public function providerSetMaxPerPageNotInteger()
     {
         return array(
-            array(1.1),
             array('1.1'),
             array(true),
         );
