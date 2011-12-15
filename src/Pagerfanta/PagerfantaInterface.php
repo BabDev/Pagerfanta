@@ -70,7 +70,7 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     /**
      * Returns the results for the current page.
      *
-     * @return array The results.
+     * @return array|\Traversable The results.
      *
      * @api
      */

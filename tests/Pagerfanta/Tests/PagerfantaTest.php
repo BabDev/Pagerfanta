@@ -191,33 +191,6 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($returnValues[0], $this->pagerfanta->getCurrentPageResults());
     }
 
-    public function testGetCurrentPageResultsIteratorToArray()
-    {
-        $array = array('foo', 'bar', 'ups');
-        $iterator = new \ArrayIterator($array);
-
-        $this->adapter
-            ->expects($this->once())
-            ->method('getSlice')
-            ->will($this->returnValue($iterator))
-        ;
-
-        $this->assertSame($array, $this->pagerfanta->getCurrentPageResults());
-    }
-
-    public function testGetCurrentPageResultsIteratorAggregateToArray()
-    {
-        $iteratorAggregate = new IteratorAggregate();
-
-        $this->adapter
-            ->expects($this->once())
-            ->method('getSlice')
-            ->will($this->returnValue($iteratorAggregate))
-        ;
-
-        $this->assertSame(iterator_to_array($iteratorAggregate), $this->pagerfanta->getCurrentPageResults());
-    }
-
     public function testGetNbResults()
     {
         $this->adapter

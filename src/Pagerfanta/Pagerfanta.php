@@ -32,7 +32,7 @@ class Pagerfanta implements PagerfantaInterface
     private $maxPerPage;
     private $currentPage;
     private $nbResults;
-    private $slice;
+    private $currentPageResults;
     private $nbPages;
 
     /**
@@ -82,7 +82,7 @@ class Pagerfanta implements PagerfantaInterface
             throw new LessThan1MaxPerPageException();
         }
 
-        $this->slice = null;
+        $this->currentPageResults = null;
         $this->nbPages = null;
         $this->maxPerPage = $maxPerPage;
 
@@ -130,7 +130,7 @@ class Pagerfanta implements PagerfantaInterface
             }
         }
 
-        $this->slice = null;
+        $this->currentPageResults = null;
         $this->currentPage = $currentPage;
 
         return $this;
@@ -149,13 +149,13 @@ class Pagerfanta implements PagerfantaInterface
      */
     public function getCurrentPageResults()
     {
-        $this->fetchSlice();
-
-        if ($this->slice instanceof \Iterator || $this->slice instanceof \IteratorAggregate) {
-            return iterator_to_array($this->slice);
+        if (null === $this->currentPageResults) {
+            $offset = ($this->getCurrentPage() - 1) * $this->getMaxPerPage();
+            $length = $this->getMaxPerPage();
+            $this->currentPageResults = $this->adapter->getSlice($offset, $length);
         }
 
-        return $this->slice;
+        return $this->currentPageResults;
     }
 
     /**
@@ -251,25 +251,16 @@ class Pagerfanta implements PagerfantaInterface
      */
     public function getIterator()
     {
-        $this->fetchSlice();
+        $currentPageResults = $this->getCurrentPageResults();
 
-        if ($this->slice instanceof \Iterator) {
-            return $this->slice;
+        if ($currentPageResults instanceof \Iterator) {
+            return $currentPageResults;
         }
 
-        if ($this->slice instanceof \IteratorAggregate) {
-            return $this->slice->getIterator();
+        if ($currentPageResults instanceof \IteratorAggregate) {
+            return $currentPageResults->getIterator();
         }
 
-        return new \ArrayIterator($this->slice);
-    }
-
-    private function fetchSlice()
-    {
-        if (null === $this->slice) {
-            $offset = ($this->getCurrentPage() - 1) * $this->getMaxPerPage();
-            $length = $this->getMaxPerPage();
-            $this->slice = $this->adapter->getSlice($offset, $length);
-        }
+        return new \ArrayIterator($currentPageResults);
     }
 }
