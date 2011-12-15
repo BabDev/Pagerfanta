@@ -1,125 +1,149 @@
-Pagerfanta
-=========
+# Pagerfanta
 
 Pagination for PHP 5.3
 
-Usage
------
+## Usage
 
-    use Pagerfanta\Pagerfanta;
-    use Pagerfanta\Adapter\ArrayAdapter;
+```php
+<?php
 
-    $adapter = new ArrayAdapter($array);
-    $pagerfanta = new Pagerfanta($adapter);
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\ArrayAdapter;
 
-    $pagerfanta->setMaxPerPage($maxPerPage); // 10 by default
-    $maxPerPage = $pagerfanta->getMaxPerPage();
+$adapter = new ArrayAdapter($array);
+$pagerfanta = new Pagerfanta($adapter);
 
-    $pagerfanta->setCurrentPage($currentPage); // 1 by default
-    $currentPage = $pagerfanta->getCurrentPage();
+$pagerfanta->setMaxPerPage($maxPerPage); // 10 by default
+$maxPerPage = $pagerfanta->getMaxPerPage();
 
-    $nbResults = $pagerfanta->getNbResults();
-    $currentPageResults = $pagerfanta->getCurrentPageResults();
+$pagerfanta->setCurrentPage($currentPage); // 1 by default
+$currentPage = $pagerfanta->getCurrentPage();
 
-    $pagerfanta->getNbPages();
+$nbResults = $pagerfanta->getNbResults();
+$currentPageResults = $pagerfanta->getCurrentPageResults();
 
-    $pagerfanta->haveToPaginate(); // whether the number of results if higher than the max per page
+$pagerfanta->getNbPages();
 
-    $pagerfanta->hasPreviousPage();
-    $pagerfanta->getPreviousPage();
-    $pagerfanta->hasNextPage();
-    $pagerfanta->getNextPage();
+$pagerfanta->haveToPaginate(); // whether the number of results if higher than the max per page
 
-The *->setMaxPerPage()* and *->setCurrentPage()* methods implement a fluent interface:
+$pagerfanta->hasPreviousPage();
+$pagerfanta->getPreviousPage();
+$pagerfanta->hasNextPage();
+$pagerfanta->getNextPage();
+```
 
-    $pagerfanta
-        ->setMaxPerPage($maxPerPage)
-        ->setCurrentPage($currentPage)
-    ;
+The `->setMaxPerPage()` and `->setCurrentPage()` methods implement a fluent interface:
 
-The *->setMaxPerPage()* method throws an exception if the max per page is not valid:
+```php
+<?php
 
-  * *Pagerfanta\\Exception\\NotIntegerMaxPerPageException* (or integer in string)
-  * *Pagerfanta\\Exception\\LessThan1MaxPerPageException*
+$pagerfanta
+    ->setMaxPerPage($maxPerPage)
+    ->setCurrentPage($currentPage)
+;
+```
 
-Both extends from *Pagerfanta\\Exception\\NotValidMaxPerPageException*.
+The `->setMaxPerPage()` method throws an exception if the max per page is not valid:
 
-The *->setCurrentPage()* method throws an exception if the page is not valid:
+  * `Pagerfanta\Exception\NotIntegerMaxPerPageException` (including integer in string)
+  * `Pagerfanta\Exception\LessThan1MaxPerPageException`
 
-  * *Pagerfanta\\Exception\\NotIntegerCurrentPageException* (or integer in string)
-  * *Pagerfanta\\Exception\\LessThan1CurrentPageException*
-  * *Pagerfanta\\Exception\\OutOfRangeCurrentPageException*
+Both extends from `Pagerfanta\Exception\NotValidMaxPerPageException`.
 
-All of them extends from *Pagerfanta\\Exception\\NotValidCurrentPageException*.
+The `->setCurrentPage()` method throws an exception if the page is not valid:
 
-Adapters
---------
+  * `Pagerfanta\Exception\NotIntegerCurrentPageException` (including integer in string)
+  * `Pagerfanta\Exception\LessThan1CurrentPageException`
+  * `Pagerfanta\Exception\OutOfRangeCurrentPageException`
+
+All of them extends from `Pagerfanta\Exception\NotValidCurrentPageException`.
+
+## Adapters
 
 The adapter's concept is very simple. An adapter just returns the number of results and an slice for a offset and length. This way you can adapt a pagerfanta to paginate any kind results simply creating an adapter.
 
-An adapter must implement the *Pagerfanta\\Adapter\\AdapterInterface* interface, which has these two methods:
+An adapter must implement the `Pagerfanta\Adapter\AdapterInterface` interface, which has these two methods:
 
-    /**
-     * Returns the number of results.
-     *
-     * @return integer The number of results.
-     *
-     * @api
-     */
-    function getNbResults();
+```php
+<?php
 
-    /**
-     * Returns an slice of the results.
-     *
-     * @param integer $offset The offset.
-     * @param integer $length The length.
-     *
-     * @return array The slice.
-     *
-     * @api
-     */
-    function getSlice($offset, $length);
+/**
+ * Returns the number of results.
+ *
+ * @return integer The number of results.
+ *
+ * @api
+ */
+function getNbResults();
 
-Pagerfanta comes with six adapters:
+/**
+ * Returns an slice of the results.
+ *
+ * @param integer $offset The offset.
+ * @param integer $length The length.
+ *
+ * @return array|\Iterator|\IteratorAggregate The slice.
+ *
+ * @api
+ */
+function getSlice($offset, $length);
+```
+
+Pagerfanta comes with seven adapters:
 
 ### ArrayAdapter
 
 To paginate an array.
 
-    use Pagerfanta\Adapter\ArrayAdapter;
+```php
+<?php
 
-    $adapter = new ArrayAdapter($array);
+use Pagerfanta\Adapter\ArrayAdapter;
 
-### MandangoAdapter
+$adapter = new ArrayAdapter($array);
+```
+
+### MandangoAdapter
 
 To paginate [Mandango](http://mandango.org) Queries.
 
-    use Pagerfanta\Adapter\MandangoAdapter;
+```php
+<?php
 
-    $query = \Model\Article::getRepository()->createQuery();
-    $adapter = new MandangoAdapter($query);
+use Pagerfanta\Adapter\MandangoAdapter;
 
-### DoctrineORMAdapter
+$query = \Model\Article::getRepository()->createQuery();
+$adapter = new MandangoAdapter($query);
+```
+
+### DoctrineORMAdapter
 
 To paginate [DoctrineORM](http://www.doctrine-project.org/projects/orm) query objects.
 
-    use Pagerfanta\Adapter\DoctrineORMAdapter;
+```php
+<?php
 
-    $queryBuilder = $entityManager->createQueryBuilder()
-        ->select('u')
-        ->from('Model\Article', 'u')
-    ;
-    $adapter = new DoctrineORMAdapter($query);
+use Pagerfanta\Adapter\DoctrineORMAdapter;
 
-To paginate fetch joined collections correctly you can set the second variable $fetchJoinCollection
-to the constructor to true:
+$queryBuilder = $entityManager->createQueryBuilder()
+    ->select('u')
+    ->from('Model\Article', 'u')
+;
+$adapter = new DoctrineORMAdapter($query);
+```
 
-    use Pagerfanta\Adapter\DoctrineORMAdapter;
+To paginate fetch joined collections correctly you can set the second variable $fetchJoinCollection to the constructor to true:
 
-    $dql = "SELECT u, g FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u INNER JOIN u.groups g";
-    $query = $entityManager->createQuery($dql);
+```php
+<?php
 
-    $adapter = new DoctrineORMAdapter($queryBuilder->getQuery(), true);
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+
+$dql = "SELECT u, g FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u INNER JOIN u.groups g";
+$query = $entityManager->createQuery($dql);
+
+$adapter = new DoctrineORMAdapter($queryBuilder->getQuery(), true);
+```
 
 This will use a limit subquery + where-in strategy (using 2 queries instead of 1) to determine the
 slice which should be returned.
@@ -128,92 +152,115 @@ slice which should be returned.
 
 To paginate [DoctrineODMMongoDB](http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/) query builders.
 
-    use Pagerfanta\Adapter\DoctrineODMMongoDBAdapter;
+```php
+<?php
 
-    $queryBuilder = $documentManager->createQueryBuilder('Model\Article');
-    $adapter = new DoctrineODMMongoDBAdapter($queryBuilder);
+use Pagerfanta\Adapter\DoctrineODMMongoDBAdapter;
+
+$queryBuilder = $documentManager->createQueryBuilder('Model\Article');
+$adapter = new DoctrineODMMongoDBAdapter($queryBuilder);
+```
 
 ### DoctrineCollectionAdapter
 
-To paginate a `Doctrine\Common\Collection\Collections` interface you can use the `DoctrineCollectionAdapter`.
-It proxies to the count() and slice() methods on the Collections interface for pagination. This makes sense
-if you are using Doctrine ORMs Extra Lazy association features:
+To paginate a `Doctrine\Common\Collection\Collections` interface you can use the `DoctrineCollectionAdapter`. It proxies to the count() and slice() methods on the Collections interface for pagination. This makes sense if you are using Doctrine ORMs Extra Lazy association features:
 
-    use Pagerfanta\Adapter\DoctrineCollectionAdapter;
+```php
+<?php
 
-    $user = $em->find("Pagerfanta\Tests\Adapter\DoctrineORM\User", 1);
+use Pagerfanta\Adapter\DoctrineCollectionAdapter;
 
-    $adapter = new DoctrineCollectionAdapter($user->getGroups());
+$user = $em->find("Pagerfanta\Tests\Adapter\DoctrineORM\User", 1);
+
+$adapter = new DoctrineCollectionAdapter($user->getGroups());
+```
 
 ### PropelAdapter
 
 To paginate a propel query:
 
-    use Pagerfanta\Adapter\PropelAdapter;
+```php
+<?php
 
-    $adapter = new PropelAdapter($query);
+use Pagerfanta\Adapter\PropelAdapter;
+
+$adapter = new PropelAdapter($query);
+```
 
 ### SolariumAdapter
 
 To paginate a [solarium](https://github.com/basdenooijer/solarium) query:
 
-    use Pagerfanta\Adapter\SolariumAdapter;
+```php
+<?php
 
-    $query = $solarium->createSelect();
-    $query->setQuery('search term');
+use Pagerfanta\Adapter\SolariumAdapter;
 
-    $adapter = new SolariumAdapter($solarium, $query);
+$query = $solarium->createSelect();
+$query->setQuery('search term');
 
-For using solarium see also the [NelmioSolariumBundle](https://github.com/nelmio/NelmioSolariumBundle).
+$adapter = new SolariumAdapter($solarium, $query);
+```
 
-Views
------
+## Views
 
 The views are to render pagerfantas, this way you can reuse your pagerfantas' html in several projects, share them and use another ones from another developers.
 
-The views implement the *Pagerfanta\\View\\ViewInterface* interface, which has two methods:
+The views implement the `Pagerfanta\View\ViewInterface` interface, which has two methods:
 
-    /**
-     * Renders a pagerfanta.
-     *
-     * The route generator is any callable to generate the routes receiving the page number
-     * as first and unique argument.
-     *
-     * @param PagerfantaInterface $pagerfanta      A pagerfanta.
-     * @param mixed               $routeGenerator A callable to generate the routes.
-     * @param array               $options        An array of options (optional).
-     *
-     * @api
-     */
-    function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = array());
+```php
+<?php
 
-    /**
-     * Returns the canonical name.
-     *
-     * @return string The canonical name.
-     *
-     * @api
-     */
-    function getName();
+/**
+ * Renders a pagerfanta.
+ *
+ * The route generator is any callable to generate the routes receiving the page number
+ * as first and unique argument.
+ *
+ * @param PagerfantaInterface $pagerfanta     A pagerfanta.
+ * @param mixed               $routeGenerator A callable to generate the routes.
+ * @param array               $options        An array of options (optional).
+ *
+ * @api
+ */
+function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = array());
+
+/**
+ * Returns the canonical name.
+ *
+ * @return string The canonical name.
+ *
+ * @api
+ */
+function getName();
+```
 
 RouteGenerator example:
 
-    $routeGenerator = function($page) {
-        return '/path?page='.$page;
-    }
+```php
+<?php
 
-Pagerfanta comes with three views, the default one, one for ![Twitter Bootstrap](https://github.com/twitter/bootstrap) and an special optionable view.
+$routeGenerator = function($page) {
+    return '/path?page='.$page;
+}
+```
 
-### DefaultView
+Pagerfanta comes with three views, the default one, one for [Twitter Bootstrap](https://github.com/twitter/bootstrap) and an special optionable view.
+
+### DefaultView
 
 This is the default view.
 
-    use Pagerfanta\View\DefaultView;
+```php
+<?php
 
-    $view = new DefaultView();
-    $html = $view->render($pagerfanta, $routeGenerator, array(
-        'proximity' => 3,
-    ));
+use Pagerfanta\View\DefaultView;
+
+$view = new DefaultView();
+$html = $view->render($pagerfanta, $routeGenerator, array(
+    'proximity' => 3,
+));
+```
 
 Options (default):
 
@@ -226,73 +273,79 @@ Options (default):
 
 ![Pagerfanta DefaultView](http://img813.imageshack.us/img813/601/pagerfanta.png)
 
-    CSS:
+CSS:
 
-    .pagerfanta {
-    }
+```css
+.pagerfanta {
+}
 
-    .pagerfanta a,
-    .pagerfanta span {
-        display: inline-block;
-        border: 1px solid blue;
-        color: blue;
-        margin-right: .2em;
-        padding: .25em .35em;
-    }
+.pagerfanta a,
+.pagerfanta span {
+    display: inline-block;
+    border: 1px solid blue;
+    color: blue;
+    margin-right: .2em;
+    padding: .25em .35em;
+}
 
-    .pagerfanta a {
-        text-decoration: none;
-    }
+.pagerfanta a {
+    text-decoration: none;
+}
 
-    .pagerfanta a:hover {
-        background: #ccf;
-    }
+.pagerfanta a:hover {
+    background: #ccf;
+}
 
-    .pagerfanta .dots {
-        border-width: 0;
-    }
+.pagerfanta .dots {
+    border-width: 0;
+}
 
-    .pagerfanta .current {
-        background: #ccf;
-        font-weight: bold;
-    }
+.pagerfanta .current {
+    background: #ccf;
+    font-weight: bold;
+}
 
-    .pagerfanta .disabled {
-        border-color: #ccf;
-        color: #ccf;
-    }
+.pagerfanta .disabled {
+    border-color: #ccf;
+    color: #ccf;
+}
 
-    COLORS:
+COLORS:
 
-    .pagerfanta a,
-    .pagerfanta span {
-        border-color: blue;
-        color: blue;
-    }
+.pagerfanta a,
+.pagerfanta span {
+    border-color: blue;
+    color: blue;
+}
 
-    .pagerfanta a:hover {
-        background: #ccf;
-    }
+.pagerfanta a:hover {
+    background: #ccf;
+}
 
-    .pagerfanta .current {
-        background: #ccf;
-    }
+.pagerfanta .current {
+    background: #ccf;
+}
 
-    .pagerfanta .disabled {
-        border-color: #ccf;
-        color: #cf;
-    }
+.pagerfanta .disabled {
+    border-color: #ccf;
+    color: #cf;
+}
+```
 
 ### TwitterBootstrapView
 
-This view generates a pagination for ![Twitter Bootstrap](https://github.com/twitter/bootstrap).
+This view generates a pagination for [Twitter Bootstrap](https://github.com/twitter/bootstrap).
 
-    use Pagerfanta\View\TwitterBootstrapView;
+```php
+<?php
 
-    $view = new TwitterBootstrapView();
-    $html = $view->render($pagerfanta, $routeGenerator, array(
-        'proximity' => 3,
-    ));
+use Pagerfanta\View\TwitterBootstrapView;
+
+$view = new TwitterBootstrapView();
+$html = $view->render($pagerfanta, $routeGenerator, array(
+    'proximity' => 3,
+));
+```
 
 Options (default):
 
@@ -310,45 +363,44 @@ Options (default):
   * css_dots_class (disabled)
   * css_active_class (active)
 
-### OptionableView
+### OptionableView
 
 This view is to reuse options in different views.
 
-    use Pagerfanta\DefaultView;
-    use Pagerfanta\OptionableView;
+```php
+<?php
 
-    $defaultView = new DefaultView();
+use Pagerfanta\DefaultView;
+use Pagerfanta\OptionableView;
 
-    // view and default options
-    $myView1 = new OptionableView($defaultView, array('proximity' => 3));
+$defaultView = new DefaultView();
 
-    $myView2 = new OptionableView($defaultView, array('previous_message' => 'Anterior', 'next_message' => 'Siguiente'));
+// view and default options
+$myView1 = new OptionableView($defaultView, array('proximity' => 3));
 
-    // using in a normal way
-    $pagerfantaHtml = $myView2->render($pagerfanta, $routeGenerator);
+$myView2 = new OptionableView($defaultView, array('previous_message' => 'Anterior', 'next_message' => 'Siguiente'));
 
-    // overwriting default options
-    $pagerfantaHtml = $myView2->render($pagerfanta, $routeGenerator, array('next_message' => 'Siguiente!!'));
+// using in a normal way
+$pagerfantaHtml = $myView2->render($pagerfanta, $routeGenerator);
 
-Todo
-----
+// overwriting default options
+$pagerfantaHtml = $myView2->render($pagerfanta, $routeGenerator, array('next_message' => 'Siguiente!!'));
+```
 
-Author
-------
+## Todo
+
+## Author
 
 Pablo Díez - <pablodip@gmail.com>
 
-License
--------
+## License
 
 Pagerfanta is licensed under the MIT License. See the LICENSE file for full details.
 
-Sponsors
---------
+## Sponsors
 
 [WhiteOctober](http://www.whiteoctober.co.uk/)
 
-Acknowledgements
-----------------
+## Acknowledgements
 
 Pagerfanta is inspired by [Zend Paginator](https://github.com/zendframework/zf2).
