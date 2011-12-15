@@ -4,6 +4,21 @@ namespace Pagerfanta\Tests;
 
 use Pagerfanta\Pagerfanta;
 
+class IteratorAggregate implements \IteratorAggregate
+{
+    private $iterator;
+
+    public function __construct()
+    {
+        $this->iterator = new \ArrayIterator(array('ups'));
+    }
+
+    public function getIterator()
+    {
+        return $this->iterator;
+    }
+}
+
 class PagerfantaTest extends \PHPUnit_Framework_TestCase
 {
     protected $adapter;
@@ -268,5 +283,44 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
         ;
 
         $this->assertSame(100, count($this->pagerfanta));
+    }
+
+    public function testGetIteratorArray()
+    {
+        $array = array('foo', 'bar');
+
+        $this->adapter
+            ->expects($this->once())
+            ->method('getSlice')
+            ->will($this->returnValue($array))
+        ;
+
+        $this->assertEquals(new \ArrayIterator($array), $this->pagerfanta->getIterator());
+    }
+
+    public function testGetIteratorIterator()
+    {
+        $iterator = new \ArrayIterator(array('foobar'));
+
+        $this->adapter
+            ->expects($this->once())
+            ->method('getSlice')
+            ->will($this->returnValue($iterator))
+        ;
+
+        $this->assertSame($iterator, $this->pagerfanta->getIterator());
+    }
+
+    public function testGetIteratorIteratorAggregate()
+    {
+        $iteratorAggregate = new IteratorAggregate();
+
+        $this->adapter
+            ->expects($this->once())
+            ->method('getSlice')
+            ->will($this->returnValue($iteratorAggregate))
+        ;
+
+        $this->assertSame($iteratorAggregate->getIterator(), $this->pagerfanta->getIterator());
     }
 }

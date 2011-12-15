@@ -35,7 +35,7 @@ interface AdapterInterface
      * @param integer $offset The offset.
      * @param integer $length The length.
      *
-     * @return array The slice.
+     * @return array|\Iterator|\IteratorAggregate The slice.
      *
      * @api
      */
