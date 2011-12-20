@@ -11,7 +11,7 @@ class DoctrineCollectionTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        if (!class_exists('Doctrine\Common\Collections\Collection')) {
+        if (!interface_exists('Doctrine\Common\Collections\Collection')) {
             $this->markTestSkipped('Doctrine Common is not available');
         }
 
