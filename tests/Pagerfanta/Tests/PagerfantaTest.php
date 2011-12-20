@@ -138,23 +138,6 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\LessThan1CurrentPageException
-     * @dataProvider      providerSetCurrentPageLessThan1
-     */
-    public function testSetCurrentPageLessThan1($currentPage)
-    {
-        $this->pagerfanta->setCurrentPage($currentPage);
-    }
-
-    public function providerSetCurrentPageLessThan1()
-    {
-        return array(
-            array(0),
-            array(-1),
-        );
-    }
-
-    /**
      * @expectedException Pagerfanta\Exception\OutOfRangeCurrentPageException
      */
     public function testSetCurrentPageOutOfRange()
