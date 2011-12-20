@@ -1,5 +1,7 @@
 # Pagerfanta
 
+[![Build Status](https://secure.travis-ci.org/whiteoctober/Pagerfanta.png)](http://travis-ci.org/whiteoctober/Pagerfanta)
+
 Pagination for PHP 5.3
 
 ## Usage
