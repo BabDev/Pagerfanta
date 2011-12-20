@@ -1,0 +1,3 @@
+phpunit.xml
+/tests/autoload.php
+/vendor/
