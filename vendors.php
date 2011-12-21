@@ -10,12 +10,18 @@ if (isset($argv[1])) {
     $_SERVER['SYMFONY_VERSION'] = $argv[1];
 }
 
+$revs = array(
+    'doctrine-common' => isset($_SERVER['DOCTRINE_COMMON_REV']) ? $_SERVER['DOCTRINE_COMMON_REV'] : 'origin/master',
+    'doctrine-dbal'   => isset($_SERVER['DOCTRINE_DBAL_REV']) ? $_SERVER['DOCTRINE_DBAL_REV'] : 'origin/master',
+    'doctrine-orm'    => isset($_SERVER['DOCTRINE_ORM_REV']) ? $_SERVER['DOCTRINE_ORM_REV'] : 'origin/master',
+);
+
 $deps = array(
     array('symfony', 'http://github.com/symfony/symfony', 'origin/master'),
     array('mandango', 'http://github.com/mandango/mandango', 'origin/master'),
-    array('doctrine-common', 'http://github.com/doctrine/common', 'origin/master'),
-    array('doctrine-dbal', 'http://github.com/doctrine/dbal', 'origin/master'),
-    array('doctrine-orm', 'http://github.com/doctrine/doctrine2', 'origin/master'),
+    array('doctrine-common', 'http://github.com/doctrine/common', $revs['doctrine-common']),
+    array('doctrine-dbal', 'http://github.com/doctrine/dbal', $revs['doctrine-dbal']),
+    array('doctrine-orm', 'http://github.com/doctrine/doctrine2', $revs['doctrine-orm']),
     array('doctrine-mongodb', 'http://github.com/doctrine/mongodb', 'origin/master'),
     array('doctrine-mongodb-odm', 'http://github.com/doctrine/mongodb-odm', 'origin/master'),
     array('propel', 'http://github.com/propelorm/Propel', 'origin/master'),
