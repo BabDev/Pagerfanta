@@ -152,7 +152,10 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
         $this->pagerfanta->setCurrentPage(3);
     }
 
-    public function testSetCurrentPageNormalized()
+    /**
+     * @dataProvider providerSetCurrentPageNormalizeOutOfRangePages
+     */
+    public function testSetCurrentPageNormalizeOutOfRangePages($page)
     {
         $this->adapter
             ->expects($this->any())
@@ -160,20 +163,19 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(0))
         ;
 
-        $this->pagerfanta->setCurrentPage(-1, false, true);
+        $this->pagerfanta->setCurrentPage($page, false, true);
         $this->assertSame(1, $this->pagerfanta->getCurrentPage());
+    }
 
-        $this->pagerfanta->setCurrentPage(0, false, true);
-        $this->assertSame(1, $this->pagerfanta->getCurrentPage());
-
-        $this->pagerfanta->setCurrentPage(1, false, true);
-        $this->assertSame(1, $this->pagerfanta->getCurrentPage());
-
-        $this->pagerfanta->setCurrentPage(2, false, true);
-        $this->assertSame(1, $this->pagerfanta->getCurrentPage());
-
-        $this->pagerfanta->setCurrentPage(100, false, true);
-        $this->assertSame(1, $this->pagerfanta->getCurrentPage());
+    public function providerSetCurrentPageNormalizeOutOfRangePages()
+    {
+        return array(
+            array(-1),
+            array(0),
+            array(1),
+            array(2),
+            array(100),
+        );
     }
 
     public function testGetCurrentPageResults()
