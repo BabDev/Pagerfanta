@@ -56,23 +56,8 @@ class MongoAdapterTest extends \PHPUnit_Framework_TestCase
             ->with($offset)
             ->will($this->returnValue($this->cursor))
         ;
-        $this->cursor
-            ->expects($this->any())
-            ->method('valid')
-            ->will($this->onConsecutiveCalls(true, true, false))
-        ;
-        $this->cursor
-            ->expects($this->any())
-            ->method('current')
-            ->will($this->returnValue($value = new \DateTime()))
-        ;
-        $this->cursor
-            ->expects($this->any())
-            ->method('key')
-            ->will($this->onConsecutiveCalls(0, 1))
-        ;
 
-        $this->assertSame(array($value, $value), $this->adapter->getSlice($offset, $length));
+        $this->assertSame($this->cursor, $this->adapter->getSlice($offset, $length));
     }
 
     public function getResultsProvider()

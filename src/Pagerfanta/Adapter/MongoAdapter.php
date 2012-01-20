@@ -59,6 +59,6 @@ class MongoAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        return iterator_to_array($this->cursor->limit($length)->skip($offset));
+        return $this->cursor->limit($length)->skip($offset);
     }
 }
