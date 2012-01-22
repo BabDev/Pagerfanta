@@ -17,15 +17,14 @@ use Pagerfanta\Adapter\DoctrineORM\Paginator as LegacyPaginator;
 /**
  * DoctrineORMAdapter.
  *
- * @author Pablo Díez <pablodip@gmail.com>
- * @author Benjamin Eberlei <kontakt@beberlei.de>
+ * @author Christophe Coevoet <stof@notk.org>
  *
  * @api
  */
 class DoctrineORMAdapter implements AdapterInterface
 {
     /**
-     * @var Query
+     * @var \Doctrine\ORM\Tools\Pagination\Paginator|\Pagerfanta\Adapter\DoctrineORM\Paginator
      */
     private $paginator;
 

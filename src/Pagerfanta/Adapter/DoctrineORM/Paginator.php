@@ -18,6 +18,9 @@ use Doctrine\ORM\NoResultException;
 /**
  * DoctrineORM Paginator.
  *
+ * This class emulates Doctrine\ORM\Tools\Pagination\Paginator for older
+ * Doctrine versions.
+ *
  * @author Pablo Díez <pablodip@gmail.com>
  * @author Benjamin Eberlei <kontakt@beberlei.de>
  *
