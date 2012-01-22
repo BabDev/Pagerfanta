@@ -91,7 +91,7 @@ function getNbResults();
 function getSlice($offset, $length);
 ```
 
-Pagerfanta comes with seven adapters:
+Pagerfanta comes with eight adapters:
 
 ### ArrayAdapter
 
