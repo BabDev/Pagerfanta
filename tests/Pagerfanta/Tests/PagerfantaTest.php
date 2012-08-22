@@ -246,7 +246,7 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
     public function testSetNbResults()
     {
         $this->adapter
-            ->excepts($this->never())
+            ->expects($this->never())
             ->method('getNbResults')
         ;
         
