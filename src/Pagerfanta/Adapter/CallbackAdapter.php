@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Pagerfanta package.
+ *
+ * (c) Pablo Díez <pablodip@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Pagerfanta\Adapter;
 
 use Pagerfanta\Exception\InvalidArgumentException;
@@ -9,14 +18,7 @@ use Pagerfanta\Exception\InvalidArgumentException;
  */
 class CallbackAdapter implements AdapterInterface
 {
-    /**
-     * @var callable
-     */
     private $nbResultsCallback;
-
-    /**
-     * @var callable
-     */
     private $sliceCallback;
 
     /**
@@ -26,10 +28,10 @@ class CallbackAdapter implements AdapterInterface
     public function __construct($nbResultsCallback, $sliceCallback)
     {
         if (!is_callable($nbResultsCallback)) {
-            throw new InvalidArgumentException(sprintf('$nbResultsCallback should be a callable'));
+            throw new InvalidArgumentException('$nbResultsCallback should be a callable');
         }
         if (!is_callable($sliceCallback)) {
-            throw new InvalidArgumentException(sprintf('$sliceCallback should be a callable'));
+            throw new InvalidArgumentException('$sliceCallback should be a callable');
         }
 
         $this->nbResultsCallback = $nbResultsCallback;

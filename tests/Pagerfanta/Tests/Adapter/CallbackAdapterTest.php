@@ -4,7 +4,7 @@ namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\CallbackAdapter;
 
-class FunctionalAdapterTest extends \PHPUnit_Framework_TestCase
+class CallbackAdapterTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetNbResult()
     {
