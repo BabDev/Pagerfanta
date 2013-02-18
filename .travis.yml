@@ -10,6 +10,8 @@ env:
   - DOCTRINE_ORM_VERSION=2.3.*
   - DOCTRINE_ORM_VERSION=dev-master
 
+services: mongodb
+
 before_script:
   - composer require doctrine/orm:${DOCTRINE_ORM_VERSION} --dev --no-update
   - composer install --dev
