@@ -6,23 +6,81 @@ use Pagerfanta\Adapter\SolariumAdapter;
 
 class SolariumAdapterTest extends \PHPUnit_Framework_TestCase
 {
+    static private $clientClasses = array(
+        'Solarium_Client',
+        'Solarium\Client'
+    );
+
+    static private $queryClasses = array(
+        'Solarium_Query_Select',
+        'Solarium\QueryType\Select\Query\Query'
+    );
+
+    static private $resultClasses = array(
+        'Solarium_Result_Select',
+        'Solarium\QueryType\Select\Result\Result'
+    );
+
+    static private $clientClass;
+    static private $queryClass;
+    static private $resultClass;
+
     public function setUp()
     {
-        if (!class_exists('Solarium\Core\Client\Client')) {
+        if ($this->classesNotInitialized()) {
+            $this->initializeClasses();
+        }
+
+        if (!$this->isSolariumAvailable()) {
             $this->markTestSkipped('Solarium is not available.');
         }
     }
 
+    private function classesNotInitialized()
+    {
+        return static::$clientClass === null;
+    }
+
+    private function initializeClasses()
+    {
+        foreach (array(
+            'client' => static::$clientClasses,
+            'query'  => static::$queryClasses,
+            'result' => static::$resultClasses
+        ) as $name => $classes) {
+            $this->initializeClass($name, $classes);
+        }
+    }
+
+    private function initializeClass($name, $classes)
+    {
+        static::${$name.'Class'} = $this->find('class_exists', $classes);
+    }
+
+    private function find($callback, $collection)
+    {
+        foreach ($collection as $value) {
+            if (call_user_func($callback, $value)) {
+                return $value;
+            }
+        }
+    }
+
+    private function isSolariumAvailable()
+    {
+        return (Boolean) static::$clientClass;
+    }
+
     public function testGetNbResults()
     {
-        $query = $this->getSolariumQueryMock();
+        $query = $this->getQueryMock();
 
-        $client = $this->getSolariumClientMock();
+        $client = $this->getClientMock();
         $client
             ->expects($this->once())
             ->method('select')
             ->with($query)
-            ->will($this->returnValue($this->getSolariumResultMock()));
+            ->will($this->returnValue($this->getResultMock()));
 
         $adapter = new SolariumAdapter($client, $query);
 
@@ -31,7 +89,7 @@ class SolariumAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSlice()
     {
-        $query = $this->getSolariumQueryMock();
+        $query = $this->getQueryMock();
         $query
             ->expects($this->any())
             ->method('setStart')
@@ -43,33 +101,33 @@ class SolariumAdapterTest extends \PHPUnit_Framework_TestCase
             ->with(200)
             ->will($this->returnValue($query));
 
-        $client = $this->getSolariumClientMock();
+        $client = $this->getClientMock();
         $client
             ->expects($this->once())
             ->method('select')
             ->with($query)
-            ->will($this->returnValue($this->getSolariumResultMock()));
+            ->will($this->returnValue($this->getResultMock()));
 
         $adapter = new SolariumAdapter($client, $query);
 
         $adapter->getSlice(1, 200);
     }
 
-    private function getSolariumClientMock()
+    private function getClientMock()
     {
-        return $this->getMockBuilder('Solarium\Core\Client\Client')
+        return $this->getMockBuilder(static::$clientClass)
             ->disableOriginalConstructor()
             ->getMock();
     }
 
-    private function getSolariumQueryMock()
+    private function getQueryMock()
     {
-        return $this->getMock('Solarium\QueryType\Select\Query\Query');
+        return $this->getMock(static::$queryClass);
     }
 
-    private function getSolariumResultMock()
+    private function getResultMock()
     {
-        return $this->getMockBuilder('Solarium\QueryType\Select\Result\Result')
+        return $this->getMockBuilder(static::$resultClass)
             ->disableOriginalConstructor()
             ->getMock();
     }
