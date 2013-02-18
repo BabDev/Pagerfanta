@@ -10,7 +10,6 @@ matrix:
     - php: 5.5
 
 env:
-  - DOCTRINE_ORM_VERSION=2.1.*
   - DOCTRINE_ORM_VERSION=2.2.*
   - DOCTRINE_ORM_VERSION=2.3.*
   - DOCTRINE_ORM_VERSION=dev-master
