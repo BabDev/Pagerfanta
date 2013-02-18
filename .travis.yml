@@ -18,5 +18,6 @@ env:
 services: mongodb
 
 before_script:
+  - pecl -q install mongo-1.3.4 && echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - composer require doctrine/orm:${DOCTRINE_ORM_VERSION} --dev --no-update
   - composer install --dev
