@@ -16,7 +16,7 @@
     "require-dev": {
         "doctrine/orm": "2.*",
         "mandango/mandango": "*",
-        "doctrine/mongodb-odm": "1.*",
+        "doctrine/mongodb-odm": "*",
         "propel/propel1": "~1.6",
         "solarium/solarium": "2.*"
     },
