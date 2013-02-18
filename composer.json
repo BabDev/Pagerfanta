@@ -14,18 +14,19 @@
         "php": ">=5.3.0"
     },
     "require-dev": {
-        "doctrine/orm": "*",
-        "symfony/symfony": "*",
+        "doctrine/orm": "2.*",
         "mandango/mandango": "*",
-        "doctrine/mongodb-odm": "*",
-        "propel/propel1": "*",
+        "doctrine/mongodb-odm": "2.^",
+        "propel/propel1": "~1.6",
         "solarium/solarium": "2.*"
     },
     "minimum-stability": "dev",
     "suggest": {
-        "doctrine/orm": "2.*",
-        "doctrine/mongodb-odm": "2.*",
-        "solarium/solarium": "2.*"
+        "doctrine/orm": "To use the DoctrineORMAdapter.",
+        "mandango/mandango": "To use the MandangoAdapter.",
+        "doctrine/mongodb-odm": "To use the DoctrineODMMongoDBAdapter.",
+        "propel/propel1": "To use the PropelAdapter",
+        "solarium/solarium": "To use the SolariumAdapter."
     },
     "autoload": {
         "psr-0": { "Pagerfanta\\": "src/" }
