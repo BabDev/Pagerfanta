@@ -113,6 +113,38 @@ class SolariumAdapterTest extends \PHPUnit_Framework_TestCase
         $adapter->getSlice(1, 200);
     }
 
+    public function testGetSliceShouldCacheResult()
+    {
+        $query = $this->getQueryMock();
+
+        $client = $this->getClientMock();
+        $client
+            ->expects($this->once())
+            ->method('select')
+            ->will($this->returnValue($this->getResultMock()));
+
+        $adapter = new SolariumAdapter($client, $query);
+
+        $adapter->getSlice(1, 200);
+        $adapter->getNbResults();
+    }
+
+    public function testGetNbResultsShouldNotCacheResult()
+    {
+        $query = $this->getQueryMock();
+
+        $client = $this->getClientMock();
+        $client
+            ->expects($this->exactly(2))
+            ->method('select')
+            ->will($this->returnValue($this->getResultMock()));
+
+        $adapter = new SolariumAdapter($client, $query);
+
+        $adapter->getNbResults();
+        $adapter->getSlice(1, 200);
+    }
+
     private function getClientMock()
     {
         return $this->getMockBuilder(static::$clientClass)
