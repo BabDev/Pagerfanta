@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Pagerfanta;
+namespace Pagerfanta\Exception;
 
 /**
- * Deprecated.
+ * @author Pablo Díez <pablodip@gmail.com>
  */
-interface PagerfantaInterface
+class NotBooleanException extends InvalidArgumentException
 {
 }

@@ -14,8 +14,7 @@ env:
   - DOCTRINE_ORM_VERSION=2.3.*
   - DOCTRINE_ORM_VERSION=dev-master
   - SOLARIUM_VERSION=2.*
-  - SOLARIUM_VERSION=3.0.*
-  - SOLARIUM_VERSION=3.1.*
+  - SOLARIUM_VERSION=dev-develop
 
 services: mongodb
 
