@@ -18,11 +18,11 @@ class TwitterBootstrapTemplate extends Template
 {
     static protected $defaultOptions = array(
         'prev_message'        => '&larr; Previous',
-        'prev_disabled_href'  => '',
+        'prev_disabled_href'  => '#',
         'next_message'        => 'Next &rarr;',
-        'next_disabled_href'  => '',
+        'next_disabled_href'  => '#',
         'dots_message'        => '&hellip;',
-        'dots_href'           => '',
+        'dots_href'           => '#',
         'css_container_class' => 'pagination',
         'css_prev_class'      => 'prev',
         'css_next_class'      => 'next',
