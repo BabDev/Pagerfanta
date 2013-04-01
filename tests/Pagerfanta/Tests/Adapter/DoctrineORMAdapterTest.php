@@ -12,6 +12,9 @@ use Pagerfanta\Tests\Adapter\DoctrineORM\Person;
 
 class DoctrineORMAdapterTest extends DoctrineORMTestCase
 {
+    private $user1;
+    private $user2;
+
     public function setUp()
     {
         parent::setUp();
@@ -23,8 +26,8 @@ class DoctrineORMAdapterTest extends DoctrineORMTestCase
             $this->entityManager->getClassMetadata('Pagerfanta\Tests\Adapter\DoctrineORM\Person'),
         ));
 
-        $user = new User();
-        $user2 = new User();
+        $this->user1 = $user = new User();
+        $this->user2 = $user2 = new User();
         $group1 = new Group();
         $group2 = new Group();
         $group3 = new Group();
@@ -169,21 +172,24 @@ DQL;
         $this->assertEquals(1, $items[0]['relevance']);
     }
 
-    public function testQueryBuilder()
+    public function testItShouldAcceptAQueryBuilder()
     {
         $queryBuilder = $this->entityManager->createQueryBuilder()
             ->select('u')
             ->from('Pagerfanta\Tests\Adapter\DoctrineORM\User', 'u');
 
         $adapter = new DoctrineORMAdapter($queryBuilder);
-        $this->assertEquals(2, $adapter->getNbResults());
 
-        $items = $adapter->getSlice(0, 10);
-        $this->assertCount(2, $items);
+        $this->assertSame(2, $adapter->getNbResults());
 
-        foreach ($items as $item) {
-            $this->assertObjectHasAttribute('id', $item);
-            $this->assertObjectHasAttribute('groups', $item);
+        $slice = $adapter->getSlice(0, 10);
+        $this->assertSame(2, count($slice));
+
+        $users = array($this->user1, $this->user2);
+        $userClass = 'Pagerfanta\Tests\Adapter\DoctrineORM\User';
+        foreach ($users as $key => $user) {
+            $this->assertInstanceOf($userClass, $slice[$key]);
+            $this->assertSame($user->id, $slice[$key]->id);
         }
     }
 }
