@@ -207,17 +207,18 @@ $adapter = new SolariumAdapter($solarium, $query);
 
 ### FixedAdapter
 
-Best used when you need to do a custom paging solution and don't want to implement a full adapter for a one-off use case. It returns always the same data no matter what page you query:
+Best used when you need to do a custom paging solution and don't want to implement a full adapter for a one-off use case.
+It returns always the same data no matter what page you query:
 
 ```php
 <?php
 
 use Pagerfanta\Adapter\FixedAdapter;
 
-$results = array(/* ... */); // here are the results for the current page you want to show
-$count = 5; // compute your total count of results here
+$nbResults = 5;
+$results = array(/* ... */);
 
-$adapter = new FixedAdapter($results, $count);
+$adapter = new FixedAdapter($nbResults, $results);
 ```
 
 ## Views

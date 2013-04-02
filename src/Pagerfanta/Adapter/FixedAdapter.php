@@ -21,17 +21,17 @@ namespace Pagerfanta\Adapter;
  */
 class FixedAdapter implements AdapterInterface
 {
-    private $data;
-    private $count;
+    private $nbResults;
+    private $results;
 
     /**
-     * @param mixed $data       an iteratable object
-     * @param int   $totalCount the total number of results
+     * @param int   $nbResults
+     * @param mixed $results
      */
-    public function __construct($data, $totalCount)
+    public function __construct($nbResults, $results)
     {
-        $this->data = $data;
-        $this->count = $totalCount;
+        $this->nbResults = $nbResults;
+        $this->results = $results;
     }
 
     /**
@@ -39,7 +39,7 @@ class FixedAdapter implements AdapterInterface
      */
     public function getNbResults()
     {
-        return $this->count;
+        return $this->nbResults;
     }
 
     /**
@@ -47,6 +47,6 @@ class FixedAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        return $this->data;
+        return $this->results;
     }
 }
