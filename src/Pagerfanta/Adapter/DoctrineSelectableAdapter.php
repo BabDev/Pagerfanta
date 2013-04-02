@@ -18,8 +18,6 @@ use Doctrine\Common\Collections\Selectable;
  * DoctrineSelectableAdapter.
  *
  * @author Boris Guéry <guery.b@gmail.com>
- *
- * @api
  */
 class DoctrineSelectableAdapter implements AdapterInterface
 {
@@ -38,13 +36,11 @@ class DoctrineSelectableAdapter implements AdapterInterface
      *
      * @param Selectable $selectable An implementation of the Selectable interface.
      * @param Criteria   $criteria   A Doctrine criteria.
-     *
-     * @api
      */
-    public function __construct(Selectable $selectable, Criteria $criteria = null)
+    public function __construct(Selectable $selectable, Criteria $criteria)
     {
         $this->selectable = $selectable;
-        $this->criteria   = ($criteria) ?: new Criteria();
+        $this->criteria   = $criteria;
     }
 
     /**
@@ -52,9 +48,10 @@ class DoctrineSelectableAdapter implements AdapterInterface
      */
     public function getNbResults()
     {
-        $criteria = clone $this->criteria;
-        $criteria->setFirstResult(null);
-        $criteria->setMaxResults(null);
+        $firstResult = null;
+        $maxResults = null;
+
+        $criteria = $this->createCriteria($firstResult, $maxResults);
 
         return $this->selectable->matching($criteria)->count();
     }
@@ -64,10 +61,20 @@ class DoctrineSelectableAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        $criteria = clone $this->criteria;
-        $criteria->setFirstResult($offset);
-        $criteria->setMaxResults($length);
+        $firstResult = $offset;
+        $maxResults = $length;
 
-        return $this->selectable->matching($this->criteria);
+        $criteria = $this->createCriteria($firstResult, $maxResults);
+
+        return $this->selectable->matching($criteria);
+    }
+
+    private function createCriteria($firstResult, $maxResult)
+    {
+        $criteria = clone $this->criteria;
+        $criteria->setFirstResult($firstResult);
+        $criteria->setMaxResults($maxResult);
+
+        return $criteria;
     }
 }
