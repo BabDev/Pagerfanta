@@ -75,4 +75,14 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
     {
         new DoctrineDbalSingleTableAdapter($this->q, 'id');
     }
+
+    /**
+     * @expectedException Pagerfanta\Exception\InvalidArgumentException
+     */
+    public function testItShouldThrowAnInvalidArgumentExceptionIfTheQueryHasJoins()
+    {
+        $this->q->innerJoin('p', 'comments', 'c', 'c.post_id = p.id');
+
+        new DoctrineDbalSingleTableAdapter($this->q, 'p.id');
+    }
 }

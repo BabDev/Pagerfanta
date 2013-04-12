@@ -28,9 +28,20 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
      */
     public function __construct(QueryBuilder $query, $countField)
     {
+        if ($this->queryHasJoins($query)) {
+            throw new InvalidArgumentException('The query cannot have joins.');
+        }
+
         $countQueryModifier = $this->createCountQueryModifier($countField);
 
         parent::__construct($query, $countQueryModifier);
+    }
+
+    private function queryHasJoins($query)
+    {
+        $joins = $query->getQueryPart('join');
+
+        return !empty($joins);
     }
 
     private function createCountQueryModifier($countField)
