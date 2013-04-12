@@ -7,7 +7,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Schema\Schema;
 use Pagerfanta\Adapter\DoctrineDbalSingleTableAdapter;
 
-class DoctrineDbalSingleTableAdapterTestt extends DoctrineDbalTestCase
+class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
 {
     private $adapter;
 
