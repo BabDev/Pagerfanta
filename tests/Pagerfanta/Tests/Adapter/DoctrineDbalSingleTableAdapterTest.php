@@ -5,7 +5,7 @@ namespace Pagerfanta\Tests\Adapter;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Schema\Schema;
-use Pagerfanta\Adapter\DoctrineDBALSingleTableAdapter;
+use Pagerfanta\Adapter\DoctrineDbalSingleTableAdapter;
 
 class DoctrineDbalSingleTableAdapterTestt extends DoctrineDbalTestCase
 {
@@ -73,6 +73,6 @@ class DoctrineDbalSingleTableAdapterTestt extends DoctrineDbalTestCase
      */
     public function testItShouldThrowAnInvalidArgumentExceptionIfTheCountFieldDoesNotHaveAlias()
     {
-        new DoctrineDBALSingleTableAdapter($this->q, 'id');
+        new DoctrineDbalSingleTableAdapter($this->q, 'id');
     }
 }
