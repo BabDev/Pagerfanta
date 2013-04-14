@@ -17,15 +17,15 @@ namespace Pagerfanta\View\Template;
 class DefaultTemplate extends Template
 {
     static protected $defaultOptions = array(
-        'previous_message'        => 'Previous',
-        'next_message'            => 'Next',
-        'css_disabled_class'      => 'disabled',
-        'css_dots_class'          => 'dots',
-        'css_current_class'       => 'current',
-        'dots_text'               => '...',
-        'container_template'      => '<nav>%pages%</nav>',
-        'page_with_text_template' => '<a href="%s">%s</a>',
-        'span_template'           => '<span class="%s">%s</span>'
+        'previous_message'   => 'Previous',
+        'next_message'       => 'Next',
+        'css_disabled_class' => 'disabled',
+        'css_dots_class'     => 'dots',
+        'css_current_class'  => 'current',
+        'dots_text'          => '...',
+        'container_template' => '<nav>%pages%</nav>',
+        'page_template'      => '<a href="%href%">%text%</a>',
+        'span_template'      => '<span class="%class%">%text%</span>'
     );
 
     public function container()
@@ -42,7 +42,12 @@ class DefaultTemplate extends Template
 
     public function pageWithText($page, $text)
     {
-        return sprintf($this->option('page_with_text_template'), $this->generateRoute($page), $text);
+        $search = array('%href%', '%text%');
+
+        $href = $this->generateRoute($page);
+        $replace = array($href, $text);
+
+        return str_replace($search, $replace, $this->option('page_template'));
     }
 
     public function previousDisabled()
@@ -87,6 +92,9 @@ class DefaultTemplate extends Template
 
     private function generateSpan($class, $page)
     {
-        return sprintf($this->option('span_template'), $class, $page);
+        $search = array('%class%', '%text%');
+        $replace = array($class, $page);
+
+        return str_replace($search, $replace, $this->option('span_template'));
     }
 }

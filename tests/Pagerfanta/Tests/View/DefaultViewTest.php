@@ -261,18 +261,18 @@ EOF
 EOF
         , $this->renderView($options));
     }
-    
+
     public function testRenderModifiyingStringTemplate()
     {
         $this->setNbPages(100);
         $this->setCurrentPage(1);
-        
+
         $options = array(
-            'container_template'      => '<nav><ul>%pages%</ul></nav>',
-            'page_with_text_template' => '<li><a href="%s">%s</a></li>',
-            'span_template'           => '<li><span class="%s">%s</span></li>'
+            'container_template' => '<nav><ul>%pages%</ul></nav>',
+            'page_template'      => '<li><a href="%href%">%text%</a></li>',
+            'span_template'      => '<li><span class="%class%">%text%</span></li>'
         );
-        
+
         $this->assertRenderedView(<<<EOF
 <nav>
     <ul>
