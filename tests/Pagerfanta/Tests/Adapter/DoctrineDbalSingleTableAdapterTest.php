@@ -15,7 +15,7 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
     {
         parent::setUp();
 
-        $this->adapter = new DoctrineDbalSingleTableAdapter($this->q, 'p.id');
+        $this->adapter = new DoctrineDbalSingleTableAdapter($this->qb, 'p.id');
     }
 
     public function testGetNbResults()
@@ -37,7 +37,7 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
 
     public function testGetNbResultWithNoData()
     {
-        $q = clone $this->q;
+        $q = clone $this->qb;
         $q->delete('posts')->execute();
 
         $this->assertSame(0, $this->adapter->getNbResults());
@@ -60,7 +60,7 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
         $offset = 30;
         $length = 10;
 
-        $q = clone $this->q;
+        $q = clone $this->qb;
         $q->setFirstResult($offset)->setMaxResults($length);
         $expectedResults = $q->execute()->fetchAll();
 
@@ -73,7 +73,7 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
      */
     public function testItShouldThrowAnInvalidArgumentExceptionIfTheCountFieldDoesNotHaveAlias()
     {
-        new DoctrineDbalSingleTableAdapter($this->q, 'id');
+        new DoctrineDbalSingleTableAdapter($this->qb, 'id');
     }
 
     /**
@@ -81,8 +81,8 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
      */
     public function testItShouldThrowAnInvalidArgumentExceptionIfTheQueryHasJoins()
     {
-        $this->q->innerJoin('p', 'comments', 'c', 'c.post_id = p.id');
+        $this->qb->innerJoin('p', 'comments', 'c', 'c.post_id = p.id');
 
-        new DoctrineDbalSingleTableAdapter($this->q, 'p.id');
+        new DoctrineDbalSingleTableAdapter($this->qb, 'p.id');
     }
 }

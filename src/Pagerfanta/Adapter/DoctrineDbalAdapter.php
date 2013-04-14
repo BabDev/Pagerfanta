@@ -20,27 +20,27 @@ use Pagerfanta\Exception\InvalidArgumentException;
  */
 class DoctrineDbalAdapter implements AdapterInterface
 {
-    private $query;
-    private $countQueryModifier;
+    private $queryBuilder;
+    private $countQueryBuilderModifier;
 
     /**
      * Constructor.
      *
-     * @param QueryBuilder $query              A DBAL query builder.
-     * @param callable     $countQueryModifier A callable to modifier the query to count.
+     * @param QueryBuilder $queryBuilder              A DBAL query builder.
+     * @param callable     $countQueryBuilderModifier A callable to modifier the query builder to count.
      */
-    public function __construct(QueryBuilder $query, $countQueryModifier)
+    public function __construct(QueryBuilder $queryBuilder, $countQueryBuilderModifier)
     {
-        if ($query->getType() !== QueryBuilder::SELECT) {
+        if ($queryBuilder->getType() !== QueryBuilder::SELECT) {
             throw new InvalidArgumentException('Only SELECT queries can be paginated.');
         }
 
-        if (!is_callable($countQueryModifier)) {
-            throw new InvalidArgumentException('The count query modifier must be a callable.');
+        if (!is_callable($countQueryBuilderModifier)) {
+            throw new InvalidArgumentException('The count query builder modifier must be a callable.');
         }
 
-        $this->query = clone $query;
-        $this->countQueryModifier = $countQueryModifier;
+        $this->queryBuilder = clone $queryBuilder;
+        $this->countQueryBuilderModifier = $countQueryBuilderModifier;
     }
 
     /**
@@ -48,18 +48,18 @@ class DoctrineDbalAdapter implements AdapterInterface
      */
     public function getNbResults()
     {
-        $q = $this->prepageCountQuery();
-        $result = $q->execute()->fetchColumn();
+        $qb = $this->prepageCountQueryBuilder();
+        $result = $qb->execute()->fetchColumn();
 
         return (int) $result;
     }
 
-    private function prepageCountQuery()
+    private function prepageCountQueryBuilder()
     {
-        $q = clone $this->query;
-        call_user_func($this->countQueryModifier, $q);
+        $qb = clone $this->queryBuilder;
+        call_user_func($this->countQueryBuilderModifier, $qb);
 
-        return $q;
+        return $qb;
     }
 
     /**
@@ -67,8 +67,8 @@ class DoctrineDbalAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        $q = clone $this->query;
-        $result = $q->setMaxResults($length)
+        $qb = clone $this->queryBuilder;
+        $result = $qb->setMaxResults($length)
             ->setFirstResult($offset)
             ->execute();
 

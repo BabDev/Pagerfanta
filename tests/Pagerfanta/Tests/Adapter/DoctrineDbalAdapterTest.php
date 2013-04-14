@@ -48,9 +48,9 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
 
     private function createAdapterToTestGetSlice()
     {
-        $countQueryModifier = function () { };
+        $countQueryBuilderModifier = function () { };
 
-        return new DoctrineDbalAdapter($this->q, $countQueryModifier);
+        return new DoctrineDbalAdapter($this->qb, $countQueryBuilderModifier);
     }
 
     private function doTestGetSlice($adapter)
@@ -58,7 +58,7 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
         $offset = 30;
         $length = 10;
 
-        $qb = clone $this->q;
+        $qb = clone $this->qb;
         $qb->setFirstResult($offset)->setMaxResults($length);
 
         $expectedResults = $qb->execute()->fetchAll();
@@ -72,17 +72,17 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
      */
     public function testItShouldThrowAnInvalidArgumentExceptionIfTheQueryIsNotSelect()
     {
-        $this->q->delete('posts');
+        $this->qb->delete('posts');
         $countQueryModifier = function () { };
 
-        new DoctrineDbalAdapter($this->q, $countQueryModifier);
+        new DoctrineDbalAdapter($this->qb, $countQueryModifier);
     }
 
     public function testItShouldCloneTheQuery()
     {
         $adapter = $this->createAdapterToTestGetNbResults();
 
-        $this->q->innerJoin('p', 'comments', 'c', 'c.post_id = p.id')
+        $this->qb->innerJoin('p', 'comments', 'c', 'c.post_id = p.id')
                 ->groupBy('c.post_id');
 
         $this->assertSame(50, $adapter->getNbResults());
@@ -91,20 +91,20 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
     /**
      * @expectedException Pagerfanta\Exception\InvalidArgumentException
      */
-    public function testItShouldThrowAnInvalidArgumentExceptionIfTheCountQueryModifierIsNotACallable()
+    public function testItShouldThrowAnInvalidArgumentExceptionIfTheCountQueryBuilderModifierIsNotACallable()
     {
-        $countQueryModifier = 'ups';
+        $countQueryBuilderModifier = 'ups';
 
-        new DoctrineDbalAdapter($this->q, $countQueryModifier);
+        new DoctrineDbalAdapter($this->qb, $countQueryBuilderModifier);
     }
 
     private function createAdapterToTestGetNbResults()
     {
-        $countQueryModifier = function ($query) {
-            $query->select('COUNT(DISTINCT p.id) AS total_results')
-                  ->setMaxResults(1);
+        $countQueryBuilderModifier = function ($queryBuilder) {
+            $queryBuilder->select('COUNT(DISTINCT p.id) AS total_results')
+                         ->setMaxResults(1);
         };
 
-        return new DoctrineDbalAdapter($this->q, $countQueryModifier);
+        return new DoctrineDbalAdapter($this->qb, $countQueryBuilderModifier);
     }
 }

@@ -9,7 +9,7 @@ use Pagerfanta\Adapter\DoctrineDbalAdapter;
 
 abstract class DoctrineDbalTestCase extends \PHPUnit_Framework_TestCase
 {
-    protected $q;
+    protected $qb;
 
     protected function setUp()
     {
@@ -22,8 +22,8 @@ abstract class DoctrineDbalTestCase extends \PHPUnit_Framework_TestCase
         $this->createSchema($conn);
         $this->insertData($conn);
 
-        $this->q = new QueryBuilder($conn);
-        $this->q->select('p.*')->from('posts', 'p');
+        $this->qb = new QueryBuilder($conn);
+        $this->qb->select('p.*')->from('posts', 'p');
     }
 
     private function isDoctrineDbalNotAvailable()

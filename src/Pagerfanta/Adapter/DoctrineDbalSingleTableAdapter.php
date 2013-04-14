@@ -23,23 +23,23 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
     /**
      * Constructor.
      *
-     * @param QueryBuilder $query      A DBAL query builder.
-     * @param string       $countField Primary key for the table in query. Used in count expression. Must include table alias
+     * @param QueryBuilder $queryBuilder A DBAL query builder.
+     * @param string       $countField   Primary key for the table in query. Used in count expression. Must include table alias
      */
-    public function __construct(QueryBuilder $query, $countField)
+    public function __construct(QueryBuilder $queryBuilder, $countField)
     {
-        if ($this->queryHasJoins($query)) {
-            throw new InvalidArgumentException('The query cannot have joins.');
+        if ($this->hasQueryBuilderJoins($queryBuilder)) {
+            throw new InvalidArgumentException('The query builder cannot have joins.');
         }
 
-        $countQueryModifier = $this->createCountQueryModifier($countField);
+        $countQueryBuilderModifier = $this->createCountQueryModifier($countField);
 
-        parent::__construct($query, $countQueryModifier);
+        parent::__construct($queryBuilder, $countQueryBuilderModifier);
     }
 
-    private function queryHasJoins($query)
+    private function hasQueryBuilderJoins($queryBuilder)
     {
-        $joins = $query->getQueryPart('join');
+        $joins = $queryBuilder->getQueryPart('join');
 
         return !empty($joins);
     }
@@ -48,9 +48,9 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
     {
         $select = $this->createSelectForCountField($countField);
 
-        return function ($query) use ($select) {
-            $query->select($select)
-                  ->setMaxResults(1);
+        return function ($queryBuilder) use ($select) {
+            $queryBuilder->select($select)
+                         ->setMaxResults(1);
         };
     }
 
