@@ -144,16 +144,17 @@ querie builders.
 <?php
 
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
+use Doctrine\DBAL\Query\QueryBuilder;
 
-$query = new QueryBuilder($conn);
-$query->select('p.*')->from('posts', 'p');
+$queryBuilder = new QueryBuilder($conn);
+$queryBuilder->select('p.*')->from('posts', 'p');
 
-$countQueryModifier = function ($query) {
-    $query->select('COUNT(DISTINCT p.id) AS total_results')
+$countQueryBuilderModifier = function ($queryBuilder) {
+    $queryBuilder->select('COUNT(DISTINCT p.id) AS total_results')
           ->setMaxResults(1);
 };
 
-$adapter = new DoctrineDbalAdapter($query, $countQueryModifier);
+$adapter = new DoctrineDbalAdapter($queryBuilder, $countQueryModifier);
 ```
 
 ### DoctrineDbalSingleTableAdapter
@@ -161,17 +162,20 @@ $adapter = new DoctrineDbalAdapter($query, $countQueryModifier);
 To simplify the pagination of single table
 [DoctrineDbal](http://www.doctrine-project.org/projects/dbal.html) querie builders.
 
+This adapter only paginates single table query builders, without joins.
+
 ```php
 <?php
 
 use Pagerfanta\Adapter\DoctrineDbalSingleTableAdapter;
+use Doctrine\DBAL\Query\QueryBuilder;
 
-$query = new QueryBuilder($conn);
-$query->select('p.*')->from('posts', 'p');
+$queryBuilder = new QueryBuilder($conn);
+$queryBuilder->select('p.*')->from('posts', 'p');
 
 $countField = 'p.id';
 
-$adapter = new DoctrineDbalSingleTableAdapter($query, $countField);
+$adapter = new DoctrineDbalSingleTableAdapter($queryBuilder, $countField);
 ```
 
 ### DoctrineORMAdapter
