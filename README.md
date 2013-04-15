@@ -138,7 +138,7 @@ $adapter = new MandangoAdapter($query);
 ### DoctrineDbalAdapter
 
 To paginate [DoctrineDbal](http://www.doctrine-project.org/projects/dbal.html)
-querie builders.
+query builders.
 
 ```php
 <?php
@@ -160,7 +160,8 @@ $adapter = new DoctrineDbalAdapter($queryBuilder, $countQueryModifier);
 ### DoctrineDbalSingleTableAdapter
 
 To simplify the pagination of single table
-[DoctrineDbal](http://www.doctrine-project.org/projects/dbal.html) querie builders.
+[DoctrineDbal](http://www.doctrine-project.org/projects/dbal.html)
+query builders.
 
 This adapter only paginates single table query builders, without joins.
 
