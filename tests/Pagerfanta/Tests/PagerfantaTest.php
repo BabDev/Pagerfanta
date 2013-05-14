@@ -243,7 +243,7 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(50));
     }
 
-    public function testGetNbPagesShouldReturnTheNbResultsFromTheAdapter()
+    public function testGetNbResultsShouldReturnTheNbResultsFromTheAdapter()
     {
         $this->setAdapterNbResultsAny(20);
 
