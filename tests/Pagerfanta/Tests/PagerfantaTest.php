@@ -274,6 +274,13 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(7, $this->pagerfanta->getNbPages());
     }
 
+    public function testGetNbPagesShouldReturn1WhenThereAreNoResults()
+    {
+        $this->setAdapterNbResultsAny(0);
+
+        $this->assertSame(1, $this->pagerfanta->getNbPages());
+    }
+
     /**
      * @dataProvider setCurrentPageShouldSetAnIntegerProvider
      */

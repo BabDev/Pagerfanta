@@ -335,7 +335,23 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
      */
     public function getNbPages()
     {
+        $nbPages = $this->calculateNbPages();
+
+        if ($nbPages == 0) {
+            return $this->minimumNbPages();
+        }
+
+        return $nbPages;
+    }
+
+    private function calculateNbPages()
+    {
         return (int) ceil($this->getNbResults() / $this->getMaxPerPage());
+    }
+
+    private function minimumNbPages()
+    {
+        return 1;
     }
 
     /**
