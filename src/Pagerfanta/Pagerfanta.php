@@ -310,6 +310,30 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
     }
 
     /**
+     * Calculates the current page offset start
+     *
+     * @return int
+     */
+    public function getCurrentPageOffsetStart()
+    {
+        return $this->getNbResults() ?
+               $this->calculateOffsetForCurrentPageResults() + 1 :
+               0;
+    }
+
+    /**
+     * Calculates the current page offset end
+     *
+     * @return int
+     */
+    public function getCurrentPageOffsetEnd()
+    {
+        return $this->hasNextPage() ?
+               $this->getCurrentPage() * $this->getMaxPerPage() :
+               $this->getNbResults();
+    }
+
+    /**
      * Returns the number of results.
      *
      * @return integer
@@ -458,25 +482,5 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
     private function needsToIntegerConvertion($value)
     {
         return (is_string($value) || is_float($value)) && (int) $value == $value;
-    }
-
-    /**
-     * Calculate the current page offset start
-     *
-     * @return int
-     */
-    public function getCurrentPageOffsetStart()
-    {
-        return $this->getNbResults() ? $this->calculateOffsetForCurrentPageResults() + 1 : 0;
-    }
-
-    /**
-     * Calculate the current page offset end
-     *
-     * @return int
-     */
-    public function getCurrentPageOffsetEnd()
-    {
-        return $this->hasNextPage() ? $this->getCurrentPage() * $this->getMaxPerPage() : $this->getNbResults();
     }
 }
