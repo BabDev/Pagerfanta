@@ -14,7 +14,7 @@ namespace Pagerfanta\View\Template;
 use Pagerfanta\View\Template\TwitterBootstrapTemplate;
 
 /**
- * @author Michiel Boeckaert <boeckaert@gmail.com>
+ * TwitterBootstrap3Template
  */
 class TwitterBootstrap3Template extends TwitterBootstrapTemplate
 {

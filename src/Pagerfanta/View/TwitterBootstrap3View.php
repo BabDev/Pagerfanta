@@ -32,7 +32,7 @@ class TwitterBootstrap3View extends DefaultView
 
     protected function getDefaultProximity()
     {
-        return 4;
+        return 3;
     }
 
     /**
