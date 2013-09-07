@@ -15,7 +15,7 @@ use Pagerfanta\View\Template\TwitterBootstrap3Template;
 use Pagerfanta\View\TwitterBootstrapView;
 
 /**
- * TwitterBootstrapView.
+ * TwitterBootstrap3View.
  *
  * View that can be used with the pagination module
  * from the Twitter Bootstrap3 CSS Toolkit
