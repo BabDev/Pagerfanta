@@ -27,7 +27,7 @@ class SolariumAdapter implements AdapterInterface
     private $client;
     private $query;
     private $resultSet;
-    private $endpoint;
+    private $endPoint;
 
     /**
      * Constructor.
@@ -125,7 +125,7 @@ class SolariumAdapter implements AdapterInterface
 
     private function createResultSet()
     {
-        return $this->client->select($this->query, $this->endpoint);
+        return $this->client->select($this->query, $this->endPoint);
     }
 
     private function clearResultSet()
@@ -133,9 +133,9 @@ class SolariumAdapter implements AdapterInterface
         $this->resultSet = null;
     }
 
-    public function setEndPoint($endpoint)
+    public function setEndPoint($endPoint)
     {
-        $this->endpoint = $endpoint;
+        $this->endPoint = $endPoint;
 
         return $this;
     }
