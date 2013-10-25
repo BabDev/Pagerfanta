@@ -1,6 +1,4 @@
-# Pagerfanta
-
-[![Build Status](https://travis-ci.org/whiteoctober/Pagerfanta.png?branch=master)](https://travis-ci.org/whiteoctober/Pagerfanta)
+# Pagerfanta [![Build Status](https://travis-ci.org/whiteoctober/Pagerfanta.png?branch=master)](https://travis-ci.org/whiteoctober/Pagerfanta) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/whiteoctober/Pagerfanta/badges/quality-score.png?s=1ee480491644c07812b5206cf07d33a5035d0118)](https://scrutinizer-ci.com/g/whiteoctober/Pagerfanta/)
 
 Pagination for PHP 5.3
 
