@@ -1,4 +1,6 @@
-# Pagerfanta [![Build Status](https://travis-ci.org/whiteoctober/Pagerfanta.png?branch=master)](https://travis-ci.org/whiteoctober/Pagerfanta) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/whiteoctober/Pagerfanta/badges/quality-score.png?s=1ee480491644c07812b5206cf07d33a5035d0118)](https://scrutinizer-ci.com/g/whiteoctober/Pagerfanta/)
+# Pagerfanta
+
+[![Build Status](https://travis-ci.org/whiteoctober/Pagerfanta.png?branch=master)](https://travis-ci.org/whiteoctober/Pagerfanta) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/whiteoctober/Pagerfanta/badges/quality-score.png?s=1ee480491644c07812b5206cf07d33a5035d0118)](https://scrutinizer-ci.com/g/whiteoctober/Pagerfanta/) [![Latest Stable Version](https://poser.pugx.org/pagerfanta/pagerfanta/v/stable.png)](https://packagist.org/packages/pagerfanta/pagerfanta) [![Total Downloads](https://poser.pugx.org/pagerfanta/pagerfanta/downloads.png)](https://packagist.org/packages/pagerfanta/pagerfanta)
 
 Pagination for PHP 5.3
 
