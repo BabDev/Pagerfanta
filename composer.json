@@ -19,6 +19,7 @@
         "mandango/mandango": "1.0.*@dev",
         "doctrine/mongodb-odm": "1.0.*@dev",
         "jmikola/geojson": "1.0.*",
+        "doctrine/phpcr-odm": "1.0.*",
         "propel/propel1": "~1.6",
         "solarium/solarium": "3.1.*"
     },
@@ -27,6 +28,7 @@
         "doctrine/orm": "To use the DoctrineORMAdapter.",
         "mandango/mandango": "To use the MandangoAdapter.",
         "doctrine/mongodb-odm": "To use the DoctrineODMMongoDBAdapter.",
+        "doctrine/phpcr-odm": "To use the DoctrineODMPhpcrAdapter.",
         "propel/propel1": "To use the PropelAdapter",
         "solarium/solarium": "To use the SolariumAdapter."
     },
