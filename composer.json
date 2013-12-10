@@ -18,6 +18,7 @@
         "doctrine/orm": "2.3.*",
         "mandango/mandango": "1.0.*@dev",
         "doctrine/mongodb-odm": "1.0.*@dev",
+        "jmikola/geojson": "1.0.*",
         "propel/propel1": "~1.6",
         "solarium/solarium": "3.1.*"
     },
