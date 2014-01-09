@@ -20,6 +20,7 @@ class TwitterBootstrapTemplate extends Template
         'prev_message'        => '&larr; Previous',
         'next_message'        => 'Next &rarr;',
         'dots_message'        => '&hellip;',
+        'active_suffix'       => '',
         'css_container_class' => 'pagination',
         'css_prev_class'      => 'prev',
         'css_next_class'      => 'next',
@@ -110,7 +111,7 @@ class TwitterBootstrapTemplate extends Template
 
     public function current($page)
     {
-        $text = $page;
+        $text = trim($page . ' ' . $this->option('active_suffix'));
         $class = $this->option('css_active_class');
 
         return $this->spanLi($class, $text);
