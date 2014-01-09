@@ -18,11 +18,8 @@ class TwitterBootstrapTemplate extends Template
 {
     static protected $defaultOptions = array(
         'prev_message'        => '&larr; Previous',
-        'prev_disabled_href'  => '#',
         'next_message'        => 'Next &rarr;',
-        'next_disabled_href'  => '#',
         'dots_message'        => '&hellip;',
-        'dots_href'           => '#',
         'css_container_class' => 'pagination',
         'css_prev_class'      => 'prev',
         'css_next_class'      => 'next',
@@ -62,10 +59,9 @@ class TwitterBootstrapTemplate extends Template
     public function previousDisabled()
     {
         $class = $this->previousDisabledClass();
-        $href = $this->option('prev_disabled_href');
         $text = $this->option('prev_message');
 
-        return $this->linkLi($class, $href, $text);
+        return $this->spanLi($class, $text);
     }
 
     private function previousDisabledClass()
@@ -84,10 +80,9 @@ class TwitterBootstrapTemplate extends Template
     public function nextDisabled()
     {
         $class = $this->nextDisabledClass();
-        $href = $this->option('next_disabled_href');
         $text = $this->option('next_message');
 
-        return $this->linkLi($class, $href, $text);
+        return $this->spanLi($class, $text);
     }
 
     private function nextDisabledClass()
@@ -124,10 +119,9 @@ class TwitterBootstrapTemplate extends Template
     public function separator()
     {
         $class = $this->option('css_dots_class');
-        $href = $this->option('dots_href');
         $text = $this->option('dots_message');
 
-        return $this->linkLi($class, $href, $text);
+        return $this->spanLi($class, $text);
     }
 
     private function linkLi($class, $href, $text)
