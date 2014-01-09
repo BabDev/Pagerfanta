@@ -28,7 +28,7 @@ class TwitterBootstrap3ViewTest extends TwitterBootstrapViewTest
     <li><a href="|7|">7</a></li>
     <li><a href="|8|">8</a></li>
     <li><a href="|9|">9</a></li>
-    <li class="active"><a href="|10|">10</a></li>
+    <li class="active"><span>10</span></li>
     <li><a href="|11|">11</a></li>
     <li><a href="|12|">12</a></li>
     <li><a href="|13|">13</a></li>
@@ -50,7 +50,7 @@ EOF
         $this->assertRenderedView(<<<EOF
 <ul class="pagination">
     <li class="prev disabled"><a href="#">&larr; Previous</a></li>
-    <li class="active"><a href="|1|">1</a></li>
+    <li class="active"><span>1</span></li>
     <li><a href="|2|">2</a></li>
     <li><a href="|3|">3</a></li>
     <li><a href="|4|">4</a></li>
@@ -83,7 +83,7 @@ EOF
     <li><a href="|97|">97</a></li>
     <li><a href="|98|">98</a></li>
     <li><a href="|99|">99</a></li>
-    <li class="active"><a href="|100|">100</a></li>
+    <li class="active"><span>100</span></li>
     <li class="next disabled"><a href="#">Next &rarr;</a></li>
 </ul>
 EOF
@@ -103,7 +103,7 @@ EOF
     <li><a href="|1|">1</a></li>
     <li><a href="|2|">2</a></li>
     <li><a href="|3|">3</a></li>
-    <li class="active"><a href="|4|">4</a></li>
+    <li class="active"><span>4</span></li>
     <li><a href="|5|">5</a></li>
     <li><a href="|6|">6</a></li>
     <li><a href="|7|">7</a></li>
@@ -129,7 +129,7 @@ EOF
     <li><a href="|2|">2</a></li>
     <li><a href="|3|">3</a></li>
     <li><a href="|4|">4</a></li>
-    <li class="active"><a href="|5|">5</a></li>
+    <li class="active"><span>5</span></li>
     <li><a href="|6|">6</a></li>
     <li><a href="|7|">7</a></li>
     <li><a href="|8|">8</a></li>
@@ -156,7 +156,7 @@ EOF
     <li><a href="|94|">94</a></li>
     <li><a href="|95|">95</a></li>
     <li><a href="|96|">96</a></li>
-    <li class="active"><a href="|97|">97</a></li>
+    <li class="active"><span>97</span></li>
     <li><a href="|98|">98</a></li>
     <li><a href="|99|">99</a></li>
     <li><a href="|100|">100</a></li>
@@ -181,7 +181,7 @@ EOF
     <li><a href="|93|">93</a></li>
     <li><a href="|94|">94</a></li>
     <li><a href="|95|">95</a></li>
-    <li class="active"><a href="|96|">96</a></li>
+    <li class="active"><span>96</span></li>
     <li><a href="|97|">97</a></li>
     <li><a href="|98|">98</a></li>
     <li><a href="|99|">99</a></li>
@@ -206,7 +206,7 @@ EOF
     <li class="disabled"><a href="#">&hellip;</a></li>
     <li><a href="|8|">8</a></li>
     <li><a href="|9|">9</a></li>
-    <li class="active"><a href="|10|">10</a></li>
+    <li class="active"><span>10</span></li>
     <li><a href="|11|">11</a></li>
     <li><a href="|12|">12</a></li>
     <li class="disabled"><a href="#">&hellip;</a></li>
@@ -235,7 +235,7 @@ EOF
     <li><a href="|7|">7</a></li>
     <li><a href="|8|">8</a></li>
     <li><a href="|9|">9</a></li>
-    <li class="active"><a href="|10|">10</a></li>
+    <li class="active"><span>10</span></li>
     <li><a href="|11|">11</a></li>
     <li><a href="|12|">12</a></li>
     <li><a href="|13|">13</a></li>
@@ -264,7 +264,7 @@ EOF
         $this->assertRenderedView(<<<EOF
 <ul class="paginacion">
     <li class="anterior deshabilitado"><a href="#">&larr; Previous</a></li>
-    <li class="activo"><a href="|1|">1</a></li>
+    <li class="activo"><span>1</span></li>
     <li><a href="|2|">2</a></li>
     <li><a href="|3|">3</a></li>
     <li><a href="|4|">4</a></li>

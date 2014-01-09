@@ -29,7 +29,7 @@ class DefaultViewTestWithCustomTemplateTest extends ViewTestCase
         <li class="disabled"><a href="#">&hellip;</a></li>
         <li><a href="|8|">8</a></li>
         <li><a href="|9|">9</a></li>
-        <li class="active"><a href="|10|">10</a></li>
+        <li class="active"><span>10</span></li>
         <li><a href="|11|">11</a></li>
         <li><a href="|12|">12</a></li>
         <li class="disabled"><a href="#">&hellip;</a></li>
