@@ -12,6 +12,7 @@
 namespace Pagerfanta\Adapter;
 
 use Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder;
+use Doctrine\ODM\PHPCR\Query\Query;
 
 /**
  * Pagerfanta adapter for Doctrine PHPCR-ODM.
