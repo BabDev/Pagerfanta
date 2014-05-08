@@ -56,9 +56,10 @@ class DoctrineODMPhpcrAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        $this->queryBuilder->setMaxResults($length);
-        $this->queryBuilder->setFirstResult($offset);
-
-        return $this->queryBuilder->getQuery()->execute();
+        return $this->queryBuilder
+            ->getQuery()
+            ->setMaxResults($length)
+            ->setFirstResult($offset)
+            ->execute();
     }
 }

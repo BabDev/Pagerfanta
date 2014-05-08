@@ -72,17 +72,17 @@ class DoctrineODMPhpcrAdapterTest extends \PHPUnit_Framework_TestCase
         $length = 15;
         $slice = new \ArrayIterator();
 
-        $this->queryBuilder
+        $this->query
             ->expects($this->once())
             ->method('setMaxResults')
             ->with($length)
-            ->will($this->returnValue($this->queryBuilder))
+            ->will($this->returnValue($this->query))
         ;
-        $this->queryBuilder
+        $this->query
             ->expects($this->once())
             ->method('setFirstResult')
             ->with($offset)
-            ->will($this->returnValue($this->queryBuilder))
+            ->will($this->returnValue($this->query))
         ;
         $this->queryBuilder
             ->expects($this->once())
