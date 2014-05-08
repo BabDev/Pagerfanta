@@ -25,13 +25,13 @@ class DoctrineODMPhpcrAdapterTest extends \PHPUnit_Framework_TestCase
 
     private function isDoctrinePhpcrNotAvailable()
     {
-        return !class_exists('Doctrine\ODM\Phpcr\Query\QueryBuilder');
+        return !class_exists('Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder');
     }
 
     private function createQueryBuilderMock()
     {
         return $this
-            ->getMockBuilder('Doctrine\ODM\Phpcr\Query\QueryBuilder')
+            ->getMockBuilder('Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder')
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -39,7 +39,7 @@ class DoctrineODMPhpcrAdapterTest extends \PHPUnit_Framework_TestCase
     private function createQueryMock()
     {
         return $this
-            ->getMockBuilder('Doctrine\ODM\Phpcr\Query\Query')
+            ->getMockBuilder('Doctrine\ODM\PHPCR\Query\Query')
             ->disableOriginalConstructor()
             ->getMock()
         ;

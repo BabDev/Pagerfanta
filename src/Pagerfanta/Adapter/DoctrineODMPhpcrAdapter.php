@@ -48,7 +48,7 @@ class DoctrineODMPhpcrAdapter implements AdapterInterface
      */
     public function getNbResults()
     {
-        return $this->queryBuilder->getQuery()->execute(null, Query::HYDRATE_PHPCR)->getRows()->count();
+        return $this->queryBuilder->getQuery()->execute(null, Query::HYDRATE_PHPCR)->count();
     }
 
     /**
@@ -56,11 +56,9 @@ class DoctrineODMPhpcrAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        return $this->queryBuilder
-            ->getQuery()
-            ->setMaxResults($length)
-            ->setFirstResult($offset)
-            ->execute()
-        ;
+        $this->queryBuilder->setMaxResults($length);
+        $this->queryBuilder->setFirstResult($offset);
+
+        return $this->queryBuilder->getQuery()->execute();
     }
 }

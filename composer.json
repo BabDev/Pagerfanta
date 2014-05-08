@@ -21,7 +21,8 @@
         "jmikola/geojson": "1.0.*",
         "doctrine/phpcr-odm": "1.0.*",
         "propel/propel1": "~1.6",
-        "solarium/solarium": "3.1.*"
+        "solarium/solarium": "3.1.*",
+        "jackalope/jackalope-doctrine-dbal": "1.0.*"
     },
     "minimum-stability": "dev",
     "suggest": {
