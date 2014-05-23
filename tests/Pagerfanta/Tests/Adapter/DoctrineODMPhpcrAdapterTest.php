@@ -2,7 +2,7 @@
 
 namespace Pagerfanta\Tests\Adapter;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use ArrayIterator;
 use Pagerfanta\Adapter\DoctrineODMPhpcrAdapter;
 
 class DoctrineODMPhpcrAdapterTest extends \PHPUnit_Framework_TestCase
@@ -57,10 +57,19 @@ class DoctrineODMPhpcrAdapterTest extends \PHPUnit_Framework_TestCase
             ->method('getQuery')
             ->will($this->returnValue($this->query))
         ;
+
+        $queryResult = $this->getMockBuilder('Jackalope\Query\QueryResult')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $queryResult
+            ->expects($this->once())
+            ->method('getRows')
+            ->will($this->returnValue(new ArrayIterator(array(1, 2, 3 , 4, 5, 6))));
+
         $this->query
             ->expects($this->once())
             ->method('execute')
-            ->will($this->returnValue(new ArrayCollection(array(1, 2, 3 , 4, 5, 6))))
+            ->will($this->returnValue($queryResult))
         ;
 
         $this->assertSame(6, $this->adapter->getNbResults());

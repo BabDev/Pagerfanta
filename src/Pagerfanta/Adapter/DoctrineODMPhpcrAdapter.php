@@ -48,7 +48,7 @@ class DoctrineODMPhpcrAdapter implements AdapterInterface
      */
     public function getNbResults()
     {
-        return $this->queryBuilder->getQuery()->execute(null, Query::HYDRATE_PHPCR)->count();
+        return $this->queryBuilder->getQuery()->execute(null, Query::HYDRATE_PHPCR)->getRows()->count();
     }
 
     /**
