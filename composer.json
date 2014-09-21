@@ -21,6 +21,7 @@
         "jmikola/geojson": "~1.0",
         "doctrine/phpcr-odm": "1.*",
         "propel/propel1": "~1.6",
+        "ruflin/Elastica": "~1.3",
         "solarium/solarium": "~3.1",
         "jackalope/jackalope-doctrine-dbal": "1.*"
     },
