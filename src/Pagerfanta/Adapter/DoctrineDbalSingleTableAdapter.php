@@ -48,7 +48,7 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
     {
         $select = $this->createSelectForCountField($countField);
 
-        return function ($queryBuilder) use ($select) {
+        return function (QueryBuilder $queryBuilder) use ($select) {
             $queryBuilder->select($select)
                          ->setMaxResults(1);
         };
