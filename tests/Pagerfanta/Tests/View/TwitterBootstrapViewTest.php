@@ -78,7 +78,7 @@ EOF
 <div class="pagination">
     <ul>
         <li class="prev"><a href="|99|">&larr; Previous</a></li>
-        <li><span>1</span></li>
+        <li><a href="|1|">1</a></li>
         <li class="disabled"><span>&hellip;</span></li>
         <li><a href="|94|">94</a></li>
         <li><a href="|95|">95</a></li>
@@ -86,7 +86,7 @@ EOF
         <li><a href="|97|">97</a></li>
         <li><a href="|98|">98</a></li>
         <li><a href="|99|">99</a></li>
-        <li class="active"><a href="|100|">100</a></li>
+        <li class="active"><span>100</span></li>
         <li class="next disabled"><span>Next &rarr;</span></li>
     </ul>
 </div>
