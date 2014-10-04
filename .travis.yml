@@ -13,12 +13,13 @@ matrix:
       env: SOLARIUM_VERSION=2.* DOCTRINE_ORM_VERSION=2.3.*
     # dev versions
     - php: 5.5
-      env: SOLARIUM_VERSION=dev-develop DOCTRINE_ORM_VERSION=dev-master
+      env: COMPOSER_STABILITY=dev
 
 services: mongodb
 
 before_install:
   - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - 'if [ "$COMPOSER_STABILITY" = ''dev'' ]; then sed -i ''s/"pagerfanta\/pagerfanta"/"pagerfanta\/pagerfanta","minimum-stability": "dev"/g'' composer.json ; fi'
   - sh -c "if [ $DOCTRINE_ORM_VERSION ]; then composer require doctrine/orm:${DOCTRINE_ORM_VERSION} --dev --no-update; fi"
   - sh -c "if [ $SOLARIUM_VERSION ]; then composer require solarium/solarium:${SOLARIUM_VERSION} --dev --no-update; fi"
 
