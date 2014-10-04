@@ -16,7 +16,7 @@ namespace Pagerfanta\View\Template;
  */
 abstract class Template implements TemplateInterface
 {
-    static protected $defaultOptions = array();
+    protected static $defaultOptions = array();
 
     private $routeGenerator;
     private $options;

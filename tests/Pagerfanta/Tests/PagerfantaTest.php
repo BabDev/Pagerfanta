@@ -559,7 +559,6 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
             $this->pagerfanta->setCurrentPage($currentPage);
             $this->assertSame($previousPage, $this->pagerfanta->getPreviousPage());
         }
-
     }
 
     /**

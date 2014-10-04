@@ -23,7 +23,7 @@ interface AdapterInterface
      *
      * @return integer The number of results.
      */
-    function getNbResults();
+    public function getNbResults();
 
     /**
      * Returns an slice of the results.
@@ -33,5 +33,5 @@ interface AdapterInterface
      *
      * @return array|\Traversable The slice.
      */
-    function getSlice($offset, $length);
+    public function getSlice($offset, $length);
 }

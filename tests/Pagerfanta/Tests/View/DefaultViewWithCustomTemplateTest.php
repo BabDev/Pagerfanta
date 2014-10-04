@@ -5,7 +5,7 @@ namespace Pagerfanta\Tests\View;
 use Pagerfanta\View\DefaultView;
 use Pagerfanta\View\Template\TwitterBootstrapTemplate;
 
-class DefaultViewTestWithCustomTemplateTest extends ViewTestCase
+class DefaultViewWithCustomTemplateTest extends ViewTestCase
 {
     protected function createView()
     {

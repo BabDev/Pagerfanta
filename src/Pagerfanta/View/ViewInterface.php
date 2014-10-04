@@ -31,13 +31,12 @@ interface ViewInterface
      * @param mixed               $routeGenerator A callable to generate the routes.
      * @param array               $options        An array of options (optional).
      */
-    function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = array());
+    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = array());
 
     /**
      * Returns the canonical name.
      *
      * @return string The canonical name.
      */
-    function getName();
-
+    public function getName();
 }

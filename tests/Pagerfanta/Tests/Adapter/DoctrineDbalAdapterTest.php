@@ -2,9 +2,7 @@
 
 namespace Pagerfanta\Tests\Adapter;
 
-use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Doctrine\DBAL\Schema\Schema;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 
 class DoctrineDbalAdapterTest extends DoctrineDbalTestCase

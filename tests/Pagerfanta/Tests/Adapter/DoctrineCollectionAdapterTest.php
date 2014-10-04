@@ -4,7 +4,7 @@ namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\DoctrineCollectionAdapter;
 
-class DoctrineCollectionTest extends \PHPUnit_Framework_TestCase
+class DoctrineCollectionAdapterTest extends \PHPUnit_Framework_TestCase
 {
     private $collection;
     private $adapter;

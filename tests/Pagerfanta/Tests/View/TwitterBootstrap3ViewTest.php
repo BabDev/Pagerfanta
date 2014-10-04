@@ -3,11 +3,9 @@
 namespace Pagerfanta\Tests\View;
 
 use Pagerfanta\View\TwitterBootstrap3View;
-use Pagerfanta\Tests\View\TwitterBootstrapViewTest;
 
 class TwitterBootstrap3ViewTest extends TwitterBootstrapViewTest
 {
-
     protected function createView()
     {
         return new TwitterBootstrap3View();
@@ -224,7 +222,7 @@ EOF
 
         $options = array(
             'prev_message' => 'Anterior',
-            'next_message' => 'Siguiente'
+            'next_message' => 'Siguiente',
         );
 
         $this->assertRenderedView(<<<EOF
@@ -258,7 +256,7 @@ EOF
             'css_next_class' => 'siguiente',
             'css_disabled_class' => 'deshabilitado',
             'css_dots_class' => 'puntos',
-            'css_active_class' => 'activo'
+            'css_active_class' => 'activo',
         );
 
         $this->assertRenderedView(<<<EOF
@@ -278,5 +276,4 @@ EOF
 EOF
             , $this->renderView($options));
     }
-
 }

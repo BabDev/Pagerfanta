@@ -5,7 +5,6 @@ namespace Pagerfanta\Tests\Adapter;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Schema\Schema;
-use Pagerfanta\Adapter\DoctrineDbalAdapter;
 
 abstract class DoctrineDbalTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -35,7 +34,7 @@ abstract class DoctrineDbalTestCase extends \PHPUnit_Framework_TestCase
     {
         $params = $conn = array(
             'driver' => 'pdo_sqlite',
-            'memory' => true
+            'memory' => true,
         );
 
         return DriverManager::getConnection($params);

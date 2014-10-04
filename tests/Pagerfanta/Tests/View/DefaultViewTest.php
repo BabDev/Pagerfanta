@@ -214,7 +214,7 @@ EOF
 
         $options = array(
             'previous_message' => 'Anterior',
-            'next_message'     => 'Siguiente'
+            'next_message'     => 'Siguiente',
         );
 
         $this->assertRenderedView(<<<EOF
@@ -243,7 +243,7 @@ EOF
         $options = array(
             'css_disabled_class' => 'deshabilitado',
             'css_dots_class'     => 'puntos',
-            'css_current_class'  => 'actual'
+            'css_current_class'  => 'actual',
         );
 
         $this->assertRenderedView(<<<EOF
@@ -270,7 +270,7 @@ EOF
         $options = array(
             'container_template' => '<nav><ul>%pages%</ul></nav>',
             'page_template'      => '<li><a href="%href%">%text%</a></li>',
-            'span_template'      => '<li><span class="%class%">%text%</span></li>'
+            'span_template'      => '<li><span class="%class%">%text%</span></li>',
         );
 
         $this->assertRenderedView(<<<EOF
