@@ -41,7 +41,7 @@ class DoctrineORMAdapter implements AdapterInterface
     /**
      * Returns the query
      *
-     * @return Query
+     * @return \Doctrine\ORM\Query
      */
     public function getQuery()
     {

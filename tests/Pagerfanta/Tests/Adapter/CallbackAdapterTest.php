@@ -7,7 +7,7 @@ use Pagerfanta\Adapter\CallbackAdapter;
 class CallbackAdapterTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException Pagerfanta\Exception\InvalidArgumentException
+     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
      * @dataProvider notCallbackProvider
      */
     public function testConstructorShouldThrowAnInvalidArgumentExceptionIfTheGetNbResultsCallbackIsNotACallback($value)
@@ -16,7 +16,7 @@ class CallbackAdapterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\InvalidArgumentException
+     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
      * @dataProvider notCallbackProvider
      */
     public function testConstructorShouldThrowAnInvalidArgumentExceptionIfTheGetSliceCallbackIsNotACallback($value)

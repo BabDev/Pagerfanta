@@ -61,6 +61,8 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
      * Sets whether or not allow out of range pages.
      *
      * @param Boolean $value
+     *
+     * @return self
      */
     public function setAllowOutOfRangePages($value)
     {
@@ -83,6 +85,8 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
      * Sets whether or not normalize out of range pages.
      *
      * @param Boolean $value
+     *
+     * @return self
      */
     public function setNormalizeOutOfRangePages($value)
     {
@@ -116,6 +120,8 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
      * Tries to convert from string and float.
      *
      * @param integer $maxPerPage
+     *
+     * @return self
      *
      * @throws NotIntegerMaxPerPageException If the max per page is not an integer even converting.
      * @throws LessThan1MaxPerPageException  If the max per page is less than 1.
@@ -169,6 +175,8 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
      * Tries to convert from string and float.
      *
      * @param integer $currentPage
+     *
+     * @return self
      *
      * @throws NotIntegerCurrentPageException If the current page is not an integer even converting.
      * @throws LessThan1CurrentPageException  If the current page is less than 1.
@@ -253,6 +261,13 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
         return $currentPage > 1 && $currentPage > $this->getNbPages();
     }
 
+    /**
+     * @param int $currentPage
+     *
+     * @return int
+     *
+     * @throws OutOfRangeCurrentPageException If the page should not be normalized
+     */
     private function normalizeOutOfRangeCurrentPage($currentPage)
     {
         if ($this->getNormalizeOutOfRangePages()) {
@@ -472,14 +487,14 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
 
     private function toInteger($value)
     {
-        if ($this->needsToIntegerConvertion($value)) {
+        if ($this->needsToIntegerConversion($value)) {
             return (int) $value;
         }
 
         return $value;
     }
 
-    private function needsToIntegerConvertion($value)
+    private function needsToIntegerConversion($value)
     {
         return (is_string($value) || is_float($value)) && (int) $value == $value;
     }

@@ -8,6 +8,9 @@ class DoctrineODMMongoDBAdapterTest extends \PHPUnit_Framework_TestCase
 {
     private $queryBuilder;
     private $query;
+    /**
+     * @var DoctrineODMMongoDBAdapter
+     */
     private $adapter;
 
     protected function setUp()

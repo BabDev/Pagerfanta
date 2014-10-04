@@ -25,7 +25,7 @@ abstract class SolariumAdapterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\InvalidArgumentException
+     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
      */
     public function testConstructorShouldThrowAnInvalidArgumentExceptionWhenInvalidClient()
     {
@@ -33,7 +33,7 @@ abstract class SolariumAdapterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\InvalidArgumentException
+     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
      */
     public function testConstructorShouldThrowAnInvalidArgumentExceptionWhenInvalidQuery()
     {

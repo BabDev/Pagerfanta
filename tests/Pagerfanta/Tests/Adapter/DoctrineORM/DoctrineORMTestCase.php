@@ -4,7 +4,10 @@ namespace Pagerfanta\Tests\Adapter\DoctrineORM;
 
 abstract class DoctrineORMTestCase extends \PHPUnit_Framework_TestCase
 {
-    public $entityManager;
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $entityManager;
 
     public function setUp()
     {

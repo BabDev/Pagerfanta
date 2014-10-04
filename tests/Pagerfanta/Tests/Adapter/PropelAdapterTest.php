@@ -12,6 +12,9 @@ use Pagerfanta\Adapter\PropelAdapter;
 class PropelAdapterTest extends \PHPUnit_Framework_TestCase
 {
     private $query;
+    /**
+     * @var PropelAdapter
+     */
     private $adapter;
 
     protected function setUp()

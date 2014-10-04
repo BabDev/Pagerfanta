@@ -6,7 +6,7 @@ use Pagerfanta\Adapter\FixedAdapter;
 
 class FixedAdapterTest extends \PHPUnit_Framework_TestCase
 {
-    public function testgetNbResults()
+    public function testGetNbResults()
     {
         $adapter = new FixedAdapter(5, array());
         $this->assertSame(5, $adapter->getNbResults());

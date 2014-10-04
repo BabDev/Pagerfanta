@@ -6,6 +6,9 @@ use Pagerfanta\Adapter\DoctrineDbalSingleTableAdapter;
 
 class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
 {
+    /**
+     * @var DoctrineDbalSingleTableAdapter
+     */
     private $adapter;
 
     protected function setUp()
@@ -66,7 +69,7 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\InvalidArgumentException
+     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
      */
     public function testItShouldThrowAnInvalidArgumentExceptionIfTheCountFieldDoesNotHaveAlias()
     {
@@ -74,7 +77,7 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\InvalidArgumentException
+     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
      */
     public function testItShouldThrowAnInvalidArgumentExceptionIfTheQueryHasJoins()
     {

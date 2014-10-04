@@ -22,6 +22,9 @@ class IteratorAggregate implements \IteratorAggregate
 class PagerfantaTest extends \PHPUnit_Framework_TestCase
 {
     private $adapter;
+    /**
+     * @var Pagerfanta
+     */
     private $pagerfanta;
 
     protected function setUp()
@@ -76,7 +79,7 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\NotBooleanException
+     * @expectedException \Pagerfanta\Exception\NotBooleanException
      * @dataProvider notBooleanProvider
      */
     public function testSetAllowOutOfRangePagesShouldThrowNotBooleanExceptionWhenNotBoolean($value)
@@ -107,7 +110,7 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\NotBooleanException
+     * @expectedException \Pagerfanta\Exception\NotBooleanException
      * @dataProvider notBooleanProvider
      */
     public function testSetNormalizeOutOfRangePagesShouldThrowNotBooleanExceptionWhenNotBoolean($value)
@@ -167,7 +170,7 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\NotIntegerMaxPerPageException
+     * @expectedException \Pagerfanta\Exception\NotIntegerMaxPerPageException
      * @dataProvider      setMaxPerPageShouldThrowExceptionWhenInvalidProvider
      */
     public function testSetMaxPerPageShouldThrowExceptionWhenInvalid($maxPerPage)
@@ -186,7 +189,7 @@ class PagerfantaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\LessThan1MaxPerPageException
+     * @expectedException \Pagerfanta\Exception\LessThan1MaxPerPageException
      * @dataProvider      setMaxPerPageShouldThrowExceptionWhenLessThan1Provider
      */
     public function testSetMaxPerPageShouldThrowExceptionWhenLessThan1($maxPerPage)

@@ -8,6 +8,9 @@ use Doctrine\DBAL\Schema\Schema;
 
 abstract class DoctrineDbalTestCase extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var QueryBuilder
+     */
     protected $qb;
 
     protected function setUp()
