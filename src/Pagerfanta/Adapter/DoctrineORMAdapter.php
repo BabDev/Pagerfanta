@@ -21,7 +21,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 class DoctrineORMAdapter implements AdapterInterface
 {
     /**
-     * @var \Doctrine\ORM\Tools\Pagination\Paginator|\Pagerfanta\Adapter\DoctrineORM\Paginator
+     * @var \Doctrine\ORM\Tools\Pagination\Paginator
      */
     private $paginator;
 
@@ -30,7 +30,7 @@ class DoctrineORMAdapter implements AdapterInterface
      *
      * @param \Doctrine\ORM\Query|\Doctrine\ORM\QueryBuilder $query A Doctrine ORM query or query builder.
      * @param Boolean $fetchJoinCollection Whether the query joins a collection (true by default).
-     * @param Boolean $useOutputWalkers Whether to use output walkers pagination mode
+     * @param Boolean|null $useOutputWalkers Whether to use output walkers pagination mode
      */
     public function __construct($query, $fetchJoinCollection = true, $useOutputWalkers = null)
     {
