@@ -6,20 +6,25 @@ php:
   - 5.5
   - 5.6
 
-env:
-  - DOCTRINE_ORM_VERSION=2.3.*
-  - DOCTRINE_ORM_VERSION=2.4.*
-  - DOCTRINE_ORM_VERSION=dev-master
-  - SOLARIUM_VERSION=2.*
-  - SOLARIUM_VERSION=dev-develop
+matrix:
+  include:
+    # older releases
+    - php: 5.5
+      env: SOLARIUM_VERSION=2.* DOCTRINE_ORM_VERSION=2.3.*
+    # dev versions
+    - php: 5.5
+      env: COMPOSER_STABILITY=dev
 
 services: mongodb
 
-before_script:
+before_install:
   - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - 'if [ "$COMPOSER_STABILITY" = ''dev'' ]; then sed -i ''s/"pagerfanta\/pagerfanta"/"pagerfanta\/pagerfanta","minimum-stability": "dev"/g'' composer.json ; fi'
   - sh -c "if [ $DOCTRINE_ORM_VERSION ]; then composer require doctrine/orm:${DOCTRINE_ORM_VERSION} --dev --no-update; fi"
   - sh -c "if [ $SOLARIUM_VERSION ]; then composer require solarium/solarium:${SOLARIUM_VERSION} --dev --no-update; fi"
-  - composer install --dev
+
+install:
+  - composer install
 
 script: vendor/bin/phpunit --coverage-clover=coverage.clover
 
