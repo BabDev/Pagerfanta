@@ -266,6 +266,28 @@ PersistentCollection which is not set to use the EXTRA_LAZY fetch mode.
 *Be carefull when using the `count()` method, currently Doctrine2
 needs to fetch all the records to count the number of elements.*
 
+### ElasticaAdapter
+
+To paginate an Elastica Query query:
+
+```php
+<?php
+
+use Elastica\Index;
+use Elastica\Query;
+use Elastica\Query\Term;
+use Pagerfanta\Adapter\ElasticaAdapter;
+
+// Searchable can be any valid searchable Elastica object. For example a Type or Index
+$searchable = new Index($elasticaClient, 'index_name');
+// A Query can be any valid Elastica query (json, array, Query object)
+$query = new Query::create(new Term(array(
+    'name' => 'Fred'
+));
+
+$adapter = new ElasticaAdapter($searchable, $query);
+```
+
 ### PropelAdapter
 
 To paginate a propel query:
