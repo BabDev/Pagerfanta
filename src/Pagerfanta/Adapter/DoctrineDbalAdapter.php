@@ -48,13 +48,13 @@ class DoctrineDbalAdapter implements AdapterInterface
      */
     public function getNbResults()
     {
-        $qb = $this->prepageCountQueryBuilder();
+        $qb = $this->prepareCountQueryBuilder();
         $result = $qb->execute()->fetchColumn();
 
         return (int) $result;
     }
 
-    private function prepageCountQueryBuilder()
+    private function prepareCountQueryBuilder()
     {
         $qb = clone $this->queryBuilder;
         call_user_func($this->countQueryBuilderModifier, $qb);
