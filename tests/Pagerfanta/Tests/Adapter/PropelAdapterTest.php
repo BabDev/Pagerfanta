@@ -82,4 +82,3 @@ class PropelAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
 }
-

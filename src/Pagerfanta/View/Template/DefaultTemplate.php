@@ -25,7 +25,7 @@ class DefaultTemplate extends Template
         'dots_text'          => '...',
         'container_template' => '<nav>%pages%</nav>',
         'page_template'      => '<a href="%href%">%text%</a>',
-        'span_template'      => '<span class="%class%">%text%</span>'
+        'span_template'      => '<span class="%class%">%text%</span>',
     );
 
     public function container()

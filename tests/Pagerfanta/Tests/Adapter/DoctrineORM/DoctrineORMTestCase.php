@@ -13,9 +13,9 @@ abstract class DoctrineORMTestCase extends \PHPUnit_Framework_TestCase
         }
 
         $config = new \Doctrine\ORM\Configuration();
-        $config->setMetadataCacheImpl(new \Doctrine\Common\Cache\ArrayCache);
-        $config->setQueryCacheImpl(new \Doctrine\Common\Cache\ArrayCache);
-        $config->setProxyDir(__DIR__ . '/_files');
+        $config->setMetadataCacheImpl(new \Doctrine\Common\Cache\ArrayCache());
+        $config->setQueryCacheImpl(new \Doctrine\Common\Cache\ArrayCache());
+        $config->setProxyDir(__DIR__.'/_files');
         $config->setProxyNamespace('Pagerfanta\Tests\Adapter\DoctrineORM\Proxies');
         $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver());
 
@@ -28,13 +28,11 @@ abstract class DoctrineORMTestCase extends \PHPUnit_Framework_TestCase
     }
 }
 
-
 /**
  * @Entity
  */
 class MyBlogPost
 {
-
     /** @Id @column(type="integer") @generatedValue */
     public $id;
     /**
@@ -52,10 +50,8 @@ class MyBlogPost
  */
 class MyAuthor
 {
-
     /** @Id @column(type="integer") @generatedValue */
     public $id;
-
 }
 
 /**
@@ -63,19 +59,15 @@ class MyAuthor
  */
 class MyCategory
 {
-
     /** @id @column(type="integer") @generatedValue */
     public $id;
-
 }
-
 
 /**
  * @Entity
  */
 class BlogPost
 {
-
     /** @Id @column(type="integer") @generatedValue */
     public $id;
     /**
@@ -93,12 +85,10 @@ class BlogPost
  */
 class Author
 {
-
     /** @Id @column(type="integer") @generatedValue */
     public $id;
     /** @Column(type="string") */
     public $name;
-
 }
 
 /**
@@ -106,14 +96,12 @@ class Author
  */
 class Person
 {
-
     /** @Id @column(type="integer") @generatedValue */
     public $id;
     /** @Column(type="string") */
     public $name;
     /** @Column(type="string") */
     public $biography;
-
 }
 
 /**
@@ -121,17 +109,13 @@ class Person
  */
 class Category
 {
-
     /** @id @column(type="integer") @generatedValue */
     public $id;
-
 }
-
 
 /** @Entity @Table(name="groups") */
 class Group
 {
-
     /** @Id @column(type="integer") @generatedValue */
     public $id;
     /** @ManyToMany(targetEntity="User", mappedBy="groups") */
@@ -141,7 +125,6 @@ class Group
 /** @Entity */
 class User
 {
-
     /** @Id @column(type="integer") @generatedValue */
     public $id;
     /**

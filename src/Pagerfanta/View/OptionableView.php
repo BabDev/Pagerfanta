@@ -28,7 +28,7 @@ class OptionableView implements ViewInterface
     /**
      * Constructor.
      *
-     * @param ViewInterface $view    A view.
+     * @param ViewInterface $view           A view.
      * @param array         $defaultOptions An array of default options.
      */
     public function __construct(ViewInterface $view, array $defaultOptions)

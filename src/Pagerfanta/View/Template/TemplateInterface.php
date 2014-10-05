@@ -16,25 +16,25 @@ namespace Pagerfanta\View\Template;
  */
 interface TemplateInterface
 {
-    function container();
+    public function container();
 
-    function page($page);
+    public function page($page);
 
-    function pageWithText($page, $text);
+    public function pageWithText($page, $text);
 
-    function previousDisabled();
+    public function previousDisabled();
 
-    function previousEnabled($page);
+    public function previousEnabled($page);
 
-    function nextDisabled();
+    public function nextDisabled();
 
-    function nextEnabled($page);
+    public function nextEnabled($page);
 
-    function first();
+    public function first();
 
-    function last($page);
+    public function last($page);
 
-    function current($page);
+    public function current($page);
 
-    function separator();
+    public function separator();
 }

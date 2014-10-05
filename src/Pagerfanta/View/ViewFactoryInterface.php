@@ -24,7 +24,7 @@ interface ViewFactoryInterface
      * @param string        $name The view name.
      * @param ViewInterface $view The view.
      */
-    function set($name, ViewInterface $view);
+    public function set($name, ViewInterface $view);
 
     /**
      * Returns whether a view exists or not.
@@ -33,14 +33,14 @@ interface ViewFactoryInterface
      *
      * @return Boolean Whether a view exists or not.
      */
-    function has($name);
+    public function has($name);
 
     /**
      * Adds views.
      *
      * @param array $views An array of views.
      */
-    function add(array $views);
+    public function add(array $views);
 
     /**
      * Returns a view.
@@ -51,14 +51,14 @@ interface ViewFactoryInterface
      *
      * @throws \InvalidArgumentException If the view does not exist.
      */
-    function get($name);
+    public function get($name);
 
     /**
      * Returns all the views.
      *
      * @return array The views.
      */
-    function all();
+    public function all();
 
     /**
      * Removes a view.
@@ -67,10 +67,10 @@ interface ViewFactoryInterface
      *
      * @throws \InvalidArgumentException If the view does not exist.
      */
-    function remove($name);
+    public function remove($name);
 
     /**
      * Clears the views.
      */
-    function clear();
+    public function clear();
 }

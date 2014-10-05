@@ -26,7 +26,7 @@ class TwitterBootstrapTemplate extends Template
         'css_next_class'      => 'next',
         'css_disabled_class'  => 'disabled',
         'css_dots_class'      => 'disabled',
-        'css_active_class'    => 'active'
+        'css_active_class'    => 'active',
     );
 
     public function container()
@@ -111,7 +111,7 @@ class TwitterBootstrapTemplate extends Template
 
     public function current($page)
     {
-        $text = trim($page . ' ' . $this->option('active_suffix'));
+        $text = trim($page.' '.$this->option('active_suffix'));
         $class = $this->option('css_active_class');
 
         return $this->spanLi($class, $text);

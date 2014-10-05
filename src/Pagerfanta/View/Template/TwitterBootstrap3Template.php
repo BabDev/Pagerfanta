@@ -30,4 +30,3 @@ class TwitterBootstrap3Template extends TwitterBootstrapTemplate
         );
     }
 }
-

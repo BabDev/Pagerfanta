@@ -238,7 +238,7 @@ EOF
 
         $options = array(
             'prev_message' => 'Anterior',
-            'next_message' => 'Siguiente'
+            'next_message' => 'Siguiente',
         );
 
         $this->assertRenderedView(<<<EOF
@@ -274,7 +274,7 @@ EOF
             'css_next_class'      => 'siguiente',
             'css_disabled_class'  => 'deshabilitado',
             'css_dots_class'      => 'puntos',
-            'css_active_class'    => 'activo'
+            'css_active_class'    => 'activo',
         );
 
         $this->assertRenderedView(<<<EOF
