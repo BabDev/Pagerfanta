@@ -7,6 +7,9 @@ use Pagerfanta\Adapter\MongoAdapter;
 class MongoAdapterTest extends \PHPUnit_Framework_TestCase
 {
     protected $cursor;
+    /**
+     * @var MongoAdapter
+     */
     protected $adapter;
 
     protected function setUp()

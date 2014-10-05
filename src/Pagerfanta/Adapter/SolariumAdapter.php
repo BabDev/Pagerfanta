@@ -103,7 +103,10 @@ class SolariumAdapter implements AdapterInterface
     }
 
     /**
-     * @return Solarium_Result_Select|Solarium\QueryType\Select\Result\Result
+     * @param int $start
+     * @param int $rows
+     *
+     * @return \Solarium_Result_Select|\Solarium\QueryType\Select\Result\Result
      **/
     public function getResultSet($start = null, $rows = null)
     {

@@ -7,6 +7,9 @@ use Pagerfanta\Adapter\MandangoAdapter;
 class MandangoAdapterTest extends \PHPUnit_Framework_TestCase
 {
     private $query;
+    /**
+     * @var MandangoAdapter
+     */
     private $adapter;
 
     protected function setUp()

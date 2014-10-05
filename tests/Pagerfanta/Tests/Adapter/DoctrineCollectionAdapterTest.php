@@ -7,6 +7,9 @@ use Pagerfanta\Adapter\DoctrineCollectionAdapter;
 class DoctrineCollectionAdapterTest extends \PHPUnit_Framework_TestCase
 {
     private $collection;
+    /**
+     * @var DoctrineCollectionAdapter
+     */
     private $adapter;
 
     protected function setUp()

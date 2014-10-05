@@ -14,7 +14,6 @@ class OptionableViewTest extends \PHPUnit_Framework_TestCase
     {
         $this->pagerfanta = $this->createPagerfantaMock();
         $this->routeGenerator = $this->createRouteGenerator();
-        $this->return = new \ArrayObject();
     }
 
     private function createPagerfantaMock()

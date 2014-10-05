@@ -22,6 +22,8 @@ class PropelAdapter implements AdapterInterface
 
     /**
      * Constructor.
+     *
+     * @param \ModelCriteria $query
      */
     public function __construct($query)
     {
@@ -30,6 +32,8 @@ class PropelAdapter implements AdapterInterface
 
     /**
      * Returns the query.
+     *
+     * @return \ModelCriteria
      */
     public function getQuery()
     {

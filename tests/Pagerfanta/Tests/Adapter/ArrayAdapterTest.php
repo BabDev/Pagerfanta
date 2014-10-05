@@ -7,6 +7,9 @@ use Pagerfanta\Adapter\ArrayAdapter;
 class ArrayAdapterTest extends \PHPUnit_Framework_TestCase
 {
     private $array;
+    /**
+     * @var ArrayAdapter
+     */
     private $adapter;
 
     protected function setUp()

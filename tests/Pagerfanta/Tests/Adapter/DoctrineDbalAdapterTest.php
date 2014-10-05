@@ -23,7 +23,7 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
         $this->doTestGetNbResults($adapter);
     }
 
-    private function doTestGetNbResults($adapter)
+    private function doTestGetNbResults(DoctrineDbalAdapter $adapter)
     {
         $this->assertSame(50, $adapter->getNbResults());
     }
@@ -51,7 +51,7 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
         return new DoctrineDbalAdapter($this->qb, $countQueryBuilderModifier);
     }
 
-    private function doTestGetSlice($adapter)
+    private function doTestGetSlice(DoctrineDbalAdapter $adapter)
     {
         $offset = 30;
         $length = 10;
@@ -66,7 +66,7 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\InvalidArgumentException
+     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
      */
     public function testItShouldThrowAnInvalidArgumentExceptionIfTheQueryIsNotSelect()
     {
@@ -87,7 +87,7 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\InvalidArgumentException
+     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
      */
     public function testItShouldThrowAnInvalidArgumentExceptionIfTheCountQueryBuilderModifierIsNotACallable()
     {
@@ -98,7 +98,7 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
 
     private function createAdapterToTestGetNbResults()
     {
-        $countQueryBuilderModifier = function ($queryBuilder) {
+        $countQueryBuilderModifier = function (QueryBuilder $queryBuilder) {
             $queryBuilder->select('COUNT(DISTINCT p.id) AS total_results')
                          ->setMaxResults(1);
         };

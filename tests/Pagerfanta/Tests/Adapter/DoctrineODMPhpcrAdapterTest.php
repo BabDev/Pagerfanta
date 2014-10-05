@@ -9,6 +9,9 @@ class DoctrineODMPhpcrAdapterTest extends \PHPUnit_Framework_TestCase
 {
     private $queryBuilder;
     private $query;
+    /**
+     * @var DoctrineODMPhpcrAdapter
+     */
     private $adapter;
 
     protected function setUp()

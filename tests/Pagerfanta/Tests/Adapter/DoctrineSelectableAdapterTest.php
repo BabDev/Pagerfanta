@@ -12,6 +12,9 @@ class DoctrineSelectableAdapterTest extends \PHPUnit_Framework_TestCase
 {
     private $selectable;
     private $criteria;
+    /**
+     * @var DoctrineSelectableAdapter
+     */
     private $adapter;
 
     protected function setUp()

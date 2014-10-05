@@ -25,8 +25,8 @@ class FixedAdapter implements AdapterInterface
     private $results;
 
     /**
-     * @param int   $nbResults
-     * @param mixed $results
+     * @param int                $nbResults
+     * @param array|\Traversable $results
      */
     public function __construct($nbResults, $results)
     {

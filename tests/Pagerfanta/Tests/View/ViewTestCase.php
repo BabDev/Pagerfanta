@@ -3,11 +3,19 @@
 namespace Pagerfanta\Tests\View;
 
 use Pagerfanta\Pagerfanta;
+use Pagerfanta\View\ViewInterface;
 
 abstract class ViewTestCase extends \PHPUnit_Framework_TestCase
 {
     private $adapter;
+    /**
+     * @var Pagerfanta
+     */
     private $pagerfanta;
+    /**
+     * @var ViewInterface
+     */
+    private $view;
 
     protected function setUp()
     {
@@ -21,6 +29,9 @@ abstract class ViewTestCase extends \PHPUnit_Framework_TestCase
         return $this->getMock('Pagerfanta\Adapter\AdapterInterface');
     }
 
+    /**
+     * @return ViewInterface
+     */
     abstract protected function createView();
 
     protected function setNbPages($nbPages)
