@@ -28,7 +28,7 @@ interface ViewInterface
      * unique argument.
      *
      * @param PagerfantaInterface $pagerfanta     A pagerfanta.
-     * @param mixed               $routeGenerator A callable to generate the routes.
+     * @param callable            $routeGenerator A callable to generate the routes.
      * @param array               $options        An array of options (optional).
      */
     public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = array());
