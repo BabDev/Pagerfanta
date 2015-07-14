@@ -396,7 +396,7 @@ $html = $view->render($pagerfanta, $routeGenerator, $options);
 Options (default):
 
   * proximity (3)
-  * previous_message (Previous)
+  * prev_message (Previous)
   * next_message (Next)
   * css_disabled_class (disabled)
   * css_dots_class (dots)
@@ -513,7 +513,7 @@ $defaultView = new DefaultView();
 // view and default options
 $myView1 = new OptionableView($defaultView, array('proximity' => 3));
 
-$myView2 = new OptionableView($defaultView, array('previous_message' => 'Anterior', 'next_message' => 'Siguiente'));
+$myView2 = new OptionableView($defaultView, array('prev_message' => 'Anterior', 'next_message' => 'Siguiente'));
 
 // using in a normal way
 $pagerfantaHtml = $myView2->render($pagerfanta, $routeGenerator);
