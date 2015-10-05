@@ -263,7 +263,7 @@ $adapter = new DoctrineSelectableAdapter($comments, $criteria);
 Note that you should never use this adapter with a
 PersistentCollection which is not set to use the EXTRA_LAZY fetch mode.
 
-*Be carefull when using the `count()` method, currently Doctrine2
+*Be careful when using the `count()` method, currently Doctrine2
 needs to fetch all the records to count the number of elements.*
 
 ### ElasticaAdapter
