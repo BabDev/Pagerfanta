@@ -31,10 +31,16 @@ class ElasticaAdapter implements AdapterInterface
      */
     private $searchable;
 
-    public function __construct(SearchableInterface $searchable, Query $query)
+    /**
+     * @var array|null
+     */
+    private $options;
+
+    public function __construct(SearchableInterface $searchable, Query $query, $options = null)
     {
         $this->searchable = $searchable;
         $this->query = $query;
+        $this->options = $options;
     }
 
     /**
@@ -45,7 +51,7 @@ class ElasticaAdapter implements AdapterInterface
     public function getNbResults()
     {
         if (!$this->resultSet) {
-            return $this->searchable->search($this->query)->getTotalHits();
+            return $this->searchable->search($this->query, $this->options)->getTotalHits();
         }
 
         return $this->resultSet->getTotalHits();
@@ -72,9 +78,11 @@ class ElasticaAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        return $this->resultSet = $this->searchable->search($this->query, array(
+        $options = $this->options === null ? array() : $this->options;
+
+        return $this->resultSet = $this->searchable->search($this->query, array_merge($options, array(
             'from' => $offset,
             'size' => $length
-        ));
+        )));
     }
 }
