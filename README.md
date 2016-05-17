@@ -386,7 +386,7 @@ $routeGenerator = function($page) {
     return '/path?page='.$page;
 }
 ```
-Pagerfanta comes with five views:  The default one, two for
+Pagerfanta comes with five views:  The default one, three for
 [Twitter Bootstrap](https://github.com/twitter/bootstrap), one for
 [Semantic UI](https://github.com/Semantic-Org/Semantic-UI) and
 a special optionable view.
@@ -477,12 +477,12 @@ COLORS:
 }
 ```
 
-### TwitterBootstrapView and TwitterBootstrap3View
+### TwitterBootstrapView, TwitterBootstrap3View and TwitterBootstrap4View
 
 These views generate paginators designed for use with
 [Twitter Bootstrap](https://github.com/twitter/bootstrap).
 
-`TwitterBootstrapView` is for Bootstrap 2; `TwitterBootstrap3View` is for Bootstrap 3.
+`TwitterBootstrapView` is for Bootstrap 2; `TwitterBootstrap3View` is for Bootstrap 3; `TwitterBootstrap4View` is for Bootstrap 4 (alpha).
 
 ```php
 <?php
