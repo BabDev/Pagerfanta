@@ -24,7 +24,7 @@ class DefaultTemplate extends Template
         'css_current_class'  => 'current',
         'dots_text'          => '...',
         'container_template' => '<nav>%pages%</nav>',
-        'page_template'      => '<a href="%href%"%rel>%text%</a>',
+        'page_template'      => '<a href="%href%"%rel%>%text%</a>',
         'span_template'      => '<span class="%class%">%text%</span>',
         'rel_previous'        => 'prev',
         'rel_next'            => 'next'
@@ -44,7 +44,7 @@ class DefaultTemplate extends Template
 
     public function pageWithText($page, $text, $rel = null)
     {
-        $search = array('%href%', '%text%', '%rel');
+        $search = array('%href%', '%text%', '%rel%');
 
         $href = $this->generateRoute($page);
         $replace = $rel ? array($href, $text, ' rel="' . $rel . '"') : array($href, $text, '');
