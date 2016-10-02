@@ -294,6 +294,11 @@ $query = new Query::create(new Term(array(
 $adapter = new ElasticaAdapter($searchable, $query);
 ```
 
+*Be careful when paginating a huge set of documents. By default, offset + limit
+can't exceed 10000. You can mitigate this by setting the `$maxResults`
+parameter when constructing the `ElasticaAdapter`. For more information, see:
+[#213](https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892).*
+
 ### PropelAdapter
 
 To paginate a propel 1 query:

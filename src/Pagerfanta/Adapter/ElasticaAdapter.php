@@ -36,11 +36,20 @@ class ElasticaAdapter implements AdapterInterface
      */
     private $options;
 
-    public function __construct(SearchableInterface $searchable, Query $query, array $options = array())
+    /**
+     * @var int|null
+     *
+     * Used to limit the number of totalHits returned by ES.
+     * For more information, see: https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892
+     */
+    private $maxResults;
+
+    public function __construct(SearchableInterface $searchable, Query $query, array $options = array(), $maxResults = null)
     {
         $this->searchable = $searchable;
         $this->query = $query;
         $this->options = $options;
+        $this->maxResults = $maxResults;
     }
 
     /**
@@ -51,10 +60,16 @@ class ElasticaAdapter implements AdapterInterface
     public function getNbResults()
     {
         if (!$this->resultSet) {
-            return $this->searchable->search($this->query, $this->options)->getTotalHits();
+            $totalHits = $this->searchable->search($this->query, $this->options)->getTotalHits();
+        } else {
+            $totalHits = $this->resultSet->getTotalHits();
         }
 
-        return $this->resultSet->getTotalHits();
+        if (null === $this->maxResults) {
+            return $totalHits;
+        }
+
+        return min($totalHits, $this->maxResults);
     }
 
     /**
