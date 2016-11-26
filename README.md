@@ -375,8 +375,9 @@ $routeGenerator = function($page) {
 }
 ```
 
-Pagerfanta comes with three views, the default one, one for
-[Twitter Bootstrap](https://github.com/twitter/bootstrap) and
+Pagerfanta comes with four views, the default one, one for
+[Twitter Bootstrap](https://github.com/twitter/bootstrap), one for
+[Semantic UI](https://github.com/Semantic-Org/Semantic-UI) and
 an special optionable view.
 
 ### DefaultView
@@ -492,6 +493,38 @@ Options (default):
   * dots_message (&hellip;)
   * dots_href ()
   * css_container_class (pagination)
+  * css_prev_class (prev)
+  * css_next_class (next)
+  * css_disabled_class (disabled)
+  * css_dots_class (disabled)
+  * css_active_class (active)
+
+### SemanticUiView
+
+This view generates a pagination for
+[Semantic UI](https://github.com/Semantic-Org/Semantic-UI).
+
+```php
+<?php
+
+use Pagerfanta\View\SemanticUiView;
+
+$view = new SemanticUiView();
+$options = array('proximity' => 3);
+$html = $view->render($pagerfanta, $routeGenerator, $options);
+```
+
+Options (default):
+
+  * proximity (3)
+  * prev_message (&larr; Previous)
+  * prev_disabled_href ()
+  * next_message (Next &rarr;)
+  * next_disabled_href ()
+  * dots_message (&hellip;)
+  * dots_href ()
+  * css_container_class (pagination)
+  * css_item_class (item)
   * css_prev_class (prev)
   * css_next_class (next)
   * css_disabled_class (disabled)
