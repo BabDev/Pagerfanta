@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/whiteoctober/Pagerfanta.png?branch=master)](https://travis-ci.org/whiteoctober/Pagerfanta) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/whiteoctober/Pagerfanta/badges/quality-score.png?s=1ee480491644c07812b5206cf07d33a5035d0118)](https://scrutinizer-ci.com/g/whiteoctober/Pagerfanta/) [![Code Coverage](https://scrutinizer-ci.com/g/whiteoctober/Pagerfanta/badges/coverage.png?s=284be0616a9ba0439ee1123bcaf5fb3f6bfb0e50)](https://scrutinizer-ci.com/g/whiteoctober/Pagerfanta/) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/9e710230-b088-4904-baef-5f5e2d62e681/mini.png)](https://insight.sensiolabs.com/projects/9e710230-b088-4904-baef-5f5e2d62e681) [![Latest Stable Version](https://poser.pugx.org/pagerfanta/pagerfanta/v/stable.png)](https://packagist.org/packages/pagerfanta/pagerfanta) [![Total Downloads](https://poser.pugx.org/pagerfanta/pagerfanta/downloads.png)](https://packagist.org/packages/pagerfanta/pagerfanta)
 
-Pagination for PHP 5.3
+Pagination for PHP >= 5.3
 
 ## Usage
 
@@ -26,7 +26,7 @@ $currentPageResults = $pagerfanta->getCurrentPageResults();
 
 $pagerfanta->getNbPages();
 
-$pagerfanta->haveToPaginate(); // whether the number of results if higher than the max per page
+$pagerfanta->haveToPaginate(); // whether the number of results is higher than the max per page
 
 $pagerfanta->hasPreviousPage();
 $pagerfanta->getPreviousPage();
@@ -336,8 +336,8 @@ $adapter = new FixedAdapter($nbResults, $results);
 ## Views
 
 Views are to render pagerfantas, this way you can reuse your
-pagerfantas' html in several projects, share them and use another
-ones from another developers.
+pagerfantas' HTML in several projects, share them and use another
+ones from another developer's.
 
 The views implement the `Pagerfanta\View\ViewInterface` interface,
 which has two methods:
@@ -374,10 +374,10 @@ $routeGenerator = function($page) {
     return '/path?page='.$page;
 }
 ```
-
-Pagerfanta comes with three views, the default one, one for
-[Twitter Bootstrap](https://github.com/twitter/bootstrap) and
-an special optionable view.
+Pagerfanta comes with five views:  The default one, two for
+[Twitter Bootstrap](https://github.com/twitter/bootstrap), one for
+[Semantic UI](https://github.com/Semantic-Org/Semantic-UI) and
+a special optionable view.
 
 ### DefaultView
 
@@ -405,8 +405,6 @@ Options (default):
   * container_template (<nav>%pages%</nav>)
   * page_template (<a href="%href%">%text%</a>)
   * span_template (<span class="%class%">%text%</span>)
-
-![Pagerfanta DefaultView](http://img813.imageshack.us/img813/601/pagerfanta.png)
 
 CSS:
 
@@ -467,10 +465,12 @@ COLORS:
 }
 ```
 
-### TwitterBootstrapView
+### TwitterBootstrapView and TwitterBootstrap3View
 
-This view generates a pagination for
+These views generate paginators designed for use with
 [Twitter Bootstrap](https://github.com/twitter/bootstrap).
+
+`TwitterBootstrapView` is for Bootstrap 2; `TwitterBootstrap3View` is for Bootstrap 3.
 
 ```php
 <?php
@@ -492,6 +492,38 @@ Options (default):
   * dots_message (&hellip;)
   * dots_href ()
   * css_container_class (pagination)
+  * css_prev_class (prev)
+  * css_next_class (next)
+  * css_disabled_class (disabled)
+  * css_dots_class (disabled)
+  * css_active_class (active)
+
+### SemanticUiView
+
+This view generates a pagination for
+[Semantic UI](https://github.com/Semantic-Org/Semantic-UI).
+
+```php
+<?php
+
+use Pagerfanta\View\SemanticUiView;
+
+$view = new SemanticUiView();
+$options = array('proximity' => 3);
+$html = $view->render($pagerfanta, $routeGenerator, $options);
+```
+
+Options (default):
+
+  * proximity (3)
+  * prev_message (&larr; Previous)
+  * prev_disabled_href ()
+  * next_message (Next &rarr;)
+  * next_disabled_href ()
+  * dots_message (&hellip;)
+  * dots_href ()
+  * css_container_class (pagination)
+  * css_item_class (item)
   * css_prev_class (prev)
   * css_next_class (next)
   * css_disabled_class (disabled)
@@ -522,20 +554,12 @@ $pagerfantaHtml = $myView2->render($pagerfanta, $routeGenerator);
 $pagerfantaHtml = $myView2->render($pagerfanta, $routeGenerator, array('next_message' => 'Siguiente!!'));
 ```
 
-## Todo
-
-## Author
-
-Pablo Díez - <pablodip@gmail.com>
-
-## License
-
-Pagerfanta is licensed under the MIT License. See the LICENSE file for full details.
-
-## Sponsors
-
-[WhiteOctober](http://www.whiteoctober.co.uk/)
-
 ## Acknowledgements
 
 Pagerfanta is inspired by [Zend Paginator](https://github.com/zendframework/zf2).
+
+Thanks also to Pablo Díez (pablodip@gmail.com) for most of the work on the first versions of Pagerfanta.
+
+## Licence
+
+Pagerfanta is licensed under the [MIT License](LICENCE).
