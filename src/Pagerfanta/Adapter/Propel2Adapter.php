@@ -11,6 +11,8 @@
 
 namespace Pagerfanta\Adapter;
 
+use Propel\Runtime\ActiveQuery\ModelCriteria;
+
 /**
  * Propel2Adapter.
  *
@@ -18,14 +20,17 @@ namespace Pagerfanta\Adapter;
  */
 class Propel2Adapter implements AdapterInterface
 {
+    /**
+     * @var ModelCriteria $query
+     */
     private $query;
 
     /**
      * Constructor.
      *
-     * @param \ModelCriteria $query
+     * @param ModelCriteria $query
      */
-    public function __construct($query)
+    public function __construct(ModelCriteria $query)
     {
         $this->query = $query;
     }
@@ -33,7 +38,7 @@ class Propel2Adapter implements AdapterInterface
     /**
      * Returns the query.
      *
-     * @return \ModelCriteria
+     * @return ModelCriteria
      */
     public function getQuery()
     {
