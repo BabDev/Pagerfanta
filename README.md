@@ -290,7 +290,7 @@ $adapter = new ElasticaAdapter($searchable, $query);
 
 ### PropelAdapter
 
-To paginate a propel query:
+To paginate a propel 1 query:
 
 ```php
 <?php
@@ -298,6 +298,18 @@ To paginate a propel query:
 use Pagerfanta\Adapter\PropelAdapter;
 
 $adapter = new PropelAdapter($query);
+```
+
+### Propel2Adapter
+
+To paginate a propel 2 query:
+
+```php
+<?php
+
+use Pagerfanta\Adapter\Propel2Adapter;
+
+$adapter = new Propel2Adapter($query);
 ```
 
 ### SolariumAdapter
