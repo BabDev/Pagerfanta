@@ -32,6 +32,7 @@
         "doctrine/mongodb-odm": "To use the DoctrineODMMongoDBAdapter.",
         "doctrine/phpcr-odm": "To use the DoctrineODMPhpcrAdapter. >= 1.1.0",
         "propel/propel1": "To use the PropelAdapter",
+        "propel/propel": "To use the Propel2Adapter",
         "solarium/solarium": "To use the SolariumAdapter."
     },
     "autoload": {
