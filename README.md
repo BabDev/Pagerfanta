@@ -574,4 +574,4 @@ Thanks also to Pablo Díez (pablodip@gmail.com) for most of the work on the firs
 
 ## Licence
 
-Pagerfanta is licensed under the [MIT License](LICENCE).
+Pagerfanta is licensed under the [MIT License](LICENSE).
