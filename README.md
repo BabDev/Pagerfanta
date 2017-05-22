@@ -65,6 +65,9 @@ All of them extend from `Pagerfanta\Exception\NotValidCurrentPageException`.
 max per page, so if you are going to modify the max per page, you should do it
 before setting the current page.
 
+(If you want to use Pagerfanta in a Symfony project, see
+[https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle](https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle).)
+
 ## Adapters
 
 The adapter's concept is very simple. An adapter just returns the number
