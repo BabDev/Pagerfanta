@@ -17,7 +17,7 @@ namespace Pagerfanta\View\Template;
 class DefaultTemplate extends Template
 {
     static protected $defaultOptions = array(
-        'previous_message'   => 'Previous',
+        'prev_message'   => 'Previous',
         'next_message'       => 'Next',
         'css_disabled_class' => 'disabled',
         'css_dots_class'     => 'dots',
@@ -54,12 +54,12 @@ class DefaultTemplate extends Template
 
     public function previousDisabled()
     {
-        return $this->generateSpan($this->option('css_disabled_class'), $this->option('previous_message'));
+        return $this->generateSpan($this->option('css_disabled_class'), $this->option('prev_message'));
     }
 
     public function previousEnabled($page)
     {
-        return $this->pageWithText($page, $this->option('previous_message'), $this->option('rel_previous'));
+        return $this->pageWithText($page, $this->option('prev_message'), $this->option('rel_previous'));
     }
 
     public function nextDisabled()

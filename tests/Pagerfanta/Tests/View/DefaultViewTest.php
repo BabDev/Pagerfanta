@@ -213,7 +213,7 @@ EOF
         $this->setCurrentPage(10);
 
         $options = array(
-            'previous_message' => 'Anterior',
+            'prev_message' => 'Anterior',
             'next_message'     => 'Siguiente',
         );
 
