@@ -569,6 +569,15 @@ $pagerfantaHtml = $myView2->render($pagerfanta, $routeGenerator);
 $pagerfantaHtml = $myView2->render($pagerfanta, $routeGenerator, array('next_message' => 'Siguiente!!'));
 ```
 
+## Contributing
+
+We welcome contributions to this project, including pull requests and issues (and discussions on existing issues).
+
+If you'd like to contribute code but aren't sure what, the [issues list](https://github.com/whiteoctober/pagerfanta/issues) is a good place to start.
+If you're a first-time code contributor, you may find Github's guide to [forking projects](https://guides.github.com/activities/forking/) helpful.
+
+All contributors (whether contributing code, involved in issue discussions, or involved in any other way) must abide by our [code of conduct](code_of_conduct.md).
+
 ## Acknowledgements
 
 Pagerfanta is inspired by [Zend Paginator](https://github.com/zendframework/zf2).
