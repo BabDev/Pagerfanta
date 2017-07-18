@@ -32,6 +32,8 @@ $pagerfanta->hasPreviousPage();
 $pagerfanta->getPreviousPage();
 $pagerfanta->hasNextPage();
 $pagerfanta->getNextPage();
+$pagerfanta->getCurrentPageOffsetStart();
+$pagerfanta->getCurrentPageOffsetEnd();
 ```
 
 The `->setMaxPerPage()` and `->setCurrentPage()` methods implement
