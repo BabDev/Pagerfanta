@@ -1,13 +1,17 @@
 language: php
 
+dist: trusty
+
 php:
-  - 5.3
   - 5.4
   - 5.5
   - 5.6
 
 matrix:
   include:
+    # PHP 5.3 doesn't install on Trusty on Travis: https://github.com/travis-ci/travis-ci/issues/8219
+    - php: 5.3
+      dist: precise
     # older releases
     - php: 5.5
       env: SOLARIUM_VERSION=2.* DOCTRINE_ORM_VERSION=2.3.*
