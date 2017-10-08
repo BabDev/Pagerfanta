@@ -21,18 +21,19 @@ use Pagerfanta\Exception\InvalidArgumentException;
 class ConcatenationAdapter implements AdapterInterface
 {
     /**
-     * @var AdapterInterface[] The list of adapters
+     * @var AdapterInterface[] List of adapters
      */
     protected $adapters;
 
     /**
      * @var int[]|null Cache of the numbers of results of the adapters. The indexes correspond the indexes of the
-     * $adapters property.
+     * `adapters` property.
      */
     protected $adaptersNbResultsCache;
 
     /**
      * @param AdapterInterface[] $adapters
+     * @throws InvalidArgumentException
      */
     public function __construct(array $adapters)
     {
