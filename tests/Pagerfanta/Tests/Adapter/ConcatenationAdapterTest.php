@@ -4,9 +4,26 @@ namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Adapter\ConcatenationAdapter;
+use Pagerfanta\Adapter\FixedAdapter;
+use Pagerfanta\Adapter\NullAdapter;
 
 class ConcatenationAdapterTest extends \PHPUnit_Framework_TestCase
 {
+    public function testConstructor()
+    {
+        new ConcatenationAdapter(array(
+            new ArrayAdapter(array()),
+            new NullAdapter(),
+            new FixedAdapter(0, array())
+        ));
+
+        $this->setExpectedException('\Pagerfanta\Exception\InvalidArgumentException');
+        new ConcatenationAdapter(array(
+            new ArrayAdapter(array()),
+            'foo'
+        ));
+    }
+
     public function testGetNbResults()
     {
         $adapter = new ConcatenationAdapter(array(

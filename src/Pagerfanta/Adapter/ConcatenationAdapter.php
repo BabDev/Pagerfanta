@@ -39,7 +39,7 @@ class ConcatenationAdapter implements AdapterInterface
         foreach ($adapters as $index => $adapter) {
             if (!($adapter instanceof AdapterInterface)) {
                 throw new InvalidArgumentException(
-                    'Argument $adapters['.$index.'] expected to be a Pagerfanta\Adapter\AdapterInterface instance'
+                    'Argument $adapters['.$index.'] expected to be a \Pagerfanta\Adapter\AdapterInterface instance'
                         . ', a '.(is_object($adapter) ? get_class($adapter).' instance' : gettype($adapter)).' given'
                 );
             }
