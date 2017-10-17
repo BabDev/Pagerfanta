@@ -3,8 +3,9 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\ArrayAdapter;
+use PHPUnit\Framework\TestCase;
 
-class ArrayAdapterTest extends \PHPUnit_Framework_TestCase
+class ArrayAdapterTest extends TestCase
 {
     private $array;
     /**

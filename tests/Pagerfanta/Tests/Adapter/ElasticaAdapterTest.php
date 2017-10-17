@@ -5,8 +5,9 @@ namespace Pagerfanta\Tests\Adapter;
 use Elastica\Response;
 use Elastica\ResultSet;
 use Pagerfanta\Adapter\ElasticaAdapter;
+use PHPUnit\Framework\TestCase;
 
-class ElasticaAdapterTest extends \PHPUnit_Framework_TestCase
+class ElasticaAdapterTest extends TestCase
 {
     /**
      * @var ElasticaAdapter

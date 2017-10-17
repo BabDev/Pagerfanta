@@ -4,8 +4,9 @@ namespace Pagerfanta\Tests\Adapter;
 
 use ArrayIterator;
 use Pagerfanta\Adapter\DoctrineODMPhpcrAdapter;
+use PHPUnit\Framework\TestCase;
 
-class DoctrineODMPhpcrAdapterTest extends \PHPUnit_Framework_TestCase
+class DoctrineODMPhpcrAdapterTest extends TestCase
 {
     private $queryBuilder;
     private $query;

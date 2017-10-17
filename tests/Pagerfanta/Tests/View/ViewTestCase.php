@@ -4,8 +4,9 @@ namespace Pagerfanta\Tests\View;
 
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\ViewInterface;
+use PHPUnit\Framework\TestCase;
 
-abstract class ViewTestCase extends \PHPUnit_Framework_TestCase
+abstract class ViewTestCase extends TestCase
 {
     private $adapter;
     /**

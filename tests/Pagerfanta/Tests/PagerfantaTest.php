@@ -3,6 +3,7 @@
 namespace Pagerfanta\Tests;
 
 use Pagerfanta\Pagerfanta;
+use PHPUnit\Framework\TestCase;
 
 class IteratorAggregate implements \IteratorAggregate
 {
@@ -19,7 +20,7 @@ class IteratorAggregate implements \IteratorAggregate
     }
 }
 
-class PagerfantaTest extends \PHPUnit_Framework_TestCase
+class PagerfantaTest extends TestCase
 {
     private $adapter;
     /**

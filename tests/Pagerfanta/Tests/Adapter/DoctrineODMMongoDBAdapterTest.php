@@ -3,8 +3,9 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\DoctrineODMMongoDBAdapter;
+use PHPUnit\Framework\TestCase;
 
-class DoctrineODMMongoDBAdapterTest extends \PHPUnit_Framework_TestCase
+class DoctrineODMMongoDBAdapterTest extends TestCase
 {
     private $queryBuilder;
     private $query;
