@@ -1,20 +1,11 @@
 <?php
 
-/*
- * This file is part of the Pagerfanta package.
- *
- * (c) Pablo Díez <pablodip@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Pagerfanta\Adapter;
 
 use Pagerfanta\Exception\InvalidArgumentException;
 
 /**
- * Adapter that concatenates other adapters.
+ * Adapter that concatenates the results of other adapters.
  *
  * @author Surgie Finesse <finesserus@gmail.com>
  */
@@ -63,6 +54,7 @@ class ConcatenationAdapter implements AdapterInterface
 
     /**
      * {@inheritdoc}
+     * @return array
      */
     public function getSlice($offset, $length)
     {
@@ -109,7 +101,9 @@ class ConcatenationAdapter implements AdapterInterface
 
             // Getting the subslice from the adapter and adding it to the result slice
             $fetchSlice = $adapter->getSlice($fetchOffset, $fetchLength);
-            $slice = array_merge($slice, $fetchSlice);
+            foreach ($fetchSlice as $item) {
+                $slice[] = $item;
+            }
         }
 
         return $slice;
