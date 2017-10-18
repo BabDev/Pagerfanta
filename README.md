@@ -350,6 +350,19 @@ $results = array(/* ... */);
 $adapter = new FixedAdapter($nbResults, $results);
 ```
 
+### ConcatenationAdapter
+
+Concatenates the results of other adapter instances into a single adapter.
+It keeps the order of sub adapters and the order of their results.
+
+```php
+<?php
+
+use Pagerfanta\Adapter\ConcatenationAdapter;
+
+$superAdapter = new ConcatenationAdapter(array($adapter1, $adapter2 /* ... */));
+```
+
 ## Views
 
 Views are to render pagerfantas, this way you can reuse your
