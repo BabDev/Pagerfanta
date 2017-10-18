@@ -3,8 +3,9 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\SolariumAdapter;
+use PHPUnit\Framework\TestCase;
 
-abstract class SolariumAdapterTest extends \PHPUnit_Framework_TestCase
+abstract class SolariumAdapterTest extends TestCase
 {
     abstract protected function getSolariumName();
 

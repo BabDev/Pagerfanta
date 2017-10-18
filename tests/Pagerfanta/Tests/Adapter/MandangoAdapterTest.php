@@ -3,8 +3,9 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\MandangoAdapter;
+use PHPUnit\Framework\TestCase;
 
-class MandangoAdapterTest extends \PHPUnit_Framework_TestCase
+class MandangoAdapterTest extends TestCase
 {
     private $query;
     /**

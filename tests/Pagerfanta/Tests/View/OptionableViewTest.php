@@ -3,8 +3,9 @@
 namespace Pagerfanta\Tests\View;
 
 use Pagerfanta\View\OptionableView;
+use PHPUnit\Framework\TestCase;
 
-class OptionableViewTest extends \PHPUnit_Framework_TestCase
+class OptionableViewTest extends TestCase
 {
     private $pagerfanta;
     private $routeGenerator;

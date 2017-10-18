@@ -3,13 +3,14 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\Propel2Adapter;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Propel2AdapterTest
  *
  * @author Claude Khedhiri <claude@khedhiri.com>
  */
-class Propel2AdapterTest extends \PHPUnit_Framework_TestCase
+class Propel2AdapterTest extends TestCase
 {
     private $query;
 

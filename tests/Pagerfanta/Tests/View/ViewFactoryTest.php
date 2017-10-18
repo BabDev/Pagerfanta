@@ -3,8 +3,9 @@
 namespace Pagerfanta\Tests\View;
 
 use Pagerfanta\View\ViewFactory;
+use PHPUnit\Framework\TestCase;
 
-class ViewFactoryTest extends \PHPUnit_Framework_TestCase
+class ViewFactoryTest extends TestCase
 {
     public function testFactory()
     {

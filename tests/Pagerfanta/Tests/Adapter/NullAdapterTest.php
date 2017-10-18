@@ -3,8 +3,9 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\NullAdapter;
+use PHPUnit\Framework\TestCase;
 
-class NullAdapterTest extends \PHPUnit_Framework_TestCase
+class NullAdapterTest extends TestCase
 {
     public function testGetNbResults()
     {

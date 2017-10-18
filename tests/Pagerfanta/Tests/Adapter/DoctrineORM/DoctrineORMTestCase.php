@@ -2,7 +2,9 @@
 
 namespace Pagerfanta\Tests\Adapter\DoctrineORM;
 
-abstract class DoctrineORMTestCase extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class DoctrineORMTestCase extends TestCase
 {
     /**
      * @var \Doctrine\ORM\EntityManager

@@ -7,8 +7,9 @@ use Doctrine\Common\Collections\Selectable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Version;
+use PHPUnit\Framework\TestCase;
 
-class DoctrineSelectableAdapterTest extends \PHPUnit_Framework_TestCase
+class DoctrineSelectableAdapterTest extends TestCase
 {
     private $selectable;
     private $criteria;

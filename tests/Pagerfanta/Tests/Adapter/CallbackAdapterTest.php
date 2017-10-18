@@ -3,8 +3,9 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\CallbackAdapter;
+use PHPUnit\Framework\TestCase;
 
-class CallbackAdapterTest extends \PHPUnit_Framework_TestCase
+class CallbackAdapterTest extends TestCase
 {
     /**
      * @expectedException \Pagerfanta\Exception\InvalidArgumentException

@@ -3,8 +3,9 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\FixedAdapter;
+use PHPUnit\Framework\TestCase;
 
-class FixedAdapterTest extends \PHPUnit_Framework_TestCase
+class FixedAdapterTest extends TestCase
 {
     public function testGetNbResults()
     {

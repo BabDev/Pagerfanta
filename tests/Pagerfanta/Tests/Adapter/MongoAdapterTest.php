@@ -3,8 +3,9 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\MongoAdapter;
+use PHPUnit\Framework\TestCase;
 
-class MongoAdapterTest extends \PHPUnit_Framework_TestCase
+class MongoAdapterTest extends TestCase
 {
     protected $cursor;
     /**

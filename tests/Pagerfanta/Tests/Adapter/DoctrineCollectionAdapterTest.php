@@ -3,8 +3,9 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\DoctrineCollectionAdapter;
+use PHPUnit\Framework\TestCase;
 
-class DoctrineCollectionAdapterTest extends \PHPUnit_Framework_TestCase
+class DoctrineCollectionAdapterTest extends TestCase
 {
     private $collection;
     /**
