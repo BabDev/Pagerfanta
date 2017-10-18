@@ -7,8 +7,9 @@ use Pagerfanta\Adapter\CallbackAdapter;
 use Pagerfanta\Adapter\ConcatenationAdapter;
 use Pagerfanta\Adapter\FixedAdapter;
 use Pagerfanta\Adapter\NullAdapter;
+use PHPUnit\Framework\TestCase;
 
-class ConcatenationAdapterTest extends \PHPUnit_Framework_TestCase
+class ConcatenationAdapterTest extends TestCase
 {
     public function testConstructor()
     {
@@ -18,7 +19,10 @@ class ConcatenationAdapterTest extends \PHPUnit_Framework_TestCase
             new FixedAdapter(0, array())
         ));
 
-        $this->setExpectedException('\Pagerfanta\Exception\InvalidArgumentException');
+        $this->setExpectedException(
+            '\Pagerfanta\Exception\InvalidArgumentException',
+            'Argument $adapters[1] expected to be a \Pagerfanta\Adapter\AdapterInterface instance, a string given'
+        );
         new ConcatenationAdapter(array(
             new ArrayAdapter(array()),
             'foo'
