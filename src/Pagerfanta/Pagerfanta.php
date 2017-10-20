@@ -14,6 +14,7 @@ namespace Pagerfanta;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\NotBooleanException;
+use Pagerfanta\Exception\NotIntegerItemException;
 use Pagerfanta\Exception\NotIntegerMaxPerPageException;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\NotIntegerCurrentPageException;
@@ -497,5 +498,25 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
     private function needsToIntegerConversion($value)
     {
         return (is_string($value) || is_float($value)) && (int) $value == $value;
+    }
+
+    /**
+     * Get page number of a specific item
+     *
+     * @param integer $item
+     *
+     * @return integer
+     */
+    public function getPageNumberForItem($item)
+    {
+        if (!is_int($item)) {
+            throw new NotIntegerItemException();
+        }
+
+        if ($this->getNbResults() < $item) {
+            throw new LogicException('Searched item does not exist');
+        }
+
+        return (int) ceil($item/$this->getMaxPerPage());
     }
 }
