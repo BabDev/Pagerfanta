@@ -699,7 +699,7 @@ class PagerfantaTest extends TestCase
         $this->setAdapterNbResultsAny(100);
         $this->pagerfanta->setMaxPerPage(10);
 
-        $this->assertEquals(4, $this->pagerfanta->getPageNumberForItem(35));
+        $this->assertEquals(4, $this->pagerfanta->getPageNumberForItemAtPosition(35));
     }
 
     /**
@@ -709,7 +709,7 @@ class PagerfantaTest extends TestCase
     {
         $this->setAdapterNbResultsAny(100);
 
-        $this->pagerfanta->getPageNumberForItem('foo');
+        $this->pagerfanta->getPageNumberForItemAtPosition('foo');
     }
 
     /**
@@ -719,6 +719,6 @@ class PagerfantaTest extends TestCase
     {
         $this->setAdapterNbResultsAny(100);
 
-        $this->pagerfanta->getPageNumberForItem(101);
+        $this->pagerfanta->getPageNumberForItemAtPosition(101);
     }
 }

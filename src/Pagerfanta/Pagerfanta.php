@@ -501,22 +501,22 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
     }
 
     /**
-     * Get page number of a specific item
+     * Get page number of the item at specified position (1-based index)
      *
-     * @param integer $item
+     * @param integer $position
      *
      * @return integer
      */
-    public function getPageNumberForItem($item)
+    public function getPageNumberForItemAtPosition($position)
     {
-        if (!is_int($item)) {
+        if (!is_int($position)) {
             throw new NotIntegerItemException();
         }
 
-        if ($this->getNbResults() < $item) {
+        if ($this->getNbResults() < $position) {
             throw new LogicException('Searched item does not exist');
         }
 
-        return (int) ceil($item/$this->getMaxPerPage());
+        return (int) ceil($position/$this->getMaxPerPage());
     }
 }
