@@ -11,10 +11,11 @@
 
 namespace Pagerfanta;
 
+use OutOfBoundsException;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\NotBooleanException;
-use Pagerfanta\Exception\NotIntegerItemException;
+use Pagerfanta\Exception\NotIntegerException;
 use Pagerfanta\Exception\NotIntegerMaxPerPageException;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\NotIntegerCurrentPageException;
@@ -510,11 +511,15 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
     public function getPageNumberForItemAtPosition($position)
     {
         if (!is_int($position)) {
-            throw new NotIntegerItemException();
+            throw new NotIntegerException();
         }
 
         if ($this->getNbResults() < $position) {
-            throw new LogicException('Searched item does not exist');
+            throw new OutOfBoundsException(sprintf(
+                'Item requested at position %d, but there are only %d items.',
+                $position,
+                $this->getNbResults()
+            ));
         }
 
         return (int) ceil($position/$this->getMaxPerPage());

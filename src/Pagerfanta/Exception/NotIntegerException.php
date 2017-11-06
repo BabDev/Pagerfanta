@@ -16,6 +16,6 @@ namespace Pagerfanta\Exception;
  *
  * @author Alexandre Fayeaux <alexandre.fayeaux@gmail.com>
  */
-class NotIntegerItemException extends InvalidArgumentException
+class NotIntegerException extends InvalidArgumentException
 {
 }

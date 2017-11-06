@@ -703,7 +703,7 @@ class PagerfantaTest extends TestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\NotIntegerItemException
+     * @expectedException Pagerfanta\Exception\NotIntegerException
      */
     public function testGetPageNumberForItemShouldThrowANotIntegerItemExceptionIfTheItemIsNotAnInteger()
     {
@@ -713,7 +713,7 @@ class PagerfantaTest extends TestCase
     }
 
     /**
-     * @expectedException Pagerfanta\Exception\LogicException
+     * @expectedException \OutOfBoundsException
      */
     public function testGetPageNumberForItemShouldThrowALogicExceptionIfTheItemIsMoreThanNbPage()
     {
