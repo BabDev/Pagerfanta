@@ -693,4 +693,32 @@ class PagerfantaTest extends TestCase
         $callback();
         $this->assertSame($currentPageResults1, $this->pagerfanta->getCurrentPageResults());
     }
+
+    public function testGetPageNumberForItemShouldReturnTheGoodPage()
+    {
+        $this->setAdapterNbResultsAny(100);
+        $this->pagerfanta->setMaxPerPage(10);
+
+        $this->assertEquals(4, $this->pagerfanta->getPageNumberForItemAtPosition(35));
+    }
+
+    /**
+     * @expectedException Pagerfanta\Exception\NotIntegerException
+     */
+    public function testGetPageNumberForItemShouldThrowANotIntegerItemExceptionIfTheItemIsNotAnInteger()
+    {
+        $this->setAdapterNbResultsAny(100);
+
+        $this->pagerfanta->getPageNumberForItemAtPosition('foo');
+    }
+
+    /**
+     * @expectedException \OutOfBoundsException
+     */
+    public function testGetPageNumberForItemShouldThrowALogicExceptionIfTheItemIsMoreThanNbPage()
+    {
+        $this->setAdapterNbResultsAny(100);
+
+        $this->pagerfanta->getPageNumberForItemAtPosition(101);
+    }
 }
