@@ -16,6 +16,7 @@ class ElasticaAdapterTest extends TestCase
     private $resultSet;
     private $searchable;
     private $query;
+    private $options;
 
     protected function setUp()
     {
@@ -23,12 +24,9 @@ class ElasticaAdapterTest extends TestCase
         $this->resultSet = $this->getMockBuilder('Elastica\\ResultSet')->disableOriginalConstructor()->getMock();
         $this->searchable = $this->getMockBuilder('Elastica\\SearchableInterface')->disableOriginalConstructor()->getMock();
 
-        $this->adapter = new ElasticaAdapter($this->searchable, $this->query);
+        $this->options = array("option1" => "value1", "option2" => "value2");
 
-        $this->searchable->expects($this->any())
-            ->method('search')
-            ->with($this->query)
-            ->will($this->returnValue($this->resultSet));
+        $this->adapter = new ElasticaAdapter($this->searchable, $this->query, $this->options);
     }
 
     public function testGetResultSet()
@@ -37,7 +35,7 @@ class ElasticaAdapterTest extends TestCase
 
         $this->searchable->expects($this->any())
             ->method('search')
-            ->with($this->query, array('from' => 0, 'size' => 1))
+            ->with($this->query, array('from' => 0, 'size' => 1, 'option1' => 'value1', 'option2' => 'value2'))
             ->will($this->returnValue($this->resultSet));
 
         $this->adapter->getSlice(0, 1);
@@ -49,7 +47,7 @@ class ElasticaAdapterTest extends TestCase
     {
         $this->searchable->expects($this->any())
             ->method('search')
-            ->with($this->query, array('from' => 10, 'size' => 30))
+            ->with($this->query, array('from' => 10, 'size' => 30, 'option1' => 'value1', 'option2' => 'value2'))
             ->will($this->returnValue($this->resultSet));
 
         $resultSet = $this->adapter->getSlice(10, 30);
@@ -60,6 +58,11 @@ class ElasticaAdapterTest extends TestCase
 
     public function testGetNbResults()
     {
+        $this->searchable->expects($this->any())
+            ->method('search')
+            ->with($this->query, $this->options)
+            ->will($this->returnValue($this->resultSet));
+
         $this->resultSet->expects($this->once())
             ->method('getTotalHits')
             ->will($this->returnValue(100));
