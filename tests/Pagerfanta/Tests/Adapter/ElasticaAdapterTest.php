@@ -69,4 +69,20 @@ class ElasticaAdapterTest extends TestCase
 
         $this->assertSame(100, $this->adapter->getNbResults());
     }
+
+    public function testGetNbResultsWithMaxResultsSet()
+    {
+        $adapter = new ElasticaAdapter($this->searchable, $this->query, [], 10);
+
+        $this->searchable->expects($this->any())
+            ->method('search')
+            ->with($this->query, [])
+            ->will($this->returnValue($this->resultSet));
+
+        $this->resultSet->expects($this->once())
+            ->method('getTotalHits')
+            ->will($this->returnValue(100));
+
+        $this->assertSame(10, $adapter->getNbResults());
+    }
 }
