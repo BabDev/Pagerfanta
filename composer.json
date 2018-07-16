@@ -1,6 +1,6 @@
 {
     "name": "pagerfanta/pagerfanta",
-    "description": "Pagination for PHP 5.3",
+    "description": "Pagination for PHP",
     "keywords": ["page","paging", "paginator", "pagination"],
     "type": "library",
     "license": "MIT",
@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=7.0"
+        "php": "^7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7|^6",
