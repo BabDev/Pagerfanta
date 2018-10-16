@@ -24,11 +24,13 @@ $currentPage = $pagerfanta->getCurrentPage();
 
 $nbResults = $pagerfanta->getNbResults();
 $currentPageResults = $pagerfanta->getCurrentPageResults();
+```
 
+Some of the other methods available:
+
+```php
 $pagerfanta->getNbPages();
-
 $pagerfanta->haveToPaginate(); // whether the number of results is higher than the max per page
-
 $pagerfanta->hasPreviousPage();
 $pagerfanta->getPreviousPage();
 $pagerfanta->hasNextPage();
@@ -36,6 +38,21 @@ $pagerfanta->getNextPage();
 $pagerfanta->getCurrentPageOffsetStart();
 $pagerfanta->getCurrentPageOffsetEnd();
 ```
+
+### Changing the page based on user selection
+
+If you're using the example route-generator function shown below,
+the page selected by the user will be available in the `page` GET (querystring) parameter.
+
+You would then need to call `setCurrentPage` with the value of that parameter:
+
+```php
+if (isset($_GET["page"]) {
+    $pagerfanta->setCurrentPage($_GET["page"])
+}
+```
+
+### setMaxPerPage and setCurrentPage
 
 The `->setMaxPerPage()` and `->setCurrentPage()` methods implement
 a fluent interface:
