@@ -36,7 +36,10 @@
         "solarium/solarium": "To use the SolariumAdapter."
     },
     "autoload": {
-        "psr-0": { "Pagerfanta\\": "src/" }
+        "psr-4": { "Pagerfanta\\": "src/Pagerfanta/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Pagerfanta\\Tests\\": "tests/Pagerfanta/Tests/" }
     },
     "extra": {
         "branch-alias": {

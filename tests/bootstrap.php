@@ -1,7 +1,6 @@
 <?php
 
 $loader = require __DIR__.'/../vendor/autoload.php';
-$loader->add('Pagerfanta\Tests', __DIR__);
 
 // fix for bad solarium autoloader in Solarium2: "Solarium" instead of "Solarium_"
 $prefixes = $loader->getPrefixes();
