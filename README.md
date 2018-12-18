@@ -425,7 +425,7 @@ RouteGenerator example:
 
 $routeGenerator = function($page) {
     return '/path?page='.$page;
-}
+};
 ```
 Pagerfanta comes with five views:  The default one, three for
 [Twitter Bootstrap](https://github.com/twitter/bootstrap), one for
