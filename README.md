@@ -47,7 +47,7 @@ the page selected by the user will be available in the `page` GET (querystring) 
 You would then need to call `setCurrentPage` with the value of that parameter:
 
 ```php
-if (isset($_GET["page"]) {
+if (isset($_GET["page"])) {
     $pagerfanta->setCurrentPage($_GET["page"])
 }
 ```
