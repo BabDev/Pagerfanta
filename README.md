@@ -48,7 +48,7 @@ You would then need to call `setCurrentPage` with the value of that parameter:
 
 ```php
 if (isset($_GET["page"])) {
-    $pagerfanta->setCurrentPage($_GET["page"])
+    $pagerfanta->setCurrentPage($_GET["page"]);
 }
 ```
 
