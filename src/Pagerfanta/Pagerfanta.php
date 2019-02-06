@@ -62,7 +62,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
     /**
      * Sets whether or not allow out of range pages.
      *
-     * @param Boolean $value
+     * @param boolean $value
      *
      * @return self
      */
@@ -86,7 +86,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, PagerfantaInterface
     /**
      * Sets whether or not normalize out of range pages.
      *
-     * @param Boolean $value
+     * @param boolean $value
      *
      * @return self
      */
