@@ -14,7 +14,7 @@
         "php": "^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7|^6",
+        "phpunit/phpunit": "^6.5",
         "doctrine/orm": "~2.3",
         "mandango/mandango": "~1.0@dev",
         "mandango/mondator": "~1.0@dev",
