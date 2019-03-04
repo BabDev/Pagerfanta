@@ -16,6 +16,6 @@ namespace Pagerfanta\Exception;
  *
  * @author Pablo Díez <pablodip@gmail.com>
  */
-interface Exception
+interface Exception extends \Throwable
 {
 }
