@@ -31,7 +31,7 @@ interface ViewFactoryInterface
      *
      * @param string $name The name.
      *
-     * @return Boolean Whether a view exists or not.
+     * @return boolean Whether a view exists or not.
      */
     public function has($name);
 
