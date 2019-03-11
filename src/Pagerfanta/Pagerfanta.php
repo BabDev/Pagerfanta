@@ -76,7 +76,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns whether or not allow out of range pages.
      *
-     * @return Boolean
+     * @return boolean
      */
     public function getAllowOutOfRangePages()
     {
@@ -100,7 +100,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns whether or not normalize out of range pages.
      *
-     * @return Boolean
+     * @return boolean
      */
     public function getNormalizeOutOfRangePages()
     {
@@ -398,7 +398,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns if the number of results is higher than the max per page.
      *
-     * @return Boolean
+     * @return boolean
      */
     public function haveToPaginate()
     {
@@ -408,7 +408,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns whether there is previous page or not.
      *
-     * @return Boolean
+     * @return boolean
      */
     public function hasPreviousPage()
     {
@@ -434,7 +434,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns whether there is next page or not.
      *
-     * @return Boolean
+     * @return boolean
      */
     public function hasNextPage()
     {

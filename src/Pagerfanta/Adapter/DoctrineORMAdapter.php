@@ -51,7 +51,7 @@ class DoctrineORMAdapter implements AdapterInterface
     /**
      * Returns whether the query joins a collection.
      *
-     * @return Boolean Whether the query joins a collection.
+     * @return boolean Whether the query joins a collection.
      */
     public function getFetchJoinCollection()
     {
