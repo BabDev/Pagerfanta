@@ -50,6 +50,7 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
 
         return function (QueryBuilder $queryBuilder) use ($select) {
             $queryBuilder->select($select)
+                         ->resetQueryPart('orderBy')
                          ->setMaxResults(1);
         };
     }
