@@ -60,7 +60,7 @@ class ElasticaAdapter implements AdapterInterface
     public function getNbResults()
     {
         if (!$this->resultSet) {
-            $totalHits = $this->searchable->search($this->query, $this->options)->getTotalHits();
+            $totalHits = $this->searchable->count($this->query);
         } else {
             $totalHits = $this->resultSet->getTotalHits();
         }
