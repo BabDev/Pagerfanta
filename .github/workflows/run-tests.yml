@@ -32,6 +32,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          composer require --dev --no-update doctrine/mongodb-odm:^2.0
           composer update ${{ matrix.composer-flags }} --prefer-dist --no-suggest
 
       - name: Execute tests
