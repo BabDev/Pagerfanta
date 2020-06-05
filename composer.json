@@ -1,7 +1,7 @@
 {
     "name": "pagerfanta/pagerfanta",
     "description": "Pagination for PHP",
-    "keywords": ["page","paging", "paginator", "pagination"],
+    "keywords": ["page", "paging", "paginator", "pagination"],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -36,14 +36,19 @@
         "solarium/solarium": "To use the SolariumAdapter."
     },
     "autoload": {
-        "psr-4": { "Pagerfanta\\": "src/" }
+        "psr-4": {
+            "Pagerfanta\\": "src/"
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Pagerfanta\\Tests\\": "tests/" }
+        "psr-4": {
+            "Pagerfanta\\Tests\\": "tests/"
+        }
     },
     "extra": {
         "branch-alias": {
             "dev-master": "2.x-dev"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
