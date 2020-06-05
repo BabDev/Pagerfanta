@@ -20,7 +20,7 @@
         "doctrine/orm": "^2.3",
         "doctrine/phpcr-odm": "^1.1",
         "friendsofphp/php-cs-fixer": "^2.16",
-        "jackalope/jackalope": "^1.0",
+        "jackalope/jackalope-doctrine-dbal": "^1.0",
         "mandango/mandango": "^1.0@dev",
         "phpunit/phpunit": "^8.5 || ^9.0",
         "propel/propel": "^2.0@dev",
