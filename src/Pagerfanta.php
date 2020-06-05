@@ -29,24 +29,37 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
  */
 class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, PagerfantaInterface
 {
+    /**
+     * @var AdapterInterface
+     */
     private $adapter;
-    private $allowOutOfRangePages;
-    private $normalizeOutOfRangePages;
-    private $maxPerPage;
-    private $currentPage;
+
+    /**
+     * @var bool
+     */
+    private $allowOutOfRangePages = false;
+
+    /**
+     * @var bool
+     */
+    private $normalizeOutOfRangePages = false;
+
+    /**
+     * @var int
+     */
+    private $maxPerPage = 10;
+
+    /**
+     * @var int
+     */
+    private $currentPage = 1;
+
     private $nbResults;
     private $currentPageResults;
 
-    /**
-     * @param AdapterInterface $adapter an adapter
-     */
     public function __construct(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
-        $this->allowOutOfRangePages = false;
-        $this->normalizeOutOfRangePages = false;
-        $this->maxPerPage = 10;
-        $this->currentPage = 1;
     }
 
     /**
@@ -107,7 +120,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $this->normalizeOutOfRangePages;
     }
 
-    private function filterBoolean($value)
+    private function filterBoolean($value): bool
     {
         if (!\is_bool($value)) {
             throw new NotBooleanException();
@@ -136,7 +149,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $this;
     }
 
-    private function filterMaxPerPage($maxPerPage)
+    private function filterMaxPerPage($maxPerPage): int
     {
         $maxPerPage = $this->toInteger($maxPerPage);
         $this->checkMaxPerPage($maxPerPage);
@@ -194,36 +207,40 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $this;
     }
 
-    private function useDeprecatedCurrentPageBooleanArguments($arguments): void
+    private function useDeprecatedCurrentPageBooleanArguments(array $arguments): void
     {
         $this->useDeprecatedCurrentPageAllowOutOfRangePagesBooleanArgument($arguments);
         $this->useDeprecatedCurrentPageNormalizeOutOfRangePagesBooleanArgument($arguments);
     }
 
-    private function useDeprecatedCurrentPageAllowOutOfRangePagesBooleanArgument($arguments): void
+    private function useDeprecatedCurrentPageAllowOutOfRangePagesBooleanArgument(array $arguments): void
     {
-        $index = 1;
-        $method = 'setAllowOutOfRangePages';
-
-        $this->useDeprecatedBooleanArgument($arguments, $index, $method);
+        $this->useDeprecatedBooleanArgument($arguments, 1, 'setAllowOutOfRangePages', '$allowOutOfRangePages');
     }
 
-    private function useDeprecatedCurrentPageNormalizeOutOfRangePagesBooleanArgument($arguments): void
+    private function useDeprecatedCurrentPageNormalizeOutOfRangePagesBooleanArgument(array $arguments): void
     {
-        $index = 2;
-        $method = 'setNormalizeOutOfRangePages';
-
-        $this->useDeprecatedBooleanArgument($arguments, $index, $method);
+        $this->useDeprecatedBooleanArgument($arguments, 2, 'setNormalizeOutOfRangePages', '$normalizeOutOfRangePages');
     }
 
-    private function useDeprecatedBooleanArgument($arguments, $index, $method): void
+    private function useDeprecatedBooleanArgument(array $arguments, int $index, string $method, string $oldArgument): void
     {
         if (isset($arguments[$index])) {
+            trigger_deprecation(
+                'pagerfanta/pagerfanta',
+                '1.0',
+                'The %1$s argument of %2$s::setCurrentPage() is deprecated and will no longer be supported in 3.0. Use the %2$s::%3$s() method instead.',
+                $oldArgument,
+                self::class,
+                Pagerfanta::class,
+                $method
+            );
+
             $this->$method($arguments[$index]);
         }
     }
 
-    private function filterCurrentPage($currentPage)
+    private function filterCurrentPage($currentPage): int
     {
         $currentPage = $this->toInteger($currentPage);
         $this->checkCurrentPage($currentPage);
@@ -243,7 +260,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         }
     }
 
-    private function filterOutOfRangeCurrentPage($currentPage)
+    private function filterOutOfRangeCurrentPage($currentPage): int
     {
         if ($this->notAllowedCurrentPageOutOfRange($currentPage)) {
             return $this->normalizeOutOfRangeCurrentPage($currentPage);
@@ -252,13 +269,13 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $currentPage;
     }
 
-    private function notAllowedCurrentPageOutOfRange($currentPage)
+    private function notAllowedCurrentPageOutOfRange(int $currentPage): bool
     {
         return !$this->getAllowOutOfRangePages() &&
                $this->currentPageOutOfRange($currentPage);
     }
 
-    private function currentPageOutOfRange($currentPage)
+    private function currentPageOutOfRange(int $currentPage): bool
     {
         return $currentPage > 1 && $currentPage > $this->getNbPages();
     }
@@ -270,7 +287,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
      *
      * @throws OutOfRangeCurrentPageException If the page should not be normalized
      */
-    private function normalizeOutOfRangeCurrentPage($currentPage)
+    private function normalizeOutOfRangeCurrentPage($currentPage): int
     {
         if ($this->getNormalizeOutOfRangePages()) {
             return $this->getNbPages();
@@ -297,7 +314,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns the results for the current page.
      *
-     * @return array|\Traversable
+     * @return iterable
      */
     public function getCurrentPageResults()
     {
@@ -308,12 +325,15 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $this->currentPageResults;
     }
 
-    private function notCachedCurrentPageResults()
+    private function notCachedCurrentPageResults(): bool
     {
         return null === $this->currentPageResults;
     }
 
-    private function getCurrentPageResultsFromAdapter()
+    /**
+     * @return iterable
+     */
+    private function getCurrentPageResultsFromAdapter(): iterable
     {
         $offset = $this->calculateOffsetForCurrentPageResults();
         $length = $this->getMaxPerPage();
@@ -321,7 +341,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $this->adapter->getSlice($offset, $length);
     }
 
-    private function calculateOffsetForCurrentPageResults()
+    private function calculateOffsetForCurrentPageResults(): int
     {
         return ($this->getCurrentPage() - 1) * $this->getMaxPerPage();
     }
@@ -364,7 +384,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $this->nbResults;
     }
 
-    private function notCachedNbResults()
+    private function notCachedNbResults(): bool
     {
         return null === $this->nbResults;
     }
@@ -385,12 +405,12 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $nbPages;
     }
 
-    private function calculateNbPages()
+    private function calculateNbPages(): int
     {
         return (int) ceil($this->getNbResults() / $this->getMaxPerPage());
     }
 
-    private function minimumNbPages()
+    private function minimumNbPages(): int
     {
         return 1;
     }
@@ -495,6 +515,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     public function jsonSerialize()
     {
         $results = $this->getCurrentPageResults();
+
         if ($results instanceof \Traversable) {
             return iterator_to_array($results);
         }
@@ -511,7 +532,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $value;
     }
 
-    private function needsToIntegerConversion($value)
+    private function needsToIntegerConversion($value): bool
     {
         return (\is_string($value) || \is_float($value)) && (int) $value == $value;
     }

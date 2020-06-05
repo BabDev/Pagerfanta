@@ -31,7 +31,7 @@ interface AdapterInterface
      * @param int $offset the offset
      * @param int $length the length
      *
-     * @return array|\Traversable the slice
+     * @return iterable the slice
      */
     public function getSlice($offset, $length);
 }
