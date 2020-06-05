@@ -4,8 +4,8 @@ namespace Pagerfanta\Tests\Adapter;
 
 use Doctrine\ODM\PHPCR\Query\Query;
 use Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder;
-use Jackalope\Query\QueryResult;
 use Pagerfanta\Adapter\DoctrineODMPhpcrAdapter;
+use PHPCR\Query\QueryResultInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -47,7 +47,7 @@ class DoctrineODMPhpcrAdapterTest extends TestCase
             ->willReturn($this->query)
         ;
 
-        $queryResult = $this->createMock(QueryResult::class);
+        $queryResult = $this->createMock(QueryResultInterface::class);
         $queryResult
             ->expects($this->once())
             ->method('getRows')
