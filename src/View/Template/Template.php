@@ -11,6 +11,8 @@
 
 namespace Pagerfanta\View\Template;
 
+use Pagerfanta\Exception\InvalidArgumentException;
+
 /**
  * @author Pablo Díez <pablodip@gmail.com>
  */
@@ -28,6 +30,10 @@ abstract class Template implements TemplateInterface
 
     public function setRouteGenerator($routeGenerator): void
     {
+        if (!is_callable($routeGenerator)) {
+            throw new InvalidArgumentException(sprintf('The $routeGenerator argument of %s() must be a callable, a %s was given.', __METHOD__, gettype($routeGenerator)));
+        }
+
         $this->routeGenerator = $routeGenerator;
     }
 
