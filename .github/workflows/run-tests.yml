@@ -38,4 +38,4 @@ jobs:
           composer update ${{ matrix.composer-flags }} --prefer-dist --no-suggest
 
       - name: Execute tests
-        run: vendor/bin/phpunit --coverage-clover clover.xml
+        run: vendor/bin/phpunit
