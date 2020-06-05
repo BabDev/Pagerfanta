@@ -12,6 +12,7 @@
 namespace Pagerfanta\Adapter;
 
 use Elastica\Query;
+use Elastica\ResultSet;
 use Elastica\SearchableInterface;
 
 class ElasticaAdapter implements AdapterInterface
@@ -22,7 +23,7 @@ class ElasticaAdapter implements AdapterInterface
     private $query;
 
     /**
-     * @var \Elastica\ResultSet
+     * @var ResultSet
      */
     private $resultSet;
 
@@ -76,7 +77,7 @@ class ElasticaAdapter implements AdapterInterface
      * Returns the Elastica ResultSet. Will return null if getSlice has not yet been
      * called.
      *
-     * @return \Elastica\ResultSet|null
+     * @return ResultSet|null
      */
     public function getResultSet()
     {
