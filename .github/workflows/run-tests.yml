@@ -1,0 +1,41 @@
+name: 'Run Tests'
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [7.2, 7.3, 7.4]
+        composer-flags: ['--prefer-stable']
+        include:
+          - php: 7.2
+            composer-flags: '--prefer-stable --prefer-lowest'
+
+    name: PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}-flags-${{ matrix.composer-flags }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, iconv, mbstring, pdo, pdo_sqlite, sqlite, zip
+          coverage: pcov
+
+      - name: Install dependencies
+        run: |
+          composer update ${{ matrix.composer-flags }} --prefer-dist --no-suggest
+
+      - name: Execute tests
+        run: vendor/bin/phpunit --coverage-clover clover.xml
