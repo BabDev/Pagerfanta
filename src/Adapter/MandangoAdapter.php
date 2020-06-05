@@ -13,10 +13,13 @@ namespace Pagerfanta\Adapter;
 
 use Mandango\Query;
 
+trigger_deprecation('pagerfanta/pagerfanta', '2.2', 'The "%s" adapter is deprecated and will be removed in 3.0.', MandangoAdapter::class);
+
 /**
  * MandangoAdapter.
  *
  * @author Pablo Díez <pablodip@gmail.com>
+ * @deprecated to be removed in 3.0, dependent package is abandoned
  */
 class MandangoAdapter implements AdapterInterface
 {

@@ -21,7 +21,6 @@
         "doctrine/phpcr-odm": "~1.1",
         "friendsofphp/php-cs-fixer": "^2.16",
         "mandango/mandango": "~1.0@dev",
-        "mandango/mondator": "~1.0@dev",
         "phpunit/phpunit": "^8.5 || ^9.0",
         "propel/propel": "~2.0@dev",
         "propel/propel1": "~1.6",
@@ -33,7 +32,6 @@
         "doctrine/mongodb-odm": "To use the Doctrine MongoDB ODM Adapter.",
         "doctrine/orm": "To use the Doctrine ORM Adapter.",
         "doctrine/phpcr-odm": "To use the Doctrine PHPCR ODM Adapter.",
-        "mandango/mandango": "To use the MandangoAdapter.",
         "propel/propel1": "To use the PropelAdapter",
         "propel/propel": "To use the Propel2Adapter",
         "solarium/solarium": "To use the SolariumAdapter."
