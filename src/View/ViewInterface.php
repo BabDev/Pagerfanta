@@ -27,16 +27,16 @@ interface ViewInterface
      * the routes receiving the page number as first and
      * unique argument.
      *
-     * @param PagerfantaInterface $pagerfanta     A pagerfanta.
-     * @param callable            $routeGenerator A callable to generate the routes.
-     * @param array               $options        An array of options (optional).
+     * @param PagerfantaInterface $pagerfanta     a pagerfanta
+     * @param callable            $routeGenerator a callable to generate the routes
+     * @param array               $options        an array of options (optional)
      */
-    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = array());
+    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = []);
 
     /**
      * Returns the canonical name.
      *
-     * @return string The canonical name.
+     * @return string the canonical name
      */
     public function getName();
 }

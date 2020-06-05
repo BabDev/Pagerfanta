@@ -23,7 +23,7 @@ class ArrayAdapter implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param array $array The array.
+     * @param array $array the array
      */
     public function __construct(array $array)
     {
@@ -33,26 +33,20 @@ class ArrayAdapter implements AdapterInterface
     /**
      * Returns the array.
      *
-     * @return array The array.
+     * @return array the array
      */
     public function getArray()
     {
         return $this->array;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
-        return count($this->array);
+        return \count($this->array);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSlice($offset, $length)
     {
-        return array_slice($this->array, $offset, $length);
+        return \array_slice($this->array, $offset, $length);
     }
 }

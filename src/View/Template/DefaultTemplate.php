@@ -16,19 +16,19 @@ namespace Pagerfanta\View\Template;
  */
 class DefaultTemplate extends Template
 {
-    static protected $defaultOptions = array(
-        'prev_message'   => 'Previous',
-        'next_message'       => 'Next',
+    protected static $defaultOptions = [
+        'prev_message' => 'Previous',
+        'next_message' => 'Next',
         'css_disabled_class' => 'disabled',
-        'css_dots_class'     => 'dots',
-        'css_current_class'  => 'current',
-        'dots_text'          => '...',
+        'css_dots_class' => 'dots',
+        'css_current_class' => 'current',
+        'dots_text' => '...',
         'container_template' => '<nav>%pages%</nav>',
-        'page_template'      => '<a href="%href%"%rel%>%text%</a>',
-        'span_template'      => '<span class="%class%">%text%</span>',
-        'rel_previous'        => 'prev',
-        'rel_next'            => 'next'
-    );
+        'page_template' => '<a href="%href%"%rel%>%text%</a>',
+        'span_template' => '<span class="%class%">%text%</span>',
+        'rel_previous' => 'prev',
+        'rel_next' => 'next',
+    ];
 
     public function container()
     {
@@ -44,10 +44,10 @@ class DefaultTemplate extends Template
 
     public function pageWithText($page, $text, $rel = null)
     {
-        $search = array('%href%', '%text%', '%rel%');
+        $search = ['%href%', '%text%', '%rel%'];
 
         $href = $this->generateRoute($page);
-        $replace = $rel ? array($href, $text, ' rel="' . $rel . '"') : array($href, $text, '');
+        $replace = $rel ? [$href, $text, ' rel="'.$rel.'"'] : [$href, $text, ''];
 
         return str_replace($search, $replace, $this->option('page_template'));
     }
@@ -94,8 +94,8 @@ class DefaultTemplate extends Template
 
     private function generateSpan($class, $page)
     {
-        $search = array('%class%', '%text%');
-        $replace = array($class, $page);
+        $search = ['%class%', '%text%'];
+        $replace = [$class, $page];
 
         return str_replace($search, $replace, $this->option('span_template'));
     }

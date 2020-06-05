@@ -23,7 +23,7 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
     /**
      * Constructor.
      *
-     * @param QueryBuilder $queryBuilder A DBAL query builder.
+     * @param QueryBuilder $queryBuilder a DBAL query builder
      * @param string       $countField   Primary key for the table in query. Used in count expression. Must include table alias
      */
     public function __construct(QueryBuilder $queryBuilder, $countField)
@@ -48,7 +48,7 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
     {
         $select = $this->createSelectForCountField($countField);
 
-        return function (QueryBuilder $queryBuilder) use ($select) {
+        return function (QueryBuilder $queryBuilder) use ($select): void {
             $queryBuilder->select($select)
                          ->resetQueryPart('orderBy')
                          ->setMaxResults(1);
@@ -66,6 +66,6 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
 
     private function countFieldHasNoAlias($countField)
     {
-        return strpos($countField, '.') === false;
+        return false === strpos($countField, '.');
     }
 }

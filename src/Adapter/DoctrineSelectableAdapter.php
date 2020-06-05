@@ -34,18 +34,15 @@ class DoctrineSelectableAdapter implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param Selectable $selectable An implementation of the Selectable interface.
-     * @param Criteria   $criteria   A Doctrine criteria.
+     * @param Selectable $selectable an implementation of the Selectable interface
+     * @param Criteria   $criteria   a Doctrine criteria
      */
     public function __construct(Selectable $selectable, Criteria $criteria)
     {
         $this->selectable = $selectable;
-        $this->criteria   = $criteria;
+        $this->criteria = $criteria;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
         $firstResult = null;
@@ -56,9 +53,6 @@ class DoctrineSelectableAdapter implements AdapterInterface
         return $this->selectable->matching($criteria)->count();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSlice($offset, $length)
     {
         $firstResult = $offset;

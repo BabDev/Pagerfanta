@@ -34,17 +34,11 @@ class FixedAdapter implements AdapterInterface
         $this->results = $results;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getNbResults()
     {
         return $this->nbResults;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getSlice($offset, $length)
     {
         return $this->results;

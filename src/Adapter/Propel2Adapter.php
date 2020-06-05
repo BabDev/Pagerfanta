@@ -21,14 +21,12 @@ use Propel\Runtime\ActiveQuery\ModelCriteria;
 class Propel2Adapter implements AdapterInterface
 {
     /**
-     * @var ModelCriteria $query
+     * @var ModelCriteria
      */
     private $query;
 
     /**
      * Constructor.
-     *
-     * @param ModelCriteria $query
      */
     public function __construct(ModelCriteria $query)
     {
@@ -45,9 +43,6 @@ class Propel2Adapter implements AdapterInterface
         return $this->query;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
         $q = clone $this->getQuery();
@@ -57,9 +52,6 @@ class Propel2Adapter implements AdapterInterface
         return $q->count();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSlice($offset, $length)
     {
         $q = clone $this->getQuery();

@@ -18,32 +18,26 @@ class ConcatenationAdapter implements AdapterInterface
 
     /**
      * @var int[]|null Cache of the numbers of results of the adapters. The indexes correspond the indexes of the
-     * `adapters` property.
+     *                 `adapters` property.
      */
     protected $adaptersNbResultsCache;
 
     /**
      * @param AdapterInterface[] $adapters
+     *
      * @throws InvalidArgumentException
      */
     public function __construct(array $adapters)
     {
         foreach ($adapters as $index => $adapter) {
             if (!($adapter instanceof AdapterInterface)) {
-                throw new InvalidArgumentException(sprintf(
-                    'Argument $adapters[%s] expected to be a \Pagerfanta\Adapter\AdapterInterface instance, a %s given',
-                    $index,
-                    is_object($adapter) ? sprintf('%s instance', get_class($adapter)) : gettype($adapter)
-                ));
+                throw new InvalidArgumentException(sprintf('Argument $adapters[%s] expected to be a \Pagerfanta\Adapter\AdapterInterface instance, a %s given', $index, \is_object($adapter) ? sprintf('%s instance', \get_class($adapter)) : \gettype($adapter)));
             }
         }
 
         $this->adapters = $adapters;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
         if (!isset($this->adaptersNbResultsCache)) {
@@ -54,7 +48,6 @@ class ConcatenationAdapter implements AdapterInterface
     }
 
     /**
-     * {@inheritdoc}
      * @return array
      */
     public function getSlice($offset, $length)
@@ -63,15 +56,15 @@ class ConcatenationAdapter implements AdapterInterface
             $this->refreshAdaptersNbResults();
         }
 
-        $slice = array();
+        $slice = [];
         $previousAdaptersNbResultsSum = 0;
         $requestFirstIndex = $offset;
-        $requestLastIndex  = $offset + $length - 1;
+        $requestLastIndex = $offset + $length - 1;
 
         foreach ($this->adapters as $index => $adapter) {
-            $adapterNbResults  = $this->adaptersNbResultsCache[$index];
+            $adapterNbResults = $this->adaptersNbResultsCache[$index];
             $adapterFirstIndex = $previousAdaptersNbResultsSum;
-            $adapterLastIndex  = $adapterFirstIndex + $adapterNbResults - 1;
+            $adapterLastIndex = $adapterFirstIndex + $adapterNbResults - 1;
 
             $previousAdaptersNbResultsSum += $adapterNbResults;
 
@@ -113,10 +106,10 @@ class ConcatenationAdapter implements AdapterInterface
     /**
      * Refreshes the cache of the numbers of results of the adapters.
      */
-    protected function refreshAdaptersNbResults()
+    protected function refreshAdaptersNbResults(): void
     {
         if (!isset($this->adaptersNbResultsCache)) {
-            $this->adaptersNbResultsCache = array();
+            $this->adaptersNbResultsCache = [];
         }
 
         foreach ($this->adapters as $index => $adapter) {

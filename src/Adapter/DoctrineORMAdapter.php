@@ -28,9 +28,9 @@ class DoctrineORMAdapter implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param \Doctrine\ORM\Query|\Doctrine\ORM\QueryBuilder $query               A Doctrine ORM query or query builder.
-     * @param boolean                                        $fetchJoinCollection Whether the query joins a collection (true by default).
-     * @param boolean|null                                   $useOutputWalkers    Whether to use output walkers pagination mode
+     * @param \Doctrine\ORM\Query|\Doctrine\ORM\QueryBuilder $query               a Doctrine ORM query or query builder
+     * @param bool                                           $fetchJoinCollection whether the query joins a collection (true by default)
+     * @param bool|null                                      $useOutputWalkers    Whether to use output walkers pagination mode
      */
     public function __construct($query, $fetchJoinCollection = true, $useOutputWalkers = null)
     {
@@ -39,7 +39,7 @@ class DoctrineORMAdapter implements AdapterInterface
     }
 
     /**
-     * Returns the query
+     * Returns the query.
      *
      * @return \Doctrine\ORM\Query
      */
@@ -51,24 +51,18 @@ class DoctrineORMAdapter implements AdapterInterface
     /**
      * Returns whether the query joins a collection.
      *
-     * @return boolean Whether the query joins a collection.
+     * @return bool whether the query joins a collection
      */
     public function getFetchJoinCollection()
     {
         return $this->paginator->getFetchJoinCollection();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
-        return count($this->paginator);
+        return \count($this->paginator);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSlice($offset, $length)
     {
         $this->paginator

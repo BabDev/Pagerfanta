@@ -23,16 +23,13 @@ class NullAdapter implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param integer $nbResults Total item count.
+     * @param int $nbResults total item count
      */
     public function __construct($nbResults = 0)
     {
         $this->nbResults = (int) $nbResults;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
         return $this->nbResults;
@@ -49,7 +46,7 @@ class NullAdapter implements AdapterInterface
     public function getSlice($offset, $length)
     {
         if ($offset >= $this->nbResults) {
-            return array();
+            return [];
         }
 
         $nullArrayLength = $this->calculateNullArrayLength($offset, $length);

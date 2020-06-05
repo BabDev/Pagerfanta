@@ -25,7 +25,7 @@ class DoctrineODMMongoDBAdapter implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param Builder $queryBuilder A DoctrineMongo query builder.
+     * @param Builder $queryBuilder a DoctrineMongo query builder
      */
     public function __construct(Builder $queryBuilder)
     {
@@ -35,16 +35,13 @@ class DoctrineODMMongoDBAdapter implements AdapterInterface
     /**
      * Returns the query builder.
      *
-     * @return Builder The query builder.
+     * @return Builder the query builder
      */
     public function getQueryBuilder()
     {
         return $this->queryBuilder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
         $qb = clone $this->queryBuilder;
@@ -57,9 +54,6 @@ class DoctrineODMMongoDBAdapter implements AdapterInterface
             ->execute();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSlice($offset, $length)
     {
         return $this->queryBuilder

@@ -27,38 +27,26 @@ class ViewFactory implements ViewFactoryInterface
      */
     public function __construct()
     {
-        $this->views = array();
+        $this->views = [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function set($name, ViewInterface $view)
+    public function set($name, ViewInterface $view): void
     {
         $this->views[$name] = $view;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function has($name)
     {
         return isset($this->views[$name]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function add(array $views)
+    public function add(array $views): void
     {
         foreach ($views as $name => $view) {
             $this->set($name, $view);
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function get($name)
     {
         if (!$this->has($name)) {
@@ -68,10 +56,7 @@ class ViewFactory implements ViewFactoryInterface
         return $this->views[$name];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function remove($name)
+    public function remove($name): void
     {
         if (!$this->has($name)) {
             throw new InvalidArgumentException(sprintf('The view "%s" does not exist.', $name));
@@ -80,19 +65,13 @@ class ViewFactory implements ViewFactoryInterface
         unset($this->views[$name]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function all()
     {
         return $this->views;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function clear()
+    public function clear(): void
     {
-        $this->views = array();
+        $this->views = [];
     }
 }

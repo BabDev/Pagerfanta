@@ -25,7 +25,7 @@ class MandangoAdapter implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param Query $query The query.
+     * @param Query $query the query
      */
     public function __construct(Query $query)
     {
@@ -35,24 +35,18 @@ class MandangoAdapter implements AdapterInterface
     /**
      * Returns the query.
      *
-     * @return Query The query.
+     * @return Query the query
      */
     public function getQuery()
     {
         return $this->query;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
         return $this->query->count();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSlice($offset, $length)
     {
         return $this->query->limit($length)->skip($offset)->all();

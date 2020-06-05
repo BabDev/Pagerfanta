@@ -28,8 +28,8 @@ class OptionableView implements ViewInterface
     /**
      * Constructor.
      *
-     * @param ViewInterface $view           A view.
-     * @param array         $defaultOptions An array of default options.
+     * @param ViewInterface $view           a view
+     * @param array         $defaultOptions an array of default options
      */
     public function __construct(ViewInterface $view, array $defaultOptions)
     {
@@ -37,17 +37,11 @@ class OptionableView implements ViewInterface
         $this->defaultOptions = $defaultOptions;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = array())
+    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = [])
     {
         return $this->view->render($pagerfanta, $routeGenerator, array_merge($this->defaultOptions, $options));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return 'optionable';

@@ -26,16 +26,16 @@ class DoctrineDbalAdapter implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param QueryBuilder $queryBuilder              A DBAL query builder.
-     * @param callable     $countQueryBuilderModifier A callable to modifier the query builder to count.
+     * @param QueryBuilder $queryBuilder              a DBAL query builder
+     * @param callable     $countQueryBuilderModifier a callable to modifier the query builder to count
      */
     public function __construct(QueryBuilder $queryBuilder, $countQueryBuilderModifier)
     {
-        if ($queryBuilder->getType() !== QueryBuilder::SELECT) {
+        if (QueryBuilder::SELECT !== $queryBuilder->getType()) {
             throw new InvalidArgumentException('Only SELECT queries can be paginated.');
         }
 
-        if (!is_callable($countQueryBuilderModifier)) {
+        if (!\is_callable($countQueryBuilderModifier)) {
             throw new InvalidArgumentException('The count query builder modifier must be a callable.');
         }
 
@@ -43,9 +43,6 @@ class DoctrineDbalAdapter implements AdapterInterface
         $this->countQueryBuilderModifier = $countQueryBuilderModifier;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
         $qb = $this->prepareCountQueryBuilder();
@@ -57,14 +54,11 @@ class DoctrineDbalAdapter implements AdapterInterface
     private function prepareCountQueryBuilder()
     {
         $qb = clone $this->queryBuilder;
-        call_user_func($this->countQueryBuilderModifier, $qb);
+        \call_user_func($this->countQueryBuilderModifier, $qb);
 
         return $qb;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSlice($offset, $length)
     {
         $qb = clone $this->queryBuilder;

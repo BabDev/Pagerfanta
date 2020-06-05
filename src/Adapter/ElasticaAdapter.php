@@ -44,7 +44,7 @@ class ElasticaAdapter implements AdapterInterface
      */
     private $maxResults;
 
-    public function __construct(SearchableInterface $searchable, Query $query, array $options = array(), $maxResults = null)
+    public function __construct(SearchableInterface $searchable, Query $query, array $options = [], $maxResults = null)
     {
         $this->searchable = $searchable;
         $this->query = $query;
@@ -55,7 +55,7 @@ class ElasticaAdapter implements AdapterInterface
     /**
      * Returns the number of results.
      *
-     * @return integer The number of results.
+     * @return int the number of results
      */
     public function getNbResults()
     {
@@ -86,16 +86,16 @@ class ElasticaAdapter implements AdapterInterface
     /**
      * Returns an slice of the results.
      *
-     * @param integer $offset The offset.
-     * @param integer $length The length.
+     * @param int $offset the offset
+     * @param int $length the length
      *
-     * @return array|\Traversable The slice.
+     * @return array|\Traversable the slice
      */
     public function getSlice($offset, $length)
     {
-        return $this->resultSet = $this->searchable->search($this->query, array_merge($this->options, array(
+        return $this->resultSet = $this->searchable->search($this->query, array_merge($this->options, [
             'from' => $offset,
-            'size' => $length
-        )));
+            'size' => $length,
+        ]));
     }
 }

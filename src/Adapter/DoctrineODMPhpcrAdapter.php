@@ -26,7 +26,7 @@ class DoctrineODMPhpcrAdapter implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param QueryBuilder $queryBuilder A Doctrine PHPCR-ODM query builder.
+     * @param QueryBuilder $queryBuilder a Doctrine PHPCR-ODM query builder
      */
     public function __construct(QueryBuilder $queryBuilder)
     {
@@ -36,24 +36,18 @@ class DoctrineODMPhpcrAdapter implements AdapterInterface
     /**
      * Returns the query builder.
      *
-     * @return QueryBuilder The query builder.
+     * @return QueryBuilder the query builder
      */
     public function getQueryBuilder()
     {
         return $this->queryBuilder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
         return $this->queryBuilder->getQuery()->execute(null, Query::HYDRATE_PHPCR)->getRows()->count();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSlice($offset, $length)
     {
         return $this->queryBuilder

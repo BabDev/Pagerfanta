@@ -23,7 +23,7 @@ class MongoAdapter implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param \MongoCursor $cursor The cursor.
+     * @param \MongoCursor $cursor the cursor
      */
     public function __construct(\MongoCursor $cursor)
     {
@@ -33,24 +33,18 @@ class MongoAdapter implements AdapterInterface
     /**
      * Returns the cursor.
      *
-     * @return \MongoCursor The cursor.
+     * @return \MongoCursor the cursor
      */
     public function getCursor()
     {
         return $this->cursor;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
         return $this->cursor->count();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSlice($offset, $length)
     {
         $this->cursor->limit($length);

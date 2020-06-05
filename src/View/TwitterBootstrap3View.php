@@ -19,7 +19,6 @@ use Pagerfanta\View\Template\TwitterBootstrap3Template;
  * View that can be used with the pagination module
  * from the Twitter Bootstrap3 CSS Toolkit
  * http://getbootstrap.com/
- *
  */
 class TwitterBootstrap3View extends TwitterBootstrapView
 {
@@ -28,9 +27,6 @@ class TwitterBootstrap3View extends TwitterBootstrapView
         return new TwitterBootstrap3Template();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return 'twitter_bootstrap3';

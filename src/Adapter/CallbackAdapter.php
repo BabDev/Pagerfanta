@@ -27,10 +27,10 @@ class CallbackAdapter implements AdapterInterface
      */
     public function __construct($getNbResultsCallback, $getSliceCallback)
     {
-        if (!is_callable($getNbResultsCallback)) {
+        if (!\is_callable($getNbResultsCallback)) {
             throw new InvalidArgumentException('$getNbResultsCallback should be a callable');
         }
-        if (!is_callable($getSliceCallback)) {
+        if (!\is_callable($getSliceCallback)) {
             throw new InvalidArgumentException('$getSliceCallback should be a callable');
         }
 
@@ -38,19 +38,13 @@ class CallbackAdapter implements AdapterInterface
         $this->getSliceCallback = $getSliceCallback;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
-        return call_user_func($this->getNbResultsCallback);
+        return \call_user_func($this->getNbResultsCallback);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSlice($offset, $length)
     {
-        return call_user_func($this->getSliceCallback, $offset, $length);
+        return \call_user_func($this->getSliceCallback, $offset, $length);
     }
 }

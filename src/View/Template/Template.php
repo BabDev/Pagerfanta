@@ -16,7 +16,7 @@ namespace Pagerfanta\View\Template;
  */
 abstract class Template implements TemplateInterface
 {
-    protected static $defaultOptions = array();
+    protected static $defaultOptions = [];
 
     private $routeGenerator;
     private $options;
@@ -26,24 +26,24 @@ abstract class Template implements TemplateInterface
         $this->initializeOptions();
     }
 
-    public function setRouteGenerator($routeGenerator)
+    public function setRouteGenerator($routeGenerator): void
     {
         $this->routeGenerator = $routeGenerator;
     }
 
-    public function setOptions(array $options)
+    public function setOptions(array $options): void
     {
         $this->options = array_merge($this->options, $options);
     }
 
-    private function initializeOptions()
+    private function initializeOptions(): void
     {
         $this->options = static::$defaultOptions;
     }
 
     protected function generateRoute($page)
     {
-        return call_user_func($this->getRouteGenerator(), $page);
+        return \call_user_func($this->getRouteGenerator(), $page);
     }
 
     private function getRouteGenerator()

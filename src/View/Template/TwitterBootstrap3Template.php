@@ -12,7 +12,7 @@
 namespace Pagerfanta\View\Template;
 
 /**
- * TwitterBootstrap3Template
+ * TwitterBootstrap3Template.
  */
 class TwitterBootstrap3Template extends TwitterBootstrapTemplate
 {
@@ -20,7 +20,7 @@ class TwitterBootstrap3Template extends TwitterBootstrapTemplate
     {
         parent::__construct();
 
-        $this->setOptions(array('active_suffix' => '<span class="sr-only">(current)</span>'));
+        $this->setOptions(['active_suffix' => '<span class="sr-only">(current)</span>']);
     }
 
     public function container()

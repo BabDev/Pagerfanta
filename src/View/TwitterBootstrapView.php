@@ -35,9 +35,6 @@ class TwitterBootstrapView extends DefaultView
         return 3;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return 'twitter_bootstrap';

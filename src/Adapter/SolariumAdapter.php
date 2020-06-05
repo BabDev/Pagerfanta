@@ -12,10 +12,10 @@
 namespace Pagerfanta\Adapter;
 
 use Pagerfanta\Exception\InvalidArgumentException;
-use Solarium\QueryType\Select\Query\Query;
 use Solarium\Core\Client\Client;
-use Solarium_Query_Select;
+use Solarium\QueryType\Select\Query\Query;
 use Solarium_Client;
+use Solarium_Query_Select;
 
 /**
  * SolariumAdapter.
@@ -34,8 +34,8 @@ class SolariumAdapter implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param Solarium_Client|Client      $client A Solarium client.
-     * @param Solarium_Query_Select|Query $query  A Solarium select query.
+     * @param Solarium_Client|Client      $client a Solarium client
+     * @param Solarium_Query_Select|Query $query  a Solarium select query
      */
     public function __construct($client, $query)
     {
@@ -46,7 +46,7 @@ class SolariumAdapter implements AdapterInterface
         $this->query = $query;
     }
 
-    private function checkClient($client)
+    private function checkClient($client): void
     {
         if ($this->isClientInvalid($client)) {
             throw new InvalidArgumentException($this->getClientInvalidMessage($client));
@@ -62,11 +62,11 @@ class SolariumAdapter implements AdapterInterface
     private function getClientInvalidMessage($client)
     {
         return sprintf('The client object should be a Solarium_Client or Solarium\Core\Client\Client instance, %s given',
-            get_class($client)
+            \get_class($client)
         );
     }
 
-    private function checkQuery($query)
+    private function checkQuery($query): void
     {
         if ($this->isQueryInvalid($query)) {
             throw new InvalidArgumentException($this->getQueryInvalidMessage($query));
@@ -82,21 +82,15 @@ class SolariumAdapter implements AdapterInterface
     private function getQueryInvalidMessage($query)
     {
         return sprintf('The query object should be a Solarium_Query_Select or Solarium\QueryType\Select\Query\Query instance, %s given',
-            get_class($query)
+            \get_class($query)
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
         return $this->getResultSet()->getNumFound();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSlice($offset, $length)
     {
         return $this->getResultSet($offset, $length);
@@ -133,7 +127,7 @@ class SolariumAdapter implements AdapterInterface
 
     private function resultSetStartAndRowsAreNotNull($start, $rows)
     {
-        return $start !== null && $rows !== null;
+        return null !== $start && null !== $rows;
     }
 
     private function resultSetStartAndRowsChange($start, $rows)
@@ -141,7 +135,7 @@ class SolariumAdapter implements AdapterInterface
         return $start !== $this->resultSetStart || $rows !== $this->resultSetRows;
     }
 
-    private function modifyQuery()
+    private function modifyQuery(): void
     {
         $this->query
             ->setStart($this->resultSetStart)
@@ -153,14 +147,14 @@ class SolariumAdapter implements AdapterInterface
         return $this->client->select($this->query, $this->endPoint);
     }
 
-    private function clearResultSet()
+    private function clearResultSet(): void
     {
         $this->resultSet = null;
     }
 
     private function resultSetEmpty()
     {
-        return $this->resultSet === null;
+        return null === $this->resultSet;
     }
 
     public function setEndPoint($endPoint)

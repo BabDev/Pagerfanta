@@ -12,7 +12,7 @@
 namespace Pagerfanta\Exception;
 
 /**
- * LessThan1MaxPerPageException
+ * LessThan1MaxPerPageException.
  *
  * @author Pablo Díez <pablodip@gmail.com>
  */

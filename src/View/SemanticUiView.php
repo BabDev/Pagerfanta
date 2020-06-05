@@ -34,9 +34,6 @@ class SemanticUiView extends DefaultView
         return 3;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return 'semantic_ui';

@@ -16,20 +16,20 @@ namespace Pagerfanta\View\Template;
  */
 class TwitterBootstrapTemplate extends Template
 {
-    static protected $defaultOptions = array(
-        'prev_message'        => '&larr; Previous',
-        'next_message'        => 'Next &rarr;',
-        'dots_message'        => '&hellip;',
-        'active_suffix'       => '',
+    protected static $defaultOptions = [
+        'prev_message' => '&larr; Previous',
+        'next_message' => 'Next &rarr;',
+        'dots_message' => '&hellip;',
+        'active_suffix' => '',
         'css_container_class' => 'pagination',
-        'css_prev_class'      => 'prev',
-        'css_next_class'      => 'next',
-        'css_disabled_class'  => 'disabled',
-        'css_dots_class'      => 'disabled',
-        'css_active_class'    => 'active',
-        'rel_previous'        => 'prev',
-        'rel_next'            => 'next'
-    );
+        'css_prev_class' => 'prev',
+        'css_next_class' => 'next',
+        'css_disabled_class' => 'disabled',
+        'css_dots_class' => 'disabled',
+        'css_active_class' => 'active',
+        'rel_previous' => 'prev',
+        'rel_next' => 'next',
+    ];
 
     public function container()
     {

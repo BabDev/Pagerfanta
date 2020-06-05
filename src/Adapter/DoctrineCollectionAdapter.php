@@ -25,7 +25,7 @@ class DoctrineCollectionAdapter implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param Collection $collection A Doctrine collection.
+     * @param Collection $collection a Doctrine collection
      */
     public function __construct(Collection $collection)
     {
@@ -35,24 +35,18 @@ class DoctrineCollectionAdapter implements AdapterInterface
     /**
      * Returns the collection.
      *
-     * @return Collection The collection.
+     * @return Collection the collection
      */
     public function getCollection()
     {
         return $this->collection;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults()
     {
         return $this->collection->count();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSlice($offset, $length)
     {
         return $this->collection->slice($offset, $length);

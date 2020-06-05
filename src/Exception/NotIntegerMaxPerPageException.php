@@ -12,7 +12,7 @@
 namespace Pagerfanta\Exception;
 
 /**
- * NotIntegerMaxPerPageException
+ * NotIntegerMaxPerPageException.
  *
  * @author Pablo Díez <pablodip@gmail.com>
  */

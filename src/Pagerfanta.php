@@ -13,13 +13,13 @@ namespace Pagerfanta;
 
 use OutOfBoundsException;
 use Pagerfanta\Adapter\AdapterInterface;
+use Pagerfanta\Exception\LessThan1CurrentPageException;
+use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\NotBooleanException;
+use Pagerfanta\Exception\NotIntegerCurrentPageException;
 use Pagerfanta\Exception\NotIntegerException;
 use Pagerfanta\Exception\NotIntegerMaxPerPageException;
-use Pagerfanta\Exception\LessThan1MaxPerPageException;
-use Pagerfanta\Exception\NotIntegerCurrentPageException;
-use Pagerfanta\Exception\LessThan1CurrentPageException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
 /**
@@ -38,7 +38,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     private $currentPageResults;
 
     /**
-     * @param AdapterInterface $adapter An adapter.
+     * @param AdapterInterface $adapter an adapter
      */
     public function __construct(AdapterInterface $adapter)
     {
@@ -52,7 +52,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns the adapter.
      *
-     * @return AdapterInterface The adapter.
+     * @return AdapterInterface the adapter
      */
     public function getAdapter()
     {
@@ -62,7 +62,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Sets whether or not allow out of range pages.
      *
-     * @param boolean $value
+     * @param bool $value
      *
      * @return self
      */
@@ -76,7 +76,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns whether or not allow out of range pages.
      *
-     * @return boolean
+     * @return bool
      */
     public function getAllowOutOfRangePages()
     {
@@ -86,7 +86,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Sets whether or not normalize out of range pages.
      *
-     * @param boolean $value
+     * @param bool $value
      *
      * @return self
      */
@@ -100,7 +100,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns whether or not normalize out of range pages.
      *
-     * @return boolean
+     * @return bool
      */
     public function getNormalizeOutOfRangePages()
     {
@@ -109,7 +109,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
 
     private function filterBoolean($value)
     {
-        if (!is_bool($value)) {
+        if (!\is_bool($value)) {
             throw new NotBooleanException();
         }
 
@@ -121,12 +121,12 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
      *
      * Tries to convert from string and float.
      *
-     * @param integer $maxPerPage
+     * @param int $maxPerPage
      *
      * @return self
      *
-     * @throws NotIntegerMaxPerPageException If the max per page is not an integer even converting.
-     * @throws LessThan1MaxPerPageException  If the max per page is less than 1.
+     * @throws NotIntegerMaxPerPageException if the max per page is not an integer even converting
+     * @throws LessThan1MaxPerPageException  if the max per page is less than 1
      */
     public function setMaxPerPage($maxPerPage)
     {
@@ -144,9 +144,9 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $maxPerPage;
     }
 
-    private function checkMaxPerPage($maxPerPage)
+    private function checkMaxPerPage($maxPerPage): void
     {
-        if (!is_int($maxPerPage)) {
+        if (!\is_int($maxPerPage)) {
             throw new NotIntegerMaxPerPageException();
         }
 
@@ -155,7 +155,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         }
     }
 
-    private function resetForMaxPerPageChange()
+    private function resetForMaxPerPageChange(): void
     {
         $this->currentPageResults = null;
         $this->nbResults = null;
@@ -164,7 +164,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns the max per page.
      *
-     * @return integer
+     * @return int
      */
     public function getMaxPerPage()
     {
@@ -176,17 +176,17 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
      *
      * Tries to convert from string and float.
      *
-     * @param integer $currentPage
+     * @param int $currentPage
      *
      * @return self
      *
-     * @throws NotIntegerCurrentPageException If the current page is not an integer even converting.
-     * @throws LessThan1CurrentPageException  If the current page is less than 1.
-     * @throws OutOfRangeCurrentPageException If It is not allowed out of range pages and they are not normalized.
+     * @throws NotIntegerCurrentPageException if the current page is not an integer even converting
+     * @throws LessThan1CurrentPageException  if the current page is less than 1
+     * @throws OutOfRangeCurrentPageException if It is not allowed out of range pages and they are not normalized
      */
     public function setCurrentPage($currentPage)
     {
-        $this->useDeprecatedCurrentPageBooleanArguments(func_get_args());
+        $this->useDeprecatedCurrentPageBooleanArguments(\func_get_args());
 
         $this->currentPage = $this->filterCurrentPage($currentPage);
         $this->resetForCurrentPageChange();
@@ -194,13 +194,13 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $this;
     }
 
-    private function useDeprecatedCurrentPageBooleanArguments($arguments)
+    private function useDeprecatedCurrentPageBooleanArguments($arguments): void
     {
         $this->useDeprecatedCurrentPageAllowOutOfRangePagesBooleanArgument($arguments);
         $this->useDeprecatedCurrentPageNormalizeOutOfRangePagesBooleanArgument($arguments);
     }
 
-    private function useDeprecatedCurrentPageAllowOutOfRangePagesBooleanArgument($arguments)
+    private function useDeprecatedCurrentPageAllowOutOfRangePagesBooleanArgument($arguments): void
     {
         $index = 1;
         $method = 'setAllowOutOfRangePages';
@@ -208,7 +208,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         $this->useDeprecatedBooleanArgument($arguments, $index, $method);
     }
 
-    private function useDeprecatedCurrentPageNormalizeOutOfRangePagesBooleanArgument($arguments)
+    private function useDeprecatedCurrentPageNormalizeOutOfRangePagesBooleanArgument($arguments): void
     {
         $index = 2;
         $method = 'setNormalizeOutOfRangePages';
@@ -216,7 +216,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         $this->useDeprecatedBooleanArgument($arguments, $index, $method);
     }
 
-    private function useDeprecatedBooleanArgument($arguments, $index, $method)
+    private function useDeprecatedBooleanArgument($arguments, $index, $method): void
     {
         if (isset($arguments[$index])) {
             $this->$method($arguments[$index]);
@@ -232,9 +232,9 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $currentPage;
     }
 
-    private function checkCurrentPage($currentPage)
+    private function checkCurrentPage($currentPage): void
     {
-        if (!is_int($currentPage)) {
+        if (!\is_int($currentPage)) {
             throw new NotIntegerCurrentPageException();
         }
 
@@ -279,7 +279,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         throw new OutOfRangeCurrentPageException(sprintf('Page "%d" does not exist. The currentPage must be inferior to "%d"', $currentPage, $this->getNbPages()));
     }
 
-    private function resetForCurrentPageChange()
+    private function resetForCurrentPageChange(): void
     {
         $this->currentPageResults = null;
     }
@@ -287,7 +287,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns the current page.
      *
-     * @return integer
+     * @return int
      */
     public function getCurrentPage()
     {
@@ -310,7 +310,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
 
     private function notCachedCurrentPageResults()
     {
-        return $this->currentPageResults === null;
+        return null === $this->currentPageResults;
     }
 
     private function getCurrentPageResultsFromAdapter()
@@ -327,7 +327,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
-     * Calculates the current page offset start
+     * Calculates the current page offset start.
      *
      * @return int
      */
@@ -339,7 +339,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
-     * Calculates the current page offset end
+     * Calculates the current page offset end.
      *
      * @return int
      */
@@ -353,7 +353,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns the number of results.
      *
-     * @return integer
+     * @return int
      */
     public function getNbResults()
     {
@@ -366,19 +366,19 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
 
     private function notCachedNbResults()
     {
-        return $this->nbResults === null;
+        return null === $this->nbResults;
     }
 
     /**
      * Returns the number of pages.
      *
-     * @return integer
+     * @return int
      */
     public function getNbPages()
     {
         $nbPages = $this->calculateNbPages();
 
-        if ($nbPages == 0) {
+        if (0 == $nbPages) {
             return $this->minimumNbPages();
         }
 
@@ -398,7 +398,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns if the number of results is higher than the max per page.
      *
-     * @return boolean
+     * @return bool
      */
     public function haveToPaginate()
     {
@@ -408,7 +408,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns whether there is previous page or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasPreviousPage()
     {
@@ -418,9 +418,9 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns the previous page.
      *
-     * @return integer
+     * @return int
      *
-     * @throws LogicException If there is no previous page.
+     * @throws LogicException if there is no previous page
      */
     public function getPreviousPage()
     {
@@ -434,7 +434,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns whether there is next page or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasNextPage()
     {
@@ -444,9 +444,9 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Returns the next page.
      *
-     * @return integer
+     * @return int
      *
-     * @throws LogicException If there is no next page.
+     * @throws LogicException if there is no next page
      */
     public function getNextPage()
     {
@@ -460,7 +460,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Implements the \Countable interface.
      *
-     * @return integer The number of results.
+     * @return int the number of results
      */
     public function count()
     {
@@ -470,7 +470,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * Implements the \IteratorAggregate interface.
      *
-     * @return \ArrayIterator instance with the current results.
+     * @return \ArrayIterator instance with the current results
      */
     public function getIterator()
     {
@@ -498,7 +498,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         if ($results instanceof \Traversable) {
             return iterator_to_array($results);
         }
-        
+
         return $results;
     }
 
@@ -513,30 +513,26 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
 
     private function needsToIntegerConversion($value)
     {
-        return (is_string($value) || is_float($value)) && (int) $value == $value;
+        return (\is_string($value) || \is_float($value)) && (int) $value == $value;
     }
 
     /**
-     * Get page number of the item at specified position (1-based index)
+     * Get page number of the item at specified position (1-based index).
      *
-     * @param integer $position
+     * @param int $position
      *
-     * @return integer
+     * @return int
      */
     public function getPageNumberForItemAtPosition($position)
     {
-        if (!is_int($position)) {
+        if (!\is_int($position)) {
             throw new NotIntegerException();
         }
 
         if ($this->getNbResults() < $position) {
-            throw new OutOfBoundsException(sprintf(
-                'Item requested at position %d, but there are only %d items.',
-                $position,
-                $this->getNbResults()
-            ));
+            throw new OutOfBoundsException(sprintf('Item requested at position %d, but there are only %d items.', $position, $this->getNbResults()));
         }
 
-        return (int) ceil($position/$this->getMaxPerPage());
+        return (int) ceil($position / $this->getMaxPerPage());
     }
 }

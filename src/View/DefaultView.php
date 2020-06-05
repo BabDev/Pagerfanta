@@ -12,8 +12,8 @@
 namespace Pagerfanta\View;
 
 use Pagerfanta\PagerfantaInterface;
-use Pagerfanta\View\Template\TemplateInterface;
 use Pagerfanta\View\Template\DefaultTemplate;
+use Pagerfanta\View\Template\TemplateInterface;
 
 /**
  * @author Pablo Díez <pablodip@gmail.com>
@@ -41,10 +41,7 @@ class DefaultView implements ViewInterface
         return new DefaultTemplate();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = array())
+    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = [])
     {
         $this->initializePagerfanta($pagerfanta);
         $this->initializeOptions($options);
@@ -54,7 +51,7 @@ class DefaultView implements ViewInterface
         return $this->generate();
     }
 
-    private function initializePagerfanta(PagerfantaInterface $pagerfanta)
+    private function initializePagerfanta(PagerfantaInterface $pagerfanta): void
     {
         $this->pagerfanta = $pagerfanta;
 
@@ -62,7 +59,7 @@ class DefaultView implements ViewInterface
         $this->nbPages = $pagerfanta->getNbPages();
     }
 
-    private function initializeOptions($options)
+    private function initializeOptions($options): void
     {
         $this->proximity = isset($options['proximity']) ?
                            (int) $options['proximity'] :
@@ -74,7 +71,7 @@ class DefaultView implements ViewInterface
         return 2;
     }
 
-    private function configureTemplate($routeGenerator, $options)
+    private function configureTemplate($routeGenerator, $options): void
     {
         $this->template->setRouteGenerator($routeGenerator);
         $this->template->setOptions($options);
@@ -107,7 +104,7 @@ class DefaultView implements ViewInterface
                $this->next();
     }
 
-    private function calculateStartAndEndPage()
+    private function calculateStartAndEndPage(): void
     {
         $startPage = $this->currentPage - $this->proximity;
         $endPage = $this->currentPage + $this->proximity;
@@ -163,7 +160,7 @@ class DefaultView implements ViewInterface
 
     private function secondIfStartIs3()
     {
-        if ($this->startPage == 3) {
+        if (3 == $this->startPage) {
             return $this->template->page(2);
         }
     }
@@ -230,9 +227,6 @@ class DefaultView implements ViewInterface
         return $this->template->nextDisabled();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return 'default';
