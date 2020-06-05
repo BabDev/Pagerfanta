@@ -11,7 +11,8 @@
         }
     ],
     "require": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "symfony/deprecation-contracts": "^2.1"
     },
     "require-dev": {
         "doctrine/collections": "~1.0",
