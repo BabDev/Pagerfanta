@@ -1,47 +1,48 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\SolariumAdapter;
+use Pagerfanta\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 abstract class SolariumAdapterTest extends TestCase
 {
-    abstract protected function getSolariumName();
+    abstract protected function getSolariumName(): string;
 
-    abstract protected function getClientClass();
-    abstract protected function getQueryClass();
-    abstract protected function getResultClass();
+    abstract protected function getClientClass(): string;
 
-    public function setUp()
+    abstract protected function getQueryClass(): string;
+
+    abstract protected function getResultClass(): string;
+
+    protected function setUp(): void
     {
         if ($this->isSolariumNotAvailable()) {
             $this->markTestSkipped($this->getSolariumName().' is not available.');
         }
     }
 
-    private function isSolariumNotAvailable()
+    private function isSolariumNotAvailable(): bool
     {
         return !class_exists($this->getClientClass());
     }
 
-    /**
-     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
-     */
-    public function testConstructorShouldThrowAnInvalidArgumentExceptionWhenInvalidClient()
+    public function testConstructorShouldThrowAnInvalidArgumentExceptionWhenInvalidClient(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+
         new SolariumAdapter(new \ArrayObject(), $this->createQueryMock());
     }
 
-    /**
-     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
-     */
-    public function testConstructorShouldThrowAnInvalidArgumentExceptionWhenInvalidQuery()
+    public function testConstructorShouldThrowAnInvalidArgumentExceptionWhenInvalidQuery(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+
         new SolariumAdapter($this->createClientMock(), new \ArrayObject());
     }
 
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
         $query = $this->createQueryMock();
         $endPoint = null;
@@ -50,21 +51,21 @@ abstract class SolariumAdapterTest extends TestCase
         $result
             ->expects($this->once())
             ->method('getNumFound')
-            ->will($this->returnValue(100));
+            ->willReturn(100);
 
         $client = $this->createClientMock();
         $client
             ->expects($this->once())
             ->method('select')
             ->with($query, $endPoint)
-            ->will($this->returnValue($result));
+            ->willReturn($result);
 
         $adapter = new SolariumAdapter($client, $query);
 
         $this->assertSame(100, $adapter->getNbResults());
     }
 
-    public function testGetNbResultsCanUseACachedTheResultSet()
+    public function testGetNbResultsCanUseACachedTheResultSet(): void
     {
         $query = $this->createQueryStub();
 
@@ -72,7 +73,7 @@ abstract class SolariumAdapterTest extends TestCase
         $client
             ->expects($this->once())
             ->method('select')
-            ->will($this->returnValue($this->createResultMock()));
+            ->willReturn($this->createResultMock());
 
         $adapter = new SolariumAdapter($client, $query);
 
@@ -80,19 +81,19 @@ abstract class SolariumAdapterTest extends TestCase
         $adapter->getNbResults();
     }
 
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $query = $this->createQueryMock();
         $query
             ->expects($this->any())
             ->method('setStart')
             ->with(1)
-            ->will($this->returnValue($query));
+            ->willReturn($query);
         $query
             ->expects($this->any())
             ->method('setRows')
             ->with(200)
-            ->will($this->returnValue($query));
+            ->willReturn($query);
 
         $endPoint = null;
         $result = $this->createResultMock();
@@ -102,14 +103,14 @@ abstract class SolariumAdapterTest extends TestCase
             ->expects($this->once())
             ->method('select')
             ->with($query, $endPoint)
-            ->will($this->returnValue($result));
+            ->willReturn($result);
 
         $adapter = new SolariumAdapter($client, $query);
 
         $this->assertSame($result, $adapter->getSlice(1, 200));
     }
 
-    public function testGetSliceCannotUseACachedResultSet()
+    public function testGetSliceCannotUseACachedResultSet(): void
     {
         $query = $this->createQueryStub();
 
@@ -117,7 +118,7 @@ abstract class SolariumAdapterTest extends TestCase
         $client
             ->expects($this->exactly(2))
             ->method('select')
-            ->will($this->returnValue($this->createResultMock()));
+            ->willReturn($this->createResultMock());
 
         $adapter = new SolariumAdapter($client, $query);
 
@@ -125,7 +126,7 @@ abstract class SolariumAdapterTest extends TestCase
         $adapter->getSlice(1, 200);
     }
 
-    public function testGetNbResultCanUseAGetSliceCachedResultSet()
+    public function testGetNbResultCanUseAGetSliceCachedResultSet(): void
     {
         $query = $this->createQueryStub();
 
@@ -133,7 +134,7 @@ abstract class SolariumAdapterTest extends TestCase
         $client
             ->expects($this->exactly(1))
             ->method('select')
-            ->will($this->returnValue($this->createResultMock()));
+            ->willReturn($this->createResultMock());
 
         $adapter = new SolariumAdapter($client, $query);
 
@@ -141,7 +142,7 @@ abstract class SolariumAdapterTest extends TestCase
         $adapter->getNbResults();
     }
 
-    public function testSameGetSliceUseACachedResultSet()
+    public function testSameGetSliceUseACachedResultSet(): void
     {
         $query = $this->createQueryStub();
 
@@ -149,7 +150,7 @@ abstract class SolariumAdapterTest extends TestCase
         $client
             ->expects($this->exactly(1))
             ->method('select')
-            ->will($this->returnValue($this->createResultMock()));
+            ->willReturn($this->createResultMock());
 
         $adapter = new SolariumAdapter($client, $query);
 
@@ -157,7 +158,7 @@ abstract class SolariumAdapterTest extends TestCase
         $adapter->getSlice(1, 200);
     }
 
-    public function testDifferentGetSliceCannotUseACachedResultSet()
+    public function testDifferentGetSliceCannotUseACachedResultSet(): void
     {
         $query = $this->createQueryStub();
 
@@ -165,7 +166,7 @@ abstract class SolariumAdapterTest extends TestCase
         $client
             ->expects($this->exactly(2))
             ->method('select')
-            ->will($this->returnValue($this->createResultMock()));
+            ->willReturn($this->createResultMock());
 
         $adapter = new SolariumAdapter($client, $query);
 
@@ -173,7 +174,7 @@ abstract class SolariumAdapterTest extends TestCase
         $adapter->getSlice(2, 200);
     }
 
-    public function testGetResultSet()
+    public function testGetResultSet(): void
     {
         $query = $this->createQueryMock();
         $endPoint = null;
@@ -181,7 +182,7 @@ abstract class SolariumAdapterTest extends TestCase
         $this->doTestGetResultSet($query, $endPoint);
     }
 
-    public function testGetResultSetCanUseAnEndPoint()
+    public function testGetResultSetCanUseAnEndPoint(): void
     {
         $query = $this->createQueryMock();
         $endPoint = 'ups';
@@ -189,17 +190,17 @@ abstract class SolariumAdapterTest extends TestCase
         $this->doTestGetResultSet($query, $endPoint);
     }
 
-    private function doTestGetResultSet($query, $endPoint)
+    private function doTestGetResultSet($query, $endPoint): void
     {
         $client = $this->createClientMock();
         $client
             ->expects($this->atLeastOnce())
             ->method('select')
             ->with($query, $endPoint)
-            ->will($this->returnValue($this->createResultMock()));
+            ->willReturn($this->createResultMock());
 
         $adapter = new SolariumAdapter($client, $query);
-        if ($endPoint !== null) {
+        if (null !== $endPoint) {
             $adapter->setEndPoint($endPoint);
         }
 
@@ -208,14 +209,12 @@ abstract class SolariumAdapterTest extends TestCase
 
     private function createClientMock()
     {
-        return $this->getMockBuilder($this->getClientClass())
-            ->disableOriginalConstructor()
-            ->getMock();
+        return $this->createMock($this->getClientClass());
     }
 
     private function createQueryMock()
     {
-        return $this->getMockBuilder($this->getQueryClass())->getMock();
+        return $this->createMock($this->getQueryClass());
     }
 
     private function createQueryStub()
@@ -224,19 +223,17 @@ abstract class SolariumAdapterTest extends TestCase
         $query
             ->expects($this->any())
             ->method('setStart')
-            ->will($this->returnSelf());
+            ->willReturnSelf();
         $query
             ->expects($this->any())
             ->method('setRows')
-            ->will($this->returnSelf());
+            ->willReturnSelf();
 
         return $query;
     }
 
     private function createResultMock()
     {
-        return $this->getMockBuilder($this->getResultClass())
-            ->disableOriginalConstructor()
-            ->getMock();
+        return $this->createMock($this->getResultClass());
     }
 }

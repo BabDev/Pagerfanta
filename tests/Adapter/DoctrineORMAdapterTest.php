@@ -1,30 +1,29 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
-use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\SchemaTool;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Tests\Adapter\DoctrineORM\DoctrineORMTestCase;
-use Pagerfanta\Tests\Adapter\DoctrineORM\User;
 use Pagerfanta\Tests\Adapter\DoctrineORM\Group;
 use Pagerfanta\Tests\Adapter\DoctrineORM\Person;
+use Pagerfanta\Tests\Adapter\DoctrineORM\User;
 
 class DoctrineORMAdapterTest extends DoctrineORMTestCase
 {
     private $user1;
     private $user2;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         $schemaTool = new SchemaTool($this->entityManager);
-        $schemaTool->createSchema(array(
+        $schemaTool->createSchema([
             $this->entityManager->getClassMetadata('Pagerfanta\Tests\Adapter\DoctrineORM\User'),
             $this->entityManager->getClassMetadata('Pagerfanta\Tests\Adapter\DoctrineORM\Group'),
             $this->entityManager->getClassMetadata('Pagerfanta\Tests\Adapter\DoctrineORM\Person'),
-        ));
+        ]);
 
         $this->user1 = $user = new User();
         $this->user2 = $user2 = new User();
@@ -52,7 +51,7 @@ class DoctrineORMAdapterTest extends DoctrineORMTestCase
         $this->entityManager->flush();
     }
 
-    public function testAdapterCount()
+    public function testAdapterCount(): void
     {
         $dql = "SELECT u FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u";
         $query = $this->entityManager->createQuery($dql);
@@ -61,7 +60,7 @@ class DoctrineORMAdapterTest extends DoctrineORMTestCase
         $this->assertEquals(2, $adapter->getNbResults());
     }
 
-    public function testAdapterCountFetchJoin()
+    public function testAdapterCountFetchJoin(): void
     {
         $dql = "SELECT u, g FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u INNER JOIN u.groups g";
         $query = $this->entityManager->createQuery($dql);
@@ -70,39 +69,39 @@ class DoctrineORMAdapterTest extends DoctrineORMTestCase
         $this->assertEquals(2, $adapter->getNbResults());
     }
 
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $dql = "SELECT u FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u";
         $query = $this->entityManager->createQuery($dql);
 
         $adapter = new DoctrineORMAdapter($query);
-        $this->assertEquals(1, count( $adapter->getSlice(0, 1)) );
-        $this->assertEquals(2, count( $adapter->getSlice(0, 10)) );
-        $this->assertEquals(1, count( $adapter->getSlice(1, 1)) );
+        $this->assertCount(1, $adapter->getSlice(0, 1));
+        $this->assertCount(2, $adapter->getSlice(0, 10));
+        $this->assertCount(1, $adapter->getSlice(1, 1));
     }
 
-    public function testGetSliceFetchJoin()
+    public function testGetSliceFetchJoin(): void
     {
         $dql = "SELECT u FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u INNER JOIN u.groups g";
         $query = $this->entityManager->createQuery($dql);
 
         $adapter = new DoctrineORMAdapter($query, true);
-        $this->assertEquals(1, count( $adapter->getSlice(0, 1)) );
-        $this->assertEquals(2, count( $adapter->getSlice(0, 10)) );
-        $this->assertEquals(1, count( $adapter->getSlice(1, 1)) );
+        $this->assertCount(1, $adapter->getSlice(0, 1));
+        $this->assertCount(2, $adapter->getSlice(0, 10));
+        $this->assertCount(1, $adapter->getSlice(1, 1));
     }
 
-    public function testCountAfterSlice()
+    public function testCountAfterSlice(): void
     {
         $dql = "SELECT u FROM Pagerfanta\Tests\Adapter\DoctrineORM\User u";
         $query = $this->entityManager->createQuery($dql);
 
         $adapter = new DoctrineORMAdapter($query);
         $adapter->getSlice(0, 1);
-        $this->assertEquals(2, $adapter->getNbResults() );
+        $this->assertEquals(2, $adapter->getNbResults());
     }
 
-    public function testMultipleRoot()
+    public function testMultipleRoot(): void
     {
         $this->markTestIncomplete('Multiple roots are not supported currently');
         $dql = <<<DQL
@@ -118,7 +117,7 @@ DQL;
         $this->assertEquals(5, $adapter->getNbResults());
     }
 
-    public function testMixedResult()
+    public function testMixedResult(): void
     {
         $dql = <<<DQL
         SELECT p, p.name FROM
@@ -133,7 +132,7 @@ DQL;
         $this->assertArrayHasKey('name', $items[0]);
     }
 
-    public function testCaseBasedQuery()
+    public function testCaseBasedQuery(): void
     {
         if (version_compare(\Doctrine\ORM\Version::VERSION, '2.2.0-DEV', '<')) {
             $this->markTestSkipped('Only recent orm version can test against this query.');
@@ -172,7 +171,7 @@ DQL;
         $this->assertEquals(1, $items[0]['relevance']);
     }
 
-    public function testItShouldAcceptAQueryBuilder()
+    public function testItShouldAcceptAQueryBuilder(): void
     {
         $queryBuilder = $this->entityManager->createQueryBuilder()
             ->select('u')
@@ -183,9 +182,9 @@ DQL;
         $this->assertSame(2, $adapter->getNbResults());
 
         $slice = $adapter->getSlice(0, 10);
-        $this->assertSame(2, count($slice));
+        $this->assertCount(2, $slice);
 
-        $users = array($this->user1, $this->user2);
+        $users = [$this->user1, $this->user2];
         $userClass = 'Pagerfanta\Tests\Adapter\DoctrineORM\User';
         foreach ($users as $key => $user) {
             $this->assertInstanceOf($userClass, $slice[$key]);

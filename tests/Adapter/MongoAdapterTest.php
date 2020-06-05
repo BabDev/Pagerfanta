@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
@@ -8,12 +8,13 @@ use PHPUnit\Framework\TestCase;
 class MongoAdapterTest extends TestCase
 {
     protected $cursor;
+
     /**
      * @var MongoAdapter
      */
     protected $adapter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if ($this->isMongoNotAvailable()) {
             $this->markTestSkipped('Mongo is not available.');
@@ -25,7 +26,7 @@ class MongoAdapterTest extends TestCase
 
     private function isMongoNotAvailable()
     {
-        return !extension_loaded('mongo');
+        return !\extension_loaded('mongo');
     }
 
     private function createCursorMock()
@@ -36,22 +37,22 @@ class MongoAdapterTest extends TestCase
             ->getMock();
     }
 
-    public function testGetCursor()
+    public function testGetCursor(): void
     {
         $this->assertSame($this->cursor, $this->adapter->getCursor());
     }
 
-    public function testGetNbResultsShouldReturnTheCursorCount()
+    public function testGetNbResultsShouldReturnTheCursorCount(): void
     {
         $this->cursor
             ->expects($this->once())
             ->method('count')
-            ->will($this->returnValue(100));
+            ->willReturn(100);
 
         $this->assertSame(100, $this->adapter->getNbResults());
     }
 
-    public function testGetSliceShouldPassTheOffsetAndLengthToTheCursor()
+    public function testGetSliceShouldPassTheOffsetAndLengthToTheCursor(): void
     {
         $offset = 12;
         $length = 16;
@@ -68,7 +69,7 @@ class MongoAdapterTest extends TestCase
         $this->adapter->getSlice($offset, $length);
     }
 
-    public function testGetSliceShouldReturnTheCursor()
+    public function testGetSliceShouldReturnTheCursor(): void
     {
         $this->cursor
             ->expects($this->any())

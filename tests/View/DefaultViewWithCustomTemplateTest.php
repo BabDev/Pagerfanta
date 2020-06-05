@@ -1,25 +1,26 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\View;
 
 use Pagerfanta\View\DefaultView;
 use Pagerfanta\View\Template\TwitterBootstrapTemplate;
+use Pagerfanta\View\ViewInterface;
 
 class DefaultViewWithCustomTemplateTest extends ViewTestCase
 {
-    protected function createView()
+    protected function createView(): ViewInterface
     {
         $template = new TwitterBootstrapTemplate();
 
         return new DefaultView($template);
     }
 
-    public function testRenderNormal()
+    public function testRenderNormal(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(10);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <div class="pagination">

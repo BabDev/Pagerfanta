@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
@@ -7,14 +7,14 @@ use Pagerfanta\Adapter\DoctrineDbalAdapter;
 
 class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
 {
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
         $adapter = $this->createAdapterToTestGetNbResults();
 
         $this->doTestGetNbResults($adapter);
     }
 
-    public function testGetNbResultsShouldWorkAfterCallingGetSlice()
+    public function testGetNbResultsShouldWorkAfterCallingGetSlice(): void
     {
         $adapter = $this->createAdapterToTestGetNbResults();
 
@@ -23,19 +23,19 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
         $this->doTestGetNbResults($adapter);
     }
 
-    private function doTestGetNbResults(DoctrineDbalAdapter $adapter)
+    private function doTestGetNbResults(DoctrineDbalAdapter $adapter): void
     {
         $this->assertSame(50, $adapter->getNbResults());
     }
 
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $adapter = $this->createAdapterToTestGetSlice();
 
         $this->doTestGetSlice($adapter);
     }
 
-    public function testGetSliceShouldWorkAfterCallingGetNbResults()
+    public function testGetSliceShouldWorkAfterCallingGetNbResults(): void
     {
         $adapter = $this->createAdapterToTestGetSlice();
 
@@ -46,12 +46,12 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
 
     private function createAdapterToTestGetSlice()
     {
-        $countQueryBuilderModifier = function () { };
+        $countQueryBuilderModifier = function (): void { };
 
         return new DoctrineDbalAdapter($this->qb, $countQueryBuilderModifier);
     }
 
-    private function doTestGetSlice(DoctrineDbalAdapter $adapter)
+    private function doTestGetSlice(DoctrineDbalAdapter $adapter): void
     {
         $offset = 30;
         $length = 10;
@@ -65,18 +65,17 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
         $this->assertSame($expectedResults, $results);
     }
 
-    /**
-     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
-     */
-    public function testItShouldThrowAnInvalidArgumentExceptionIfTheQueryIsNotSelect()
+    public function testItShouldThrowAnInvalidArgumentExceptionIfTheQueryIsNotSelect(): void
     {
+        $this->expectException(\Pagerfanta\Exception\InvalidArgumentException::class);
+
         $this->qb->delete('posts');
-        $countQueryModifier = function () { };
+        $countQueryModifier = function (): void { };
 
         new DoctrineDbalAdapter($this->qb, $countQueryModifier);
     }
 
-    public function testItShouldCloneTheQuery()
+    public function testItShouldCloneTheQuery(): void
     {
         $adapter = $this->createAdapterToTestGetNbResults();
 
@@ -86,11 +85,10 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
         $this->assertSame(50, $adapter->getNbResults());
     }
 
-    /**
-     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
-     */
-    public function testItShouldThrowAnInvalidArgumentExceptionIfTheCountQueryBuilderModifierIsNotACallable()
+    public function testItShouldThrowAnInvalidArgumentExceptionIfTheCountQueryBuilderModifierIsNotACallable(): void
     {
+        $this->expectException(\Pagerfanta\Exception\InvalidArgumentException::class);
+
         $countQueryBuilderModifier = 'ups';
 
         new DoctrineDbalAdapter($this->qb, $countQueryBuilderModifier);
@@ -98,7 +96,7 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
 
     private function createAdapterToTestGetNbResults()
     {
-        $countQueryBuilderModifier = function (QueryBuilder $queryBuilder) {
+        $countQueryBuilderModifier = function (QueryBuilder $queryBuilder): void {
             $queryBuilder->select('COUNT(DISTINCT p.id) AS total_results')
                          ->setMaxResults(1);
         };

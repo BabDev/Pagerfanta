@@ -1,26 +1,30 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
+use Solarium\Client;
+use Solarium\QueryType\Select\Query\Query;
+use Solarium\QueryType\Select\Result\Result;
+
 class Solarium3AdapterTest extends SolariumAdapterTest
 {
-    protected function getSolariumName()
+    protected function getSolariumName(): string
     {
         return 'Solarium 3';
     }
 
-    protected function getClientClass()
+    protected function getClientClass(): string
     {
-        return 'Solarium\Client';
+        return Client::class;
     }
 
-    protected function getQueryClass()
+    protected function getQueryClass(): string
     {
-        return 'Solarium\QueryType\Select\Query\Query';
+        return Query::class;
     }
 
-    protected function getResultClass()
+    protected function getResultClass(): string
     {
-        return 'Solarium\QueryType\Select\Result\Result';
+        return Result::class;
     }
 }

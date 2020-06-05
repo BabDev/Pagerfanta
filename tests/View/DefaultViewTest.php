@@ -1,22 +1,23 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\View;
 
 use Pagerfanta\View\DefaultView;
+use Pagerfanta\View\ViewInterface;
 
 class DefaultViewTest extends ViewTestCase
 {
-    protected function createView()
+    protected function createView(): ViewInterface
     {
         return new DefaultView();
     }
 
-    public function testRenderNormal()
+    public function testRenderNormal(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(10);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <nav>
@@ -36,12 +37,12 @@ EOF
             , $this->renderView($options));
     }
 
-    public function testRenderFirstPage()
+    public function testRenderFirstPage(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(1);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <nav>
@@ -59,12 +60,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderLastPage()
+    public function testRenderLastPage(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(100);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <nav>
@@ -82,12 +83,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderWhenStartProximityIs2()
+    public function testRenderWhenStartProximityIs2(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(4);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <nav>
@@ -106,12 +107,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderWhenStartProximityIs3()
+    public function testRenderWhenStartProximityIs3(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(5);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <nav>
@@ -131,12 +132,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderWhenEndProximityIs2FromLast()
+    public function testRenderWhenEndProximityIs2FromLast(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(97);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <nav>
@@ -155,12 +156,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderWhenEndProximityIs3FromLast()
+    public function testRenderWhenEndProximityIs3FromLast(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(96);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <nav>
@@ -180,12 +181,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderModifyingProximity()
+    public function testRenderModifyingProximity(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(10);
 
-        $options = array('proximity' => 3);
+        $options = ['proximity' => 3];
 
         $this->assertRenderedView(<<<EOF
 <nav>
@@ -207,15 +208,15 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderModifyingPreviousAndNextMessages()
+    public function testRenderModifyingPreviousAndNextMessages(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(10);
 
-        $options = array(
+        $options = [
             'prev_message' => 'Anterior',
-            'next_message'     => 'Siguiente',
-        );
+            'next_message' => 'Siguiente',
+        ];
 
         $this->assertRenderedView(<<<EOF
 <nav>
@@ -235,16 +236,16 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderModifyingCssClasses()
+    public function testRenderModifyingCssClasses(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(1);
 
-        $options = array(
+        $options = [
             'css_disabled_class' => 'deshabilitado',
-            'css_dots_class'     => 'puntos',
-            'css_current_class'  => 'actual',
-        );
+            'css_dots_class' => 'puntos',
+            'css_current_class' => 'actual',
+        ];
 
         $this->assertRenderedView(<<<EOF
 <nav>
@@ -262,16 +263,16 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderModifiyingStringTemplate()
+    public function testRenderModifiyingStringTemplate(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(1);
 
-        $options = array(
+        $options = [
             'container_template' => '<nav><ul>%pages%</ul></nav>',
-            'page_template'      => '<li><a href="%href%">%text%</a></li>',
-            'span_template'      => '<li><span class="%class%">%text%</span></li>',
-        );
+            'page_template' => '<li><a href="%href%">%text%</a></li>',
+            'span_template' => '<li><span class="%class%">%text%</span></li>',
+        ];
 
         $this->assertRenderedView(<<<EOF
 <nav>

@@ -1,85 +1,68 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
-use ArrayIterator;
+use Doctrine\ODM\PHPCR\Query\Query;
+use Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder;
+use Jackalope\Query\QueryResult;
 use Pagerfanta\Adapter\DoctrineODMPhpcrAdapter;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class DoctrineODMPhpcrAdapterTest extends TestCase
 {
+    /**
+     * @var MockObject|QueryBuilder
+     */
     private $queryBuilder;
+
+    /**
+     * @var MockObject|Query
+     */
     private $query;
+
     /**
      * @var DoctrineODMPhpcrAdapter
      */
     private $adapter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        if ($this->isDoctrinePhpcrNotAvailable()) {
-            $this->markTestSkipped('Doctrine PHPCR-ODM is not available');
-        }
-
-        $this->queryBuilder = $this->createQueryBuilderMock();
-        $this->query = $this->createQueryMock();
+        $this->queryBuilder = $this->createMock(QueryBuilder::class);
+        $this->query = $this->createMock(Query::class);
 
         $this->adapter = new DoctrineODMPhpcrAdapter($this->queryBuilder);
     }
 
-    private function isDoctrinePhpcrNotAvailable()
-    {
-        return !class_exists('Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder');
-    }
-
-    private function createQueryBuilderMock()
-    {
-        return $this
-            ->getMockBuilder('Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder')
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    private function createQueryMock()
-    {
-        return $this
-            ->getMockBuilder('Doctrine\ODM\PHPCR\Query\Query')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-    }
-
-    public function testGetQueryBuilder()
+    public function testGetQueryBuilder(): void
     {
         $this->assertSame($this->queryBuilder, $this->adapter->getQueryBuilder());
     }
 
-    public function testGetNbResultsShouldCreateTheQueryAndCount()
+    public function testGetNbResultsShouldCreateTheQueryAndCount(): void
     {
         $this->queryBuilder
             ->expects($this->once())
             ->method('getQuery')
-            ->will($this->returnValue($this->query))
+            ->willReturn($this->query)
         ;
 
-        $queryResult = $this->getMockBuilder('Jackalope\Query\QueryResult')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $queryResult = $this->createMock(QueryResult::class);
         $queryResult
             ->expects($this->once())
             ->method('getRows')
-            ->will($this->returnValue(new ArrayIterator(array(1, 2, 3 , 4, 5, 6))));
+            ->willReturn(new \ArrayIterator([1, 2, 3, 4, 5, 6]));
 
         $this->query
             ->expects($this->once())
             ->method('execute')
-            ->will($this->returnValue($queryResult))
+            ->willReturn($queryResult)
         ;
 
         $this->assertSame(6, $this->adapter->getNbResults());
     }
 
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $offset = 10;
         $length = 15;
@@ -89,23 +72,23 @@ class DoctrineODMPhpcrAdapterTest extends TestCase
             ->expects($this->once())
             ->method('setMaxResults')
             ->with($length)
-            ->will($this->returnValue($this->query))
+            ->willReturn($this->query)
         ;
         $this->query
             ->expects($this->once())
             ->method('setFirstResult')
             ->with($offset)
-            ->will($this->returnValue($this->query))
+            ->willReturn($this->query)
         ;
         $this->queryBuilder
             ->expects($this->once())
             ->method('getQuery')
-            ->will($this->returnValue($this->query))
+            ->willReturn($this->query)
         ;
         $this->query
             ->expects($this->once())
             ->method('execute')
-            ->will($this->returnValue($slice))
+            ->willReturn($slice)
         ;
 
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));

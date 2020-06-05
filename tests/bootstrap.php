@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 $loader = require __DIR__.'/../vendor/autoload.php';
 
@@ -6,5 +6,5 @@ $loader = require __DIR__.'/../vendor/autoload.php';
 $prefixes = $loader->getPrefixes();
 if (isset($prefixes['Solarium'])) {
     $loader->add('Solarium_', $prefixes['Solarium']);
-    $loader->set('Solarium', array());
+    $loader->set('Solarium', []);
 }

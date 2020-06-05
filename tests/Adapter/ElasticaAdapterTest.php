@@ -1,52 +1,72 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
+use Elastica\Query;
+use Elastica\ResultSet;
+use Elastica\SearchableInterface;
 use Pagerfanta\Adapter\ElasticaAdapter;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class ElasticaAdapterTest extends TestCase
 {
     /**
+     * @var MockObject|Query
+     */
+    private $query;
+
+    /**
+     * @var MockObject|ResultSet
+     */
+    private $resultSet;
+
+    /**
+     * @var MockObject|SearchableInterface
+     */
+    private $searchable;
+
+    /**
+     * @var array<string, string>
+     */
+    private $options;
+
+    /**
      * @var ElasticaAdapter
      */
     private $adapter;
-    private $resultSet;
-    private $searchable;
-    private $query;
-    private $options;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->query = $this->getMockBuilder('Elastica\\Query')->disableOriginalConstructor()->getMock();
-        $this->resultSet = $this->getMockBuilder('Elastica\\ResultSet')->disableOriginalConstructor()->getMock();
-        $this->searchable = $this->getMockBuilder('Elastica\\SearchableInterface')->disableOriginalConstructor()->getMock();
+        $this->query = $this->createMock(Query::class);
+        $this->resultSet = $this->createMock(ResultSet::class);
+        $this->searchable = $this->createMock(SearchableInterface::class);
 
-        $this->options = array("option1" => "value1", "option2" => "value2");
+        $this->options = ['option1' => 'value1', 'option2' => 'value2'];
 
         $this->adapter = new ElasticaAdapter($this->searchable, $this->query, $this->options);
     }
 
-    public function testGetResultSet()
+    public function testGetResultSet(): void
     {
         $this->assertNull($this->adapter->getResultSet());
 
         $this->searchable->expects($this->any())
             ->method('search')
-            ->with($this->query, array('from' => 0, 'size' => 1, 'option1' => 'value1', 'option2' => 'value2'))
-            ->will($this->returnValue($this->resultSet));
+            ->with($this->query, ['from' => 0, 'size' => 1, 'option1' => 'value1', 'option2' => 'value2'])
+            ->willReturn($this->resultSet);
 
         $this->adapter->getSlice(0, 1);
 
         $this->assertSame($this->resultSet, $this->adapter->getResultSet());
     }
 
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $this->searchable->expects($this->any())
             ->method('search')
-            ->with($this->query, array('from' => 10, 'size' => 30, 'option1' => 'value1', 'option2' => 'value2'))
-            ->will($this->returnValue($this->resultSet));
+            ->with($this->query, ['from' => 10, 'size' => 30, 'option1' => 'value1', 'option2' => 'value2'])
+            ->willReturn($this->resultSet);
 
         $resultSet = $this->adapter->getSlice(10, 30);
 
@@ -55,9 +75,9 @@ class ElasticaAdapterTest extends TestCase
     }
 
     /**
-     * Returns the number of results before search, use count() method if resultSet is empty
+     * Returns the number of results before search, use count() method if resultSet is empty.
      */
-    public function testGetNbResultsBeforeSearch()
+    public function testGetNbResultsBeforeSearch(): void
     {
         $this->searchable->expects($this->once())
             ->method('count')
@@ -68,27 +88,27 @@ class ElasticaAdapterTest extends TestCase
     }
 
     /**
-     * Returns the number of results after search, use getTotalHits() method if resultSet is not empty
+     * Returns the number of results after search, use getTotalHits() method if resultSet is not empty.
      */
-    public function testGetNbResultsAfterSearch()
+    public function testGetNbResultsAfterSearch(): void
     {
         $adapter = new ElasticaAdapter($this->searchable, $this->query, [], 30);
 
         $this->searchable->expects($this->once())
             ->method('search')
-            ->with($this->query, array('from' => 10, 'size' => 30))
-            ->will($this->returnValue($this->resultSet));
+            ->with($this->query, ['from' => 10, 'size' => 30])
+            ->willReturn($this->resultSet);
 
         $this->resultSet->expects($this->once())
             ->method('getTotalHits')
-            ->will($this->returnValue(100));
+            ->willReturn(100);
 
         $adapter->getSlice(10, 30);
 
         $this->assertSame(30, $adapter->getNbResults());
     }
 
-    public function testGetNbResultsWithMaxResultsSet()
+    public function testGetNbResultsWithMaxResultsSet(): void
     {
         $adapter = new ElasticaAdapter($this->searchable, $this->query, [], 10);
 

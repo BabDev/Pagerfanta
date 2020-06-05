@@ -1,17 +1,22 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\Propel2Adapter;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Propel\Runtime\ActiveQuery\ModelCriteria;
 
 /**
- * Propel2AdapterTest
+ * Propel2AdapterTest.
  *
  * @author Claude Khedhiri <claude@khedhiri.com>
  */
 class Propel2AdapterTest extends TestCase
 {
+    /**
+     * @var MockObject|ModelCriteria
+     */
     private $query;
 
     /**
@@ -19,35 +24,19 @@ class Propel2AdapterTest extends TestCase
      */
     private $adapter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        if ($this->isPropel2NotAvaiable()) {
-            $this->markTestSkipped('Propel 2 is not available');
-        }
+        $this->query = $this->createMock(ModelCriteria::class);
 
-        $this->query = $this->createQueryMock();
         $this->adapter = new Propel2Adapter($this->query);
     }
 
-    private function isPropel2NotAvaiable()
-    {
-        return !class_exists('Propel\Runtime\ActiveQuery\ModelCriteria');
-    }
-
-    private function createQueryMock()
-    {
-        return $this
-            ->getMockBuilder('Propel\Runtime\ActiveQuery\ModelCriteria')
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    public function testGetQuery()
+    public function testGetQuery(): void
     {
         $this->assertSame($this->query, $this->adapter->getQuery());
     }
 
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
         $this->query
             ->expects($this->once())
@@ -56,12 +45,12 @@ class Propel2AdapterTest extends TestCase
         $this->query
             ->expects($this->once())
             ->method('count')
-            ->will($this->returnValue(100));
+            ->willReturn(100);
 
         $this->assertSame(100, $this->adapter->getNbResults());
     }
 
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $offset = 14;
         $length = 20;
@@ -78,7 +67,7 @@ class Propel2AdapterTest extends TestCase
         $this->query
             ->expects($this->once())
             ->method('find')
-            ->will($this->returnValue($slice));
+            ->willReturn($slice);
 
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }

@@ -1,35 +1,34 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter\DoctrineORM;
 
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\ORM\Configuration;
+use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 
 abstract class DoctrineORMTestCase extends TestCase
 {
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var EntityManager
      */
     protected $entityManager;
 
-    public function setUp()
+    protected function setUp(): void
     {
-        if (!class_exists('Doctrine\ORM\EntityManager')) {
-            $this->markTestSkipped('Doctrine ORM is not available');
-        }
-
-        $config = new \Doctrine\ORM\Configuration();
-        $config->setMetadataCacheImpl(new \Doctrine\Common\Cache\ArrayCache());
-        $config->setQueryCacheImpl(new \Doctrine\Common\Cache\ArrayCache());
+        $config = new Configuration();
+        $config->setMetadataCacheImpl(new ArrayCache());
+        $config->setQueryCacheImpl(new ArrayCache());
         $config->setProxyDir(__DIR__.'/_files');
-        $config->setProxyNamespace('Pagerfanta\Tests\Adapter\DoctrineORM\Proxies');
+        $config->setProxyNamespace(__NAMESPACE__.'\Proxies');
         $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver());
 
-        $conn = array(
+        $conn = [
             'driver' => 'pdo_sqlite',
             'memory' => true,
-        );
+        ];
 
-        $this->entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
+        $this->entityManager = EntityManager::create($conn, $config);
     }
 }
 

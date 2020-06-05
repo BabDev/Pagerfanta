@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
@@ -7,67 +7,67 @@ use Pagerfanta\Adapter\CallbackAdapter;
 use Pagerfanta\Adapter\ConcatenationAdapter;
 use Pagerfanta\Adapter\FixedAdapter;
 use Pagerfanta\Adapter\NullAdapter;
+use Pagerfanta\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class ConcatenationAdapterTest extends TestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
-        new ConcatenationAdapter(array(
-            new ArrayAdapter(array()),
-            new NullAdapter(),
-            new FixedAdapter(0, array())
-        ));
+        $this->expectException(InvalidArgumentException::class);
 
-        $this->expectException(
-            '\Pagerfanta\Exception\InvalidArgumentException'
-        );
-        new ConcatenationAdapter(array(
-            new ArrayAdapter(array()),
-            'foo'
-        ));
+        new ConcatenationAdapter([
+            new ArrayAdapter([]),
+            new NullAdapter(),
+            new FixedAdapter(0, []),
+        ]);
+
+        new ConcatenationAdapter([
+            new ArrayAdapter([]),
+            'foo',
+        ]);
     }
 
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
-        $adapter = new ConcatenationAdapter(array(
-            new ArrayAdapter(array('foo', 'bar', 'baz'))
-        ));
+        $adapter = new ConcatenationAdapter([
+            new ArrayAdapter(['foo', 'bar', 'baz']),
+        ]);
         $this->assertEquals(3, $adapter->getNbResults());
 
-        $adapter = new ConcatenationAdapter(array(
+        $adapter = new ConcatenationAdapter([
             new ArrayAdapter(array_fill(0, 4, 'foo')),
             new ArrayAdapter(array_fill(0, 6, 'bar')),
-            new ArrayAdapter(array('baq'))
-        ));
+            new ArrayAdapter(['baq']),
+        ]);
         $this->assertEquals(11, $adapter->getNbResults());
 
-        $adapter = new ConcatenationAdapter(array());
+        $adapter = new ConcatenationAdapter([]);
         $this->assertEquals(0, $adapter->getNbResults());
     }
 
-    public function testGetResults()
+    public function testGetResults(): void
     {
-        $adapter = new ConcatenationAdapter(array(
-            new ArrayAdapter(array(1, 2, 3, 4, 5, 6)),
-            new ArrayAdapter(array(7, 8, 9, 10, 11, 12, 13, 14)),
-            new ArrayAdapter(array(15, 16, 17))
-        ));
-        $this->assertEquals(array(8, 9, 10), $adapter->getSlice(7, 3));
-        $this->assertEquals(array(5, 6, 7, 8), $adapter->getSlice(4, 4));
-        $this->assertEquals(array(6, 7, 8, 9, 10, 11, 12, 13, 14, 15), $adapter->getSlice(5, 10));
-        $this->assertEquals(array(16, 17), $adapter->getSlice(15, 5));
+        $adapter = new ConcatenationAdapter([
+            new ArrayAdapter([1, 2, 3, 4, 5, 6]),
+            new ArrayAdapter([7, 8, 9, 10, 11, 12, 13, 14]),
+            new ArrayAdapter([15, 16, 17]),
+        ]);
+        $this->assertEquals([8, 9, 10], $adapter->getSlice(7, 3));
+        $this->assertEquals([5, 6, 7, 8], $adapter->getSlice(4, 4));
+        $this->assertEquals([6, 7, 8, 9, 10, 11, 12, 13, 14, 15], $adapter->getSlice(5, 10));
+        $this->assertEquals([16, 17], $adapter->getSlice(15, 5));
     }
 
-    public function testWithTraversableAdapter()
+    public function testWithTraversableAdapter(): void
     {
-        $adapter = new ConcatenationAdapter(array(
+        $adapter = new ConcatenationAdapter([
             new CallbackAdapter(
                 function () {
                     return 5;
                 },
                 function ($offset, $length) {
-                    return new \ArrayIterator(array_slice(array(1, 2, 3, 4, 5), $offset, $length));
+                    return new \ArrayIterator(\array_slice([1, 2, 3, 4, 5], $offset, $length));
                 }
             ),
             new CallbackAdapter(
@@ -75,11 +75,11 @@ class ConcatenationAdapterTest extends TestCase
                     return 3;
                 },
                 function ($offset, $length) {
-                    return new \ArrayIterator(array_slice(array(6, 7, 8), $offset, $length));
+                    return new \ArrayIterator(\array_slice([6, 7, 8], $offset, $length));
                 }
-            )
-        ));
-        $this->assertEquals(array(2, 3), $adapter->getSlice(1, 2));
-        $this->assertEquals(array(4, 5, 6), $adapter->getSlice(3, 3));
+            ),
+        ]);
+        $this->assertEquals([2, 3], $adapter->getSlice(1, 2));
+        $this->assertEquals([4, 5, 6], $adapter->getSlice(3, 3));
     }
 }

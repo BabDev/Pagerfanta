@@ -1,8 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\View;
 
+use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\OptionableView;
+use Pagerfanta\View\ViewInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class OptionableViewTest extends TestCase
@@ -11,25 +14,20 @@ class OptionableViewTest extends TestCase
     private $routeGenerator;
     private $rendered;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->pagerfanta = $this->createPagerfantaMock();
+        $this->pagerfanta = $this->createMock(PagerfantaInterface::class);
         $this->routeGenerator = $this->createRouteGenerator();
     }
 
-    private function createPagerfantaMock()
+    private function createRouteGenerator(): \Closure
     {
-        return $this->getMockBuilder('Pagerfanta\PagerfantaInterface')->getMock();
+        return function (): void {};
     }
 
-    private function createRouteGenerator()
+    public function testRenderShouldDelegateToTheView(): void
     {
-        return function () {};
-    }
-
-    public function testRenderShouldDelegateToTheView()
-    {
-        $defaultOptions = array('foo' => 'bar', 'bar' => 'ups');
+        $defaultOptions = ['foo' => 'bar', 'bar' => 'ups'];
 
         $view = $this->createViewMock($defaultOptions);
         $optionable = new OptionableView($view, $defaultOptions);
@@ -38,10 +36,10 @@ class OptionableViewTest extends TestCase
         $this->assertSame($this->rendered, $returned);
     }
 
-    public function testRenderShouldMergeOptions()
+    public function testRenderShouldMergeOptions(): void
     {
-        $defaultOptions = array('foo' => 'bar');
-        $options = array('ups' => 'da');
+        $defaultOptions = ['foo' => 'bar'];
+        $options = ['ups' => 'da'];
         $expectedOptions = array_merge($defaultOptions, $options);
 
         $view = $this->createViewMock($expectedOptions);
@@ -51,9 +49,13 @@ class OptionableViewTest extends TestCase
         $this->assertSame($this->rendered, $returned);
     }
 
+    /**
+     * @return MockObject|ViewInterface
+     */
     private function createViewMock($expectedOptions)
     {
-        $view = $this->getMockBuilder('Pagerfanta\View\ViewInterface')->getMock();
+        $view = $this->createMock(ViewInterface::class);
+
         $view
             ->expects($this->once())
             ->method('render')
@@ -62,7 +64,7 @@ class OptionableViewTest extends TestCase
                 $this->equalTo($this->routeGenerator),
                 $this->equalTo($expectedOptions)
             )
-            ->will($this->returnValue($this->rendered));
+            ->willReturn($this->rendered);
 
         return $view;
     }

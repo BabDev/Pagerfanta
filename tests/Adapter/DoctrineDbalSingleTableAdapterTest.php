@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\DoctrineDbalSingleTableAdapter;
+use Pagerfanta\Exception\InvalidArgumentException;
 
 class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
 {
@@ -11,31 +12,31 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
      */
     private $adapter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->adapter = new DoctrineDbalSingleTableAdapter($this->qb, 'p.id');
     }
 
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
         $this->doTestGetNbResults();
     }
 
-    public function testGetNbResultsShouldWorkAfterCallingGetSlice()
+    public function testGetNbResultsShouldWorkAfterCallingGetSlice(): void
     {
         $this->adapter->getSlice(1, 10);
 
         $this->doTestGetNbResults();
     }
 
-    private function doTestGetNbResults()
+    private function doTestGetNbResults(): void
     {
         $this->assertSame(50, $this->adapter->getNbResults());
     }
 
-    public function testGetNbResultWithNoData()
+    public function testGetNbResultWithNoData(): void
     {
         $q = clone $this->qb;
         $q->delete('posts')->execute();
@@ -43,19 +44,19 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
         $this->assertSame(0, $this->adapter->getNbResults());
     }
 
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $this->doTestGetSlice();
     }
 
-    public function testGetSliceShouldWorkAfterCallingGetNbResults()
+    public function testGetSliceShouldWorkAfterCallingGetNbResults(): void
     {
         $this->adapter->getNbResults();
 
         $this->doTestGetSlice();
     }
 
-    private function doTestGetSlice()
+    private function doTestGetSlice(): void
     {
         $offset = 30;
         $length = 10;
@@ -68,19 +69,17 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
         $this->assertSame($expectedResults, $results);
     }
 
-    /**
-     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
-     */
-    public function testItShouldThrowAnInvalidArgumentExceptionIfTheCountFieldDoesNotHaveAlias()
+    public function testItShouldThrowAnInvalidArgumentExceptionIfTheCountFieldDoesNotHaveAlias(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+
         new DoctrineDbalSingleTableAdapter($this->qb, 'id');
     }
 
-    /**
-     * @expectedException \Pagerfanta\Exception\InvalidArgumentException
-     */
-    public function testItShouldThrowAnInvalidArgumentExceptionIfTheQueryHasJoins()
+    public function testItShouldThrowAnInvalidArgumentExceptionIfTheQueryHasJoins(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $this->qb->innerJoin('p', 'comments', 'c', 'c.post_id = p.id');
 
         new DoctrineDbalSingleTableAdapter($this->qb, 'p.id');

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
@@ -7,16 +7,16 @@ use PHPUnit\Framework\TestCase;
 
 class FixedAdapterTest extends TestCase
 {
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
-        $adapter = new FixedAdapter(5, array());
+        $adapter = new FixedAdapter(5, []);
         $this->assertSame(5, $adapter->getNbResults());
     }
 
     /**
      * @dataProvider getSliceProvider
      */
-    public function testGetSlice($results)
+    public function testGetSlice($results): void
     {
         $adapter = new FixedAdapter(5, $results);
         $this->assertSame($results, $adapter->getSlice(0, 10));
@@ -25,9 +25,9 @@ class FixedAdapterTest extends TestCase
 
     public function getSliceProvider()
     {
-        return array(
-            array(array('a', 'b')),
-            array(new \stdClass()),
-        );
+        return [
+            [['a', 'b']],
+            [new \stdClass()],
+        ];
     }
 }

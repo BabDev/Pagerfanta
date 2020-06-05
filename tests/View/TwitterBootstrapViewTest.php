@@ -1,22 +1,23 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\View;
 
 use Pagerfanta\View\TwitterBootstrapView;
+use Pagerfanta\View\ViewInterface;
 
 class TwitterBootstrapViewTest extends ViewTestCase
 {
-    protected function createView()
+    protected function createView(): ViewInterface
     {
         return new TwitterBootstrapView();
     }
 
-    public function testRenderNormal()
+    public function testRenderNormal(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(10);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <div class="pagination">
@@ -40,12 +41,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderFirstPage()
+    public function testRenderFirstPage(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(1);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <div class="pagination">
@@ -67,12 +68,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderLastPage()
+    public function testRenderLastPage(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(100);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <div class="pagination">
@@ -94,12 +95,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderWhenStartProximityIs2()
+    public function testRenderWhenStartProximityIs2(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(4);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <div class="pagination">
@@ -121,12 +122,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderWhenStartProximityIs3()
+    public function testRenderWhenStartProximityIs3(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(5);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <div class="pagination">
@@ -149,12 +150,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderWhenEndProximityIs2FromLast()
+    public function testRenderWhenEndProximityIs2FromLast(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(97);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <div class="pagination">
@@ -176,12 +177,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderWhenEndProximityIs3FromLast()
+    public function testRenderWhenEndProximityIs3FromLast(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(96);
 
-        $options = array();
+        $options = [];
 
         $this->assertRenderedView(<<<EOF
 <div class="pagination">
@@ -204,12 +205,12 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderModifyingProximity()
+    public function testRenderModifyingProximity(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(10);
 
-        $options = array('proximity' => 2);
+        $options = ['proximity' => 2];
 
         $this->assertRenderedView(<<<EOF
 <div class="pagination">
@@ -231,15 +232,15 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderModifyingPreviousAndNextMessages()
+    public function testRenderModifyingPreviousAndNextMessages(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(10);
 
-        $options = array(
+        $options = [
             'prev_message' => 'Anterior',
             'next_message' => 'Siguiente',
-        );
+        ];
 
         $this->assertRenderedView(<<<EOF
 <div class="pagination">
@@ -263,19 +264,19 @@ EOF
         , $this->renderView($options));
     }
 
-    public function testRenderModifyingCssClasses()
+    public function testRenderModifyingCssClasses(): void
     {
         $this->setNbPages(100);
         $this->setCurrentPage(1);
 
-        $options = array(
+        $options = [
             'css_container_class' => 'paginacion',
-            'css_prev_class'      => 'anterior',
-            'css_next_class'      => 'siguiente',
-            'css_disabled_class'  => 'deshabilitado',
-            'css_dots_class'      => 'puntos',
-            'css_active_class'    => 'activo',
-        );
+            'css_prev_class' => 'anterior',
+            'css_next_class' => 'siguiente',
+            'css_disabled_class' => 'deshabilitado',
+            'css_dots_class' => 'puntos',
+            'css_active_class' => 'activo',
+        ];
 
         $this->assertRenderedView(<<<EOF
 <div class="paginacion">

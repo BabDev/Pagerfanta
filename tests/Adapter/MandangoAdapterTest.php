@@ -1,58 +1,48 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
+use Mandango\Query;
 use Pagerfanta\Adapter\MandangoAdapter;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class MandangoAdapterTest extends TestCase
 {
+    /**
+     * @var MockObject|Query
+     */
     private $query;
+
     /**
      * @var MandangoAdapter
      */
     private $adapter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        if ($this->isMandangoNotAvailable()) {
-            $this->markTestSkipped('Mandango is not available');
-        }
+        $this->query = $this->createMock(Query::class);
 
-        $this->query = $this->createQueryMock();
         $this->adapter = new MandangoAdapter($this->query);
     }
 
-    private function isMandangoNotAvailable()
-    {
-        return !class_exists('Mandango\Query');
-    }
-
-    private function createQueryMock()
-    {
-        return $this
-            ->getMockBuilder('Mandango\Query')
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    public function testGetQuery()
+    public function testGetQuery(): void
     {
         $this->assertSame($this->query, $this->adapter->getQuery());
     }
 
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
         $this->query
             ->expects($this->once())
             ->method('count')
-            ->will($this->returnValue(100))
+            ->willReturn(100)
         ;
 
         $this->assertSame(100, $this->adapter->getNbResults());
     }
 
-    public function testGetResults()
+    public function testGetResults(): void
     {
         $offset = 14;
         $length = 30;
@@ -65,29 +55,29 @@ class MandangoAdapterTest extends TestCase
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
 
-    private function prepareQueryLimit($limit)
+    private function prepareQueryLimit($limit): void
     {
         $this->query
             ->expects($this->once())
             ->method('limit')
             ->with($limit)
-            ->will($this->returnValue($this->query));
+            ->willReturn($this->query);
     }
 
-    private function prepareQuerySkip($skip)
+    private function prepareQuerySkip($skip): void
     {
         $this->query
             ->expects($this->once())
             ->method('skip')
             ->with($skip)
-            ->will($this->returnValue($this->query));
+            ->willReturn($this->query);
     }
 
-    private function prepareQueryAll($all)
+    private function prepareQueryAll($all): void
     {
         $this->query
             ->expects($this->once())
             ->method('all')
-            ->will($this->returnValue($all));
+            ->willReturn($all);
     }
 }

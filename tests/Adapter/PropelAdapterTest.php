@@ -1,52 +1,40 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\PropelAdapter;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
- * PropelAdapterTest
+ * PropelAdapterTest.
  *
  * @author William DURAND <william.durand1@gmail.com>
  */
 class PropelAdapterTest extends TestCase
 {
+    /**
+     * @var MockObject|\ModelCriteria
+     */
     private $query;
+
     /**
      * @var PropelAdapter
      */
     private $adapter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        if ($this->isPropelNotAvaiable()) {
-            $this->markTestSkipped('Propel is not available');
-        }
-
-        $this->query = $this->createQueryMock();
+        $this->query = $this->createMock(\ModelCriteria::class);
         $this->adapter = new PropelAdapter($this->query);
     }
 
-    private function isPropelNotAvaiable()
-    {
-        return !class_exists('ModelCriteria');
-    }
-
-    private function createQueryMock()
-    {
-        return $this
-            ->getMockBuilder('ModelCriteria')
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    public function testGetQuery()
+    public function testGetQuery(): void
     {
         $this->assertSame($this->query, $this->adapter->getQuery());
     }
 
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
         $this->query
             ->expects($this->once())
@@ -59,12 +47,12 @@ class PropelAdapterTest extends TestCase
         $this->query
             ->expects($this->once())
             ->method('count')
-            ->will($this->returnValue(100));
+            ->willReturn(100);
 
         $this->assertSame(100, $this->adapter->getNbResults());
     }
 
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $offset = 14;
         $length = 20;
@@ -81,7 +69,7 @@ class PropelAdapterTest extends TestCase
         $this->query
             ->expects($this->once())
             ->method('find')
-            ->will($this->returnValue($slice));
+            ->willReturn($slice);
 
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }

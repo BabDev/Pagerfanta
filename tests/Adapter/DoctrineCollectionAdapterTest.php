@@ -1,73 +1,58 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Tests\Adapter;
 
+use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Adapter\DoctrineCollectionAdapter;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class DoctrineCollectionAdapterTest extends TestCase
 {
+    /**
+     * @var MockObject|Collection
+     */
     private $collection;
+
     /**
      * @var DoctrineCollectionAdapter
      */
     private $adapter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        if ($this->collectionIsNotAvailable()) {
-            $this->markTestSkipped('Doctrine Collection is not available');
-        }
+        $this->collection = $this->createMock(Collection::class);
 
-        $this->collection = $this->createCollectionMock();
         $this->adapter = new DoctrineCollectionAdapter($this->collection);
     }
 
-    private function collectionIsNotAvailable()
-    {
-        return !interface_exists($this->getCollectionInterface());
-    }
-
-    private function createCollectionMock()
-    {
-        return $this
-            ->getMockBuilder($this->getCollectionInterface())
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    private function getCollectionInterface()
-    {
-        return 'Doctrine\Common\Collections\Collection';
-    }
-
-    public function testGetCollectionShouldReturnTheCollection()
+    public function testGetCollectionShouldReturnTheCollection(): void
     {
         $this->assertSame($this->collection, $this->adapter->getCollection());
     }
 
-    public function testGetNbResultsShouldResultTheCollectionCount()
+    public function testGetNbResultsShouldResultTheCollectionCount(): void
     {
         $this->collection
             ->expects($this->once())
             ->method('count')
-            ->will($this->returnValue(120));
+            ->willReturn(120);
 
         $this->assertSame(120, $this->adapter->getNbResults());
     }
 
-    public function testGetResultsShouldReturnTheCollectionSliceReturnValue()
+    public function testGetResultsShouldReturnTheCollectionSliceReturnValue(): void
     {
         $results = new \ArrayObject();
         $this->collection
             ->expects($this->once())
             ->method('slice')
-            ->will($this->returnValue($results));
+            ->willReturn($results);
 
         $this->assertSame($results, $this->adapter->getSlice(1, 1));
     }
 
-    public function testGetResultsShouldPassTheOffsetAndLengthToTheCollectionSlice()
+    public function testGetResultsShouldPassTheOffsetAndLengthToTheCollectionSlice(): void
     {
         $this->collection
             ->expects($this->once())
