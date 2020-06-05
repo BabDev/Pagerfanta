@@ -11,7 +11,6 @@
 
 namespace Pagerfanta\View;
 
-use Pagerfanta\Pagerfanta;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\Template\DefaultTemplate;
 use Pagerfanta\View\Template\TemplateInterface;
@@ -19,18 +18,12 @@ use Pagerfanta\View\Template\TemplateInterface;
 /**
  * @author Pablo Díez <pablodip@gmail.com>
  */
-class DefaultView implements ViewInterface
+class DefaultView extends View
 {
+    /**
+     * @var TemplateInterface
+     */
     private $template;
-
-    private $pagerfanta;
-    private $proximity;
-
-    private $currentPage;
-    private $nbPages;
-
-    private $startPage;
-    private $endPage;
 
     public function __construct(TemplateInterface $template = null)
     {
@@ -50,37 +43,6 @@ class DefaultView implements ViewInterface
         $this->configureTemplate($routeGenerator, $options);
 
         return $this->generate();
-    }
-
-    private function initializePagerfanta(PagerfantaInterface $pagerfanta): void
-    {
-        if (!($pagerfanta instanceof Pagerfanta)) {
-            trigger_deprecation(
-                'pagerfanta/pagerfanta',
-                '2.2',
-                '%1$s::render() will no longer accept "%2$s" implementations that are not a subclass of "%3$s" as of 3.0. Ensure your pager is a subclass of "%3$s".',
-                self::class,
-                PagerfantaInterface::class,
-                Pagerfanta::class
-            );
-        }
-
-        $this->pagerfanta = $pagerfanta;
-
-        $this->currentPage = $pagerfanta->getCurrentPage();
-        $this->nbPages = $pagerfanta->getNbPages();
-    }
-
-    private function initializeOptions($options): void
-    {
-        $this->proximity = isset($options['proximity']) ?
-                           (int) $options['proximity'] :
-                           $this->getDefaultProximity();
-    }
-
-    protected function getDefaultProximity()
-    {
-        return 2;
     }
 
     private function configureTemplate($routeGenerator, $options): void
@@ -114,44 +76,6 @@ class DefaultView implements ViewInterface
                $this->secondToLastIfEndIs3ToLast().
                $this->last().
                $this->next();
-    }
-
-    private function calculateStartAndEndPage(): void
-    {
-        $startPage = $this->currentPage - $this->proximity;
-        $endPage = $this->currentPage + $this->proximity;
-
-        if ($this->startPageUnderflow($startPage)) {
-            $endPage = $this->calculateEndPageForStartPageUnderflow($startPage, $endPage);
-            $startPage = 1;
-        }
-        if ($this->endPageOverflow($endPage)) {
-            $startPage = $this->calculateStartPageForEndPageOverflow($startPage, $endPage);
-            $endPage = $this->nbPages;
-        }
-
-        $this->startPage = $startPage;
-        $this->endPage = $endPage;
-    }
-
-    private function startPageUnderflow($startPage)
-    {
-        return $startPage < 1;
-    }
-
-    private function endPageOverflow($endPage)
-    {
-        return $endPage > $this->nbPages;
-    }
-
-    private function calculateEndPageForStartPageUnderflow($startPage, $endPage)
-    {
-        return min($endPage + (1 - $startPage), $this->nbPages);
-    }
-
-    private function calculateStartPageForEndPageOverflow($startPage, $endPage)
-    {
-        return max($startPage - ($endPage - $this->nbPages), 1);
     }
 
     private function previous()
@@ -216,11 +140,6 @@ class DefaultView implements ViewInterface
         if ($this->endPage == $this->toLast(3)) {
             return $this->template->page($this->toLast(2));
         }
-    }
-
-    private function toLast($n)
-    {
-        return $this->pagerfanta->getNbPages() - ($n - 1);
     }
 
     private function last()
