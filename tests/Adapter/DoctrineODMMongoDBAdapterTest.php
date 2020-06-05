@@ -2,50 +2,37 @@
 
 namespace Pagerfanta\Tests\Adapter;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\Query\Builder;
+use Doctrine\ODM\MongoDB\Query\Query;
 use Pagerfanta\Adapter\DoctrineODMMongoDBAdapter;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class DoctrineODMMongoDBAdapterTest extends TestCase
 {
+    /**
+     * @var MockObject|Builder
+     */
     private $queryBuilder;
-    private $query;
 
     /**
      * @var DoctrineODMMongoDBAdapter
      */
     private $adapter;
 
+    public static function setUpBeforeClass(): void
+    {
+        if (!class_exists(DocumentManager::class)) {
+            self::markTestSkipped('doctrine/mongodb-odm is not installed');
+        }
+    }
+
     protected function setUp(): void
     {
-        if ($this->isDoctrineMongoNotAvailable()) {
-            $this->markTestSkipped('Doctrine MongoDB is not available');
-        }
-
-        $this->queryBuilder = $this->createQueryBuilderMock();
-        $this->query = $this->createQueryMock();
+        $this->queryBuilder = $this->createMock(Builder::class);
 
         $this->adapter = new DoctrineODMMongoDBAdapter($this->queryBuilder);
-    }
-
-    private function isDoctrineMongoNotAvailable()
-    {
-        return !class_exists('Doctrine\ODM\MongoDB\Query\Builder');
-    }
-
-    private function createQueryBuilderMock()
-    {
-        return $this
-            ->getMockBuilder('Doctrine\ODM\MongoDB\Query\Builder')
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    private function createQueryMock()
-    {
-        return $this
-            ->getMockBuilder('Doctrine\ODM\MongoDB\Query\Query')
-            ->disableOriginalConstructor()
-            ->getMock();
     }
 
     public function testGetQueryBuilder(): void
@@ -55,23 +42,37 @@ class DoctrineODMMongoDBAdapterTest extends TestCase
 
     public function testGetNbResultsShouldCreateTheQueryAndCount(): void
     {
-        $this->queryBuilder
-            ->expects($this->once())
-            ->method('getQuery')
-            ->willReturn($this->query);
-        $this->query
+        $this->markTestSkipped(sprintf('Test relies on mocking the %s class which is final.', Query::class));
+
+        $query = $this->createMock(Query::class);
+
+        $query
             ->expects($this->once())
             ->method('count')
             ->willReturn(110);
+
+        $this->queryBuilder
+            ->expects($this->once())
+            ->method('getQuery')
+            ->willReturn($query);
 
         $this->assertSame(110, $this->adapter->getNbResults());
     }
 
     public function testGetSlice(): void
     {
+        $this->markTestSkipped(sprintf('Test relies on mocking the %s class which is final.', Query::class));
+
         $offset = 10;
         $length = 15;
         $slice = new \ArrayIterator();
+
+        $query = $this->createMock(Query::class);
+        $query
+            ->expects($this->once())
+            ->method('execute')
+            ->willReturn($slice)
+        ;
 
         $this->queryBuilder
             ->expects($this->once())
@@ -88,12 +89,7 @@ class DoctrineODMMongoDBAdapterTest extends TestCase
         $this->queryBuilder
             ->expects($this->once())
             ->method('getQuery')
-            ->willReturn($this->query)
-        ;
-        $this->query
-            ->expects($this->once())
-            ->method('execute')
-            ->willReturn($slice)
+            ->willReturn($query)
         ;
 
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));

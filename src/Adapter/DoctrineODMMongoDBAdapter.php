@@ -20,22 +20,18 @@ use Doctrine\ODM\MongoDB\Query\Builder;
  */
 class DoctrineODMMongoDBAdapter implements AdapterInterface
 {
+    /**
+     * @var Builder
+     */
     private $queryBuilder;
 
-    /**
-     * Constructor.
-     *
-     * @param Builder $queryBuilder a DoctrineMongo query builder
-     */
     public function __construct(Builder $queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;
     }
 
     /**
-     * Returns the query builder.
-     *
-     * @return Builder the query builder
+     * @return Builder
      */
     public function getQueryBuilder()
     {
