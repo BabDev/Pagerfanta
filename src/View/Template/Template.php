@@ -12,22 +12,38 @@
 namespace Pagerfanta\View\Template;
 
 use Pagerfanta\Exception\InvalidArgumentException;
+use Pagerfanta\Exception\RuntimeException;
 
 /**
  * @author Pablo Díez <pablodip@gmail.com>
  */
 abstract class Template implements TemplateInterface
 {
+    /**
+     * @var array
+     */
     protected static $defaultOptions = [];
 
+    /**
+     * @var callable
+     */
     private $routeGenerator;
+
+    /**
+     * @var array
+     */
     private $options;
 
     public function __construct()
     {
-        $this->initializeOptions();
+        $this->options = static::$defaultOptions;
     }
 
+    /**
+     * @param callable $routeGenerator
+     *
+     * @throws InvalidArgumentException if the route generator is not a callable
+     */
     public function setRouteGenerator($routeGenerator): void
     {
         if (!is_callable($routeGenerator)) {
@@ -42,29 +58,41 @@ abstract class Template implements TemplateInterface
         $this->options = array_merge($this->options, $options);
     }
 
-    private function initializeOptions(): void
-    {
-        $this->options = static::$defaultOptions;
-    }
-
+    /**
+     * Generate the route (URL) for the given page
+     *
+     * @param int $page
+     *
+     * @return string
+     */
     protected function generateRoute($page)
     {
         return \call_user_func($this->getRouteGenerator(), $page);
     }
 
-    private function getRouteGenerator()
+    /**
+     * @throws RuntimeException if the route generator has not been set
+     */
+    private function getRouteGenerator(): callable
     {
         if (!$this->routeGenerator) {
-            throw new \RuntimeException('There is no route generator.');
+            throw new RuntimeException(sprintf('The route generator was not set to the template, ensure you call %s::setRouteGenerator().', static::class));
         }
 
         return $this->routeGenerator;
     }
 
+    /**
+     * @param string $name The name of the option to look up
+     *
+     * @return mixed The option value if it exists
+     *
+     * @throws InvalidArgumentException if the option does not exist
+     */
     protected function option($name)
     {
         if (!isset($this->options[$name])) {
-            throw new \InvalidArgumentException(sprintf('The option "%s" does not exist.', $name));
+            throw new InvalidArgumentException(sprintf('The option "%s" does not exist.', $name));
         }
 
         return $this->options[$name];

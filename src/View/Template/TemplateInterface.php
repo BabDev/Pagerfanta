@@ -37,12 +37,13 @@ interface TemplateInterface
     /**
      * Renders a given page with a specified text.
      *
-     * @param int    $page
-     * @param string $text
+     * @param int         $page
+     * @param string      $text
+     * @param string|null $rel An optional relation for the item
      *
      * @return string
      */
-    public function pageWithText($page, $text);
+    public function pageWithText($page, $text/*, ?string $rel = null */);
 
     /**
      * Renders the disabled state of the previous page.

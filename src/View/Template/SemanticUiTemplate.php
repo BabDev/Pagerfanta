@@ -16,6 +16,9 @@ namespace Pagerfanta\View\Template;
  */
 class SemanticUiTemplate extends Template
 {
+    /**
+     * @var string[]
+     */
     protected static $defaultOptions = [
         'prev_message' => '&larr; Previous',
         'next_message' => 'Next &rarr;',
@@ -30,113 +33,93 @@ class SemanticUiTemplate extends Template
         'css_active_class' => 'active',
     ];
 
-    public function container()
+    public function container(): string
     {
         return sprintf('<div class="%s">%%pages%%</div>',
             $this->option('css_container_class')
         );
     }
 
-    public function page($page)
+    public function page($page): string
     {
-        $text = $page;
-
-        return $this->pageWithText($page, $text);
+        return $this->pageWithText($page, $page);
     }
 
-    public function pageWithText($page, $text)
+    public function pageWithText($page, $text, ?string $rel = null): string
     {
-        $class = null;
-
-        return $this->pageWithTextAndClass($page, $text, $class);
+        return $this->pageWithTextAndClass($page, $text, '');
     }
 
-    private function pageWithTextAndClass($page, $text, $class)
+    private function pageWithTextAndClass($page, $text, $class): string
     {
-        $href = $this->generateRoute($page);
-
-        return $this->link($class, $href, $text);
+        return $this->link($class, $this->generateRoute($page), $text);
     }
 
-    public function previousDisabled()
+    public function previousDisabled(): string
     {
-        $class = $this->previousDisabledClass();
-        $text = $this->option('prev_message');
-
-        return $this->div($class, $text);
+        return $this->div($this->previousDisabledClass(), $this->option('prev_message'));
     }
 
-    private function previousDisabledClass()
+    private function previousDisabledClass(): string
     {
         return $this->option('css_prev_class').' '.$this->option('css_disabled_class');
     }
 
-    public function previousEnabled($page)
+    public function previousEnabled($page): string
     {
-        $text = $this->option('prev_message');
-        $class = $this->option('css_prev_class');
-
-        return $this->pageWithTextAndClass($page, $text, $class);
+        return $this->pageWithTextAndClass($page, $this->option('prev_message'), $this->option('css_prev_class'));
     }
 
-    public function nextDisabled()
+    public function nextDisabled(): string
     {
-        $class = $this->nextDisabledClass();
-        $text = $this->option('next_message');
-
-        return $this->div($class, $text);
+        return $this->div($this->nextDisabledClass(), $this->option('next_message'));
     }
 
-    private function nextDisabledClass()
+    private function nextDisabledClass(): string
     {
         return $this->option('css_next_class').' '.$this->option('css_disabled_class');
     }
 
-    public function nextEnabled($page)
+    public function nextEnabled($page): string
     {
-        $text = $this->option('next_message');
-        $class = $this->option('css_next_class');
-
-        return $this->pageWithTextAndClass($page, $text, $class);
+        return $this->pageWithTextAndClass($page, $this->option('next_message'), $this->option('css_next_class'));
     }
 
-    public function first()
+    public function first(): string
     {
         return $this->page(1);
     }
 
-    public function last($page)
+    public function last($page): string
     {
         return $this->page($page);
     }
 
-    public function current($page)
+    public function current($page): string
     {
         $text = trim($page.' '.$this->option('active_suffix'));
-        $class = $this->option('css_active_class');
 
-        return $this->div($class, $text);
+        return $this->div($this->option('css_active_class'), $text);
     }
 
-    public function separator()
+    public function separator(): string
     {
-        $class = $this->option('css_dots_class');
-        $text = $this->option('dots_message');
-
-        return $this->div($class, $text);
+        return $this->div($this->option('css_dots_class'), $this->option('dots_message'));
     }
 
-    private function link($class, $href, $text)
+    /**
+     * @param int|string $text
+     */
+    private function link(string $class, string $href, $text): string
     {
-        $item_class = $this->option('css_item_class');
-
-        return sprintf('<a class="%s %s" href="%s">%s</a>', $item_class, $class, $href, $text);
+        return sprintf('<a class="%s %s" href="%s">%s</a>', $this->option('css_item_class'), $class, $href, $text);
     }
 
-    private function div($class, $text)
+    /**
+     * @param int|string $text
+     */
+    private function div(string $class, $text): string
     {
-        $item_class = $this->option('css_item_class');
-
-        return sprintf('<div class="%s %s">%s</div>', $item_class, $class, $text);
+        return sprintf('<div class="%s %s">%s</div>', $this->option('css_item_class'), $class, $text);
     }
 }

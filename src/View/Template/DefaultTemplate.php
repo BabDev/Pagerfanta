@@ -16,6 +16,9 @@ namespace Pagerfanta\View\Template;
  */
 class DefaultTemplate extends Template
 {
+    /**
+     * @var string[]
+     */
     protected static $defaultOptions = [
         'prev_message' => 'Previous',
         'next_message' => 'Next',
@@ -30,73 +33,69 @@ class DefaultTemplate extends Template
         'rel_next' => 'next',
     ];
 
-    public function container()
+    public function container(): string
     {
         return $this->option('container_template');
     }
 
-    public function page($page)
+    public function page($page): string
     {
-        $text = $page;
-
-        return $this->pageWithText($page, $text);
+        return $this->pageWithText($page, $page);
     }
 
-    public function pageWithText($page, $text, $rel = null)
+    public function pageWithText($page, $text, $rel = null): string
     {
-        $search = ['%href%', '%text%', '%rel%'];
-
         $href = $this->generateRoute($page);
         $replace = $rel ? [$href, $text, ' rel="'.$rel.'"'] : [$href, $text, ''];
 
-        return str_replace($search, $replace, $this->option('page_template'));
+        return str_replace(['%href%', '%text%', '%rel%'], $replace, $this->option('page_template'));
     }
 
-    public function previousDisabled()
+    public function previousDisabled(): string
     {
         return $this->generateSpan($this->option('css_disabled_class'), $this->option('prev_message'));
     }
 
-    public function previousEnabled($page)
+    public function previousEnabled($page): string
     {
         return $this->pageWithText($page, $this->option('prev_message'), $this->option('rel_previous'));
     }
 
-    public function nextDisabled()
+    public function nextDisabled(): string
     {
         return $this->generateSpan($this->option('css_disabled_class'), $this->option('next_message'));
     }
 
-    public function nextEnabled($page)
+    public function nextEnabled($page): string
     {
         return $this->pageWithText($page, $this->option('next_message'), $this->option('rel_next'));
     }
 
-    public function first()
+    public function first(): string
     {
         return $this->page(1);
     }
 
-    public function last($page)
+    public function last($page): string
     {
         return $this->page($page);
     }
 
-    public function current($page)
+    public function current($page): string
     {
         return $this->generateSpan($this->option('css_current_class'), $page);
     }
 
-    public function separator()
+    public function separator(): string
     {
         return $this->generateSpan($this->option('css_dots_class'), $this->option('dots_text'));
     }
 
-    private function generateSpan($class, $page)
+    /**
+     * @param int|string $page
+     */
+    private function generateSpan(string $class, $page): string
     {
-        $search = ['%class%', '%text%'];
-        $replace = [$class, $page];
-
-        return str_replace($search, $replace, $this->option('span_template'));
+        return str_replace(['%class%', '%text%'], [$class, $page], $this->option('span_template'));
     }
 }

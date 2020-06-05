@@ -50,7 +50,7 @@ class DefaultView extends View
         return $this->generate();
     }
 
-    private function configureTemplate($routeGenerator, $options): void
+    private function configureTemplate(callable $routeGenerator, array $options): void
     {
         $this->template->setRouteGenerator($routeGenerator);
         $this->template->setOptions($options);

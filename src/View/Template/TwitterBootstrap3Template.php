@@ -23,7 +23,7 @@ class TwitterBootstrap3Template extends TwitterBootstrapTemplate
         $this->setOptions(['active_suffix' => '<span class="sr-only">(current)</span>']);
     }
 
-    public function container()
+    public function container(): string
     {
         return sprintf('<ul class="%s">%%pages%%</ul>',
             $this->option('css_container_class')
