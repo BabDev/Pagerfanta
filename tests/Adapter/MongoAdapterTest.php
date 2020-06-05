@@ -3,10 +3,17 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\MongoAdapter;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @requires extension mongo
+ */
 class MongoAdapterTest extends TestCase
 {
+    /**
+     * @var MockObject|\MongoCursor
+     */
     protected $cursor;
 
     /**
@@ -16,25 +23,8 @@ class MongoAdapterTest extends TestCase
 
     protected function setUp(): void
     {
-        if ($this->isMongoNotAvailable()) {
-            $this->markTestSkipped('Mongo is not available.');
-        }
-
-        $this->cursor = $this->createCursorMock();
+        $this->cursor = $this->createMock(\MongoCursor::class);
         $this->adapter = new MongoAdapter($this->cursor);
-    }
-
-    private function isMongoNotAvailable()
-    {
-        return !\extension_loaded('mongo');
-    }
-
-    private function createCursorMock()
-    {
-        return $this
-            ->getMockBuilder('\MongoCursor')
-            ->disableOriginalConstructor()
-            ->getMock();
     }
 
     public function testGetCursor(): void

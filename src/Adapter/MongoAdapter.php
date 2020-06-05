@@ -11,29 +11,28 @@
 
 namespace Pagerfanta\Adapter;
 
+trigger_deprecation('pagerfanta/pagerfanta', '2.2', 'The "%s" adapter is deprecated and will be removed in 3.0.', MongoAdapter::class);
+
 /**
  * MongoAdapter.
  *
  * @author Sergey Ponomaryov <serg.ponomaryov@gmail.com>
+ * @deprecated to be removed in 3.0
  */
 class MongoAdapter implements AdapterInterface
 {
+    /**
+     * @var \MongoCursor
+     */
     private $cursor;
 
-    /**
-     * Constructor.
-     *
-     * @param \MongoCursor $cursor the cursor
-     */
     public function __construct(\MongoCursor $cursor)
     {
         $this->cursor = $cursor;
     }
 
     /**
-     * Returns the cursor.
-     *
-     * @return \MongoCursor the cursor
+     * @return \MongoCursor
      */
     public function getCursor()
     {
