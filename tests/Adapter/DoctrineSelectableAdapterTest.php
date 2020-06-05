@@ -26,13 +26,6 @@ class DoctrineSelectableAdapterTest extends TestCase
      */
     private $adapter;
 
-    public static function setUpBeforeClass(): void
-    {
-        if (!interface_exists(Selectable::class)) {
-            self::markTestSkipped('The Selectable interface is not available.');
-        }
-    }
-
     protected function setUp(): void
     {
         $this->selectable = $this->createMock(Selectable::class);
