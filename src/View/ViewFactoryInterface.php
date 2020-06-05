@@ -11,6 +11,8 @@
 
 namespace Pagerfanta\View;
 
+use Pagerfanta\Exception\InvalidArgumentException;
+
 /**
  * ViewFactoryInterface.
  *
@@ -36,9 +38,9 @@ interface ViewFactoryInterface
     public function has($name);
 
     /**
-     * Adds views.
+     * Adds a collection of views.
      *
-     * @param array $views an array of views
+     * @param array<string, ViewInterface> $views an array of views
      */
     public function add(array $views);
 
@@ -49,14 +51,14 @@ interface ViewFactoryInterface
      *
      * @return ViewInterface the view
      *
-     * @throws \InvalidArgumentException if the view does not exist
+     * @throws InvalidArgumentException if the view does not exist
      */
     public function get($name);
 
     /**
      * Returns all the views.
      *
-     * @return array the views
+     * @return array<string, ViewInterface>
      */
     public function all();
 
@@ -65,7 +67,7 @@ interface ViewFactoryInterface
      *
      * @param string $name the name
      *
-     * @throws \InvalidArgumentException if the view does not exist
+     * @throws InvalidArgumentException if the view does not exist
      */
     public function remove($name);
 

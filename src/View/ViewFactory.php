@@ -17,18 +17,14 @@ use Pagerfanta\Exception\InvalidArgumentException;
  * ViewFactory.
  *
  * @author Pablo Díez <pablodip@gmail.com>
+ * @final
  */
-class ViewFactory implements ViewFactoryInterface
+/* final */class ViewFactory implements ViewFactoryInterface
 {
-    private $views;
-
     /**
-     * Constructor.
+     * @var array<string, ViewInterface>
      */
-    public function __construct()
-    {
-        $this->views = [];
-    }
+    private $views = [];
 
     public function set($name, ViewInterface $view): void
     {
