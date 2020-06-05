@@ -36,6 +36,9 @@ class DefaultView extends View
         return new DefaultTemplate();
     }
 
+    /**
+     * @throws InvalidArgumentException if the $routeGenerator is not a callable
+     */
     public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = [])
     {
         if (!is_callable($routeGenerator)) {
@@ -56,19 +59,17 @@ class DefaultView extends View
         $this->template->setOptions($options);
     }
 
-    private function generate()
+    private function generate(): string
     {
-        $pages = $this->generatePages();
-
-        return $this->generateContainer($pages);
+        return $this->generateContainer($this->generatePages());
     }
 
-    private function generateContainer($pages)
+    private function generateContainer(string $pages): string
     {
         return str_replace('%pages%', $pages, $this->template->container());
     }
 
-    private function generatePages()
+    private function generatePages(): string
     {
         $this->calculateStartAndEndPage();
 
@@ -83,7 +84,7 @@ class DefaultView extends View
                $this->next();
     }
 
-    private function previous()
+    private function previous(): string
     {
         if ($this->pagerfanta->hasPreviousPage()) {
             return $this->template->previousEnabled($this->pagerfanta->getPreviousPage());
@@ -92,28 +93,34 @@ class DefaultView extends View
         return $this->template->previousDisabled();
     }
 
-    private function first()
+    private function first(): string
     {
         if ($this->startPage > 1) {
             return $this->template->first();
         }
+
+        return '';
     }
 
-    private function secondIfStartIs3()
+    private function secondIfStartIs3(): string
     {
-        if (3 == $this->startPage) {
+        if (3 === $this->startPage) {
             return $this->template->page(2);
         }
+
+        return '';
     }
 
-    private function dotsIfStartIsOver3()
+    private function dotsIfStartIsOver3(): string
     {
         if ($this->startPage > 3) {
             return $this->template->separator();
         }
+
+        return '';
     }
 
-    private function pages()
+    private function pages(): string
     {
         $pages = '';
 
@@ -124,37 +131,43 @@ class DefaultView extends View
         return $pages;
     }
 
-    private function page($page)
+    private function page(int $page): string
     {
-        if ($page == $this->currentPage) {
+        if ($page === $this->currentPage) {
             return $this->template->current($page);
         }
 
         return $this->template->page($page);
     }
 
-    private function dotsIfEndIsUnder3ToLast()
+    private function dotsIfEndIsUnder3ToLast(): string
     {
         if ($this->endPage < $this->toLast(3)) {
             return $this->template->separator();
         }
+
+        return '';
     }
 
-    private function secondToLastIfEndIs3ToLast()
+    private function secondToLastIfEndIs3ToLast(): string
     {
         if ($this->endPage == $this->toLast(3)) {
             return $this->template->page($this->toLast(2));
         }
+
+        return '';
     }
 
-    private function last()
+    private function last(): string
     {
         if ($this->pagerfanta->getNbPages() > $this->endPage) {
             return $this->template->last($this->pagerfanta->getNbPages());
         }
+
+        return '';
     }
 
-    private function next()
+    private function next(): string
     {
         if ($this->pagerfanta->hasNextPage()) {
             return $this->template->nextEnabled($this->pagerfanta->getNextPage());
