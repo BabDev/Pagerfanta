@@ -1,9 +1,0 @@
-<?php
-
-namespace Pagerfanta\Exception;
-
-trigger_deprecation('babdev/pagerfanta', '2.2', 'The "%s" interface is deprecated and will be removed in 3.0, exceptions should implement "%s" instead.', Exception::class, PagerfantaException::class);
-
-interface Exception extends PagerfantaException
-{
-}
