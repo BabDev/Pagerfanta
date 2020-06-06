@@ -9,31 +9,29 @@ use Solarium\QueryType\Select\Query\Query;
 use Solarium\QueryType\Select\Result\Result;
 
 /**
- * SolariumAdapter.
- *
- * @author Igor Wiedler <igor@wiedler.ch>
+ * Adapter which calculates pagination from a Solarium Query.
  */
 class SolariumAdapter implements AdapterInterface
 {
     /**
-     * @var Client|\Solarium_Client
+     * @var \Solarium_Client|Client
      */
     private $client;
 
     /**
-     * @var Query|\Solarium_Query_Select
+     * @var \Solarium_Query_Select|Query
      */
     private $query;
 
     /**
-     * @var Result|\Solarium_Result_Select
+     * @var \Solarium_Result_Select|Result
      */
     private $resultSet;
 
     /**
      * @var Endpoint|string|null
      */
-    private $endPoint;
+    private $endpoint;
 
     /**
      * @var int|null
@@ -46,10 +44,8 @@ class SolariumAdapter implements AdapterInterface
     private $resultSetRows;
 
     /**
-     * Constructor.
-     *
-     * @param \Solarium_Client|Client      $client a Solarium client
-     * @param \Solarium_Query_Select|Query $query  a Solarium select query
+     * @param \Solarium_Client|Client      $client
+     * @param \Solarium_Query_Select|Query $query
      */
     public function __construct($client, $query)
     {
@@ -142,11 +138,20 @@ class SolariumAdapter implements AdapterInterface
         );
     }
 
+    /**
+     * @return int
+     */
     public function getNbResults()
     {
         return $this->getResultSet()->getNumFound();
     }
 
+    /**
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable
+     */
     public function getSlice($offset, $length)
     {
         return $this->getResultSet($offset, $length);
@@ -156,7 +161,7 @@ class SolariumAdapter implements AdapterInterface
      * @param int $start
      * @param int $rows
      *
-     * @return \Solarium_Result_Select|\Solarium\QueryType\Select\Result\Result
+     * @return \Solarium_Result_Select|Result
      */
     public function getResultSet($start = null, $rows = null)
     {
@@ -192,17 +197,20 @@ class SolariumAdapter implements AdapterInterface
 
     private function modifyQuery(): void
     {
-        $this->query
-            ->setStart($this->resultSetStart)
+        $this->query->setStart($this->resultSetStart)
             ->setRows($this->resultSetRows);
     }
 
     /**
-     * @return \Solarium_Result_Select|\Solarium\QueryType\Select\Result\Result
+     * @return \Solarium_Result_Select|Result
      */
     private function createResultSet()
     {
-        return $this->client->select($this->query, $this->endPoint);
+        if ($this->client instanceof \Solarium_Client) {
+            return $this->client->select($this->query);
+        }
+
+        return $this->client->select($this->query, $this->endpoint);
     }
 
     private function clearResultSet(): void
@@ -216,13 +224,13 @@ class SolariumAdapter implements AdapterInterface
     }
 
     /**
-     * @param Endpoint|string|null $endPoint
+     * @param Endpoint|string|null $endpoint
      *
      * @return $this
      */
-    public function setEndPoint($endPoint)
+    public function setEndpoint($endpoint)
     {
-        $this->endPoint = $endPoint;
+        $this->endpoint = $endpoint;
 
         return $this;
     }

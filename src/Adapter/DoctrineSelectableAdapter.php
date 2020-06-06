@@ -6,9 +6,7 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Selectable;
 
 /**
- * DoctrineSelectableAdapter.
- *
- * @author Boris Guéry <guery.b@gmail.com>
+ * Adapter which calculates pagination from a Selectable instance.
  */
 class DoctrineSelectableAdapter implements AdapterInterface
 {
@@ -22,39 +20,36 @@ class DoctrineSelectableAdapter implements AdapterInterface
      */
     private $criteria;
 
-    /**
-     * Constructor.
-     *
-     * @param Selectable $selectable an implementation of the Selectable interface
-     * @param Criteria   $criteria   a Doctrine criteria
-     */
     public function __construct(Selectable $selectable, Criteria $criteria)
     {
         $this->selectable = $selectable;
         $this->criteria = $criteria;
     }
 
+    /**
+     * @return int
+     */
     public function getNbResults()
     {
-        $firstResult = null;
-        $maxResults = null;
-
-        $criteria = $this->createCriteria($firstResult, $maxResults);
-
-        return $this->selectable->matching($criteria)->count();
+        return $this->selectable->matching($this->createCriteria(null, null))->count();
     }
 
+    /**
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable
+     */
     public function getSlice($offset, $length)
     {
-        $firstResult = $offset;
-        $maxResults = $length;
-
-        $criteria = $this->createCriteria($firstResult, $maxResults);
-
-        return $this->selectable->matching($criteria);
+        return $this->selectable->matching($this->createCriteria($offset, $length));
     }
 
-    private function createCriteria($firstResult, $maxResult)
+    /**
+     * @param int|null $firstResult
+     * @param int|null $maxResult
+     */
+    private function createCriteria($firstResult, $maxResult): Criteria
     {
         $criteria = clone $this->criteria;
         $criteria->setFirstResult($firstResult);

@@ -5,28 +5,23 @@ namespace Pagerfanta\Adapter;
 trigger_deprecation('babdev/pagerfanta', '2.2', 'The "%s" adapter is deprecated and will be removed in 3.0.', PropelAdapter::class);
 
 /**
- * PropelAdapter.
+ * Adapter which calculates pagination from a Propel ModelCriteria.
  *
- * @author William DURAND <william.durand1@gmail.com>
  * @deprecated to be removed in 3.0
  */
 class PropelAdapter implements AdapterInterface
 {
+    /**
+     * @var \ModelCriteria
+     */
     private $query;
 
-    /**
-     * Constructor.
-     *
-     * @param \ModelCriteria $query
-     */
     public function __construct($query)
     {
         $this->query = $query;
     }
 
     /**
-     * Returns the query.
-     *
      * @return \ModelCriteria
      */
     public function getQuery()
@@ -34,6 +29,9 @@ class PropelAdapter implements AdapterInterface
         return $this->query;
     }
 
+    /**
+     * @return int
+     */
     public function getNbResults()
     {
         $q = clone $this->getQuery();
@@ -44,6 +42,12 @@ class PropelAdapter implements AdapterInterface
         return $q->count();
     }
 
+    /**
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable
+     */
     public function getSlice($offset, $length)
     {
         $q = clone $this->getQuery();

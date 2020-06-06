@@ -5,9 +5,7 @@ namespace Pagerfanta\Adapter;
 use Doctrine\ODM\MongoDB\Query\Builder;
 
 /**
- * DoctrineODMMongoDBAdapter.
- *
- * @author Pablo Díez <pablodip@gmail.com>
+ * Adapter which calculates pagination from a Doctrine MongoDB ODM QueryBuilder.
  */
 class DoctrineODMMongoDBAdapter implements AdapterInterface
 {
@@ -29,22 +27,29 @@ class DoctrineODMMongoDBAdapter implements AdapterInterface
         return $this->queryBuilder;
     }
 
+    /**
+     * @return int
+     */
     public function getNbResults()
     {
         $qb = clone $this->queryBuilder;
 
-        return $qb
-            ->limit(0)
+        return $qb->limit(0)
             ->skip(0)
             ->count()
             ->getQuery()
             ->execute();
     }
 
+    /**
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable
+     */
     public function getSlice($offset, $length)
     {
-        return $this->queryBuilder
-            ->limit($length)
+        return $this->queryBuilder->limit($length)
             ->skip($offset)
             ->getQuery()
             ->execute();

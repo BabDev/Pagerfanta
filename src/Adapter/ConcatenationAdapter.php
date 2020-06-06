@@ -6,41 +6,43 @@ use Pagerfanta\Exception\InvalidArgumentException;
 
 /**
  * Adapter that concatenates the results of other adapters.
- *
- * @author Surgie Finesse <finesserus@gmail.com>
  */
 class ConcatenationAdapter implements AdapterInterface
 {
     /**
-     * @var AdapterInterface[] List of adapters
+     * @var AdapterInterface[]
      */
     protected $adapters;
 
     /**
-     * @var int[]|null Cache of the numbers of results of the adapters. The indexes correspond the indexes of the
-     *                 `adapters` property.
+     * Cache of the numbers of results of the adapters. The indexes correspond the indexes of the $adapters property.
+     *
+     * @var int[]|null
      */
-    protected $adaptersNbResultsCache;
+    protected $adaptersNbResultsCache = null;
 
     /**
      * @param AdapterInterface[] $adapters
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidArgumentException if an adapter is not an Pagerfanta\Adapter\AdapterInterface instance
      */
     public function __construct(array $adapters)
     {
-        foreach ($adapters as $index => $adapter) {
+        foreach ($adapters as $adapter) {
             if (!($adapter instanceof AdapterInterface)) {
-                throw new InvalidArgumentException(sprintf('Argument $adapters[%s] expected to be a \Pagerfanta\Adapter\AdapterInterface instance, a %s given', $index, \is_object($adapter) ? sprintf('%s instance', \get_class($adapter)) : \gettype($adapter)));
+                throw new InvalidArgumentException(sprintf('The $adapters argument of the %s constructor expects all items to be an instance of %s.', self::class, AdapterInterface::class));
             }
         }
 
         $this->adapters = $adapters;
     }
 
+    /**
+     * @return int
+     */
     public function getNbResults()
     {
-        if (!isset($this->adaptersNbResultsCache)) {
+        if ($this->adaptersNbResultsCache === null) {
             $this->refreshAdaptersNbResults();
         }
 
@@ -48,11 +50,14 @@ class ConcatenationAdapter implements AdapterInterface
     }
 
     /**
-     * @return array
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable
      */
     public function getSlice($offset, $length)
     {
-        if (!isset($this->adaptersNbResultsCache)) {
+        if ($this->adaptersNbResultsCache === null) {
             $this->refreshAdaptersNbResults();
         }
 
@@ -95,6 +100,7 @@ class ConcatenationAdapter implements AdapterInterface
 
             // Getting the subslice from the adapter and adding it to the result slice
             $fetchSlice = $adapter->getSlice($fetchOffset, $fetchLength);
+
             foreach ($fetchSlice as $item) {
                 $slice[] = $item;
             }
@@ -108,7 +114,7 @@ class ConcatenationAdapter implements AdapterInterface
      */
     protected function refreshAdaptersNbResults(): void
     {
-        if (!isset($this->adaptersNbResultsCache)) {
+        if ($this->adaptersNbResultsCache === null) {
             $this->adaptersNbResultsCache = [];
         }
 

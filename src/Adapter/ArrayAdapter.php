@@ -3,39 +3,44 @@
 namespace Pagerfanta\Adapter;
 
 /**
- * ArrayAdapter.
- *
- * @author Pablo Díez <pablodip@gmail.com>
+ * Adapter which calculates pagination from an array of items.
  */
 class ArrayAdapter implements AdapterInterface
 {
+    /**
+     * @var array
+     */
     private $array;
 
-    /**
-     * Constructor.
-     *
-     * @param array $array the array
-     */
     public function __construct(array $array)
     {
         $this->array = $array;
     }
 
     /**
-     * Returns the array.
+     * Retrieves the array of items.
      *
-     * @return array the array
+     * @return array
      */
     public function getArray()
     {
         return $this->array;
     }
 
+    /**
+     * @return int
+     */
     public function getNbResults()
     {
         return \count($this->array);
     }
 
+    /**
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable
+     */
     public function getSlice($offset, $length)
     {
         return \array_slice($this->array, $offset, $length);

@@ -6,16 +6,12 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Pagerfanta\Exception\InvalidArgumentException;
 
 /**
- * @author Michael Williams <michael@whizdevelopment.com>
- * @author Pablo Díez <pablodip@gmail.com>
+ * Extended Doctrine DBAL adapter which assists in building the count query modifier for a SELECT query on a single table.
  */
 class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
 {
     /**
-     * Constructor.
-     *
-     * @param QueryBuilder $queryBuilder a DBAL query builder
-     * @param string       $countField   Primary key for the table in query. Used in count expression. Must include table alias
+     * @param string $countField Primary key for the table in query, used in the count expression. Must include table alias.
      */
     public function __construct(QueryBuilder $queryBuilder, $countField)
     {
@@ -23,30 +19,26 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
             throw new InvalidArgumentException('The query builder cannot have joins.');
         }
 
-        $countQueryBuilderModifier = $this->createCountQueryModifier($countField);
-
-        parent::__construct($queryBuilder, $countQueryBuilderModifier);
+        parent::__construct($queryBuilder, $this->createCountQueryModifier($countField));
     }
 
-    private function hasQueryBuilderJoins(QueryBuilder $queryBuilder)
+    private function hasQueryBuilderJoins(QueryBuilder $queryBuilder): bool
     {
-        $joins = $queryBuilder->getQueryPart('join');
-
-        return !empty($joins);
+        return !empty($queryBuilder->getQueryPart('join'));
     }
 
-    private function createCountQueryModifier($countField)
+    private function createCountQueryModifier($countField): \Closure
     {
         $select = $this->createSelectForCountField($countField);
 
         return function (QueryBuilder $queryBuilder) use ($select): void {
             $queryBuilder->select($select)
-                         ->resetQueryPart('orderBy')
-                         ->setMaxResults(1);
+                ->resetQueryPart('orderBy')
+                ->setMaxResults(1);
         };
     }
 
-    private function createSelectForCountField($countField)
+    private function createSelectForCountField($countField): string
     {
         if ($this->countFieldHasNoAlias($countField)) {
             throw new InvalidArgumentException('The $countField must contain a table alias in the string.');
@@ -55,7 +47,7 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
         return sprintf('COUNT(DISTINCT %s) AS total_results', $countField);
     }
 
-    private function countFieldHasNoAlias($countField)
+    private function countFieldHasNoAlias($countField): bool
     {
         return false === strpos($countField, '.');
     }

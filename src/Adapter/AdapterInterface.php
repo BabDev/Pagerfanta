@@ -2,27 +2,22 @@
 
 namespace Pagerfanta\Adapter;
 
-/**
- * AdapterInterface.
- *
- * @author Pablo Díez <pablodip@gmail.com>
- */
 interface AdapterInterface
 {
     /**
-     * Returns the number of results.
+     * Returns the number of results for the list.
      *
-     * @return int the number of results
+     * @return int
      */
     public function getNbResults();
 
     /**
-     * Returns an slice of the results.
+     * Returns an slice of the results representing the current page of items in the list.
      *
-     * @param int $offset the offset
-     * @param int $length the length
+     * @param int $offset
+     * @param int $length
      *
-     * @return iterable the slice
+     * @return iterable
      */
     public function getSlice($offset, $length);
 }

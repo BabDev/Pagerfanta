@@ -6,6 +6,9 @@ use Elastica\Query;
 use Elastica\ResultSet;
 use Elastica\SearchableInterface;
 
+/**
+ * Adapter which calculates pagination from a Elastica Query.
+ */
 class ElasticaAdapter implements AdapterInterface
 {
     /**
@@ -29,13 +32,16 @@ class ElasticaAdapter implements AdapterInterface
     private $options;
 
     /**
-     * @var int|null
-     *
-     * Used to limit the number of totalHits returned by ES.
+     * Used to limit the number of totalHits returned by ElasticSearch.
      * For more information, see: https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892
+     *
+     * @var int|null
      */
     private $maxResults;
 
+    /**
+     * @param int|null $maxResults
+     */
     public function __construct(SearchableInterface $searchable, Query $query, array $options = [], $maxResults = null)
     {
         $this->searchable = $searchable;
@@ -45,9 +51,19 @@ class ElasticaAdapter implements AdapterInterface
     }
 
     /**
-     * Returns the number of results.
+     * Returns the Elastica ResultSet.
      *
-     * @return int the number of results
+     * Will return null if getSlice has not yet been called.
+     *
+     * @return ResultSet|null
+     */
+    public function getResultSet()
+    {
+        return $this->resultSet;
+    }
+
+    /**
+     * @return int
      */
     public function getNbResults()
     {
@@ -65,29 +81,22 @@ class ElasticaAdapter implements AdapterInterface
     }
 
     /**
-     * Returns the Elastica ResultSet. Will return null if getSlice has not yet been
-     * called.
+     * @param int $offset
+     * @param int $length
      *
-     * @return ResultSet|null
-     */
-    public function getResultSet()
-    {
-        return $this->resultSet;
-    }
-
-    /**
-     * Returns an slice of the results.
-     *
-     * @param int $offset the offset
-     * @param int $length the length
-     *
-     * @return iterable the slice
+     * @return iterable
      */
     public function getSlice($offset, $length)
     {
-        return $this->resultSet = $this->searchable->search($this->query, array_merge($this->options, [
-            'from' => $offset,
-            'size' => $length,
-        ]));
+        return $this->resultSet = $this->searchable->search(
+            $this->query,
+            array_merge(
+                $this->options,
+                [
+                    'from' => $offset,
+                    'size' => $length,
+                ]
+            )
+        );
     }
 }

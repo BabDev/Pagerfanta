@@ -5,37 +5,58 @@ namespace Pagerfanta\Adapter;
 use Pagerfanta\Exception\InvalidArgumentException;
 
 /**
- * @author Adrien Brault <adrien.brault@gmail.com>
+ * Adapter which calculates pagination from callable functions.
  */
 class CallbackAdapter implements AdapterInterface
 {
-    private $getNbResultsCallback;
-    private $getSliceCallback;
+    /**
+     * @var callable
+     */
+    private $nbResultsCallable;
 
     /**
-     * @param callable $getNbResultsCallback
-     * @param callable $getSliceCallback
+     * @var callable
      */
-    public function __construct($getNbResultsCallback, $getSliceCallback)
+    private $sliceCallable;
+
+    /**
+     * @param callable $nbResultsCallable
+     * @param callable $sliceCallable
+     */
+    public function __construct($nbResultsCallable, $sliceCallable)
     {
-        if (!\is_callable($getNbResultsCallback)) {
-            throw new InvalidArgumentException('$getNbResultsCallback should be a callable');
-        }
-        if (!\is_callable($getSliceCallback)) {
-            throw new InvalidArgumentException('$getSliceCallback should be a callable');
+        if (!\is_callable($nbResultsCallable)) {
+            throw new InvalidArgumentException(sprintf('The $nbResultsCallable argument of the %s constructor must be a callable, a %s was given.', self::class, gettype($nbResultsCallable)));
         }
 
-        $this->getNbResultsCallback = $getNbResultsCallback;
-        $this->getSliceCallback = $getSliceCallback;
+        if (!\is_callable($sliceCallable)) {
+            throw new InvalidArgumentException(sprintf('The $sliceCallable argument of the %s constructor must be a callable, a %s was given.', self::class, gettype($sliceCallable)));
+        }
+
+        $this->nbResultsCallable = $nbResultsCallable;
+        $this->sliceCallable = $sliceCallable;
     }
 
+    /**
+     * @return int
+     */
     public function getNbResults()
     {
-        return \call_user_func($this->getNbResultsCallback);
+        $callable = $this->nbResultsCallable;
+
+        return $callable();
     }
 
+    /**
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable
+     */
     public function getSlice($offset, $length)
     {
-        return \call_user_func($this->getSliceCallback, $offset, $length);
+        $callable = $this->sliceCallable;
+
+        return $callable($offset, $length);
     }
 }

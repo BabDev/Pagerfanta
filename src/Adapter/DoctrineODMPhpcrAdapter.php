@@ -6,43 +6,48 @@ use Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder;
 use Doctrine\ODM\PHPCR\Query\Query;
 
 /**
- * Pagerfanta adapter for Doctrine PHPCR-ODM.
- *
- * @author David Buchmann <mail@davidbu.ch>
+ * Adapter which calculates pagination from a Doctrine PHPCR ODM QueryBuilder.
  */
 class DoctrineODMPhpcrAdapter implements AdapterInterface
 {
+    /**
+     * @var QueryBuilder
+     */
     private $queryBuilder;
 
-    /**
-     * Constructor.
-     *
-     * @param QueryBuilder $queryBuilder a Doctrine PHPCR-ODM query builder
-     */
     public function __construct(QueryBuilder $queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;
     }
 
     /**
-     * Returns the query builder.
-     *
-     * @return QueryBuilder the query builder
+     * @return QueryBuilder
      */
     public function getQueryBuilder()
     {
         return $this->queryBuilder;
     }
 
+    /**
+     * @return int
+     */
     public function getNbResults()
     {
-        return $this->queryBuilder->getQuery()->execute(null, Query::HYDRATE_PHPCR)->getRows()->count();
+        return $this->queryBuilder->getQuery()
+            ->execute(null, Query::HYDRATE_PHPCR)
+            ->getRows()
+            ->count();
     }
 
+    /**
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable
+     */
     public function getSlice($offset, $length)
     {
-        return $this->queryBuilder
-            ->getQuery()
+        return $this->queryBuilder->getQuery()
             ->setMaxResults($length)
             ->setFirstResult($offset)
             ->execute();

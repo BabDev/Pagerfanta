@@ -3,24 +3,26 @@
 namespace Pagerfanta\Adapter;
 
 /**
- * NullAdapter.
- *
- * @author Benjamin Dulau <benjamin.dulau@anonymation.com>
+ * Adapter which generates a null item list based on a number of results.
  */
 class NullAdapter implements AdapterInterface
 {
+    /**
+     * @var int
+     */
     private $nbResults;
 
     /**
-     * Constructor.
-     *
-     * @param int $nbResults total item count
+     * @param int $nbResults Total item count
      */
     public function __construct($nbResults = 0)
     {
         $this->nbResults = (int) $nbResults;
     }
 
+    /**
+     * @return int
+     */
     public function getNbResults()
     {
         return $this->nbResults;
@@ -32,7 +34,10 @@ class NullAdapter implements AdapterInterface
      *
      * Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
      *
-     * {@inheritdoc}
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable
      */
     public function getSlice($offset, $length)
     {
@@ -40,14 +45,13 @@ class NullAdapter implements AdapterInterface
             return [];
         }
 
-        $nullArrayLength = $this->calculateNullArrayLength($offset, $length);
-
-        return $this->createNullArray($nullArrayLength);
+        return $this->createNullArray($this->calculateNullArrayLength($offset, $length));
     }
 
-    private function calculateNullArrayLength($offset, $length)
+    private function calculateNullArrayLength($offset, $length): int
     {
         $remainCount = $this->remainCount($offset);
+
         if ($length > $remainCount) {
             return $remainCount;
         }
@@ -55,12 +59,12 @@ class NullAdapter implements AdapterInterface
         return $length;
     }
 
-    private function remainCount($offset)
+    private function remainCount($offset): int
     {
         return $this->nbResults - $offset;
     }
 
-    private function createNullArray($length)
+    private function createNullArray(int $length): array
     {
         return array_fill(0, $length, null);
     }

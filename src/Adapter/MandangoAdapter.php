@@ -7,42 +7,48 @@ use Mandango\Query;
 trigger_deprecation('babdev/pagerfanta', '2.2', 'The "%s" adapter is deprecated and will be removed in 3.0.', MandangoAdapter::class);
 
 /**
- * MandangoAdapter.
+ * Adapter which calculates pagination from a Mandango Query.
  *
- * @author Pablo Díez <pablodip@gmail.com>
  * @deprecated to be removed in 3.0, dependent package is abandoned
  */
 class MandangoAdapter implements AdapterInterface
 {
+    /**
+     * @var Query
+     */
     private $query;
 
-    /**
-     * Constructor.
-     *
-     * @param Query $query the query
-     */
     public function __construct(Query $query)
     {
         $this->query = $query;
     }
 
     /**
-     * Returns the query.
-     *
-     * @return Query the query
+     * @return Query
      */
     public function getQuery()
     {
         return $this->query;
     }
 
+    /**
+     * @return int
+     */
     public function getNbResults()
     {
         return $this->query->count();
     }
 
+    /**
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable
+     */
     public function getSlice($offset, $length)
     {
-        return $this->query->limit($length)->skip($offset)->all();
+        return $this->query->limit($length)
+            ->skip($offset)
+            ->all();
     }
 }

@@ -7,9 +7,8 @@ use Propel\Runtime\ActiveQuery\ModelCriteria;
 trigger_deprecation('babdev/pagerfanta', '2.2', 'The "%s" adapter is deprecated and will be removed in 3.0.', Propel2Adapter::class);
 
 /**
- * Propel2Adapter.
+ * Adapter which calculates pagination from a Propel2 ModelCriteria.
  *
- * @author Raphael YAN <raphael.yan89@gmail.com>
  * @deprecated to be removed in 3.0
  */
 class Propel2Adapter implements AdapterInterface
@@ -19,17 +18,12 @@ class Propel2Adapter implements AdapterInterface
      */
     private $query;
 
-    /**
-     * Constructor.
-     */
     public function __construct(ModelCriteria $query)
     {
         $this->query = $query;
     }
 
     /**
-     * Returns the query.
-     *
      * @return ModelCriteria
      */
     public function getQuery()
@@ -37,6 +31,9 @@ class Propel2Adapter implements AdapterInterface
         return $this->query;
     }
 
+    /**
+     * @return int
+     */
     public function getNbResults()
     {
         $q = clone $this->getQuery();
@@ -46,6 +43,12 @@ class Propel2Adapter implements AdapterInterface
         return $q->count();
     }
 
+    /**
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable
+     */
     public function getSlice($offset, $length)
     {
         $q = clone $this->getQuery();
