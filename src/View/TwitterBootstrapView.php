@@ -4,7 +4,7 @@ namespace Pagerfanta\View;
 
 use Pagerfanta\View\Template\TwitterBootstrapTemplate;
 
-class TwitterBootstrapView extends DefaultView
+class TwitterBootstrapView extends TemplateView
 {
     protected function createDefaultTemplate()
     {

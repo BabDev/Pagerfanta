@@ -4,7 +4,7 @@ namespace Pagerfanta\View;
 
 use Pagerfanta\View\Template\SemanticUiTemplate;
 
-class SemanticUiView extends DefaultView
+class SemanticUiView extends TemplateView
 {
     protected function createDefaultTemplate()
     {
