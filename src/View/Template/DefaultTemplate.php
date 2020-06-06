@@ -7,7 +7,7 @@ class DefaultTemplate extends Template
     /**
      * @var string[]
      */
-    protected static $defaultOptions = [
+    protected static array $defaultOptions = [
         'prev_message' => 'Previous',
         'next_message' => 'Next',
         'css_disabled_class' => 'disabled',
@@ -26,12 +26,12 @@ class DefaultTemplate extends Template
         return $this->option('container_template');
     }
 
-    public function page($page): string
+    public function page(int $page): string
     {
-        return $this->pageWithText($page, $page);
+        return $this->pageWithText($page, (string) $page);
     }
 
-    public function pageWithText($page, $text, $rel = null): string
+    public function pageWithText(int $page, string $text, ?string $rel = null): string
     {
         $href = $this->generateRoute($page);
         $replace = $rel ? [$href, $text, ' rel="'.$rel.'"'] : [$href, $text, ''];
@@ -44,7 +44,7 @@ class DefaultTemplate extends Template
         return $this->generateSpan($this->option('css_disabled_class'), $this->option('prev_message'));
     }
 
-    public function previousEnabled($page): string
+    public function previousEnabled(int $page): string
     {
         return $this->pageWithText($page, $this->option('prev_message'), $this->option('rel_previous'));
     }
@@ -54,7 +54,7 @@ class DefaultTemplate extends Template
         return $this->generateSpan($this->option('css_disabled_class'), $this->option('next_message'));
     }
 
-    public function nextEnabled($page): string
+    public function nextEnabled(int $page): string
     {
         return $this->pageWithText($page, $this->option('next_message'), $this->option('rel_next'));
     }
@@ -64,12 +64,12 @@ class DefaultTemplate extends Template
         return $this->page(1);
     }
 
-    public function last($page): string
+    public function last(int $page): string
     {
         return $this->page($page);
     }
 
-    public function current($page): string
+    public function current(int $page): string
     {
         return $this->generateSpan($this->option('css_current_class'), $page);
     }
