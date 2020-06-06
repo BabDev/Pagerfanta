@@ -18,10 +18,13 @@
         "jackalope/jackalope-doctrine-dbal": "^1.3",
         "phpunit/phpunit": "^8.5 || ^9.0",
         "ruflin/elastica": "^1.3 || ^2.0 || ^3.0 || ^5.0 || ^6.0",
-        "solarium/solarium": "^2.3 || ^3.0 || ^4.0 || ^5.0"
+        "solarium/solarium": "^4.0 || ^5.0"
     },
     "replace": {
         "pagerfanta/pagerfanta": "*"
+    },
+    "conflict": {
+        "solarium/solarium": "<4.0"
     },
     "suggest": {
         "doctrine/collections": "To use the Doctrine Collection and Selectable adapter.",
