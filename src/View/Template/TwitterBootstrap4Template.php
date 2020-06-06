@@ -2,9 +2,6 @@
 
 namespace Pagerfanta\View\Template;
 
-/**
- * TwitterBootstrap4Template.
- */
 class TwitterBootstrap4Template extends TwitterBootstrap3Template
 {
     protected function linkLi($class, $href, $text, $rel = null): string

@@ -5,9 +5,6 @@ namespace Pagerfanta\View\Template;
 use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Exception\RuntimeException;
 
-/**
- * @author Pablo Díez <pablodip@gmail.com>
- */
 abstract class Template implements TemplateInterface
 {
     /**
@@ -58,7 +55,9 @@ abstract class Template implements TemplateInterface
      */
     protected function generateRoute($page)
     {
-        return \call_user_func($this->getRouteGenerator(), $page);
+        $generator = $this->getRouteGenerator();
+
+        return $generator($page);
     }
 
     /**

@@ -2,9 +2,6 @@
 
 namespace Pagerfanta\View\Template;
 
-/**
- * @author Loïc Frémont <loic@mobizel.com>
- */
 class SemanticUiTemplate extends Template
 {
     /**

@@ -2,9 +2,6 @@
 
 namespace Pagerfanta\View\Template;
 
-/**
- * @author Pablo Díez <pablodip@gmail.com>
- */
 class TwitterBootstrapTemplate extends Template
 {
     /**

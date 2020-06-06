@@ -2,9 +2,6 @@
 
 namespace Pagerfanta\View\Template;
 
-/**
- * TwitterBootstrap3Template.
- */
 class TwitterBootstrap3Template extends TwitterBootstrapTemplate
 {
     public function __construct()
