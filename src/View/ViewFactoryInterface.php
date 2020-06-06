@@ -6,59 +6,29 @@ use Pagerfanta\Exception\InvalidArgumentException;
 
 interface ViewFactoryInterface
 {
-    /**
-     * Sets a view.
-     *
-     * @param string        $name the view name
-     * @param ViewInterface $view the view
-     */
-    public function set($name, ViewInterface $view);
+    public function set(string $name, ViewInterface $view): void;
+
+    public function has(string $name): bool;
 
     /**
-     * Returns whether a view exists or not.
-     *
-     * @param string $name the name
-     *
-     * @return bool whether a view exists or not
+     * @param array<string, ViewInterface> $views
      */
-    public function has($name);
+    public function add(array $views): void;
 
     /**
-     * Adds a collection of views.
-     *
-     * @param array<string, ViewInterface> $views an array of views
-     */
-    public function add(array $views);
-
-    /**
-     * Returns a view.
-     *
-     * @param string $name the name
-     *
-     * @return ViewInterface the view
-     *
      * @throws InvalidArgumentException if the view does not exist
      */
-    public function get($name);
+    public function get(string $name): ViewInterface;
 
     /**
-     * Returns all the views.
-     *
      * @return array<string, ViewInterface>
      */
-    public function all();
+    public function all(): array;
 
     /**
-     * Removes a view.
-     *
-     * @param string $name the name
-     *
      * @throws InvalidArgumentException if the view does not exist
      */
-    public function remove($name);
+    public function remove(string $name): void;
 
-    /**
-     * Clears the views.
-     */
-    public function clear();
+    public function clear(): void;
 }

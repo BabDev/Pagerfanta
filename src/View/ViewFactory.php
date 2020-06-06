@@ -4,22 +4,19 @@ namespace Pagerfanta\View;
 
 use Pagerfanta\Exception\InvalidArgumentException;
 
-/**
- * @final
- */
-/* final */class ViewFactory implements ViewFactoryInterface
+final class ViewFactory implements ViewFactoryInterface
 {
     /**
      * @var array<string, ViewInterface>
      */
-    private $views = [];
+    private array $views = [];
 
-    public function set($name, ViewInterface $view): void
+    public function set(string $name, ViewInterface $view): void
     {
         $this->views[$name] = $view;
     }
 
-    public function has($name)
+    public function has(string $name): bool
     {
         return isset($this->views[$name]);
     }
@@ -31,7 +28,7 @@ use Pagerfanta\Exception\InvalidArgumentException;
         }
     }
 
-    public function get($name)
+    public function get(string $name): ViewInterface
     {
         if (!$this->has($name)) {
             throw new InvalidArgumentException(sprintf('The view "%s" does not exist.', $name));
@@ -40,7 +37,7 @@ use Pagerfanta\Exception\InvalidArgumentException;
         return $this->views[$name];
     }
 
-    public function remove($name): void
+    public function remove(string $name): void
     {
         if (!$this->has($name)) {
             throw new InvalidArgumentException(sprintf('The view "%s" does not exist.', $name));
@@ -49,7 +46,10 @@ use Pagerfanta\Exception\InvalidArgumentException;
         unset($this->views[$name]);
     }
 
-    public function all()
+    /**
+     * @return array<string, ViewInterface>
+     */
+    public function all(): array
     {
         return $this->views;
     }
