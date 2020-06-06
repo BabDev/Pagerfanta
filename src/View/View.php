@@ -50,7 +50,7 @@ abstract class View implements ViewInterface
     {
         if (!($pagerfanta instanceof Pagerfanta)) {
             trigger_deprecation(
-                'pagerfanta/pagerfanta',
+                'babdev/pagerfanta',
                 '2.2',
                 '%1$s::render() will no longer accept "%2$s" implementations that are not a subclass of "%3$s" as of 3.0. Ensure your pager is a subclass of "%3$s".',
                 ViewInterface::class,
