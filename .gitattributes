@@ -6,3 +6,4 @@
 CHANGELOG.md export-ignore
 phpunit.xml.dist export-ignore
 README.md export-ignore
+UPGRADE-3.0.md export-ignore
