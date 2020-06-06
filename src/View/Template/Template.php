@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\View\Template;
 
@@ -32,7 +32,7 @@ abstract class Template implements TemplateInterface
     }
 
     /**
-     * Generate the route (URL) for the given page
+     * Generate the route (URL) for the given page.
      */
     protected function generateRoute(int $page): string
     {

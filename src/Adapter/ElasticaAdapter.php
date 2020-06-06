@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Adapter;
 
@@ -17,9 +17,7 @@ class ElasticaAdapter implements AdapterInterface
 
     /**
      * Used to limit the number of totalHits returned by ElasticSearch.
-     * For more information, see: https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892
-     *
-     * @var int|null
+     * For more information, see: https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892.
      */
     private ?int $maxResults;
 

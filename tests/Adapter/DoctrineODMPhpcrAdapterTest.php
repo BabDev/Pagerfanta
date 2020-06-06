@@ -2,8 +2,8 @@
 
 namespace Pagerfanta\Tests\Adapter;
 
-use Doctrine\ODM\PHPCR\Query\Query;
 use Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder;
+use Doctrine\ODM\PHPCR\Query\Query;
 use Pagerfanta\Adapter\DoctrineODMPhpcrAdapter;
 use PHPCR\Query\QueryResultInterface;
 use PHPUnit\Framework\MockObject\MockObject;

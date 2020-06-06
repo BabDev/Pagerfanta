@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Adapter;
 
@@ -18,7 +18,7 @@ class DoctrineDbalAdapter implements AdapterInterface
     private $countQueryBuilderModifier;
 
     /**
-     * @param callable $countQueryBuilderModifier a callable to modify the query builder to count the results, the callable should have a signature of `function (QueryBuilder $queryBuilder): void {}`.
+     * @param callable $countQueryBuilderModifier a callable to modify the query builder to count the results, the callable should have a signature of `function (QueryBuilder $queryBuilder): void {}`
      */
     public function __construct(QueryBuilder $queryBuilder, callable $countQueryBuilderModifier)
     {

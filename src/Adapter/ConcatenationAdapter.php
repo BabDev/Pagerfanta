@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Adapter;
 
@@ -39,7 +39,7 @@ class ConcatenationAdapter implements AdapterInterface
 
     public function getNbResults(): int
     {
-        if ($this->adaptersNbResultsCache === null) {
+        if (null === $this->adaptersNbResultsCache) {
             $this->refreshAdaptersNbResults();
         }
 
@@ -48,7 +48,7 @@ class ConcatenationAdapter implements AdapterInterface
 
     public function getSlice(int $offset, int $length): iterable
     {
-        if ($this->adaptersNbResultsCache === null) {
+        if (null === $this->adaptersNbResultsCache) {
             $this->refreshAdaptersNbResults();
         }
 
@@ -105,7 +105,7 @@ class ConcatenationAdapter implements AdapterInterface
      */
     protected function refreshAdaptersNbResults(): void
     {
-        if ($this->adaptersNbResultsCache === null) {
+        if (null === $this->adaptersNbResultsCache) {
             $this->adaptersNbResultsCache = [];
         }
 

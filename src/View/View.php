@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\View;
 
@@ -51,12 +51,12 @@ abstract class View implements ViewInterface
         $this->endPage = $endPage;
     }
 
-    protected function startPageUnderflow(int $startPage): int
+    protected function startPageUnderflow(int $startPage): bool
     {
         return $startPage < 1;
     }
 
-    protected function endPageOverflow(int $endPage): int
+    protected function endPageOverflow(int $endPage): bool
     {
         return $endPage > $this->nbPages;
     }
