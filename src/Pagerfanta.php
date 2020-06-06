@@ -6,7 +6,6 @@ use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Exception\LessThan1CurrentPageException;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
-use Pagerfanta\Exception\NotIntegerException;
 use Pagerfanta\Exception\OutOfBoundsException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
@@ -312,10 +311,6 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable
      */
     public function getPageNumberForItemAtPosition(int $position): int
     {
-        if (!\is_int($position)) {
-            throw new NotIntegerException();
-        }
-
         if ($this->getNbResults() < $position) {
             throw new OutOfBoundsException(sprintf('Item requested at position %d, but there are only %d items.', $position, $this->getNbResults()));
         }
