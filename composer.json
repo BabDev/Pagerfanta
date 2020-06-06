@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "ext-json": "*",
         "symfony/deprecation-contracts": "^2.1"
     },
     "require-dev": {
