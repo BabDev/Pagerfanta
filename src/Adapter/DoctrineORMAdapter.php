@@ -18,7 +18,7 @@ class DoctrineORMAdapter implements AdapterInterface
 
     /**
      * @param Query|QueryBuilder $query
-     * @param bool               $fetchJoinCollection whether the query joins a collection (true by default)
+     * @param bool               $fetchJoinCollection Whether the query joins a collection (true by default)
      * @param bool|null          $useOutputWalkers    Flag indicating whether output walkers are used in the paginator
      */
     public function __construct($query, $fetchJoinCollection = true, $useOutputWalkers = null)
