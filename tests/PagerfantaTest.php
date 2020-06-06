@@ -79,16 +79,6 @@ class PagerfantaTest extends TestCase
         $this->assertSame($this->pagerfanta, $this->pagerfanta->setAllowOutOfRangePages(true));
     }
 
-    /**
-     * @dataProvider notBooleanProvider
-     */
-    public function testSetAllowOutOfRangePagesShouldThrowNotBooleanExceptionWhenNotBoolean($value): void
-    {
-        $this->expectException(\Pagerfanta\Exception\NotBooleanException::class);
-
-        $this->pagerfanta->setAllowOutOfRangePages($value);
-    }
-
     public function testGetNormalizeOutOfRangePagesShouldBeFalseByDefault(): void
     {
         $this->assertFalse($this->pagerfanta->getNormalizeOutOfRangePages());
@@ -112,25 +102,6 @@ class PagerfantaTest extends TestCase
     }
 
     /**
-     * @dataProvider notBooleanProvider
-     */
-    public function testSetNormalizeOutOfRangePagesShouldThrowNotBooleanExceptionWhenNotBoolean($value): void
-    {
-        $this->expectException(\Pagerfanta\Exception\NotBooleanException::class);
-
-        $this->pagerfanta->setNormalizeOutOfRangePages($value);
-    }
-
-    public function notBooleanProvider()
-    {
-        return [
-            [1],
-            ['1'],
-            [1.1],
-        ];
-    }
-
-    /**
      * @dataProvider setMaxPerPageShouldSetAnIntegerProvider
      */
     public function testSetMaxPerPageShouldSetAnInteger($maxPerPage): void
@@ -149,47 +120,9 @@ class PagerfantaTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider setMaxPerPageShouldConvertStringsToIntegersProvider
-     */
-    public function testSetMaxPerPageShouldConvertStringsToIntegers($maxPerPage): void
-    {
-        $this->pagerfanta->setMaxPerPage($maxPerPage);
-        $this->assertSame((int) $maxPerPage, $this->pagerfanta->getMaxPerPage());
-    }
-
-    public function setMaxPerPageShouldConvertStringsToIntegersProvider()
-    {
-        return [
-            ['1'],
-            ['10'],
-            ['25'],
-        ];
-    }
-
     public function testSetMaxPerPageShouldReturnThePagerfanta(): void
     {
         $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxPerPage(10));
-    }
-
-    /**
-     * @dataProvider      setMaxPerPageShouldThrowExceptionWhenInvalidProvider
-     */
-    public function testSetMaxPerPageShouldThrowExceptionWhenInvalid($maxPerPage): void
-    {
-        $this->expectException(\Pagerfanta\Exception\NotIntegerMaxPerPageException::class);
-
-        $this->pagerfanta->setMaxPerPage($maxPerPage);
-    }
-
-    public function setMaxPerPageShouldThrowExceptionWhenInvalidProvider()
-    {
-        return [
-            [1.1],
-            ['1.1'],
-            [true],
-            [[1]],
-        ];
     }
 
     /**
@@ -311,47 +244,6 @@ class PagerfantaTest extends TestCase
     }
 
     /**
-     * @dataProvider setCurrentPageShouldConvertStringsToIntegersProvider
-     */
-    public function testSetCurrentPageShouldConvertStringsToIntegers($currentPage): void
-    {
-        $this->setAdapterNbResultsAny(100);
-        $this->pagerfanta->setMaxPerPage(2);
-        $this->pagerfanta->setCurrentPage($currentPage);
-
-        $this->assertSame((int) $currentPage, $this->pagerfanta->getCurrentPage());
-    }
-
-    public function setCurrentPageShouldConvertStringsToIntegersProvider()
-    {
-        return [
-            ['1'],
-            ['10'],
-            ['25'],
-        ];
-    }
-
-    /**
-     * @dataProvider      setCurrentPageShouldThrowExceptionWhenInvalidProvider
-     */
-    public function testSetCurrentPageShouldThrowExceptionWhenInvalid($currentPage): void
-    {
-        $this->expectException(\Pagerfanta\Exception\NotIntegerCurrentPageException::class);
-
-        $this->pagerfanta->setCurrentPage($currentPage);
-    }
-
-    public function setCurrentPageShouldThrowExceptionWhenInvalidProvider()
-    {
-        return [
-            [1.1],
-            ['1.1'],
-            [true],
-            [[1]],
-        ];
-    }
-
-    /**
      * @dataProvider      setCurrentPageShouldThrowExceptionWhenLessThan1Provider
      */
     public function testCurrentPagePageShouldThrowExceptionWhenLessThan1($currentPage): void
@@ -388,15 +280,6 @@ class PagerfantaTest extends TestCase
         $this->assertSame(11, $this->pagerfanta->getCurrentPage());
     }
 
-    public function testSetCurrentPageShouldNotThrowExceptionWhenIndicatingAllowOurOfRangePagesWithOldBooleanArguments(): void
-    {
-        $this->setAdapterNbResultsAny(100);
-        $this->pagerfanta->setMaxPerPage(10);
-        $this->pagerfanta->setCurrentPage(11, true);
-
-        $this->assertSame(11, $this->pagerfanta->getCurrentPage());
-    }
-
     public function testSetCurrentPageShouldReturnThePagerfanta(): void
     {
         $this->setAdapterNbResultsAny(100);
@@ -412,15 +295,6 @@ class PagerfantaTest extends TestCase
         $this->pagerfanta->setAllowOutOfRangePages(false);
         $this->pagerfanta->setNormalizeOutOfRangePages(true);
         $this->pagerfanta->setCurrentPage(11);
-
-        $this->assertSame(10, $this->pagerfanta->getCurrentPage());
-    }
-
-    public function testSetCurrentPageShouldNormalizePageWhenOutOfRangePageAndIndicatingNormalizeOutOfRangePagesWithDeprecatedBooleansArguments(): void
-    {
-        $this->setAdapterNbResultsAny(100);
-        $this->pagerfanta->setMaxPerPage(10);
-        $this->pagerfanta->setCurrentPage(11, false, true);
 
         $this->assertSame(10, $this->pagerfanta->getCurrentPage());
     }
@@ -739,15 +613,6 @@ class PagerfantaTest extends TestCase
         $this->pagerfanta->setMaxPerPage(10);
 
         $this->assertEquals(4, $this->pagerfanta->getPageNumberForItemAtPosition(35));
-    }
-
-    public function testGetPageNumberForItemShouldThrowANotIntegerItemExceptionIfTheItemIsNotAnInteger(): void
-    {
-        $this->expectException(\Pagerfanta\Exception\NotIntegerException::class);
-
-        $this->setAdapterNbResultsAny(100);
-
-        $this->pagerfanta->getPageNumberForItemAtPosition('foo');
     }
 
     public function testGetPageNumberForItemShouldThrowALogicExceptionIfTheItemIsMoreThanNbPage(): void
