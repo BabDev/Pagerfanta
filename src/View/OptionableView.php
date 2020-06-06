@@ -7,11 +7,7 @@ use Pagerfanta\Pagerfanta;
 use Pagerfanta\PagerfantaInterface;
 
 /**
- * OptionableView.
- *
- * This view renders another view with a default options to reuse them in a project.
- *
- * @author Pablo Díez <pablodip@gmail.com>
+ * Decorator for a view with a default options list, enables re-use of option configurations.
  */
 class OptionableView implements ViewInterface
 {

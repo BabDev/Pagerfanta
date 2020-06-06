@@ -7,9 +7,6 @@ use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\Template\DefaultTemplate;
 use Pagerfanta\View\Template\TemplateInterface;
 
-/**
- * @author Pablo Díez <pablodip@gmail.com>
- */
 class DefaultView extends View
 {
     /**

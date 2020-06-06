@@ -4,11 +4,6 @@ namespace Pagerfanta\View;
 
 use Pagerfanta\Exception\InvalidArgumentException;
 
-/**
- * ViewFactoryInterface.
- *
- * @author Pablo Díez <pablodip@gmail.com>
- */
 interface ViewFactoryInterface
 {
     /**
