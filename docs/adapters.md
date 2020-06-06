@@ -239,7 +239,7 @@ $query = Query::create(
 $adapter = new ElasticaAdapter($searchable, $query);
 ```
 
-<div class="docs-note">Be careful when paginating a huge set of documents. By default, offset + limit cannot exceed 10,000 items. You can mitigate this by setting the `$maxResults` parameter when constructing the `ElasticaAdapter`. For more information, see [https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892](https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892).</div>
+<div class="docs-note">Be careful when paginating a huge set of documents. By default, offset + limit cannot exceed 10,000 items. You can mitigate this by setting the <code>$maxResults</code> parameter when constructing the <code>ElasticaAdapter</code>. For more information, see <a href="https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892" target="_blank" rel="noopener nofollow">https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892</a>.</div>
 
 ### Mandango
 
