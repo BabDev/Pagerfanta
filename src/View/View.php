@@ -91,27 +91,27 @@ abstract class View implements ViewInterface
         $this->endPage = $endPage;
     }
 
-    protected function startPageUnderflow(int $startPage): bool
+    protected function startPageUnderflow($startPage)
     {
         return $startPage < 1;
     }
 
-    protected function endPageOverflow(int $endPage): bool
+    protected function endPageOverflow($endPage)
     {
         return $endPage > $this->nbPages;
     }
 
-    protected function calculateEndPageForStartPageUnderflow(int $startPage, int $endPage): int
+    protected function calculateEndPageForStartPageUnderflow($startPage, $endPage)
     {
         return min($endPage + (1 - $startPage), $this->nbPages);
     }
 
-    protected function calculateStartPageForEndPageOverflow(int $startPage, int $endPage): int
+    protected function calculateStartPageForEndPageOverflow($startPage, $endPage)
     {
         return max($startPage - ($endPage - $this->nbPages), 1);
     }
 
-    protected function toLast(int $n): int
+    protected function toLast($n)
     {
         return $this->pagerfanta->getNbPages() - ($n - 1);
     }

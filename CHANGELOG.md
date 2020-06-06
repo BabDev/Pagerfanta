@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.1 (2020-06-06)
+
+- Remove types from `Pagerfanta\View\View` signatures
+
 ## 2.2.0 (2020-06-06)
 
 - Added runtime deprecations for views when receiving a deprecated `Pagerfanta\PagerfantaInterface` implementation without being a `Pagerfanta\Pagerfanta` subclass
