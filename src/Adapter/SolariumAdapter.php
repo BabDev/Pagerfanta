@@ -13,31 +13,17 @@ use Solarium\QueryType\Select\Result\Result;
 class SolariumAdapter implements AdapterInterface
 {
     private ClientInterface $client;
+    private Query $query;
 
-    /**
-     * @var Query
-     */
-    private $query;
-
-    /**
-     * @var Result
-     */
-    private $resultSet;
+    private ?Result $resultSet = null;
 
     /**
      * @var Endpoint|string|null
      */
     private $endpoint;
 
-    /**
-     * @var int|null
-     */
-    private $resultSetStart;
-
-    /**
-     * @var int|null
-     */
-    private $resultSetRows;
+    private ?int $resultSetStart = null;
+    private ?int $resultSetRows = null;
 
     public function __construct(ClientInterface $client, Query $query)
     {
@@ -45,30 +31,17 @@ class SolariumAdapter implements AdapterInterface
         $this->query = $query;
     }
 
-    /**
-     * @return int
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return $this->getResultSet()->getNumFound();
     }
 
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->getResultSet($offset, $length);
     }
 
-    /**
-     * @param int $start
-     * @param int $rows
-     */
-    public function getResultSet($start = null, $rows = null): Result
+    public function getResultSet(?int $start = null, ?int $rows = null): Result
     {
         if ($this->resultSetStartAndRowsAreNotNullAndChange($start, $rows)) {
             $this->resultSetStart = $start;
@@ -85,17 +58,17 @@ class SolariumAdapter implements AdapterInterface
         return $this->resultSet;
     }
 
-    private function resultSetStartAndRowsAreNotNullAndChange($start, $rows): bool
+    private function resultSetStartAndRowsAreNotNullAndChange(?int $start, ?int $rows): bool
     {
         return $this->resultSetStartAndRowsAreNotNull($start, $rows) && $this->resultSetStartAndRowsChange($start, $rows);
     }
 
-    private function resultSetStartAndRowsAreNotNull($start, $rows): bool
+    private function resultSetStartAndRowsAreNotNull(?int $start, ?int $rows): bool
     {
         return null !== $start && null !== $rows;
     }
 
-    private function resultSetStartAndRowsChange($start, $rows): bool
+    private function resultSetStartAndRowsChange(?int $start, ?int $rows): bool
     {
         return $start !== $this->resultSetStart || $rows !== $this->resultSetRows;
     }

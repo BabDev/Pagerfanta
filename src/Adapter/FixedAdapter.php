@@ -9,41 +9,21 @@ namespace Pagerfanta\Adapter;
  */
 class FixedAdapter implements AdapterInterface
 {
-    /**
-     * @var int
-     */
-    private $nbResults;
+    private int $nbResults;
+    private iterable $results;
 
-    /**
-     * @var iterable
-     */
-    private $results;
-
-    /**
-     * @param int      $nbResults
-     * @param iterable $results
-     */
-    public function __construct($nbResults, $results)
+    public function __construct(int $nbResults, iterable $results)
     {
         $this->nbResults = $nbResults;
         $this->results = $results;
     }
 
-    /**
-     * @return int
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return $this->nbResults;
     }
 
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->results;
     }

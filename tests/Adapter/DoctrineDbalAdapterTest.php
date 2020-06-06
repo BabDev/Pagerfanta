@@ -65,16 +65,6 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
         $this->assertSame($expectedResults, $results);
     }
 
-    public function testItShouldThrowAnInvalidArgumentExceptionIfTheQueryIsNotSelect(): void
-    {
-        $this->expectException(\Pagerfanta\Exception\InvalidArgumentException::class);
-
-        $this->qb->delete('posts');
-        $countQueryModifier = function (): void { };
-
-        new DoctrineDbalAdapter($this->qb, $countQueryModifier);
-    }
-
     public function testItShouldCloneTheQuery(): void
     {
         $adapter = $this->createAdapterToTestGetNbResults();
@@ -83,15 +73,6 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
                 ->groupBy('c.post_id');
 
         $this->assertSame(50, $adapter->getNbResults());
-    }
-
-    public function testItShouldThrowAnInvalidArgumentExceptionIfTheCountQueryBuilderModifierIsNotACallable(): void
-    {
-        $this->expectException(\Pagerfanta\Exception\InvalidArgumentException::class);
-
-        $countQueryBuilderModifier = 'ups';
-
-        new DoctrineDbalAdapter($this->qb, $countQueryBuilderModifier);
     }
 
     private function createAdapterToTestGetNbResults()

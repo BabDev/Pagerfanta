@@ -27,7 +27,7 @@ class FixedAdapterTest extends TestCase
     {
         return [
             [['a', 'b']],
-            [new \stdClass()],
+            [new \ArrayIterator()],
         ];
     }
 }

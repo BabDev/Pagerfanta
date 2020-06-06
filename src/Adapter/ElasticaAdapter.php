@@ -11,25 +11,9 @@ use Elastica\SearchableInterface;
  */
 class ElasticaAdapter implements AdapterInterface
 {
-    /**
-     * @var Query
-     */
-    private $query;
-
-    /**
-     * @var ResultSet
-     */
-    private $resultSet;
-
-    /**
-     * @var SearchableInterface
-     */
-    private $searchable;
-
-    /**
-     * @var array
-     */
-    private $options;
+    private Query $query;
+    private SearchableInterface $searchable;
+    private array $options;
 
     /**
      * Used to limit the number of totalHits returned by ElasticSearch.
@@ -37,12 +21,11 @@ class ElasticaAdapter implements AdapterInterface
      *
      * @var int|null
      */
-    private $maxResults;
+    private ?int $maxResults;
 
-    /**
-     * @param int|null $maxResults
-     */
-    public function __construct(SearchableInterface $searchable, Query $query, array $options = [], $maxResults = null)
+    private ?ResultSet $resultSet = null;
+
+    public function __construct(SearchableInterface $searchable, Query $query, array $options = [], ?int $maxResults = null)
     {
         $this->searchable = $searchable;
         $this->query = $query;
@@ -54,18 +37,13 @@ class ElasticaAdapter implements AdapterInterface
      * Returns the Elastica ResultSet.
      *
      * Will return null if getSlice has not yet been called.
-     *
-     * @return ResultSet|null
      */
-    public function getResultSet()
+    public function getResultSet(): ?ResultSet
     {
         return $this->resultSet;
     }
 
-    /**
-     * @return int
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         if (!$this->resultSet) {
             $totalHits = $this->searchable->count($this->query);
@@ -80,13 +58,7 @@ class ElasticaAdapter implements AdapterInterface
         return min($totalHits, $this->maxResults);
     }
 
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->resultSet = $this->searchable->search(
             $this->query,

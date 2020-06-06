@@ -65,10 +65,15 @@ class SolariumAdapterTest extends TestCase
     {
         $query = $this->createQueryStub();
 
+        $result = $this->createResultMock();
+        $result->expects($this->atLeastOnce())
+            ->method('getNumFound')
+            ->willReturn(200);
+
         $client = $this->createClientMock();
         $client->expects($this->once())
             ->method('select')
-            ->willReturn($this->createResultMock());
+            ->willReturn($result);
 
         $adapter = new SolariumAdapter($client, $query);
 
@@ -106,10 +111,15 @@ class SolariumAdapterTest extends TestCase
     {
         $query = $this->createQueryStub();
 
+        $result = $this->createResultMock();
+        $result->expects($this->atLeastOnce())
+            ->method('getNumFound')
+            ->willReturn(200);
+
         $client = $this->createClientMock();
         $client->expects($this->exactly(2))
             ->method('select')
-            ->willReturn($this->createResultMock());
+            ->willReturn($result);
 
         $adapter = new SolariumAdapter($client, $query);
 
@@ -121,10 +131,15 @@ class SolariumAdapterTest extends TestCase
     {
         $query = $this->createQueryStub();
 
+        $result = $this->createResultMock();
+        $result->expects($this->atLeastOnce())
+            ->method('getNumFound')
+            ->willReturn(200);
+
         $client = $this->createClientMock();
         $client->expects($this->exactly(1))
             ->method('select')
-            ->willReturn($this->createResultMock());
+            ->willReturn($result);
 
         $adapter = new SolariumAdapter($client, $query);
 

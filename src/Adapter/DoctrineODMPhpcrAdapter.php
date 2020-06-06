@@ -10,28 +10,19 @@ use Doctrine\ODM\PHPCR\Query\Query;
  */
 class DoctrineODMPhpcrAdapter implements AdapterInterface
 {
-    /**
-     * @var QueryBuilder
-     */
-    private $queryBuilder;
+    private QueryBuilder $queryBuilder;
 
     public function __construct(QueryBuilder $queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;
     }
 
-    /**
-     * @return QueryBuilder
-     */
-    public function getQueryBuilder()
+    public function getQueryBuilder(): QueryBuilder
     {
         return $this->queryBuilder;
     }
 
-    /**
-     * @return int
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return $this->queryBuilder->getQuery()
             ->execute(null, Query::HYDRATE_PHPCR)
@@ -39,13 +30,7 @@ class DoctrineODMPhpcrAdapter implements AdapterInterface
             ->count();
     }
 
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->queryBuilder->getQuery()
             ->setMaxResults($length)

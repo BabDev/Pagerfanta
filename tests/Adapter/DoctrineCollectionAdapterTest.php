@@ -44,8 +44,8 @@ class DoctrineCollectionAdapterTest extends TestCase
     public function testGetResultsShouldReturnTheCollectionSliceReturnValue(): void
     {
         $results = new \ArrayObject();
-        $this->collection
-            ->expects($this->once())
+
+        $this->collection->expects($this->once())
             ->method('slice')
             ->willReturn($results);
 
@@ -54,10 +54,10 @@ class DoctrineCollectionAdapterTest extends TestCase
 
     public function testGetResultsShouldPassTheOffsetAndLengthToTheCollectionSlice(): void
     {
-        $this->collection
-            ->expects($this->once())
+        $this->collection->expects($this->once())
             ->method('slice')
-            ->with(5, 12);
+            ->with(5, 12)
+            ->willReturn([]);
 
         $this->adapter->getSlice(5, 12);
     }

@@ -7,10 +7,7 @@ namespace Pagerfanta\Adapter;
  */
 class ArrayAdapter implements AdapterInterface
 {
-    /**
-     * @var array
-     */
-    private $array;
+    private array $array;
 
     public function __construct(array $array)
     {
@@ -19,29 +16,18 @@ class ArrayAdapter implements AdapterInterface
 
     /**
      * Retrieves the array of items.
-     *
-     * @return array
      */
-    public function getArray()
+    public function getArray(): array
     {
         return $this->array;
     }
 
-    /**
-     * @return int
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return \count($this->array);
     }
 
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return \array_slice($this->array, $offset, $length);
     }

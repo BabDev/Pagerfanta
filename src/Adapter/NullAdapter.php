@@ -7,23 +7,14 @@ namespace Pagerfanta\Adapter;
  */
 class NullAdapter implements AdapterInterface
 {
-    /**
-     * @var int
-     */
-    private $nbResults;
+    private int $nbResults;
 
-    /**
-     * @param int $nbResults Total item count
-     */
-    public function __construct($nbResults = 0)
+    public function __construct(int $nbResults = 0)
     {
         $this->nbResults = (int) $nbResults;
     }
 
-    /**
-     * @return int
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return $this->nbResults;
     }
@@ -33,13 +24,8 @@ class NullAdapter implements AdapterInterface
      * Code subject to the new BSD license (http://framework.zend.com/license/new-bsd).
      *
      * Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
-     *
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
      */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         if ($offset >= $this->nbResults) {
             return [];
@@ -48,7 +34,7 @@ class NullAdapter implements AdapterInterface
         return $this->createNullArray($this->calculateNullArrayLength($offset, $length));
     }
 
-    private function calculateNullArrayLength($offset, $length): int
+    private function calculateNullArrayLength(int $offset, int $length): int
     {
         $remainCount = $this->remainCount($offset);
 
@@ -59,7 +45,7 @@ class NullAdapter implements AdapterInterface
         return $length;
     }
 
-    private function remainCount($offset): int
+    private function remainCount(int $offset): int
     {
         return $this->nbResults - $offset;
     }

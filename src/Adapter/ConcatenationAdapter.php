@@ -12,7 +12,7 @@ class ConcatenationAdapter implements AdapterInterface
     /**
      * @var AdapterInterface[]
      */
-    protected $adapters;
+    protected array $adapters;
 
     /**
      * Cache of the numbers of results of the adapters. The indexes correspond the indexes of the $adapters property.
@@ -37,10 +37,7 @@ class ConcatenationAdapter implements AdapterInterface
         $this->adapters = $adapters;
     }
 
-    /**
-     * @return int
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         if ($this->adaptersNbResultsCache === null) {
             $this->refreshAdaptersNbResults();
@@ -49,13 +46,7 @@ class ConcatenationAdapter implements AdapterInterface
         return array_sum($this->adaptersNbResultsCache);
     }
 
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         if ($this->adaptersNbResultsCache === null) {
             $this->refreshAdaptersNbResults();

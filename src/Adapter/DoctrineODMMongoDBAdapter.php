@@ -9,28 +9,19 @@ use Doctrine\ODM\MongoDB\Query\Builder;
  */
 class DoctrineODMMongoDBAdapter implements AdapterInterface
 {
-    /**
-     * @var Builder
-     */
-    private $queryBuilder;
+    private Builder $queryBuilder;
 
     public function __construct(Builder $queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;
     }
 
-    /**
-     * @return Builder
-     */
-    public function getQueryBuilder()
+    public function getQueryBuilder(): Builder
     {
         return $this->queryBuilder;
     }
 
-    /**
-     * @return int
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         $qb = clone $this->queryBuilder;
 
@@ -41,13 +32,7 @@ class DoctrineODMMongoDBAdapter implements AdapterInterface
             ->execute();
     }
 
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->queryBuilder->limit($length)
             ->skip($offset)

@@ -10,15 +10,8 @@ use Doctrine\Common\Collections\Selectable;
  */
 class DoctrineSelectableAdapter implements AdapterInterface
 {
-    /**
-     * @var Selectable
-     */
-    private $selectable;
-
-    /**
-     * @var Criteria
-     */
-    private $criteria;
+    private Selectable $selectable;
+    private Criteria $criteria;
 
     public function __construct(Selectable $selectable, Criteria $criteria)
     {
@@ -26,30 +19,17 @@ class DoctrineSelectableAdapter implements AdapterInterface
         $this->criteria = $criteria;
     }
 
-    /**
-     * @return int
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return $this->selectable->matching($this->createCriteria(null, null))->count();
     }
 
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->selectable->matching($this->createCriteria($offset, $length));
     }
 
-    /**
-     * @param int|null $firstResult
-     * @param int|null $maxResult
-     */
-    private function createCriteria($firstResult, $maxResult): Criteria
+    private function createCriteria(?int $firstResult, ?int $maxResult): Criteria
     {
         $criteria = clone $this->criteria;
         $criteria->setFirstResult($firstResult);

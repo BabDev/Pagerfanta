@@ -69,7 +69,7 @@ class DoctrineSelectableAdapterTest extends TestCase
         $this->criteria->setFirstResult(10);
         $this->criteria->setMaxResults(20);
 
-        $slice = new \stdClass();
+        $slice = new \ArrayIterator();
 
         $this->selectable
             ->expects($this->once())

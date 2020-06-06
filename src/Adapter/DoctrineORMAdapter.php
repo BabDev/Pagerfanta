@@ -11,55 +11,35 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class DoctrineORMAdapter implements AdapterInterface
 {
-    /**
-     * @var Paginator
-     */
-    private $paginator;
+    private Paginator $paginator;
 
     /**
      * @param Query|QueryBuilder $query
      * @param bool               $fetchJoinCollection Whether the query joins a collection (true by default)
      * @param bool|null          $useOutputWalkers    Flag indicating whether output walkers are used in the paginator
      */
-    public function __construct($query, $fetchJoinCollection = true, $useOutputWalkers = null)
+    public function __construct($query, bool $fetchJoinCollection = true, ?bool $useOutputWalkers = null)
     {
         $this->paginator = new Paginator($query, $fetchJoinCollection);
         $this->paginator->setUseOutputWalkers($useOutputWalkers);
     }
 
-    /**
-     * @return Query
-     */
-    public function getQuery()
+    public function getQuery(): Query
     {
         return $this->paginator->getQuery();
     }
 
-    /**
-     * Returns whether the query joins a collection.
-     *
-     * @return bool
-     */
-    public function getFetchJoinCollection()
+    public function getFetchJoinCollection(): bool
     {
         return $this->paginator->getFetchJoinCollection();
     }
 
-    /**
-     * @return int
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return \count($this->paginator);
     }
 
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         $this->paginator->getQuery()
             ->setFirstResult($offset)

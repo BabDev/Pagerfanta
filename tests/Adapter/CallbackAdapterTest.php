@@ -3,42 +3,13 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\CallbackAdapter;
-use Pagerfanta\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class CallbackAdapterTest extends TestCase
 {
-    /**
-     * @dataProvider notCallbackProvider
-     */
-    public function testConstructorShouldThrowAnInvalidArgumentExceptionIfTheGetNbResultsCallbackIsNotACallback($value): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        new CallbackAdapter($value, function (): void {});
-    }
-
-    /**
-     * @dataProvider notCallbackProvider
-     */
-    public function testConstructorShouldThrowAnInvalidArgumentExceptionIfTheGetSliceCallbackIsNotACallback($value): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        new CallbackAdapter(function (): void {}, $value);
-    }
-
-    public function notCallbackProvider()
-    {
-        return [
-            ['foo'],
-            [1],
-        ];
-    }
-
     public function testGetNbResultShouldReturnTheGetNbResultsCallbackReturnValue(): void
     {
-        $getNbResultsCallback = function () {
+        $getNbResultsCallback = function (): int {
             return 42;
         };
         $adapter = new CallbackAdapter($getNbResultsCallback, function (): void {});
@@ -53,20 +24,21 @@ class CallbackAdapterTest extends TestCase
             return $results;
         };
 
-        $adapter = new CallbackAdapter(function (): void {}, $getSliceCallback);
+        $adapter = new CallbackAdapter(function (): int { return 1; }, $getSliceCallback);
 
         $this->assertSame($results, $adapter->getSlice(1, 1));
     }
 
     public function testGetSliceShouldPassTheOffsetAndLengthToTheGetSliceCallback(): void
     {
-        $testCase = $this;
-        $getSliceCallback = function ($offset, $length) use ($testCase): void {
-            $testCase->assertSame(10, $offset);
-            $testCase->assertSame(18, $length);
+        $getSliceCallback = function (int $offset, int $length): iterable {
+            $this->assertSame(10, $offset);
+            $this->assertSame(18, $length);
+
+            return new \ArrayIterator();
         };
 
-        $adapter = new CallbackAdapter(function (): void {}, $getSliceCallback);
+        $adapter = new CallbackAdapter(function (): int { return 10; }, $getSliceCallback);
         $adapter->getSlice(10, 18);
     }
 }

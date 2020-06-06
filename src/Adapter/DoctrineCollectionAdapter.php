@@ -9,41 +9,24 @@ use Doctrine\Common\Collections\Collection;
  */
 class DoctrineCollectionAdapter implements AdapterInterface
 {
-    /**
-     * @var Collection
-     */
-    private $collection;
+    private Collection $collection;
 
     public function __construct(Collection $collection)
     {
         $this->collection = $collection;
     }
 
-    /**
-     * Retrieves the Collection.
-     *
-     * @return Collection
-     */
-    public function getCollection()
+    public function getCollection(): Collection
     {
         return $this->collection;
     }
 
-    /**
-     * @return int
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return $this->collection->count();
     }
 
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->collection->slice($offset, $length);
     }
