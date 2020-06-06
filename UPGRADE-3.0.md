@@ -8,6 +8,7 @@ The below guide will assist in upgrading from the 2.x versions to 3.0.
 
 ## General Changes
 
+- Dropped support for versions of Doctrine DBAL before 2.8
 - Dropped support for versions of Doctrine ORM before 2.6
 - Dropped support for versions of Elastica before 5.0
 - Dropped support for versions of Solarium before 4.0
