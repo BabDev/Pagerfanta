@@ -3,7 +3,7 @@
 namespace Pagerfanta\View;
 
 use Pagerfanta\Exception\InvalidArgumentException;
-use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\Template\TemplateInterface;
 
 abstract class TemplateView extends View
@@ -26,7 +26,7 @@ abstract class TemplateView extends View
     /**
      * @throws InvalidArgumentException if the $routeGenerator is not a callable
      */
-    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = [])
+    public function render(Pagerfanta $pagerfanta, $routeGenerator, array $options = [])
     {
         if (!is_callable($routeGenerator)) {
             throw new InvalidArgumentException(sprintf('The $routeGenerator argument of %s() must be a callable, a %s was given.', __METHOD__, gettype($routeGenerator)));

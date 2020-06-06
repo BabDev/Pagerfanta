@@ -2,7 +2,7 @@
 
 namespace Pagerfanta\Tests\View;
 
-use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\OptionableView;
 use Pagerfanta\View\ViewInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -16,7 +16,7 @@ class OptionableViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->pagerfanta = $this->createMock(PagerfantaInterface::class);
+        $this->pagerfanta = $this->createMock(Pagerfanta::class);
         $this->routeGenerator = $this->createRouteGenerator();
     }
 

@@ -3,7 +3,6 @@
 namespace Pagerfanta\View;
 
 use Pagerfanta\Pagerfanta;
-use Pagerfanta\PagerfantaInterface;
 
 abstract class View implements ViewInterface
 {
@@ -37,19 +36,8 @@ abstract class View implements ViewInterface
      */
     protected $endPage;
 
-    protected function initializePagerfanta(PagerfantaInterface $pagerfanta): void
+    protected function initializePagerfanta(Pagerfanta $pagerfanta): void
     {
-        if (!($pagerfanta instanceof Pagerfanta)) {
-            trigger_deprecation(
-                'babdev/pagerfanta',
-                '2.2',
-                '%1$s::render() will no longer accept "%2$s" implementations that are not a subclass of "%3$s" as of 3.0. Ensure your pager is a subclass of "%3$s".',
-                ViewInterface::class,
-                PagerfantaInterface::class,
-                Pagerfanta::class
-            );
-        }
-
         $this->pagerfanta = $pagerfanta;
 
         $this->currentPage = $pagerfanta->getCurrentPage();

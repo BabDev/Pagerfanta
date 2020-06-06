@@ -15,4 +15,5 @@ The below guide will assist in upgrading from the 2.x versions to 3.0.
 
 ## Removed Features
 
+- Removed the PagerfantaInterface
 - Removed the Mandango, Mongo, and Propel adapters

@@ -13,7 +13,7 @@ use Pagerfanta\Exception\NotIntegerMaxPerPageException;
 use Pagerfanta\Exception\OutOfBoundsException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
-class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, PagerfantaInterface
+class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable
 {
     /**
      * @var AdapterInterface
