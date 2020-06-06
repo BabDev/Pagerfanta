@@ -7,7 +7,7 @@ use Pagerfanta\PagerfantaInterface;
 interface ViewInterface
 {
     /**
-     * Renders a pagerfanta.
+     * Renders a Pagerfanta instance.
      *
      * The route generator can be any callable to generate the routes receiving the page number as first and unique argument.
      *
