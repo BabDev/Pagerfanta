@@ -2,7 +2,9 @@
 
 namespace Pagerfanta\Tests\Adapter;
 
-class Solarium2AdapterTest extends SolariumAdapterTest
+use Pagerfanta\Adapter\SolariumAdapter;
+
+class Solarium2AdapterTest extends SolariumAdapterTestCase
 {
     protected function getSolariumName(): string
     {
@@ -22,5 +24,20 @@ class Solarium2AdapterTest extends SolariumAdapterTest
     protected function getResultClass(): string
     {
         return \Solarium_Result_Select::class;
+    }
+
+    public function testGetResultSet(): void
+    {
+        $query = $this->createQueryMock();
+
+        $client = $this->createClientMock();
+        $client->expects($this->atLeastOnce())
+            ->method('select')
+            ->with($query)
+            ->willReturn($this->createResultMock());
+
+        $adapter = new SolariumAdapter($client, $query);
+
+        $this->assertInstanceOf($this->getResultClass(), $adapter->getResultSet());
     }
 }
