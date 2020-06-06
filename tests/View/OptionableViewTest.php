@@ -12,7 +12,6 @@ class OptionableViewTest extends TestCase
 {
     private $pagerfanta;
     private $routeGenerator;
-    private $rendered;
 
     protected function setUp(): void
     {
@@ -22,7 +21,7 @@ class OptionableViewTest extends TestCase
 
     private function createRouteGenerator(): \Closure
     {
-        return function (): void {};
+        return function (int $page): string { return ''; };
     }
 
     public function testRenderShouldDelegateToTheView(): void
@@ -33,7 +32,7 @@ class OptionableViewTest extends TestCase
         $optionable = new OptionableView($view, $defaultOptions);
 
         $returned = $optionable->render($this->pagerfanta, $this->routeGenerator);
-        $this->assertSame($this->rendered, $returned);
+        $this->assertSame('rendered', $returned);
     }
 
     public function testRenderShouldMergeOptions(): void
@@ -46,7 +45,7 @@ class OptionableViewTest extends TestCase
         $optionable = new OptionableView($view, $defaultOptions);
 
         $returned = $optionable->render($this->pagerfanta, $this->routeGenerator, $options);
-        $this->assertSame($this->rendered, $returned);
+        $this->assertSame('rendered', $returned);
     }
 
     /**
@@ -64,7 +63,7 @@ class OptionableViewTest extends TestCase
                 $this->equalTo($this->routeGenerator),
                 $this->equalTo($expectedOptions)
             )
-            ->willReturn($this->rendered);
+            ->willReturn('rendered');
 
         return $view;
     }

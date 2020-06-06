@@ -6,35 +6,13 @@ use Pagerfanta\Pagerfanta;
 
 abstract class View implements ViewInterface
 {
-    /**
-     * @var Pagerfanta
-     */
-    protected $pagerfanta;
+    protected Pagerfanta $pagerfanta;
 
-    /**
-     * @var int
-     */
-    protected $currentPage;
-
-    /**
-     * @var int
-     */
-    protected $nbPages;
-
-    /**
-     * @var int
-     */
-    protected $proximity;
-
-    /**
-     * @var int
-     */
-    protected $startPage;
-
-    /**
-     * @var int
-     */
-    protected $endPage;
+    protected ?int $currentPage = null;
+    protected ?int $nbPages = null;
+    protected ?int $proximity = null;
+    protected ?int $startPage = null;
+    protected ?int $endPage = null;
 
     protected function initializePagerfanta(Pagerfanta $pagerfanta): void
     {
@@ -44,18 +22,12 @@ abstract class View implements ViewInterface
         $this->nbPages = $pagerfanta->getNbPages();
     }
 
-    /**
-     * @param array $options
-     */
     protected function initializeOptions(array $options): void
     {
         $this->proximity = isset($options['proximity']) ? (int) $options['proximity'] : $this->getDefaultProximity();
     }
 
-    /**
-     * @return int
-     */
-    protected function getDefaultProximity()
+    protected function getDefaultProximity(): int
     {
         return 2;
     }
@@ -79,27 +51,27 @@ abstract class View implements ViewInterface
         $this->endPage = $endPage;
     }
 
-    protected function startPageUnderflow($startPage)
+    protected function startPageUnderflow(int $startPage): int
     {
         return $startPage < 1;
     }
 
-    protected function endPageOverflow($endPage)
+    protected function endPageOverflow(int $endPage): int
     {
         return $endPage > $this->nbPages;
     }
 
-    protected function calculateEndPageForStartPageUnderflow($startPage, $endPage)
+    protected function calculateEndPageForStartPageUnderflow(int $startPage, int $endPage): int
     {
         return min($endPage + (1 - $startPage), $this->nbPages);
     }
 
-    protected function calculateStartPageForEndPageOverflow($startPage, $endPage)
+    protected function calculateStartPageForEndPageOverflow(int $startPage, int $endPage): int
     {
         return max($startPage - ($endPage - $this->nbPages), 1);
     }
 
-    protected function toLast($n)
+    protected function toLast(int $n): int
     {
         return $this->pagerfanta->getNbPages() - ($n - 1);
     }

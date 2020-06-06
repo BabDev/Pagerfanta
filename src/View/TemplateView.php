@@ -2,36 +2,26 @@
 
 namespace Pagerfanta\View;
 
-use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\Template\TemplateInterface;
 
 abstract class TemplateView extends View
 {
-    /**
-     * @var TemplateInterface
-     */
-    private $template;
+    private TemplateInterface $template;
 
     public function __construct(TemplateInterface $template = null)
     {
-        $this->template = $template ?: $this->createDefaultTemplate();
-    }
-
-    /**
-     * @return TemplateInterface
-     */
-    abstract protected function createDefaultTemplate();
-
-    /**
-     * @throws InvalidArgumentException if the $routeGenerator is not a callable
-     */
-    public function render(Pagerfanta $pagerfanta, $routeGenerator, array $options = [])
-    {
-        if (!is_callable($routeGenerator)) {
-            throw new InvalidArgumentException(sprintf('The $routeGenerator argument of %s() must be a callable, a %s was given.', __METHOD__, gettype($routeGenerator)));
+        if (null === $template) {
+            $template = $this->createDefaultTemplate();
         }
 
+        $this->template = $template;
+    }
+
+    abstract protected function createDefaultTemplate(): TemplateInterface;
+
+    public function render(Pagerfanta $pagerfanta, callable $routeGenerator, array $options = []): string
+    {
         $this->initializePagerfanta($pagerfanta);
         $this->initializeOptions($options);
 
@@ -163,7 +153,7 @@ abstract class TemplateView extends View
         return $this->template->nextDisabled();
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'default';
     }
