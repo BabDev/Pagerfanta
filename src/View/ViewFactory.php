@@ -21,6 +21,9 @@ final class ViewFactory implements ViewFactoryInterface
         return isset($this->views[$name]);
     }
 
+    /**
+     * @param array<string, ViewInterface> $views
+     */
     public function add(array $views): void
     {
         foreach ($views as $name => $view) {
@@ -28,6 +31,9 @@ final class ViewFactory implements ViewFactoryInterface
         }
     }
 
+    /**
+     * @throws InvalidArgumentException if the view does not exist
+     */
     public function get(string $name): ViewInterface
     {
         if (!$this->has($name)) {
@@ -37,6 +43,9 @@ final class ViewFactory implements ViewFactoryInterface
         return $this->views[$name];
     }
 
+    /**
+     * @throws InvalidArgumentException if the view does not exist
+     */
     public function remove(string $name): void
     {
         if (!$this->has($name)) {
