@@ -15,7 +15,7 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
      *
      * @throws InvalidArgumentException if the query has JOIN statements or the count field does not have a table alias
      */
-    public function __construct(QueryBuilder $queryBuilder, $countField)
+    public function __construct(QueryBuilder $queryBuilder, string $countField)
     {
         if ($this->hasQueryBuilderJoins($queryBuilder)) {
             throw new InvalidArgumentException('The query builder cannot have joins.');
@@ -29,10 +29,7 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
         return !empty($queryBuilder->getQueryPart('join'));
     }
 
-    /**
-     * @param string $countField
-     */
-    private function createCountQueryModifier($countField): \Closure
+    private function createCountQueryModifier(string $countField): \Closure
     {
         $select = $this->createSelectForCountField($countField);
 
@@ -44,11 +41,9 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
     }
 
     /**
-     * @param string $countField
-     *
      * @throws InvalidArgumentException if the count field does not have a table alias
      */
-    private function createSelectForCountField($countField): string
+    private function createSelectForCountField(string $countField): string
     {
         if ($this->countFieldHasNoAlias($countField)) {
             throw new InvalidArgumentException('The $countField must contain a table alias in the string.');
@@ -57,10 +52,7 @@ class DoctrineDbalSingleTableAdapter extends DoctrineDbalAdapter
         return sprintf('COUNT(DISTINCT %s) AS total_results', $countField);
     }
 
-    /**
-     * @param string $countField
-     */
-    private function countFieldHasNoAlias($countField): bool
+    private function countFieldHasNoAlias(string $countField): bool
     {
         return false === strpos($countField, '.');
     }
