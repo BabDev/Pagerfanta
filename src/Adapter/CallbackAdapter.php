@@ -22,6 +22,8 @@ class CallbackAdapter implements AdapterInterface
     /**
      * @param callable $nbResultsCallable
      * @param callable $sliceCallable
+     *
+     * @throws InvalidArgumentException if a non-callable was passed as either constructor argument
      */
     public function __construct($nbResultsCallable, $sliceCallable)
     {

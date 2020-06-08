@@ -23,6 +23,8 @@ class DoctrineDbalAdapter implements AdapterInterface
     /**
      * @param QueryBuilder $queryBuilder
      * @param callable     $countQueryBuilderModifier a callable to modify the query builder to count the results
+     *
+     * @throws InvalidArgumentException if a non-SELECT query is given or the modifier is not a callable
      */
     public function __construct(QueryBuilder $queryBuilder, $countQueryBuilderModifier)
     {

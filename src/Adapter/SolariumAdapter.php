@@ -46,6 +46,8 @@ class SolariumAdapter implements AdapterInterface
     /**
      * @param \Solarium_Client|Client      $client
      * @param \Solarium_Query_Select|Query $query
+     *
+     * @throws InvalidArgumentException if the client or query are not a proper class instance
      */
     public function __construct($client, $query)
     {

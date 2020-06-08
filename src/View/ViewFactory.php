@@ -14,16 +14,25 @@ use Pagerfanta\Exception\InvalidArgumentException;
      */
     private $views = [];
 
+    /**
+     * @param string $name
+     */
     public function set($name, ViewInterface $view): void
     {
         $this->views[$name] = $view;
     }
 
+    /**
+     * @param string $name
+     */
     public function has($name)
     {
         return isset($this->views[$name]);
     }
 
+    /**
+     * @param array<string, ViewInterface> $views
+     */
     public function add(array $views): void
     {
         foreach ($views as $name => $view) {
@@ -31,6 +40,11 @@ use Pagerfanta\Exception\InvalidArgumentException;
         }
     }
 
+    /**
+     * @param string $name
+     *
+     * @throws InvalidArgumentException if the view does not exist
+     */
     public function get($name)
     {
         if (!$this->has($name)) {
@@ -40,6 +54,11 @@ use Pagerfanta\Exception\InvalidArgumentException;
         return $this->views[$name];
     }
 
+    /**
+     * @param string $name
+     *
+     * @throws InvalidArgumentException if the view does not exist
+     */
     public function remove($name): void
     {
         if (!$this->has($name)) {
@@ -49,6 +68,9 @@ use Pagerfanta\Exception\InvalidArgumentException;
         unset($this->views[$name]);
     }
 
+    /**
+     * @return array<string, ViewInterface>
+     */
     public function all()
     {
         return $this->views;

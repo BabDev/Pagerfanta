@@ -7,33 +7,33 @@ use Pagerfanta\Exception\InvalidArgumentException;
 interface ViewFactoryInterface
 {
     /**
-     * Sets a view.
+     * Sets a view to the factory.
      *
-     * @param string        $name the view name
-     * @param ViewInterface $view the view
+     * @param string        $name
+     * @param ViewInterface $view
      */
     public function set($name, ViewInterface $view);
 
     /**
-     * Returns whether a view exists or not.
+     * Checks whether a named view is registered to the factory.
      *
-     * @param string $name the name
+     * @param string $name
      *
-     * @return bool whether a view exists or not
+     * @return bool
      */
     public function has($name);
 
     /**
      * Adds a collection of views.
      *
-     * @param array<string, ViewInterface> $views an array of views
+     * @param array<string, ViewInterface> $views
      */
     public function add(array $views);
 
     /**
-     * Returns a view.
+     * Fetches a named view from the factory.
      *
-     * @param string $name the name
+     * @param string $name
      *
      * @return ViewInterface the view
      *

@@ -67,6 +67,8 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
      * @param bool $allowOutOfRangePages
      *
      * @return $this
+     *
+     * @throws NotBooleanException if the value is not boolean
      */
     public function setAllowOutOfRangePages($allowOutOfRangePages)
     {
@@ -87,6 +89,8 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
      * @param bool $normalizeOutOfRangePages
      *
      * @return $this
+     *
+     * @throws NotBooleanException if the value is not boolean
      */
     public function setNormalizeOutOfRangePages($normalizeOutOfRangePages)
     {
@@ -103,6 +107,9 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $this->normalizeOutOfRangePages;
     }
 
+    /**
+     * @throws NotBooleanException if the value is not boolean
+     */
     private function filterBoolean($value): bool
     {
         if (!\is_bool($value)) {
@@ -140,6 +147,10 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $maxPerPage;
     }
 
+    /**
+     * @throws NotIntegerMaxPerPageException if the max per page is not an integer even converting
+     * @throws LessThan1MaxPerPageException  if the max per page is less than 1
+     */
     private function checkMaxPerPage($maxPerPage): void
     {
         if (!\is_int($maxPerPage)) {
@@ -232,6 +243,10 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $currentPage;
     }
 
+    /**
+     * @throws NotIntegerCurrentPageException if the current page is not an integer even converting
+     * @throws LessThan1CurrentPageException  if the current page is less than 1
+     */
     private function checkCurrentPage($currentPage): void
     {
         if (!\is_int($currentPage)) {
@@ -493,6 +508,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
      *
      * @return int
      *
+     * @throws NotIntegerException  if the position is not an integer
      * @throws OutOfBoundsException if the item is outside the result set
      */
     public function getPageNumberForItemAtPosition($position)

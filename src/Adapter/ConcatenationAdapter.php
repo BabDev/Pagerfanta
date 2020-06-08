@@ -24,7 +24,7 @@ class ConcatenationAdapter implements AdapterInterface
     /**
      * @param AdapterInterface[] $adapters
      *
-     * @throws InvalidArgumentException if an adapter is not an Pagerfanta\Adapter\AdapterInterface instance
+     * @throws InvalidArgumentException if an adapter is not a `Pagerfanta\Adapter\AdapterInterface` instance
      */
     public function __construct(array $adapters)
     {
