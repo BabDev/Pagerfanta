@@ -28,14 +28,6 @@
         "ruflin/elastica": "<5.0",
         "solarium/solarium": "<4.0"
     },
-    "suggest": {
-        "doctrine/collections": "To use the Doctrine Collection and Selectable adapter.",
-        "doctrine/dbal": "To use the Doctrine DBAL adapters.",
-        "doctrine/mongodb-odm": "To use the Doctrine MongoDB ODM Adapter.",
-        "doctrine/orm": "To use the Doctrine ORM Adapter.",
-        "doctrine/phpcr-odm": "To use the Doctrine PHPCR ODM Adapter.",
-        "solarium/solarium": "To use the SolariumAdapter."
-    },
     "autoload": {
         "psr-4": {
             "Pagerfanta\\": "src/"
