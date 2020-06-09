@@ -4,7 +4,7 @@ namespace Pagerfanta\Adapter;
 
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 
-trigger_deprecation('babdev/pagerfanta', '2.2', 'The "%s" adapter is deprecated and will be removed in 3.0.', Propel2Adapter::class);
+trigger_deprecation('pagerfanta/pagerfanta', '2.2', 'The "%s" adapter is deprecated and will be removed in 3.0.', Propel2Adapter::class);
 
 /**
  * Adapter which calculates pagination from a Propel2 ModelCriteria.

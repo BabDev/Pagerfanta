@@ -71,7 +71,7 @@ class SolariumAdapter implements AdapterInterface
 
         if ($client instanceof \Solarium_Client) {
             trigger_deprecation(
-                'babdev/pagerfanta',
+                'pagerfanta/pagerfanta',
                 '2.2',
                 'Support for solarium/solarium 2.x is deprecated, as of 3.0 the minimum supported version will be solarium/solarium 4.0.'
             );
@@ -112,7 +112,7 @@ class SolariumAdapter implements AdapterInterface
 
         if ($query instanceof \Solarium_Query_Select) {
             trigger_deprecation(
-                'babdev/pagerfanta',
+                'pagerfanta/pagerfanta',
                 '2.2',
                 'Support for solarium/solarium 2.x is deprecated, as of 3.0 the minimum supported version will be solarium/solarium 4.0.'
             );

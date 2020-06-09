@@ -2,7 +2,7 @@
 
 namespace Pagerfanta\Adapter;
 
-trigger_deprecation('babdev/pagerfanta', '2.2', 'The "%s" adapter is deprecated and will be removed in 3.0.', MongoAdapter::class);
+trigger_deprecation('pagerfanta/pagerfanta', '2.2', 'The "%s" adapter is deprecated and will be removed in 3.0.', MongoAdapter::class);
 
 /**
  * Adapter which calculates pagination from a MongoCursor.

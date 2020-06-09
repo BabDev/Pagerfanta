@@ -221,7 +221,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     {
         if (isset($arguments[$index])) {
             trigger_deprecation(
-                'babdev/pagerfanta',
+                'pagerfanta/pagerfanta',
                 '2.2',
                 'The %1$s argument of %2$s::setCurrentPage() is deprecated and will no longer be supported in 3.0. Use the %2$s::%3$s() method instead.',
                 $oldArgument,
