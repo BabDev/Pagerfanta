@@ -1,5 +1,6 @@
 - [Introduction](/open-source/packages/pagerfanta/docs/2.x/intro)
 - [Installation & Setup](/open-source/packages/pagerfanta/docs/2.x/installation)
+- [Usage](/open-source/packages/pagerfanta/docs/2.x/usage)
 - [Pagination Adapter](/open-source/packages/pagerfanta/docs/2.x/adapter)
 - [Available Adapters](/open-source/packages/pagerfanta/docs/2.x/adapters)
 - [Views](/open-source/packages/pagerfanta/docs/2.x/views)
