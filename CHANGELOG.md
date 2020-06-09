@@ -1,7 +1,8 @@
 # Changelog
 
-## 2.3.0 (2020-??-??)
+## 2.3.0 (2020-06-09)
 
+- Change Composer package back to `pagerfanta/pagerfanta`
 - Mark exceptions that are removed in 3.0 as deprecated
 
 ## 2.2.1 (2020-06-06)

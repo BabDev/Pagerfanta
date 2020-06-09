@@ -1,5 +1,5 @@
 {
-    "name": "babdev/pagerfanta",
+    "name": "pagerfanta/pagerfanta",
     "type": "library",
     "description": "Pagination for PHP",
     "keywords": ["page", "paging", "paginator", "pagination"],
