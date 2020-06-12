@@ -8,7 +8,7 @@ use Pagerfanta\Exception\InvalidArgumentException;
 /**
  * Extended Doctrine DBAL adapter which assists in building the count query modifier for a SELECT query on a single table.
  */
-class DBALSingleTableQueryAdapter extends DBALQueryAdapter
+class SingleTableQueryAdapter extends QueryAdapter
 {
     /**
      * @param string $countField Primary key for the table in query, used in the count expression. Must include table alias.

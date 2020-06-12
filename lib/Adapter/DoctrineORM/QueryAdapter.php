@@ -10,7 +10,7 @@ use Pagerfanta\Adapter\AdapterInterface;
 /**
  * Adapter which calculates pagination from a Doctrine ORM Query or QueryBuilder.
  */
-class ORMQueryAdapter implements AdapterInterface
+class QueryAdapter implements AdapterInterface
 {
     /**
      * @var Paginator

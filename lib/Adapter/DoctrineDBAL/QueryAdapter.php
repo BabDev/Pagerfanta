@@ -9,7 +9,7 @@ use Pagerfanta\Exception\InvalidArgumentException;
 /**
  * Adapter which calculates pagination from a Doctrine DBAL QueryBuilder.
  */
-class DBALQueryAdapter implements AdapterInterface
+class QueryAdapter implements AdapterInterface
 {
     /**
      * @var QueryBuilder
