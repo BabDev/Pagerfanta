@@ -2,56 +2,15 @@
 
 namespace Pagerfanta\Adapter;
 
-use Doctrine\ODM\MongoDB\Query\Builder;
+use Pagerfanta\DoctrineMongoDBODM\QueryAdapter;
+
+trigger_deprecation('pagerfanta/pagerfanta', '2.4', 'The "%s" class is deprecated and will be removed in 3.0. Use the "%s" class from the "pagerfanta/doctrine-mongodb-odm-adapter" package instead.', DoctrineODMMongoDBAdapter::class, QueryAdapter::class);
 
 /**
  * Adapter which calculates pagination from a Doctrine MongoDB ODM QueryBuilder.
+ *
+ * @deprecated to be removed in 3.0, use the `Pagerfanta\DoctrineMongoDBODM\QueryAdapter` from the `pagerfanta/doctrine-mongodb-odm-adapter` package instead
  */
-class DoctrineODMMongoDBAdapter implements AdapterInterface
+class DoctrineODMMongoDBAdapter extends QueryAdapter
 {
-    /**
-     * @var Builder
-     */
-    private $queryBuilder;
-
-    public function __construct(Builder $queryBuilder)
-    {
-        $this->queryBuilder = $queryBuilder;
-    }
-
-    /**
-     * @return Builder
-     */
-    public function getQueryBuilder()
-    {
-        return $this->queryBuilder;
-    }
-
-    /**
-     * @return int
-     */
-    public function getNbResults()
-    {
-        $qb = clone $this->queryBuilder;
-
-        return $qb->limit(0)
-            ->skip(0)
-            ->count()
-            ->getQuery()
-            ->execute();
-    }
-
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
-    {
-        return $this->queryBuilder->limit($length)
-            ->skip($offset)
-            ->getQuery()
-            ->execute();
-    }
 }

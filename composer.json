@@ -29,6 +29,7 @@
             "Pagerfanta\\Adapter\\": "src/Adapter/",
             "Pagerfanta\\DoctrineCollections\\": "lib/Adapter/DoctrineCollections/",
             "Pagerfanta\\DoctrineDBAL\\": "lib/Adapter/DoctrineDBAL/",
+            "Pagerfanta\\DoctrineMongoDBODM\\": "lib/Adapter/DoctrineMongoDBODM/",
             "Pagerfanta\\DoctrineORM\\": "lib/Adapter/DoctrineORM/"
         }
     },
