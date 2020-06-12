@@ -1,0 +1,23 @@
+{
+    "name": "pagerfanta/doctrine-phpcr-odm-adapter",
+    "type": "library",
+    "description": "Pagerfanta adapter for Doctrine PHPCR ODM",
+    "keywords": ["pagerfanta", "doctrine", "phpcr", "odm"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2",
+        "doctrine/phpcr-odm": "^1.3",
+        "pagerfanta/core": "^2.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pagerfanta\\Doctrine\\PHPCRODM\\": "./"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-2.x": "2.x-dev"
+        }
+    },
+    "minimum-stability": "dev"
+}

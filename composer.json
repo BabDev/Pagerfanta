@@ -30,7 +30,8 @@
             "Pagerfanta\\Doctrine\\Collections\\": "lib/Adapter/Doctrine/Collections/",
             "Pagerfanta\\Doctrine\\DBAL\\": "lib/Adapter/Doctrine/DBAL/",
             "Pagerfanta\\Doctrine\\MongoDBODM\\": "lib/Adapter/Doctrine/MongoDBODM/",
-            "Pagerfanta\\Doctrine\\ORM\\": "lib/Adapter/Doctrine/ORM/"
+            "Pagerfanta\\Doctrine\\ORM\\": "lib/Adapter/Doctrine/ORM/",
+            "Pagerfanta\\Doctrine\\PHPCRODM\\": "lib/Adapter/Doctrine/PHPCRODM/"
         }
     },
     "autoload-dev": {
