@@ -2,69 +2,15 @@
 
 namespace Pagerfanta\Adapter;
 
-use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Tools\Pagination\Paginator;
+use Pagerfanta\DoctrineORM\ORMQueryAdapter;
+
+trigger_deprecation('pagerfanta/pagerfanta', '2.4', 'The "%s" class is deprecated and will be removed in 3.0. Use the "%s" class from the "pagerfanta/doctrine-orm-adapter" package instead.', DoctrineORMAdapter::class, ORMQueryAdapter::class);
 
 /**
  * Adapter which calculates pagination from a Doctrine ORM Query or QueryBuilder.
+ *
+ * @deprecated to be removed in 3.0, use the `Pagerfanta\DoctrineORM\ORMQueryAdapter` from the `pagerfanta/doctrine-orm-adapter` package instead
  */
-class DoctrineORMAdapter implements AdapterInterface
+class DoctrineORMAdapter extends ORMQueryAdapter
 {
-    /**
-     * @var Paginator
-     */
-    private $paginator;
-
-    /**
-     * @param Query|QueryBuilder $query
-     * @param bool               $fetchJoinCollection Whether the query joins a collection (true by default)
-     * @param bool|null          $useOutputWalkers    Flag indicating whether output walkers are used in the paginator
-     */
-    public function __construct($query, $fetchJoinCollection = true, $useOutputWalkers = null)
-    {
-        $this->paginator = new Paginator($query, $fetchJoinCollection);
-        $this->paginator->setUseOutputWalkers($useOutputWalkers);
-    }
-
-    /**
-     * @return Query
-     */
-    public function getQuery()
-    {
-        return $this->paginator->getQuery();
-    }
-
-    /**
-     * Returns whether the query joins a collection.
-     *
-     * @return bool
-     */
-    public function getFetchJoinCollection()
-    {
-        return $this->paginator->getFetchJoinCollection();
-    }
-
-    /**
-     * @return int
-     */
-    public function getNbResults()
-    {
-        return \count($this->paginator);
-    }
-
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
-    {
-        $this->paginator->getQuery()
-            ->setFirstResult($offset)
-            ->setMaxResults($length);
-
-        return $this->paginator->getIterator();
-    }
 }
