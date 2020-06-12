@@ -23,6 +23,16 @@
         "ruflin/elastica": "^1.3 || ^2.0 || ^3.0 || ^5.0 || ^6.0 || ^7.0",
         "solarium/solarium": "^2.3 || ^3.0 || ^4.0 || ^5.0"
     },
+    "replace": {
+        "pagerfanta/core": "self.version",
+        "pagerfanta/doctrine-collections-adapter": "self.version",
+        "pagerfanta/doctrine-dbal-adapter": "self.version",
+        "pagerfanta/doctrine-mongodb-odm-adapter": "self.version",
+        "pagerfanta/doctrine-orm-adapter": "self.version",
+        "pagerfanta/doctrine-phpcr-odm-adapter": "self.version",
+        "pagerfanta/elastica-adapter": "self.version",
+        "pagerfanta/solarium-adapter": "self.version"
+    },
     "autoload": {
         "psr-4": {
             "Pagerfanta\\": "lib/Core/",
