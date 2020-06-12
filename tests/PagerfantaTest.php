@@ -309,7 +309,7 @@ class PagerfantaTest extends TestCase
     }
 
     /**
-     * @dataProvider testGetCurrentPageResultsShouldReturnASliceFromTheAdapterDependingOnTheCurrentPageAndMaxPerPageProvider
+     * @dataProvider dataGetCurrentPageResultsShouldReturnASliceFromTheAdapterDependingOnTheCurrentPageAndMaxPerPageProvider
      */
     public function testGetCurrentPageResultsShouldReturnASliceFromTheAdapterDependingOnTheCurrentPageAndMaxPerPage($maxPerPage, $currentPage, $offset): void
     {
@@ -328,7 +328,7 @@ class PagerfantaTest extends TestCase
         $this->assertSame($currentPageResults, $this->pagerfanta->getCurrentPageResults());
     }
 
-    public function testGetCurrentPageResultsShouldReturnASliceFromTheAdapterDependingOnTheCurrentPageAndMaxPerPageProvider()
+    public function dataGetCurrentPageResultsShouldReturnASliceFromTheAdapterDependingOnTheCurrentPageAndMaxPerPageProvider()
     {
         // max per page, current page, offset
         return [
