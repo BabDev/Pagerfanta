@@ -8,7 +8,7 @@ use Pagerfanta\Adapter\AdapterInterface;
 /**
  * Adapter which calculates pagination from a Doctrine Collection.
  */
-class DoctrineCollectionsAdapter implements AdapterInterface
+class CollectionAdapter implements AdapterInterface
 {
     /**
      * @var Collection
