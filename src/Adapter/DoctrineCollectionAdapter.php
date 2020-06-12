@@ -2,49 +2,15 @@
 
 namespace Pagerfanta\Adapter;
 
-use Doctrine\Common\Collections\Collection;
+use Pagerfanta\DoctrineCollections\DoctrineCollectionsAdapter;
+
+trigger_deprecation('pagerfanta/pagerfanta', '2.2', 'The "%s" class is deprecated and will be removed in 3.0. Use the "%s" class from the "pagerfanta/doctrine-collections-adapter" package instead.', DoctrineCollectionAdapter::class, DoctrineCollectionsAdapter::class);
 
 /**
  * Adapter which calculates pagination from a Doctrine Collection.
+ *
+ * @deprecated to be removed in 3.0, use the `Pagerfanta\DoctrineCollections\DoctrineCollectionsAdapter` from the `pagerfanta/doctrine-collections-adapter` package instead
  */
-class DoctrineCollectionAdapter implements AdapterInterface
+class DoctrineCollectionAdapter extends DoctrineCollectionsAdapter
 {
-    /**
-     * @var Collection
-     */
-    private $collection;
-
-    public function __construct(Collection $collection)
-    {
-        $this->collection = $collection;
-    }
-
-    /**
-     * Retrieves the Collection.
-     *
-     * @return Collection
-     */
-    public function getCollection()
-    {
-        return $this->collection;
-    }
-
-    /**
-     * @return int
-     */
-    public function getNbResults()
-    {
-        return $this->collection->count();
-    }
-
-    /**
-     * @param int $offset
-     * @param int $length
-     *
-     * @return iterable
-     */
-    public function getSlice($offset, $length)
-    {
-        return $this->collection->slice($offset, $length);
-    }
 }

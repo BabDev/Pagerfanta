@@ -26,7 +26,8 @@
     "autoload": {
         "psr-4": {
             "Pagerfanta\\": "lib/Core/",
-            "Pagerfanta\\Adapter\\": "src/Adapter/"
+            "Pagerfanta\\Adapter\\": "src/Adapter/",
+            "Pagerfanta\\DoctrineCollections\\": "lib/Adapter/DoctrineCollections/"
         }
     },
     "autoload-dev": {
