@@ -32,7 +32,8 @@
             "Pagerfanta\\Doctrine\\MongoDBODM\\": "lib/Adapter/Doctrine/MongoDBODM/",
             "Pagerfanta\\Doctrine\\ORM\\": "lib/Adapter/Doctrine/ORM/",
             "Pagerfanta\\Doctrine\\PHPCRODM\\": "lib/Adapter/Doctrine/PHPCRODM/",
-            "Pagerfanta\\Elastica\\": "lib/Adapter/Elastica/"
+            "Pagerfanta\\Elastica\\": "lib/Adapter/Elastica/",
+            "Pagerfanta\\Solarium\\": "lib/Adapter/Solarium/"
         }
     },
     "autoload-dev": {
