@@ -1,6 +1,6 @@
 <?php
 
-namespace Pagerfanta\DoctrineCollections;
+namespace Pagerfanta\Doctrine\Collections;
 
 use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Adapter\AdapterInterface;

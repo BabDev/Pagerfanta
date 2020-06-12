@@ -1,6 +1,6 @@
 <?php
 
-namespace Pagerfanta\DoctrineDBAL;
+namespace Pagerfanta\Doctrine\DBAL;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Pagerfanta\Adapter\AdapterInterface;

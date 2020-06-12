@@ -1,6 +1,6 @@
 <?php
 
-namespace Pagerfanta\DoctrineMongoDBODM;
+namespace Pagerfanta\Doctrine\MongoDBODM;
 
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Pagerfanta\Adapter\AdapterInterface;

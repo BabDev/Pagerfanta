@@ -1,17 +1,17 @@
 {
-    "name": "pagerfanta/doctrine-collections-adapter",
+    "name": "pagerfanta/doctrine-orm-adapter",
     "type": "library",
-    "description": "Pagerfanta adapter for Doctrine Collections",
-    "keywords": ["pagerfanta", "doctrine", "collections"],
+    "description": "Pagerfanta adapter for Doctrine ORM",
+    "keywords": ["pagerfanta", "doctrine", "orm"],
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "doctrine/collections": "^1.4",
+        "doctrine/orm": "^2.5",
         "pagerfanta/core": "^2.4"
     },
     "autoload": {
         "psr-4": {
-            "Pagerfanta\\DoctrineCollections\\": "./"
+            "Pagerfanta\\Doctrine\\ORM\\": "./"
         }
     },
     "extra": {

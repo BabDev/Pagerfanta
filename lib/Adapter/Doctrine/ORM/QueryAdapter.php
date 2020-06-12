@@ -1,6 +1,6 @@
 <?php
 
-namespace Pagerfanta\DoctrineORM;
+namespace Pagerfanta\Doctrine\ORM;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;

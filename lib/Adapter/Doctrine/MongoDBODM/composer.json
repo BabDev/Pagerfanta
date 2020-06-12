@@ -1,17 +1,17 @@
 {
-    "name": "pagerfanta/doctrine-orm-adapter",
+    "name": "pagerfanta/doctrine-mongodb-odm-adapter",
     "type": "library",
-    "description": "Pagerfanta adapter for Doctrine ORM",
-    "keywords": ["pagerfanta", "doctrine", "orm"],
+    "description": "Pagerfanta adapter for Doctrine MongoDB ODM",
+    "keywords": ["pagerfanta", "doctrine", "mongodb", "odm"],
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "doctrine/orm": "^2.5",
+        "doctrine/mongodb-odm": "^2.0",
         "pagerfanta/core": "^2.4"
     },
     "autoload": {
         "psr-4": {
-            "Pagerfanta\\DoctrineORM\\": "./"
+            "Pagerfanta\\Doctrine\\MongoDBODM\\": "./"
         }
     },
     "extra": {

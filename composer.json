@@ -27,10 +27,10 @@
         "psr-4": {
             "Pagerfanta\\": "lib/Core/",
             "Pagerfanta\\Adapter\\": "src/Adapter/",
-            "Pagerfanta\\DoctrineCollections\\": "lib/Adapter/DoctrineCollections/",
-            "Pagerfanta\\DoctrineDBAL\\": "lib/Adapter/DoctrineDBAL/",
-            "Pagerfanta\\DoctrineMongoDBODM\\": "lib/Adapter/DoctrineMongoDBODM/",
-            "Pagerfanta\\DoctrineORM\\": "lib/Adapter/DoctrineORM/"
+            "Pagerfanta\\Doctrine\\Collections\\": "lib/Adapter/Doctrine/Collections/",
+            "Pagerfanta\\Doctrine\\DBAL\\": "lib/Adapter/Doctrine/DBAL/",
+            "Pagerfanta\\Doctrine\\MongoDBODM\\": "lib/Adapter/Doctrine/MongoDBODM/",
+            "Pagerfanta\\Doctrine\\ORM\\": "lib/Adapter/Doctrine/ORM/"
         }
     },
     "autoload-dev": {
