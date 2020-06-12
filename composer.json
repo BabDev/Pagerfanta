@@ -27,7 +27,8 @@
         "psr-4": {
             "Pagerfanta\\": "lib/Core/",
             "Pagerfanta\\Adapter\\": "src/Adapter/",
-            "Pagerfanta\\DoctrineCollections\\": "lib/Adapter/DoctrineCollections/"
+            "Pagerfanta\\DoctrineCollections\\": "lib/Adapter/DoctrineCollections/",
+            "Pagerfanta\\DoctrineDBAL\\": "lib/Adapter/DoctrineDBAL/"
         }
     },
     "autoload-dev": {

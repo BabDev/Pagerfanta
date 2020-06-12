@@ -1,0 +1,23 @@
+{
+    "name": "pagerfanta/doctrine-dbal-adapter",
+    "type": "library",
+    "description": "Pagerfanta adapter for Doctrine DBAL",
+    "keywords": ["pagerfanta", "doctrine", "dbal"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2",
+        "doctrine/dbal": "^2.5",
+        "pagerfanta/core": "^2.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pagerfanta\\DoctrineDBAL\\": "./"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-2.x": "2.x-dev"
+        }
+    },
+    "minimum-stability": "dev"
+}
