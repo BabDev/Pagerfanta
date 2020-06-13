@@ -5,4 +5,5 @@
 - [Available Adapters](/open-source/packages/pagerfanta/docs/2.x/adapters)
 - [Views](/open-source/packages/pagerfanta/docs/2.x/views)
 - [Templates](/open-source/packages/pagerfanta/docs/2.x/templates)
+- [Route Generator](/open-source/packages/pagerfanta/docs/2.x/route-generator)
 - [Framework Integrations](/open-source/packages/pagerfanta/docs/2.x/framework-integrations)
