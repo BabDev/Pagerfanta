@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.0 (2020-??-??)
+
+- Add `Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface` representing a PHP class which builds a route generator at runtime
+- Add `Pagerfanta\RouteGenerator\RouteGeneratorInterface` representing a PHP class fulfilling the route generator requirements
+
 ## 2.3.0 (2020-06-09)
 
 - Change Composer package back to `pagerfanta/pagerfanta`
