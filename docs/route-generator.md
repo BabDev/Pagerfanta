@@ -12,13 +12,9 @@ $routeGenerator = function (int $page): string {
 
 ## Generator Interface
 
-<div class="docs-note docs-note--new-feature">This feature was introduced in Pagerfanta 2.4.</div>
-
 It is recommended that route generators are classes which implement `Pagerfanta\RouteGenerator\RouteGeneratorInterface`.
 
 ## Generator Factory
-
-<div class="docs-note docs-note--new-feature">This feature was introduced in Pagerfanta 2.4.</div>
 
 Often, it is necessary to configure a route generator based on runtime information (such as data from the current request). The `Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface` defines a class which can assist in building your route generators.
 
