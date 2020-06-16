@@ -1,0 +1,35 @@
+{%- extends '@Pagerfanta/default.html.twig' -%}
+
+{%- block pager_widget -%}
+    <nav role="navigation" class="flex items-center justify-between"><div class="flex-1 flex items-center justify-between"><div><span class="relative z-0 inline-flex shadow-sm">
+        {{- block('pager') -}}
+    </span></div></div></nav>
+{%- endblock pager_widget -%}
+
+{%- block page_link -%}
+    <a href="{{- path -}}" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">{{- page -}}</a>
+{%- endblock page_link -%}
+
+{%- block current_page_link -%}
+    <span aria-current="page"><span class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5">{{- page -}}</span></span>
+{%- endblock current_page_link -%}
+
+{%- block previous_page_link -%}
+    <a href="{{- path -}}" rel="prev" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-md leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">{{- block('previous_page_message') -}}</a>
+{%- endblock previous_page_link -%}
+
+{%- block previous_page_link_disabled -%}
+    <span aria-disabled="true"><span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-l-md leading-5">{{- block('previous_page_message') -}}</span></span>
+{%- endblock previous_page_link_disabled -%}
+
+{%- block next_page_link -%}
+    <a href="{{- path -}}" rel="next" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-md leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">Next</a>
+{%- endblock next_page_link -%}
+
+{%- block next_page_link_disabled -%}
+    <span aria-disabled="true"><span class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-r-md leading-5">{{- block('next_page_message') -}}</span></span>
+{%- endblock next_page_link_disabled -%}
+
+{%- block ellipsis -%}
+    <span aria-disabled="true"><span class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 cursor-default leading-5">&hellip;</span></span>
+{%- endblock ellipsis -%}
