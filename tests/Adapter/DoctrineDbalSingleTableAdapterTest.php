@@ -2,11 +2,17 @@
 
 namespace Pagerfanta\Tests\Adapter;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Pagerfanta\Adapter\DoctrineDbalSingleTableAdapter;
 use Pagerfanta\Exception\InvalidArgumentException;
 
 class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
 {
+    /**
+     * @var QueryBuilder
+     */
+    private $qb;
+
     /**
      * @var DoctrineDbalSingleTableAdapter
      */
@@ -16,72 +22,51 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
     {
         parent::setUp();
 
+        $this->qb = new QueryBuilder($conn);
+        $this->qb->select('p.*')->from('posts', 'p');
+
         $this->adapter = new DoctrineDbalSingleTableAdapter($this->qb, 'p.id');
     }
 
-    public function testGetNbResults(): void
+    public function testACountFieldWithoutAnAliasIsRejected(): void
     {
-        $this->doTestGetNbResults();
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The $countField must contain a table alias in the string.');
+
+        new DoctrineDbalSingleTableAdapter($this->qb, 'id');
     }
 
-    public function testGetNbResultsShouldWorkAfterCallingGetSlice(): void
+    public function testAQueryWithJoinStatementsIsRejected(): void
     {
-        $this->adapter->getSlice(1, 10);
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The query builder cannot have joins.');
 
-        $this->doTestGetNbResults();
+        $this->qb->innerJoin('p', 'comments', 'c', 'c.post_id = p.id');
+
+        new DoctrineDbalSingleTableAdapter($this->qb, 'p.id');
     }
 
-    private function doTestGetNbResults(): void
+    public function testAdapterReturnsNumberOfResults(): void
     {
         $this->assertSame(50, $this->adapter->getNbResults());
     }
 
-    public function testGetNbResultWithNoData(): void
+    public function testResultCountStaysConsistentAfterSlicing(): void
     {
-        $q = clone $this->qb;
-        $q->delete('posts')->execute();
+        $this->adapter->getSlice(1, 10);
 
-        $this->assertSame(0, $this->adapter->getNbResults());
+        $this->assertSame(50, $this->adapter->getNbResults());
     }
 
     public function testGetSlice(): void
-    {
-        $this->doTestGetSlice();
-    }
-
-    public function testGetSliceShouldWorkAfterCallingGetNbResults(): void
-    {
-        $this->adapter->getNbResults();
-
-        $this->doTestGetSlice();
-    }
-
-    private function doTestGetSlice(): void
     {
         $offset = 30;
         $length = 10;
 
         $q = clone $this->qb;
-        $q->setFirstResult($offset)->setMaxResults($length);
-        $expectedResults = $q->execute()->fetchAll();
+        $q->setFirstResult($offset)
+            ->setMaxResults($length);
 
-        $results = $this->adapter->getSlice($offset, $length);
-        $this->assertSame($expectedResults, $results);
-    }
-
-    public function testItShouldThrowAnInvalidArgumentExceptionIfTheCountFieldDoesNotHaveAlias(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        new DoctrineDbalSingleTableAdapter($this->qb, 'id');
-    }
-
-    public function testItShouldThrowAnInvalidArgumentExceptionIfTheQueryHasJoins(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        $this->qb->innerJoin('p', 'comments', 'c', 'c.post_id = p.id');
-
-        new DoctrineDbalSingleTableAdapter($this->qb, 'p.id');
+        $this->assertSame($q->execute()->fetchAll(), $this->adapter->getSlice($offset, $length));
     }
 }

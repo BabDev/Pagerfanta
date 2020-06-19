@@ -4,16 +4,15 @@ namespace Pagerfanta\Tests\Adapter;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Schema\Schema;
 use PHPUnit\Framework\TestCase;
 
 abstract class DoctrineDbalTestCase extends TestCase
 {
     /**
-     * @var QueryBuilder
+     * @var Connection
      */
-    protected $qb;
+    protected $connection;
 
     protected function setUp(): void
     {
@@ -21,22 +20,19 @@ abstract class DoctrineDbalTestCase extends TestCase
 
         $this->createSchema($conn);
         $this->insertData($conn);
-
-        $this->qb = new QueryBuilder($conn);
-        $this->qb->select('p.*')->from('posts', 'p');
     }
 
     private function getConnection(): Connection
     {
-        $params = $conn = [
-            'driver' => 'pdo_sqlite',
-            'memory' => true,
-        ];
-
-        return DriverManager::getConnection($params);
+        return DriverManager::getConnection(
+            [
+                'driver' => 'pdo_sqlite',
+                'memory' => true,
+            ]
+        );
     }
 
-    private function createSchema($conn): void
+    private function createSchema(Connection $conn): void
     {
         $schema = new Schema();
         $posts = $schema->createTable('posts');
@@ -59,14 +55,18 @@ abstract class DoctrineDbalTestCase extends TestCase
         }
     }
 
-    private function insertData($conn): void
+    private function insertData(Connection $conn): void
     {
-        for ($i = 1; $i <= 50; ++$i) {
-            $conn->insert('posts', ['username' => 'Jon Doe', 'post_content' => 'Post #'.$i]);
+        $conn->transactional(
+            static function (Connection $conn): void {
+                for ($i = 1; $i <= 50; ++$i) {
+                    $conn->insert('posts', ['username' => 'Jon Doe', 'post_content' => 'Post #'.$i]);
 
-            for ($j = 1; $j <= 5; ++$j) {
-                $conn->insert('comments', ['post_id' => $i, 'username' => 'Jon Doe', 'content' => 'Comment #'.$j]);
+                    for ($j = 1; $j <= 5; ++$j) {
+                        $conn->insert('comments', ['post_id' => $i, 'username' => 'Jon Doe', 'content' => 'Comment #'.$j]);
+                    }
+                }
             }
-        }
+        );
     }
 }
