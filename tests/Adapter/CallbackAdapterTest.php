@@ -53,7 +53,7 @@ class CallbackAdapterTest extends TestCase
 
         $adapter = new CallbackAdapter(
             static function (): void {},
-            static function (int $offset, int $length) use ($expected): iterable { return $expected; },
+            static function (int $offset, int $length) use ($expected): iterable { return $expected; }
         );
 
         $this->assertSame($expected, $adapter->getSlice(1, 1));
