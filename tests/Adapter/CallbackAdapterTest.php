@@ -8,65 +8,73 @@ use PHPUnit\Framework\TestCase;
 
 class CallbackAdapterTest extends TestCase
 {
-    /**
-     * @dataProvider notCallbackProvider
-     */
-    public function testConstructorShouldThrowAnInvalidArgumentExceptionIfTheGetNbResultsCallbackIsNotACallback($value): void
+    public function notCallbackProvider(): \Generator
     {
-        $this->expectException(InvalidArgumentException::class);
-
-        new CallbackAdapter($value, function (): void {});
+        yield 'string that is not a function' => ['foo'];
+        yield 'integer' => [1];
+        yield 'array that is not callable' => [['foo', 'bar']];
     }
 
     /**
      * @dataProvider notCallbackProvider
      */
-    public function testConstructorShouldThrowAnInvalidArgumentExceptionIfTheGetSliceCallbackIsNotACallback($value): void
+    public function testTheConstructorRejectsTheNbResultsArgumentIfItIsNotACallable($value): void
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new CallbackAdapter(function (): void {}, $value);
+        new CallbackAdapter($value, static function (int $offset, int $length): void {});
     }
 
-    public function notCallbackProvider()
+    /**
+     * @dataProvider notCallbackProvider
+     */
+    public function testTheConstructorRejectsTheSliceArgumentIfItIsNotACallable($value): void
     {
-        return [
-            ['foo'],
-            [1],
-        ];
+        $this->expectException(InvalidArgumentException::class);
+
+        new CallbackAdapter(static function (): void {}, $value);
     }
 
-    public function testGetNbResultShouldReturnTheGetNbResultsCallbackReturnValue(): void
+    public function testAdapterReturnsNumberOfItemsInResultSet(): void
     {
-        $getNbResultsCallback = function () {
-            return 42;
-        };
-        $adapter = new CallbackAdapter($getNbResultsCallback, function (): void {});
+        $expected = 42;
 
-        $this->assertEquals(42, $adapter->getNbResults());
+        $adapter = new CallbackAdapter(
+            static function () use ($expected): int { return $expected; },
+            static function (int $offset, int $length): void {}
+        );
+
+        $this->assertSame($expected, $adapter->getNbResults());
     }
 
-    public function testGetSliceShouldReturnTheGetSliceCallbackReturnValue(): void
+    public function testGetSliceShouldReturnTheResultFromTheCallback(): void
     {
-        $results = new \ArrayObject();
-        $getSliceCallback = function () use ($results) {
-            return $results;
-        };
+        $expected = new \ArrayObject();
 
-        $adapter = new CallbackAdapter(function (): void {}, $getSliceCallback);
+        $adapter = new CallbackAdapter(
+            static function (): void {},
+            static function (int $offset, int $length) use ($expected): iterable { return $expected; },
+        );
 
-        $this->assertSame($results, $adapter->getSlice(1, 1));
+        $this->assertSame($expected, $adapter->getSlice(1, 1));
     }
 
     public function testGetSliceShouldPassTheOffsetAndLengthToTheGetSliceCallback(): void
     {
-        $testCase = $this;
-        $getSliceCallback = function ($offset, $length) use ($testCase): void {
-            $testCase->assertSame(10, $offset);
-            $testCase->assertSame(18, $length);
+        $offset = 10;
+        $length = 18;
+
+        $sliceCallable = function (int $offset, int $length): iterable {
+            $this->assertSame(10, $offset);
+            $this->assertSame(18, $length);
+
+            return [];
         };
 
-        $adapter = new CallbackAdapter(function (): void {}, $getSliceCallback);
+        $adapter = new CallbackAdapter(
+            static function (): void {},
+            $sliceCallable
+        );
         $adapter->getSlice(10, 18);
     }
 }
