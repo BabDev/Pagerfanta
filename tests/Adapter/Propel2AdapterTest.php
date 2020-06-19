@@ -38,12 +38,11 @@ class Propel2AdapterTest extends TestCase
 
     public function testGetNbResults(): void
     {
-        $this->query
-            ->expects($this->once())
+        $this->query->expects($this->once())
             ->method('offset')
             ->with(0);
-        $this->query
-            ->expects($this->once())
+
+        $this->query->expects($this->once())
             ->method('count')
             ->willReturn(100);
 
@@ -56,16 +55,15 @@ class Propel2AdapterTest extends TestCase
         $length = 20;
         $slice = new \ArrayObject();
 
-        $this->query
-            ->expects($this->once())
+        $this->query->expects($this->once())
             ->method('limit')
             ->with($length);
-        $this->query
-            ->expects($this->once())
+
+        $this->query->expects($this->once())
             ->method('offset')
             ->with($offset);
-        $this->query
-            ->expects($this->once())
+
+        $this->query->expects($this->once())
             ->method('find')
             ->willReturn($slice);
 
