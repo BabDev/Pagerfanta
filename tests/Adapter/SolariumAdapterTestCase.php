@@ -6,6 +6,9 @@ use Pagerfanta\Adapter\SolariumAdapter;
 use Pagerfanta\Exception\InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Solarium\Core\Client\Client;
+use Solarium\QueryType\Select\Query\Query;
+use Solarium\QueryType\Select\Result\Result;
 
 abstract class SolariumAdapterTestCase extends TestCase
 {
@@ -24,17 +27,26 @@ abstract class SolariumAdapterTestCase extends TestCase
 
     abstract protected function getResultClass(): string;
 
-    protected function createClientMock(): MockObject
+    /**
+     * @return MockObject|Client|\Solarium_Client
+     */
+    protected function createClientMock()
     {
         return $this->createMock($this->getClientClass());
     }
 
-    protected function createQueryMock(): MockObject
+    /**
+     * @return MockObject|Query|\Solarium_Query_Select
+     */
+    protected function createQueryMock()
     {
         return $this->createMock($this->getQueryClass());
     }
 
-    protected function createQueryStub(): MockObject
+    /**
+     * @return MockObject|Query|\Solarium_Query_Select
+     */
+    protected function createQueryStub()
     {
         $query = $this->createQueryMock();
 
@@ -49,7 +61,10 @@ abstract class SolariumAdapterTestCase extends TestCase
         return $query;
     }
 
-    protected function createResultMock(): MockObject
+    /**
+     * @return MockObject|Result|\Solarium_Result_Select
+     */
+    protected function createResultMock()
     {
         return $this->createMock($this->getResultClass());
     }

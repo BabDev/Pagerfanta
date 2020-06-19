@@ -24,7 +24,7 @@ class SolariumAdapter implements AdapterInterface
     private $query;
 
     /**
-     * @var \Solarium_Result_Select|Result
+     * @var \Solarium_Result_Select|Result|null
      */
     private $resultSet;
 

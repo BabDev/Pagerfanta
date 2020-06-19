@@ -30,7 +30,7 @@ class SemanticUiTemplate extends Template
 
     public function page($page): string
     {
-        return $this->pageWithText($page, $page);
+        return $this->pageWithText($page, (string) $page);
     }
 
     public function pageWithText($page, $text, ?string $rel = null): string

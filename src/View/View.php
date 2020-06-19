@@ -8,7 +8,7 @@ use Pagerfanta\PagerfantaInterface;
 abstract class View implements ViewInterface
 {
     /**
-     * @var Pagerfanta
+     * @var PagerfantaInterface
      */
     protected $pagerfanta;
 
