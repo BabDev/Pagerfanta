@@ -17,7 +17,7 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
     {
         parent::setUp();
 
-        $this->qb = new QueryBuilder($conn);
+        $this->qb = new QueryBuilder($this->connection);
         $this->qb->select('p.*')->from('posts', 'p');
     }
 

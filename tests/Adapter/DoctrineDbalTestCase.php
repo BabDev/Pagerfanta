@@ -16,13 +16,13 @@ abstract class DoctrineDbalTestCase extends TestCase
 
     protected function setUp(): void
     {
-        $conn = $this->getConnection();
+        $this->connection = $this->createConnection();
 
-        $this->createSchema($conn);
-        $this->insertData($conn);
+        $this->createSchema();
+        $this->insertData();
     }
 
-    private function getConnection(): Connection
+    private function createConnection(): Connection
     {
         return DriverManager::getConnection(
             [
@@ -32,7 +32,7 @@ abstract class DoctrineDbalTestCase extends TestCase
         );
     }
 
-    private function createSchema(Connection $conn): void
+    private function createSchema(): void
     {
         $schema = new Schema();
         $posts = $schema->createTable('posts');
@@ -48,22 +48,22 @@ abstract class DoctrineDbalTestCase extends TestCase
         $comments->addColumn('content', 'text');
         $comments->setPrimaryKey(['id']);
 
-        $queries = $schema->toSql($conn->getDatabasePlatform()); // get queries to create this schema.
+        $queries = $schema->toSql($this->connection->getDatabasePlatform()); // get queries to create this schema.
 
         foreach ($queries as $sql) {
-            $conn->executeQuery($sql);
+            $this->connection->executeQuery($sql);
         }
     }
 
-    private function insertData(Connection $conn): void
+    private function insertData(): void
     {
-        $conn->transactional(
-            static function (Connection $conn): void {
+        $this->connection->transactional(
+            static function (Connection $connection): void {
                 for ($i = 1; $i <= 50; ++$i) {
-                    $conn->insert('posts', ['username' => 'Jon Doe', 'post_content' => 'Post #'.$i]);
+                    $connection->insert('posts', ['username' => 'Jon Doe', 'post_content' => 'Post #'.$i]);
 
                     for ($j = 1; $j <= 5; ++$j) {
-                        $conn->insert('comments', ['post_id' => $i, 'username' => 'Jon Doe', 'content' => 'Comment #'.$j]);
+                        $connection->insert('comments', ['post_id' => $i, 'username' => 'Jon Doe', 'content' => 'Comment #'.$j]);
                     }
                 }
             }
