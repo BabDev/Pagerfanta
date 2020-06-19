@@ -11,8 +11,8 @@ use Elastica\SearchableInterface;
  */
 class ElasticaAdapter implements AdapterInterface
 {
-    private Query $query;
     private SearchableInterface $searchable;
+    private Query $query;
     private array $options;
 
     /**

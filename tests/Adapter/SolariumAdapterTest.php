@@ -11,17 +11,26 @@ use Solarium\QueryType\Select\Result\Result;
 
 class SolariumAdapterTest extends TestCase
 {
-    protected function createClientMock(): MockObject
+    /**
+     * @return MockObject|Client
+     */
+    protected function createClientMock()
     {
         return $this->createMock(ClientInterface::class);
     }
 
-    protected function createQueryMock(): MockObject
+    /**
+     * @return MockObject|Query|\Solarium_Query_Select
+     */
+    protected function createQueryMock()
     {
         return $this->createMock(Query::class);
     }
 
-    protected function createQueryStub(): MockObject
+    /**
+     * @return MockObject|Query|\Solarium_Query_Select
+     */
+    protected function createQueryStub()
     {
         $query = $this->createQueryMock();
 
@@ -36,7 +45,10 @@ class SolariumAdapterTest extends TestCase
         return $query;
     }
 
-    protected function createResultMock(): MockObject
+    /**
+     * @return MockObject|Result|\Solarium_Result_Select
+     */
+    protected function createResultMock()
     {
         return $this->createMock(Result::class);
     }

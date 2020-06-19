@@ -1,0 +1,46 @@
+parameters:
+  level: 5
+  paths:
+    - %currentWorkingDirectory%/src
+    - %currentWorkingDirectory%/tests
+  ignoreErrors:
+    # Errors conditionally ignored based on multiple Solarium versions being supported
+    - '/Class Solarium_Client not found\./'
+    - '/Class Solarium_Query_Select not found\./'
+    - '/Class Solarium_Result_Select not found\./'
+    - '/Property Pagerfanta\\Adapter\\SolariumAdapter::\$client has unknown class Solarium_Client as its type\./'
+    - '/Property Pagerfanta\\Adapter\\SolariumAdapter::\$query has unknown class Solarium_Query_Select as its type\./'
+    - '/Property Pagerfanta\\Adapter\\SolariumAdapter::\$resultSet has unknown class Solarium_Result_Select as its type\./'
+    - '/Parameter \$client of method Pagerfanta\\Adapter\\SolariumAdapter::__construct\(\) has invalid typehint type Solarium_Client\./'
+    - '/Parameter \$query of method Pagerfanta\\Adapter\\SolariumAdapter::__construct\(\) has invalid typehint type Solarium_Query_Select\./'
+    - '/Parameter \$client of method Pagerfanta\\Adapter\\SolariumAdapter::checkClient\(\) has invalid typehint type Solarium_Client\./'
+    - '/Parameter \$client of method Pagerfanta\\Adapter\\SolariumAdapter::isClientInvalid\(\) has invalid typehint type Solarium_Client\./'
+    - '/Parameter \$client of method Pagerfanta\\Adapter\\SolariumAdapter::getClientInvalidMessage\(\) has invalid typehint type Solarium_Client\./'
+    - '/Parameter \$query of method Pagerfanta\\Adapter\\SolariumAdapter::checkQuery\(\) has invalid typehint type Solarium_Query_Select\./'
+    - '/Parameter \$query of method Pagerfanta\\Adapter\\SolariumAdapter::isQueryInvalid\(\) has invalid typehint type Solarium_Query_Select\./'
+    - '/Parameter \$query of method Pagerfanta\\Adapter\\SolariumAdapter::getQueryInvalidMessage\(\) has invalid typehint type Solarium_Query_Select\./'
+    - '/Call to method getNumFound\(\) on an unknown class Solarium_Result_Select\./'
+    - '/Call to method setStart\(\) on an unknown class Solarium_Query_Select\./'
+    - '/Call to method select\(\) on an unknown class Solarium_Client\./'
+    - '/Return typehint of method Pagerfanta\\Adapter\\SolariumAdapter::getResultSet\(\) has invalid type Solarium_Result_Select\./'
+    - '/Return typehint of method Pagerfanta\\Adapter\\SolariumAdapter::createResultSet\(\) has invalid type Solarium_Result_Select\./'
+
+    - '/Return typehint of method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createClientMock\(\) has invalid type Solarium_Client\./'
+    - '/Return typehint of method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createQueryMock\(\) has invalid type Solarium_Query_Select\./'
+    - '/Return typehint of method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createQueryStub\(\) has invalid type Solarium_Query_Select\./'
+    - '/Return typehint of method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createResultMock\(\) has invalid type Solarium_Result_Select\./'
+    - '/Parameter #1 \$client of class Pagerfanta\\Adapter\\SolariumAdapter constructor expects Solarium\\Core\\Client\\Client\|Solarium_Client, ArrayObject<mixed, mixed> given\./'
+    - '/Parameter #2 \$query of class Pagerfanta\\Adapter\\SolariumAdapter constructor expects Solarium\\QueryType\\Select\\Query\\Query\|Solarium_Query_Select, ArrayObject<mixed, mixed> given\./'
+    - '/Call to method expects\(\) on an unknown class (Solarium_Client|Solarium_Query_Select|Solarium_Result_Select)\./'
+
+    # Ignore errors for arguments in interface doc blocks not included in runtime signatures
+    -
+      message: '/PHPDoc tag \@param references unknown parameter: \$rel/'
+      path: %currentWorkingDirectory%/src/View/Template/TemplateInterface.php
+
+    # Ignore errors for incompatible types, types are checked at runtime and exceptions thrown as appropriate
+    - '/Parameter #1 \$adapters of class Pagerfanta\\Adapter\\ConcatenationAdapter constructor expects array<Pagerfanta\\Adapter\\AdapterInterface>, array<int, Pagerfanta\\Adapter\\ArrayAdapter\|string> given\./'
+    - "/Parameter #2 \\$countQueryBuilderModifier of class Pagerfanta\\\\Adapter\\\\DoctrineDbalAdapter constructor expects callable\\(\\): mixed, \\'ups\\' given\\./"
+    - '/Parameter #1 \$position of method Pagerfanta\\Pagerfanta::getPageNumberForItemAtPosition\(\) expects int, string given\./'
+
+  treatPhpDocTypesAsCertain: false
