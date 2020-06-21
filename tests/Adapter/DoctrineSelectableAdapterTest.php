@@ -50,15 +50,13 @@ class DoctrineSelectableAdapterTest extends TestCase
         $this->criteria->setMaxResults(null);
 
         $collection = $this->createMock(Collection::class);
-        $collection
-            ->expects($this->any())
+        $collection->expects($this->any())
             ->method('count')
             ->willReturn(10);
 
-        $this->selectable
-            ->expects($this->once())
+        $this->selectable->expects($this->once())
             ->method('matching')
-            ->with($this->equalTo($this->criteria))
+            ->with($this->criteria)
             ->willReturn($collection);
 
         $this->assertSame(10, $this->adapter->getNbResults());
@@ -71,10 +69,9 @@ class DoctrineSelectableAdapterTest extends TestCase
 
         $slice = new \ArrayIterator();
 
-        $this->selectable
-            ->expects($this->once())
+        $this->selectable->expects($this->once())
             ->method('matching')
-            ->with($this->equalTo($this->criteria))
+            ->with($this->criteria)
             ->willReturn($slice);
 
         $this->assertSame($slice, $this->adapter->getSlice(10, 20));

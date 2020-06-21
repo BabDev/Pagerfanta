@@ -4,84 +4,80 @@ namespace Pagerfanta\Tests\Adapter;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
+use Pagerfanta\Exception\InvalidArgumentException;
 
 class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
 {
-    public function testGetNbResults(): void
+    /**
+     * @var QueryBuilder
+     */
+    private $qb;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->qb = new QueryBuilder($this->connection);
+        $this->qb->select('p.*')->from('posts', 'p');
+    }
+
+    public function testANonSelectQueryIsRejected(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Only SELECT queries can be paginated.');
+
+        $this->qb->delete('posts');
+
+        new DoctrineDbalAdapter($this->qb, static function (QueryBuilder $qb): void { });
+    }
+
+    public function testAdapterReturnsNumberOfResults(): void
     {
         $adapter = $this->createAdapterToTestGetNbResults();
 
-        $this->doTestGetNbResults($adapter);
+        $this->assertSame(50, $adapter->getNbResults());
     }
 
-    public function testGetNbResultsShouldWorkAfterCallingGetSlice(): void
+    public function testResultCountStaysConsistentAfterSlicing(): void
     {
         $adapter = $this->createAdapterToTestGetNbResults();
 
         $adapter->getSlice(1, 10);
 
-        $this->doTestGetNbResults($adapter);
-    }
-
-    private function doTestGetNbResults(DoctrineDbalAdapter $adapter): void
-    {
         $this->assertSame(50, $adapter->getNbResults());
     }
 
     public function testGetSlice(): void
     {
-        $adapter = $this->createAdapterToTestGetSlice();
+        $adapter = new DoctrineDbalAdapter($this->qb, static function (QueryBuilder $qb): void { });
 
-        $this->doTestGetSlice($adapter);
-    }
-
-    public function testGetSliceShouldWorkAfterCallingGetNbResults(): void
-    {
-        $adapter = $this->createAdapterToTestGetSlice();
-
-        $adapter->getNbResults();
-
-        $this->doTestGetSlice($adapter);
-    }
-
-    private function createAdapterToTestGetSlice()
-    {
-        $countQueryBuilderModifier = function (): void { };
-
-        return new DoctrineDbalAdapter($this->qb, $countQueryBuilderModifier);
-    }
-
-    private function doTestGetSlice(DoctrineDbalAdapter $adapter): void
-    {
         $offset = 30;
         $length = 10;
 
-        $qb = clone $this->qb;
-        $qb->setFirstResult($offset)->setMaxResults($length);
+        $this->qb->setFirstResult($offset)
+            ->setMaxResults($length);
 
-        $expectedResults = $qb->execute()->fetchAll();
-        $results = $adapter->getSlice($offset, $length);
-
-        $this->assertSame($expectedResults, $results);
+        $this->assertSame($this->qb->execute()->fetchAll(), $adapter->getSlice($offset, $length));
     }
 
-    public function testItShouldCloneTheQuery(): void
+    public function testTheAdapterUsesAClonedQuery(): void
     {
         $adapter = $this->createAdapterToTestGetNbResults();
 
         $this->qb->innerJoin('p', 'comments', 'c', 'c.post_id = p.id')
-                ->groupBy('c.post_id');
+            ->groupBy('c.post_id');
 
         $this->assertSame(50, $adapter->getNbResults());
     }
 
     private function createAdapterToTestGetNbResults()
     {
-        $countQueryBuilderModifier = function (QueryBuilder $queryBuilder): void {
-            $queryBuilder->select('COUNT(DISTINCT p.id) AS total_results')
-                         ->setMaxResults(1);
-        };
-
-        return new DoctrineDbalAdapter($this->qb, $countQueryBuilderModifier);
+        return new DoctrineDbalAdapter(
+            $this->qb,
+            static function (QueryBuilder $qb): void {
+                $qb->select('COUNT(DISTINCT p.id) AS total_results')
+                    ->setMaxResults(1);
+            }
+        );
     }
 }

@@ -23,31 +23,30 @@ class ArrayAdapterTest extends TestCase
         $this->adapter = new ArrayAdapter($this->array);
     }
 
-    public function testGetArray(): void
+    public function testResultArrayIsRetrieved(): void
     {
         $this->assertSame($this->array, $this->adapter->getArray());
     }
 
-    public function testGetNbResults(): void
+    public function testAdapterReturnsNumberOfItemsInArray(): void
     {
-        $this->assertSame(100, $this->adapter->getNbResults());
+        $this->assertSame(count($this->array), $this->adapter->getNbResults());
     }
 
-    public function getResultsProvider(): array
+    public function dataGetSlice(): \Generator
     {
-        return [
-            [2, 10],
-            [3, 2],
-        ];
+        yield [2, 10];
+        yield [3, 2];
     }
 
     /**
-     * @dataProvider getResultsProvider
+     * @dataProvider dataGetSlice
      */
-    public function testGetResults(int $offset, int $length): void
+    public function testGetSlice(int $offset, int $length): void
     {
-        $expected = \array_slice($this->array, $offset, $length);
-
-        $this->assertSame($expected, $this->adapter->getSlice($offset, $length));
+        $this->assertSame(
+            \array_slice($this->array, $offset, $length),
+            $this->adapter->getSlice($offset, $length)
+        );
     }
 }

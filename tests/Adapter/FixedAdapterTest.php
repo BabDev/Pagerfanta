@@ -10,24 +10,24 @@ class FixedAdapterTest extends TestCase
     public function testGetNbResults(): void
     {
         $adapter = new FixedAdapter(5, []);
+
         $this->assertSame(5, $adapter->getNbResults());
     }
 
-    /**
-     * @dataProvider getSliceProvider
-     */
-    public function testGetSlice($results): void
+    public function dataGetSlice(): \Generator
     {
-        $adapter = new FixedAdapter(5, $results);
-        $this->assertSame($results, $adapter->getSlice(0, 10));
-        $this->assertSame($results, $adapter->getSlice(10, 20));
+        yield 'from array' => [['a', 'b']];
+        yield 'from iterable object' => [new \ArrayObject()];
     }
 
-    public function getSliceProvider()
+    /**
+     * @dataProvider dataGetSlice
+     */
+    public function testGetSlice(iterable $results): void
     {
-        return [
-            [['a', 'b']],
-            [new \ArrayIterator()],
-        ];
+        $adapter = new FixedAdapter(5, $results);
+
+        $this->assertSame($results, $adapter->getSlice(0, 10));
+        $this->assertSame($results, $adapter->getSlice(10, 20));
     }
 }
