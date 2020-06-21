@@ -78,6 +78,8 @@ class PagerfantaTest extends TestCase
     }
 
     /**
+     * @param int|string $maxPerPage
+     *
      * @dataProvider dataCountsAsIntegers
      */
     public function testTheMaximumNumberOfItemsPerPageCanBeSet(int $maxPerPage): void
@@ -174,6 +176,8 @@ class PagerfantaTest extends TestCase
     }
 
     /**
+     * @param int|string $currentPage
+     *
      * @dataProvider dataCountsAsIntegers
      */
     public function testTheCurrentPageNumberCanBeSet(int $currentPage): void
@@ -193,7 +197,7 @@ class PagerfantaTest extends TestCase
     /**
      * @dataProvider dataLessThan1
      */
-    public function testSettingTheCurrentPageShouldThrowExceptionWhenLessThan1($currentPage): void
+    public function testSettingTheCurrentPageShouldThrowExceptionWhenLessThan1(int $currentPage): void
     {
         $this->expectException(LessThan1CurrentPageException::class);
 
@@ -228,7 +232,7 @@ class PagerfantaTest extends TestCase
         });
     }
 
-    public function dataGetCurrentPageResultSizes()
+    public function dataGetCurrentPageResultSizes(): \Generator
     {
         // max per page, current page, offset
         yield '10 items per page on page 1' => [10, 1, 0];
@@ -339,7 +343,7 @@ class PagerfantaTest extends TestCase
         $this->pagerfanta->setCurrentPage(1);
         $this->assertFalse($this->pagerfanta->hasPreviousPage());
 
-        for ($page = 2; $page <= $this->pagerfanta->getNbPages(); $page++) {
+        for ($page = 2; $page <= $this->pagerfanta->getNbPages(); ++$page) {
             $this->pagerfanta->setCurrentPage($page);
             $this->assertTrue($this->pagerfanta->hasPreviousPage());
         }
@@ -351,7 +355,7 @@ class PagerfantaTest extends TestCase
             ->method('getNbResults')
             ->willReturn(100);
 
-        for ($page = 2; $page <= $this->pagerfanta->getNbPages(); $page++) {
+        for ($page = 2; $page <= $this->pagerfanta->getNbPages(); ++$page) {
             $this->pagerfanta->setCurrentPage($page);
             $this->assertSame($page - 1, $this->pagerfanta->getPreviousPage());
         }
@@ -370,7 +374,7 @@ class PagerfantaTest extends TestCase
             ->method('getNbResults')
             ->willReturn(100);
 
-        for ($page = 1; $page < $this->pagerfanta->getNbPages(); $page++) {
+        for ($page = 1; $page < $this->pagerfanta->getNbPages(); ++$page) {
             $this->pagerfanta->setCurrentPage($page);
             $this->assertTrue($this->pagerfanta->hasNextPage());
         }
@@ -385,7 +389,7 @@ class PagerfantaTest extends TestCase
             ->method('getNbResults')
             ->willReturn(100);
 
-        for ($page = 1; $page < $this->pagerfanta->getNbPages(); $page++) {
+        for ($page = 1; $page < $this->pagerfanta->getNbPages(); ++$page) {
             $this->pagerfanta->setCurrentPage($page);
             $this->assertSame($page + 1, $this->pagerfanta->getNextPage());
         }

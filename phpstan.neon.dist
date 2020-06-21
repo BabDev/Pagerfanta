@@ -1,5 +1,5 @@
 parameters:
-  level: 5
+  level: 6
   paths:
     - %currentWorkingDirectory%/src
     - %currentWorkingDirectory%/tests
@@ -7,4 +7,6 @@ parameters:
     # Ignore errors for incompatible types, types are checked at runtime and exceptions thrown as appropriate
     - '/Parameter #1 \$adapters of class Pagerfanta\\Adapter\\ConcatenationAdapter constructor expects array<Pagerfanta\\Adapter\\AdapterInterface>, array<int, Pagerfanta\\Adapter\\ArrayAdapter\|string> given\./'
 
+  checkGenericClassInNonGenericObjectType: false
+  checkMissingIterableValueType: false
   treatPhpDocTypesAsCertain: false

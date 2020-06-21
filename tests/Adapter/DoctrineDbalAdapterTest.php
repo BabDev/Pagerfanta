@@ -70,7 +70,7 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
         $this->assertSame(50, $adapter->getNbResults());
     }
 
-    private function createAdapterToTestGetNbResults()
+    private function createAdapterToTestGetNbResults(): DoctrineDbalAdapter
     {
         return new DoctrineDbalAdapter(
             $this->qb,

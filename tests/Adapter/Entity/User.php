@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class User
 {
     /**
+     * @var int|null
+     *
      * @ORM\Column(type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -18,6 +20,8 @@ class User
     public $id;
 
     /**
+     * @var Group[]|null
+     *
      * @ORM\ManyToMany(targetEntity="\Pagerfanta\Tests\Adapter\Entity\Group", inversedBy="users")
      * @ORM\JoinTable(
      *     name="user_groups",

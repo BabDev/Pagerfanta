@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Person
 {
     /**
+     * @var int|null
+     *
      * @ORM\Column(type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -18,12 +20,16 @@ class Person
     public $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
      */
     public $name;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
      */
     public $biography;
 }

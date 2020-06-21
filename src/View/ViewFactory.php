@@ -11,16 +11,6 @@ final class ViewFactory implements ViewFactoryInterface
      */
     private array $views = [];
 
-    public function set(string $name, ViewInterface $view): void
-    {
-        $this->views[$name] = $view;
-    }
-
-    public function has(string $name): bool
-    {
-        return isset($this->views[$name]);
-    }
-
     /**
      * @param array<string, ViewInterface> $views
      */
@@ -29,6 +19,19 @@ final class ViewFactory implements ViewFactoryInterface
         foreach ($views as $name => $view) {
             $this->set($name, $view);
         }
+    }
+
+    /**
+     * @return array<string, ViewInterface>
+     */
+    public function all()
+    {
+        return $this->views;
+    }
+
+    public function clear(): void
+    {
+        $this->views = [];
     }
 
     /**
@@ -43,6 +46,11 @@ final class ViewFactory implements ViewFactoryInterface
         return $this->views[$name];
     }
 
+    public function has(string $name): bool
+    {
+        return isset($this->views[$name]);
+    }
+
     /**
      * @throws InvalidArgumentException if the view does not exist
      */
@@ -55,16 +63,8 @@ final class ViewFactory implements ViewFactoryInterface
         unset($this->views[$name]);
     }
 
-    /**
-     * @return array<string, ViewInterface>
-     */
-    public function all(): array
+    public function set(string $name, ViewInterface $view): void
     {
-        return $this->views;
-    }
-
-    public function clear(): void
-    {
-        $this->views = [];
+        $this->views[$name] = $view;
     }
 }
