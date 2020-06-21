@@ -30,7 +30,7 @@ class ArrayAdapterTest extends TestCase
 
     public function testAdapterReturnsNumberOfItemsInArray(): void
     {
-        $this->assertSame(count($this->array), $this->adapter->getNbResults());
+        $this->assertSame(\count($this->array), $this->adapter->getNbResults());
     }
 
     public function dataGetSlice(): \Generator
