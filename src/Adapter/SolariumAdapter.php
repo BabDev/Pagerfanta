@@ -160,8 +160,8 @@ class SolariumAdapter implements AdapterInterface
     }
 
     /**
-     * @param int $start
-     * @param int $rows
+     * @param int|null $start
+     * @param int|null $rows
      *
      * @return \Solarium_Result_Select|Result
      */
@@ -182,16 +182,28 @@ class SolariumAdapter implements AdapterInterface
         return $this->resultSet;
     }
 
+    /**
+     * @param int|null $start
+     * @param int|null $rows
+     */
     private function resultSetStartAndRowsAreNotNullAndChange($start, $rows): bool
     {
         return $this->resultSetStartAndRowsAreNotNull($start, $rows) && $this->resultSetStartAndRowsChange($start, $rows);
     }
 
+    /**
+     * @param int|null $start
+     * @param int|null $rows
+     */
     private function resultSetStartAndRowsAreNotNull($start, $rows): bool
     {
         return null !== $start && null !== $rows;
     }
 
+    /**
+     * @param int|null $start
+     * @param int|null $rows
+     */
     private function resultSetStartAndRowsChange($start, $rows): bool
     {
         return $start !== $this->resultSetStart || $rows !== $this->resultSetRows;

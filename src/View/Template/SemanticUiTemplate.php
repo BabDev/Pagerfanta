@@ -28,16 +28,28 @@ class SemanticUiTemplate extends Template
         );
     }
 
+    /**
+     * @param int $page
+     */
     public function page($page): string
     {
         return $this->pageWithText($page, (string) $page);
     }
 
+    /**
+     * @param int $page
+     * @param string $text
+     */
     public function pageWithText($page, $text, ?string $rel = null): string
     {
         return $this->pageWithTextAndClass($page, $text, '');
     }
 
+    /**
+     * @param int $page
+     * @param string $text
+     * @param string $class
+     */
     private function pageWithTextAndClass($page, $text, $class): string
     {
         return $this->link($class, $this->generateRoute($page), $text);
@@ -53,6 +65,9 @@ class SemanticUiTemplate extends Template
         return $this->option('css_prev_class').' '.$this->option('css_disabled_class');
     }
 
+    /**
+     * @param int $page
+     */
     public function previousEnabled($page): string
     {
         return $this->pageWithTextAndClass($page, $this->option('prev_message'), $this->option('css_prev_class'));
@@ -68,6 +83,9 @@ class SemanticUiTemplate extends Template
         return $this->option('css_next_class').' '.$this->option('css_disabled_class');
     }
 
+    /**
+     * @param int $page
+     */
     public function nextEnabled($page): string
     {
         return $this->pageWithTextAndClass($page, $this->option('next_message'), $this->option('css_next_class'));
@@ -78,11 +96,17 @@ class SemanticUiTemplate extends Template
         return $this->page(1);
     }
 
+    /**
+     * @param int $page
+     */
     public function last($page): string
     {
         return $this->page($page);
     }
 
+    /**
+     * @param int $page
+     */
     public function current($page): string
     {
         $text = trim($page.' '.$this->option('active_suffix'));

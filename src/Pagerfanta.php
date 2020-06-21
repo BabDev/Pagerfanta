@@ -127,6 +127,9 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $this;
     }
 
+    /**
+     * @param int $maxPerPage
+     */
     private function filterMaxPerPage($maxPerPage): int
     {
         $maxPerPage = $this->toInteger($maxPerPage);
@@ -136,6 +139,8 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
+     * @param int $maxPerPage
+     *
      * @throws NotIntegerMaxPerPageException if the max per page is not an integer even converting
      * @throws LessThan1MaxPerPageException  if the max per page is less than 1
      */
@@ -222,6 +227,9 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         }
     }
 
+    /**
+     * @param int $currentPage
+     */
     private function filterCurrentPage($currentPage): int
     {
         $currentPage = $this->toInteger($currentPage);
@@ -232,6 +240,8 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
+     * @param int $currentPage
+     *
      * @throws NotIntegerCurrentPageException if the current page is not an integer even converting
      * @throws LessThan1CurrentPageException  if the current page is less than 1
      */
@@ -246,6 +256,9 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         }
     }
 
+    /**
+     * @param int $currentPage
+     */
     private function filterOutOfRangeCurrentPage($currentPage): int
     {
         if ($this->notAllowedCurrentPageOutOfRange($currentPage)) {
@@ -499,6 +512,10 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
+     * @param bool $value
+     *
+     * @return bool
+     *
      * @throws NotBooleanException if the value is not boolean
      */
     private function filterBoolean($value): bool
@@ -510,6 +527,11 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $value;
     }
 
+    /**
+     * @param mixed $value
+     *
+     * @return int
+     */
     private function toInteger($value)
     {
         if ($this->needsToIntegerConversion($value)) {
@@ -519,6 +541,9 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $value;
     }
 
+    /**
+     * @param mixed $value
+     */
     private function needsToIntegerConversion($value): bool
     {
         return (\is_string($value) || \is_float($value)) && (int) $value == $value;

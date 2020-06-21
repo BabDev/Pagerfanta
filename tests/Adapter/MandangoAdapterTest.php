@@ -53,7 +53,7 @@ class MandangoAdapterTest extends TestCase
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
 
-    private function prepareQueryLimit($limit): void
+    private function prepareQueryLimit(int $limit): void
     {
         $this->query->expects($this->once())
             ->method('limit')
@@ -61,7 +61,7 @@ class MandangoAdapterTest extends TestCase
             ->willReturn($this->query);
     }
 
-    private function prepareQuerySkip($skip): void
+    private function prepareQuerySkip(int $skip): void
     {
         $this->query->expects($this->once())
             ->method('skip')
@@ -69,7 +69,7 @@ class MandangoAdapterTest extends TestCase
             ->willReturn($this->query);
     }
 
-    private function prepareQueryAll($all): void
+    private function prepareQueryAll(object $all): void
     {
         $this->query->expects($this->once())
             ->method('all')

@@ -35,27 +35,26 @@ abstract class ViewTestCase extends TestCase
 
     abstract protected function createView(): ViewInterface;
 
-    protected function setNbPages($nbPages): void
+    protected function setNbPages(int $nbPages): void
     {
         $nbResults = $this->calculateNbResults($nbPages);
 
-        $this->adapter
-            ->expects($this->any())
+        $this->adapter->expects($this->any())
             ->method('getNbResults')
             ->willReturn($nbResults);
     }
 
-    private function calculateNbResults($nbPages)
+    private function calculateNbResults(int $nbPages): int
     {
         return $nbPages * $this->pagerfanta->getMaxPerPage();
     }
 
-    protected function setCurrentPage($currentPage): void
+    protected function setCurrentPage(int $currentPage): void
     {
         $this->pagerfanta->setCurrentPage($currentPage);
     }
 
-    protected function renderView($options)
+    protected function renderView(array $options): string
     {
         $routeGenerator = $this->createRouteGenerator();
 
@@ -64,20 +63,20 @@ abstract class ViewTestCase extends TestCase
 
     protected function createRouteGenerator(): \Closure
     {
-        return function ($page) { return '|'.$page.'|'; };
+        return static function (int $page): string { return '|'.$page.'|'; };
     }
 
-    protected function assertRenderedView($expected, $result): void
+    protected function assertRenderedView(string $expected, string $result): void
     {
         $this->assertSame($this->filterExpectedView($expected), $result);
     }
 
-    protected function filterExpectedView($expected)
+    protected function filterExpectedView(string $expected): string
     {
         return $expected;
     }
 
-    protected function removeWhitespacesBetweenTags($string)
+    protected function removeWhitespacesBetweenTags(string $string): string
     {
         return preg_replace('/>\s+</', '><', $string);
     }

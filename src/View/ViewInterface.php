@@ -14,6 +14,8 @@ interface ViewInterface
      * @param PagerfantaInterface $pagerfanta
      * @param callable            $routeGenerator
      * @param array               $options
+     *
+     * @return string
      */
     public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = []);
 

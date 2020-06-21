@@ -3,7 +3,9 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\SolariumAdapter;
+use PHPUnit\Framework\MockObject\MockObject;
 use Solarium\Client;
+use Solarium\Core\Client\Endpoint;
 use Solarium\QueryType\Select\Query\Query;
 use Solarium\QueryType\Select\Result\Result;
 
@@ -14,16 +16,25 @@ class Solarium3AdapterTest extends SolariumAdapterTestCase
         return 'Solarium 3';
     }
 
+    /**
+     * @return class-string
+     */
     protected function getClientClass(): string
     {
         return Client::class;
     }
 
+    /**
+     * @return class-string
+     */
     protected function getQueryClass(): string
     {
         return Query::class;
     }
 
+    /**
+     * @return class-string
+     */
     protected function getResultClass(): string
     {
         return Result::class;
@@ -39,6 +50,10 @@ class Solarium3AdapterTest extends SolariumAdapterTestCase
         $this->doTestGetResultSet($this->createQueryMock(), 'ups');
     }
 
+    /**
+     * @param MockObject|Query $query
+     * @param Endpoint|string|null $endpoint
+     */
     private function doTestGetResultSet($query, $endpoint): void
     {
         $client = $this->createClientMock();

@@ -16,7 +16,7 @@ class PropelAdapter implements AdapterInterface
      */
     private $query;
 
-    public function __construct($query)
+    public function __construct(\ModelCriteria $query)
     {
         $this->query = $query;
     }

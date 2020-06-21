@@ -21,10 +21,19 @@ abstract class SolariumAdapterTestCase extends TestCase
 
     abstract protected function getSolariumName(): string;
 
+    /**
+     * @return class-string
+     */
     abstract protected function getClientClass(): string;
 
+    /**
+     * @return class-string
+     */
     abstract protected function getQueryClass(): string;
 
+    /**
+     * @return class-string
+     */
     abstract protected function getResultClass(): string;
 
     /**

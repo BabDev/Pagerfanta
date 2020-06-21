@@ -1,5 +1,5 @@
 parameters:
-  level: 5
+  level: 6
   paths:
     - %currentWorkingDirectory%/src
     - %currentWorkingDirectory%/tests
@@ -32,6 +32,7 @@ parameters:
     - '/Parameter #1 \$client of class Pagerfanta\\Adapter\\SolariumAdapter constructor expects Solarium\\Core\\Client\\Client\|Solarium_Client, ArrayObject<mixed, mixed> given\./'
     - '/Parameter #2 \$query of class Pagerfanta\\Adapter\\SolariumAdapter constructor expects Solarium\\QueryType\\Select\\Query\\Query\|Solarium_Query_Select, ArrayObject<mixed, mixed> given\./'
     - '/Call to method expects\(\) on an unknown class (Solarium_Client|Solarium_Query_Select|Solarium_Result_Select)\./'
+    - '/Method Pagerfanta\\Tests\\Adapter\\Solarium2AdapterTest::(getClientClass|getQueryClass|getResultClass)\(\) should return class-string but returns string\./'
 
     # Ignore errors for arguments in interface doc blocks not included in runtime signatures
     -
@@ -43,4 +44,6 @@ parameters:
     - "/Parameter #2 \\$countQueryBuilderModifier of class Pagerfanta\\\\Adapter\\\\DoctrineDbalAdapter constructor expects callable\\(\\): mixed, \\'ups\\' given\\./"
     - '/Parameter #1 \$position of method Pagerfanta\\Pagerfanta::getPageNumberForItemAtPosition\(\) expects int, string given\./'
 
+  checkGenericClassInNonGenericObjectType: false
+  checkMissingIterableValueType: false
   treatPhpDocTypesAsCertain: false

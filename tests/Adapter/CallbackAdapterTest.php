@@ -16,6 +16,8 @@ class CallbackAdapterTest extends TestCase
     }
 
     /**
+     * @param mixed $value
+     *
      * @dataProvider notCallbackProvider
      */
     public function testTheConstructorRejectsTheNbResultsArgumentIfItIsNotACallable($value): void
@@ -26,6 +28,8 @@ class CallbackAdapterTest extends TestCase
     }
 
     /**
+     * @param mixed $value
+     *
      * @dataProvider notCallbackProvider
      */
     public function testTheConstructorRejectsTheSliceArgumentIfItIsNotACallable($value): void

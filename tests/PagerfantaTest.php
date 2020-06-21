@@ -80,6 +80,8 @@ class PagerfantaTest extends TestCase
     }
 
     /**
+     * @param mixed $value
+     *
      * @dataProvider dataNotBoolean
      */
     public function testSettingOutOfRangePagesRejectsNonBooleanValues($value): void
@@ -101,6 +103,8 @@ class PagerfantaTest extends TestCase
     }
 
     /**
+     * @param mixed $value
+     *
      * @dataProvider dataNotBoolean
      */
     public function testNormalizingOutOfRangePagesRejectsNonBooleanValues($value): void
@@ -116,6 +120,8 @@ class PagerfantaTest extends TestCase
     }
 
     /**
+     * @param int|string $maxPerPage
+     *
      * @dataProvider dataCountsAsIntegers
      * @dataProvider dataCountsAsStrings
      */
@@ -126,6 +132,8 @@ class PagerfantaTest extends TestCase
     }
 
     /**
+     * @param mixed $maxPerPage
+     *
      * @dataProvider dataCountsAsNonIntegers
      */
     public function testTheMaximumNumberOfItemsPerPageCannotBeSetWithNonIntegerValues($maxPerPage): void
@@ -223,6 +231,8 @@ class PagerfantaTest extends TestCase
     }
 
     /**
+     * @param int|string $currentPage
+     *
      * @dataProvider dataCountsAsIntegers
      * @dataProvider dataCountsAsStrings
      */
@@ -241,6 +251,8 @@ class PagerfantaTest extends TestCase
     }
 
     /**
+     * @param mixed $currentPage
+     *
      * @dataProvider dataCountsAsNonIntegers
      */
     public function testTheCurrentPageNumberCannotBeSetWithNonIntegerValues($currentPage): void
@@ -253,7 +265,7 @@ class PagerfantaTest extends TestCase
     /**
      * @dataProvider dataLessThan1
      */
-    public function testSettingTheCurrentPageShouldThrowExceptionWhenLessThan1($currentPage): void
+    public function testSettingTheCurrentPageShouldThrowExceptionWhenLessThan1(int $currentPage): void
     {
         $this->expectException(LessThan1CurrentPageException::class);
 
@@ -322,7 +334,7 @@ class PagerfantaTest extends TestCase
         });
     }
 
-    public function dataGetCurrentPageResultSizes()
+    public function dataGetCurrentPageResultSizes(): \Generator
     {
         // max per page, current page, offset
         yield '10 items per page on page 1' => [10, 1, 0];
