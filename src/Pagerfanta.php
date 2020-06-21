@@ -108,18 +108,6 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
-     * @throws NotBooleanException if the value is not boolean
-     */
-    private function filterBoolean($value): bool
-    {
-        if (!\is_bool($value)) {
-            throw new NotBooleanException();
-        }
-
-        return $value;
-    }
-
-    /**
      * Sets the maximum number of items per page.
      *
      * Tries to convert from string and float.
@@ -487,20 +475,6 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $results;
     }
 
-    private function toInteger($value)
-    {
-        if ($this->needsToIntegerConversion($value)) {
-            return (int) $value;
-        }
-
-        return $value;
-    }
-
-    private function needsToIntegerConversion($value): bool
-    {
-        return (\is_string($value) || \is_float($value)) && (int) $value == $value;
-    }
-
     /**
      * Get page number of the item at specified position (1-based index).
      *
@@ -522,5 +496,31 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         }
 
         return (int) ceil($position / $this->getMaxPerPage());
+    }
+
+    /**
+     * @throws NotBooleanException if the value is not boolean
+     */
+    private function filterBoolean($value): bool
+    {
+        if (!\is_bool($value)) {
+            throw new NotBooleanException();
+        }
+
+        return $value;
+    }
+
+    private function toInteger($value)
+    {
+        if ($this->needsToIntegerConversion($value)) {
+            return (int) $value;
+        }
+
+        return $value;
+    }
+
+    private function needsToIntegerConversion($value): bool
+    {
+        return (\is_string($value) || \is_float($value)) && (int) $value == $value;
     }
 }
