@@ -13,7 +13,7 @@ class OptionableViewTest extends TestCase
     private const RENDERED_VIEW = 'rendered';
 
     /**
-     * @var MockObject|PagerfantaInterface
+     * @var MockObject|Pagerfanta
      */
     private $pagerfanta;
 

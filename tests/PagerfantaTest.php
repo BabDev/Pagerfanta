@@ -78,8 +78,6 @@ class PagerfantaTest extends TestCase
     }
 
     /**
-     * @param int|string $maxPerPage
-     *
      * @dataProvider dataCountsAsIntegers
      */
     public function testTheMaximumNumberOfItemsPerPageCanBeSet(int $maxPerPage): void
@@ -176,8 +174,6 @@ class PagerfantaTest extends TestCase
     }
 
     /**
-     * @param int|string $currentPage
-     *
      * @dataProvider dataCountsAsIntegers
      */
     public function testTheCurrentPageNumberCanBeSet(int $currentPage): void
