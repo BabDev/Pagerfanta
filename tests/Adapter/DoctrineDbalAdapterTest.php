@@ -4,6 +4,7 @@ namespace Pagerfanta\Tests\Adapter;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
+use Pagerfanta\Doctrine\DBAL\QueryAdapter;
 use Pagerfanta\Exception\InvalidArgumentException;
 
 class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
@@ -34,7 +35,7 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
     public function testTheConstructorRejectsTheQueryBuilderModifierIfItIsNotCallable(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('The $countQueryBuilderModifier argument of the %s constructor must be a callable, a string was given.', DoctrineDbalAdapter::class));
+        $this->expectExceptionMessage(sprintf('The $countQueryBuilderModifier argument of the %s constructor must be a callable, a string was given.', QueryAdapter::class));
 
         new DoctrineDbalAdapter($this->qb, 'ups');
     }
