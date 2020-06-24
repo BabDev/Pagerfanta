@@ -48,6 +48,10 @@ class NullAdapter implements AdapterInterface
         return $this->createNullArray($this->calculateNullArrayLength($offset, $length));
     }
 
+    /**
+     * @param int $offset
+     * @param int $length
+     */
     private function calculateNullArrayLength($offset, $length): int
     {
         $remainCount = $this->remainCount($offset);
@@ -59,6 +63,9 @@ class NullAdapter implements AdapterInterface
         return $length;
     }
 
+    /**
+     * @param int $offset
+     */
     private function remainCount($offset): int
     {
         return $this->nbResults - $offset;

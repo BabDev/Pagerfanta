@@ -10,9 +10,17 @@ use PHPUnit\Framework\TestCase;
 
 class OptionableViewTest extends TestCase
 {
+    private const RENDERED_VIEW = 'rendered';
+
+    /**
+     * @var MockObject|PagerfantaInterface
+     */
     private $pagerfanta;
+
+    /**
+     * @var callable
+     */
     private $routeGenerator;
-    private $rendered;
 
     protected function setUp(): void
     {
@@ -22,49 +30,42 @@ class OptionableViewTest extends TestCase
 
     private function createRouteGenerator(): \Closure
     {
-        return function (): void {};
+        return static function (int $page): string { return ''; };
     }
 
     public function testRenderShouldDelegateToTheView(): void
     {
         $defaultOptions = ['foo' => 'bar', 'bar' => 'ups'];
 
-        $view = $this->createViewMock($defaultOptions);
-        $optionable = new OptionableView($view, $defaultOptions);
-
-        $returned = $optionable->render($this->pagerfanta, $this->routeGenerator);
-        $this->assertSame($this->rendered, $returned);
+        $this->assertSame(
+            self::RENDERED_VIEW,
+            (new OptionableView($this->createViewMock($defaultOptions), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator)
+        );
     }
 
     public function testRenderShouldMergeOptions(): void
     {
         $defaultOptions = ['foo' => 'bar'];
         $options = ['ups' => 'da'];
-        $expectedOptions = array_merge($defaultOptions, $options);
 
-        $view = $this->createViewMock($expectedOptions);
-        $optionable = new OptionableView($view, $defaultOptions);
-
-        $returned = $optionable->render($this->pagerfanta, $this->routeGenerator, $options);
-        $this->assertSame($this->rendered, $returned);
+        $this->assertSame(
+            self::RENDERED_VIEW,
+            (new OptionableView($this->createViewMock(array_merge($defaultOptions, $options)), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator, $options)
+        );
     }
 
     /**
      * @return MockObject|ViewInterface
      */
-    private function createViewMock($expectedOptions)
+    private function createViewMock(array $expectedOptions)
     {
+        /** @var MockObject|ViewInterface $view */
         $view = $this->createMock(ViewInterface::class);
 
-        $view
-            ->expects($this->once())
+        $view->expects($this->once())
             ->method('render')
-            ->with(
-                $this->equalTo($this->pagerfanta),
-                $this->equalTo($this->routeGenerator),
-                $this->equalTo($expectedOptions)
-            )
-            ->willReturn($this->rendered);
+            ->with($this->pagerfanta, $this->routeGenerator, $expectedOptions)
+            ->willReturn(self::RENDERED_VIEW);
 
         return $view;
     }

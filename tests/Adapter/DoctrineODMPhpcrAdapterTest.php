@@ -2,8 +2,8 @@
 
 namespace Pagerfanta\Tests\Adapter;
 
-use Doctrine\ODM\PHPCR\Query\Query;
 use Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder;
+use Doctrine\ODM\PHPCR\Query\Query;
 use Pagerfanta\Adapter\DoctrineODMPhpcrAdapter;
 use PHPCR\Query\QueryResultInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -41,23 +41,18 @@ class DoctrineODMPhpcrAdapterTest extends TestCase
 
     public function testGetNbResultsShouldCreateTheQueryAndCount(): void
     {
-        $this->queryBuilder
-            ->expects($this->once())
+        $this->queryBuilder->expects($this->once())
             ->method('getQuery')
-            ->willReturn($this->query)
-        ;
+            ->willReturn($this->query);
 
         $queryResult = $this->createMock(QueryResultInterface::class);
-        $queryResult
-            ->expects($this->once())
+        $queryResult->expects($this->once())
             ->method('getRows')
             ->willReturn(new \ArrayIterator([1, 2, 3, 4, 5, 6]));
 
-        $this->query
-            ->expects($this->once())
+        $this->query->expects($this->once())
             ->method('execute')
-            ->willReturn($queryResult)
-        ;
+            ->willReturn($queryResult);
 
         $this->assertSame(6, $this->adapter->getNbResults());
     }
@@ -68,28 +63,23 @@ class DoctrineODMPhpcrAdapterTest extends TestCase
         $length = 15;
         $slice = new \ArrayIterator();
 
-        $this->query
-            ->expects($this->once())
+        $this->query->expects($this->once())
             ->method('setMaxResults')
             ->with($length)
-            ->willReturn($this->query)
-        ;
-        $this->query
-            ->expects($this->once())
+            ->willReturn($this->query);
+
+        $this->query->expects($this->once())
             ->method('setFirstResult')
             ->with($offset)
-            ->willReturn($this->query)
-        ;
-        $this->queryBuilder
-            ->expects($this->once())
+            ->willReturn($this->query);
+
+        $this->queryBuilder->expects($this->once())
             ->method('getQuery')
-            ->willReturn($this->query)
-        ;
-        $this->query
-            ->expects($this->once())
+            ->willReturn($this->query);
+
+        $this->query->expects($this->once())
             ->method('execute')
-            ->willReturn($slice)
-        ;
+            ->willReturn($slice);
 
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }

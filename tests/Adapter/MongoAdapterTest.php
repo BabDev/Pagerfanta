@@ -14,12 +14,12 @@ class MongoAdapterTest extends TestCase
     /**
      * @var MockObject|\MongoCursor
      */
-    protected $cursor;
+    private $cursor;
 
     /**
      * @var MongoAdapter
      */
-    protected $adapter;
+    private $adapter;
 
     protected function setUp(): void
     {
@@ -34,8 +34,7 @@ class MongoAdapterTest extends TestCase
 
     public function testGetNbResultsShouldReturnTheCursorCount(): void
     {
-        $this->cursor
-            ->expects($this->once())
+        $this->cursor->expects($this->once())
             ->method('count')
             ->willReturn(100);
 
@@ -47,27 +46,14 @@ class MongoAdapterTest extends TestCase
         $offset = 12;
         $length = 16;
 
-        $this->cursor
-            ->expects($this->once())
+        $this->cursor->expects($this->once())
             ->method('limit')
             ->with($length);
-        $this->cursor
-            ->expects($this->once())
+
+        $this->cursor->expects($this->once())
             ->method('skip')
             ->with($offset);
 
-        $this->adapter->getSlice($offset, $length);
-    }
-
-    public function testGetSliceShouldReturnTheCursor(): void
-    {
-        $this->cursor
-            ->expects($this->any())
-            ->method('limit');
-        $this->cursor
-            ->expects($this->any())
-            ->method('skip');
-
-        $this->assertSame($this->cursor, $this->adapter->getSlice(1, 1));
+        $this->assertSame($this->cursor, $this->adapter->getSlice($offset, $length));
     }
 }

@@ -4,12 +4,13 @@ namespace Pagerfanta\View;
 
 use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\View\Template\Template;
 use Pagerfanta\View\Template\TemplateInterface;
 
 abstract class TemplateView extends View
 {
     /**
-     * @var TemplateInterface
+     * @var TemplateInterface|Template
      */
     private $template;
 
@@ -42,8 +43,10 @@ abstract class TemplateView extends View
 
     private function configureTemplate(callable $routeGenerator, array $options): void
     {
-        $this->template->setRouteGenerator($routeGenerator);
-        $this->template->setOptions($options);
+        if ($this->template instanceof Template) {
+            $this->template->setRouteGenerator($routeGenerator);
+            $this->template->setOptions($options);
+        }
     }
 
     private function generate(): string

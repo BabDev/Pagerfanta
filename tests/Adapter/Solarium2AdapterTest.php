@@ -11,16 +11,25 @@ class Solarium2AdapterTest extends SolariumAdapterTestCase
         return 'Solarium 2';
     }
 
+    /**
+     * @return class-string
+     */
     protected function getClientClass(): string
     {
         return \Solarium_Client::class;
     }
 
+    /**
+     * @return class-string
+     */
     protected function getQueryClass(): string
     {
         return \Solarium_Query_Select::class;
     }
 
+    /**
+     * @return class-string
+     */
     protected function getResultClass(): string
     {
         return \Solarium_Result_Select::class;

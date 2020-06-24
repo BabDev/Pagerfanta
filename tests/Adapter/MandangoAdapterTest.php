@@ -33,11 +33,9 @@ class MandangoAdapterTest extends TestCase
 
     public function testGetNbResults(): void
     {
-        $this->query
-            ->expects($this->once())
+        $this->query->expects($this->once())
             ->method('count')
-            ->willReturn(100)
-        ;
+            ->willReturn(100);
 
         $this->assertSame(100, $this->adapter->getNbResults());
     }
@@ -55,28 +53,25 @@ class MandangoAdapterTest extends TestCase
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
 
-    private function prepareQueryLimit($limit): void
+    private function prepareQueryLimit(int $limit): void
     {
-        $this->query
-            ->expects($this->once())
+        $this->query->expects($this->once())
             ->method('limit')
             ->with($limit)
             ->willReturn($this->query);
     }
 
-    private function prepareQuerySkip($skip): void
+    private function prepareQuerySkip(int $skip): void
     {
-        $this->query
-            ->expects($this->once())
+        $this->query->expects($this->once())
             ->method('skip')
             ->with($skip)
             ->willReturn($this->query);
     }
 
-    private function prepareQueryAll($all): void
+    private function prepareQueryAll(object $all): void
     {
-        $this->query
-            ->expects($this->once())
+        $this->query->expects($this->once())
             ->method('all')
             ->willReturn($all);
     }

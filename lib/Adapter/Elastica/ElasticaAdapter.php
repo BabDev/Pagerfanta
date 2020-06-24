@@ -13,19 +13,14 @@ use Pagerfanta\Adapter\AdapterInterface;
 class ElasticaAdapter implements AdapterInterface
 {
     /**
-     * @var Query
-     */
-    private $query;
-
-    /**
-     * @var ResultSet
-     */
-    private $resultSet;
-
-    /**
      * @var SearchableInterface
      */
     private $searchable;
+
+    /**
+     * @var Query
+     */
+    private $query;
 
     /**
      * @var array
@@ -39,6 +34,11 @@ class ElasticaAdapter implements AdapterInterface
      * @var int|null
      */
     private $maxResults;
+
+    /**
+     * @var ResultSet|null
+     */
+    private $resultSet;
 
     /**
      * @param int|null $maxResults
