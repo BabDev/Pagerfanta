@@ -1,6 +1,7 @@
 parameters:
   level: 6
   paths:
+    - %currentWorkingDirectory%/lib
     - %currentWorkingDirectory%/src
     - %currentWorkingDirectory%/tests
   ignoreErrors:
@@ -8,22 +9,22 @@ parameters:
     - '/Class Solarium_Client not found\./'
     - '/Class Solarium_Query_Select not found\./'
     - '/Class Solarium_Result_Select not found\./'
-    - '/Property Pagerfanta\\Adapter\\SolariumAdapter::\$client has unknown class Solarium_Client as its type\./'
-    - '/Property Pagerfanta\\Adapter\\SolariumAdapter::\$query has unknown class Solarium_Query_Select as its type\./'
-    - '/Property Pagerfanta\\Adapter\\SolariumAdapter::\$resultSet has unknown class Solarium_Result_Select as its type\./'
-    - '/Parameter \$client of method Pagerfanta\\Adapter\\SolariumAdapter::__construct\(\) has invalid typehint type Solarium_Client\./'
-    - '/Parameter \$query of method Pagerfanta\\Adapter\\SolariumAdapter::__construct\(\) has invalid typehint type Solarium_Query_Select\./'
-    - '/Parameter \$client of method Pagerfanta\\Adapter\\SolariumAdapter::checkClient\(\) has invalid typehint type Solarium_Client\./'
-    - '/Parameter \$client of method Pagerfanta\\Adapter\\SolariumAdapter::isClientInvalid\(\) has invalid typehint type Solarium_Client\./'
-    - '/Parameter \$client of method Pagerfanta\\Adapter\\SolariumAdapter::getClientInvalidMessage\(\) has invalid typehint type Solarium_Client\./'
-    - '/Parameter \$query of method Pagerfanta\\Adapter\\SolariumAdapter::checkQuery\(\) has invalid typehint type Solarium_Query_Select\./'
-    - '/Parameter \$query of method Pagerfanta\\Adapter\\SolariumAdapter::isQueryInvalid\(\) has invalid typehint type Solarium_Query_Select\./'
-    - '/Parameter \$query of method Pagerfanta\\Adapter\\SolariumAdapter::getQueryInvalidMessage\(\) has invalid typehint type Solarium_Query_Select\./'
+    - '/Property Pagerfanta\\Solarium\\SolariumAdapter::\$client has unknown class Solarium_Client as its type\./'
+    - '/Property Pagerfanta\\Solarium\\SolariumAdapter::\$query has unknown class Solarium_Query_Select as its type\./'
+    - '/Property Pagerfanta\\Solarium\\SolariumAdapter::\$resultSet has unknown class Solarium_Result_Select as its type\./'
+    - '/Parameter \$client of method Pagerfanta\\Solarium\\SolariumAdapter::__construct\(\) has invalid typehint type Solarium_Client\./'
+    - '/Parameter \$query of method Pagerfanta\\Solarium\\SolariumAdapter::__construct\(\) has invalid typehint type Solarium_Query_Select\./'
+    - '/Parameter \$client of method Pagerfanta\\Solarium\\SolariumAdapter::checkClient\(\) has invalid typehint type Solarium_Client\./'
+    - '/Parameter \$client of method Pagerfanta\\Solarium\\SolariumAdapter::isClientInvalid\(\) has invalid typehint type Solarium_Client\./'
+    - '/Parameter \$client of method Pagerfanta\\Solarium\\SolariumAdapter::getClientInvalidMessage\(\) has invalid typehint type Solarium_Client\./'
+    - '/Parameter \$query of method Pagerfanta\\Solarium\\SolariumAdapter::checkQuery\(\) has invalid typehint type Solarium_Query_Select\./'
+    - '/Parameter \$query of method Pagerfanta\\Solarium\\SolariumAdapter::isQueryInvalid\(\) has invalid typehint type Solarium_Query_Select\./'
+    - '/Parameter \$query of method Pagerfanta\\Solarium\\SolariumAdapter::getQueryInvalidMessage\(\) has invalid typehint type Solarium_Query_Select\./'
     - '/Call to method getNumFound\(\) on an unknown class Solarium_Result_Select\./'
     - '/Call to method setStart\(\) on an unknown class Solarium_Query_Select\./'
     - '/Call to method select\(\) on an unknown class Solarium_Client\./'
-    - '/Return typehint of method Pagerfanta\\Adapter\\SolariumAdapter::getResultSet\(\) has invalid type Solarium_Result_Select\./'
-    - '/Return typehint of method Pagerfanta\\Adapter\\SolariumAdapter::createResultSet\(\) has invalid type Solarium_Result_Select\./'
+    - '/Return typehint of method Pagerfanta\\Solarium\\SolariumAdapter::getResultSet\(\) has invalid type Solarium_Result_Select\./'
+    - '/Return typehint of method Pagerfanta\\Solarium\\SolariumAdapter::createResultSet\(\) has invalid type Solarium_Result_Select\./'
 
     - '/Return typehint of method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createClientMock\(\) has invalid type Solarium_Client\./'
     - '/Return typehint of method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createQueryMock\(\) has invalid type Solarium_Query_Select\./'
@@ -37,7 +38,7 @@ parameters:
     # Ignore errors for arguments in interface doc blocks not included in runtime signatures
     -
       message: '/PHPDoc tag \@param references unknown parameter: \$rel/'
-      path: %currentWorkingDirectory%/src/View/Template/TemplateInterface.php
+      path: %currentWorkingDirectory%/lib/Core/View/Template/TemplateInterface.php
 
     # Ignore errors for incompatible types, types are checked at runtime and exceptions thrown as appropriate
     - '/Parameter #1 \$adapters of class Pagerfanta\\Adapter\\ConcatenationAdapter constructor expects array<Pagerfanta\\Adapter\\AdapterInterface>, array<int, Pagerfanta\\Adapter\\ArrayAdapter\|string> given\./'
