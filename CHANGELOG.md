@@ -4,6 +4,8 @@
 
 - Add `Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface` representing a PHP class which builds a route generator at runtime
 - Add `Pagerfanta\RouteGenerator\RouteGeneratorInterface` representing a PHP class fulfilling the route generator requirements
+- Added Twig integration
+- Restructured package to support subtree splits, individual adapters and the core API may now be installed separately
 
 ## 2.3.0 (2020-06-09)
 
