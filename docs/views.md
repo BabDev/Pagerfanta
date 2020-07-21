@@ -84,7 +84,7 @@ use Twig\RuntimeLoader\ContainerRuntimeLoader;
  * or the `pagerfanta/twig` package is installed.
  */
 $refl = new \ReflectionClass(PagerfantaExtension::class);
-$path = \dirname($refl->getFileName()) . '/templates';
+$path = \dirname($refl->getFileName(), 2) . '/templates';
 
 $loader = new FilesystemLoader(['/path/to/app/templates']);
 
