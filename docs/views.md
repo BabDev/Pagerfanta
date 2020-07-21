@@ -60,6 +60,53 @@ Below is a list of the views that are available with this package, and the corre
 | `twitter_bootstrap3` | `Pagerfanta\View\TwitterBootstrap3View` | `Pagerfanta\View\Template\TwitterBootstrap3Template` |
 | `twitter_bootstrap4` | `Pagerfanta\View\TwitterBootstrap4View` | `Pagerfanta\View\Template\TwitterBootstrap4Template` |
 
+## Twig View
+
+<div class="docs-note docs-note--new-feature">This feature was introduced in Pagerfanta 2.4.</div>
+
+Pagerfanta includes native support for the [Twig](https://twig.symfony.com/) templating engine and allows integrators to build flexible templates for rendering their pagers.
+
+Twig templates are available for all CSS frameworks which have a corresponding `Pagerfanta\View\Template\TemplateInterface` implementation.
+
+In order to use the Twig integration, you will need to register the Twig extension, a runtime loader to resolve the runtime service, and the Pagerfanta template path to your Twig environment.
+
+```php
+<?php
+
+use Pagerfanta\Twig\Extension\PagerfantaExtension;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+use Twig\RuntimeLoader\ContainerRuntimeLoader;
+
+/*
+ * We'll use Reflection to dynamically resolve the path to the templates provided by the package.
+ * This method will work regardless of whether the monolithic `pagerfanta/pagerfanta` package
+ * or the `pagerfanta/twig` package is installed.
+ */
+$refl = new \ReflectionClass(PagerfantaExtension::class);
+$path = \dirname($refl->getFileName(), 2) . '/templates';
+
+$loader = new FilesystemLoader(['/path/to/app/templates']);
+
+// The namespace *MUST* be "Pagerfanta" otherwise the templates will not work correctly
+$loader->addPath($path, 'Pagerfanta');
+
+$environment = new Environment($loader);
+
+/*
+ * Add the runtime loader so the runtime serivce can be lazy loaded.
+ *
+ * If using the PSR-11 runtime loader, the runtime service must
+ * be registered to the container using its FQCN as its service ID,
+ * i.e. `Pagerfanta\Twig\Extension\PagerfantaRuntime`
+ */
+/** @var Psr\Container\ContainerInterface $container */
+$environment->addRuntimeLoader(new ContainerRuntimeLoader($container));
+
+// Add the extension
+$environment->addExtension(new PagerfantaExtension());
+```
+
 ## Reusable View Configurations
 
 Sometimes you want to reuse options for a view in your project and you don't want to repeat those options each time you render a view, or you have different configurations for a view and you want to save those configurations to be able to change them easily.

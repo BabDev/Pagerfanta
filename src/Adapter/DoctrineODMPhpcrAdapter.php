@@ -2,39 +2,15 @@
 
 namespace Pagerfanta\Adapter;
 
-use Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder;
-use Doctrine\ODM\PHPCR\Query\Query;
+use Pagerfanta\Doctrine\PHPCRODM\QueryAdapter;
+
+trigger_deprecation('pagerfanta/pagerfanta', '2.4', 'The "%s" class is deprecated and will be removed in 3.0. Use the "%s" class from the "pagerfanta/doctrine-phpcr-odm-adapter" package instead.', DoctrineODMPhpcrAdapter::class, QueryAdapter::class);
 
 /**
  * Adapter which calculates pagination from a Doctrine PHPCR ODM QueryBuilder.
+ *
+ * @deprecated to be removed in 3.0, use the `Pagerfanta\Doctrine\PHPCRODM\QueryAdapter` from the `pagerfanta/doctrine-phpcr-odm-adapter` package instead
  */
-class DoctrineODMPhpcrAdapter implements AdapterInterface
+class DoctrineODMPhpcrAdapter extends QueryAdapter
 {
-    private QueryBuilder $queryBuilder;
-
-    public function __construct(QueryBuilder $queryBuilder)
-    {
-        $this->queryBuilder = $queryBuilder;
-    }
-
-    public function getQueryBuilder(): QueryBuilder
-    {
-        return $this->queryBuilder;
-    }
-
-    public function getNbResults(): int
-    {
-        return $this->queryBuilder->getQuery()
-            ->execute(null, Query::HYDRATE_PHPCR)
-            ->getRows()
-            ->count();
-    }
-
-    public function getSlice(int $offset, int $length): iterable
-    {
-        return $this->queryBuilder->getQuery()
-            ->setMaxResults($length)
-            ->setFirstResult($offset)
-            ->execute();
-    }
 }

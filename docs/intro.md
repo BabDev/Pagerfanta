@@ -8,3 +8,4 @@ The package includes:
     
 - PHP templates with support for multiple CSS Frameworks
 - Adapters supporting multiple database backends, including ElasticSearch, Solr, and Doctrine (ORM and ODM)
+- [Twig](https://twig.symfony.com/) extension for rendering a pager

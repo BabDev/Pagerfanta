@@ -2,39 +2,15 @@
 
 namespace Pagerfanta\Adapter;
 
-use Doctrine\Common\Collections\Criteria;
-use Doctrine\Common\Collections\Selectable;
+use Pagerfanta\Doctrine\Collections\SelectableAdapter;
+
+trigger_deprecation('pagerfanta/pagerfanta', '2.4', 'The "%s" class is deprecated and will be removed in 3.0. Use the "%s" class from the "pagerfanta/doctrine-collections-adapter" package instead.', DoctrineSelectableAdapter::class, SelectableAdapter::class);
 
 /**
  * Adapter which calculates pagination from a Selectable instance.
+ *
+ * @deprecated to be removed in 3.0, use the `Pagerfanta\Doctrine\Collections\SelectableAdapter` from the `pagerfanta/doctrine-collections-adapter` package instead
  */
-class DoctrineSelectableAdapter implements AdapterInterface
+class DoctrineSelectableAdapter extends SelectableAdapter
 {
-    private Selectable $selectable;
-    private Criteria $criteria;
-
-    public function __construct(Selectable $selectable, Criteria $criteria)
-    {
-        $this->selectable = $selectable;
-        $this->criteria = $criteria;
-    }
-
-    public function getNbResults(): int
-    {
-        return $this->selectable->matching($this->createCriteria(null, null))->count();
-    }
-
-    public function getSlice(int $offset, int $length): iterable
-    {
-        return $this->selectable->matching($this->createCriteria($offset, $length));
-    }
-
-    private function createCriteria(?int $firstResult, ?int $maxResult): Criteria
-    {
-        $criteria = clone $this->criteria;
-        $criteria->setFirstResult($firstResult);
-        $criteria->setMaxResults($maxResult);
-
-        return $criteria;
-    }
 }

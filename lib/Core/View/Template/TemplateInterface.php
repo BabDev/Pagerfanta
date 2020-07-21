@@ -18,8 +18,6 @@ interface TemplateInterface
 
     /**
      * Renders a given page with a specified text.
-     *
-     * @param string|null $rel An optional relation for the item
      */
     public function pageWithText(int $page, string $text, ?string $rel = null): string;
 

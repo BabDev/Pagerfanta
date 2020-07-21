@@ -2,60 +2,15 @@
 
 namespace Pagerfanta\Adapter;
 
-use Doctrine\DBAL\Query\QueryBuilder;
-use Pagerfanta\Exception\InvalidArgumentException;
+use Pagerfanta\Doctrine\DBAL\QueryAdapter;
+
+trigger_deprecation('pagerfanta/pagerfanta', '2.4', 'The "%s" class is deprecated and will be removed in 3.0. Use the "%s" class from the "pagerfanta/doctrine-dbal-adapter" package instead.', DoctrineDbalAdapter::class, QueryAdapter::class);
 
 /**
  * Adapter which calculates pagination from a Doctrine DBAL QueryBuilder.
+ *
+ * @deprecated to be removed in 3.0, use the `Pagerfanta\Doctrine\DBAL\QueryAdapter` from the `pagerfanta/doctrine-dbal-adapter` package instead
  */
-class DoctrineDbalAdapter implements AdapterInterface
+class DoctrineDbalAdapter extends QueryAdapter
 {
-    private QueryBuilder $queryBuilder;
-
-    /**
-     * @var callable
-     */
-    private $countQueryBuilderModifier;
-
-    /**
-     * @param callable $countQueryBuilderModifier a callable to modify the query builder to count the results, the callable should have a signature of `function (QueryBuilder $queryBuilder): void {}`
-     *
-     * @throws InvalidArgumentException if a non-SELECT query is given
-     */
-    public function __construct(QueryBuilder $queryBuilder, callable $countQueryBuilderModifier)
-    {
-        if (QueryBuilder::SELECT !== $queryBuilder->getType()) {
-            throw new InvalidArgumentException('Only SELECT queries can be paginated.');
-        }
-
-        $this->queryBuilder = clone $queryBuilder;
-        $this->countQueryBuilderModifier = $countQueryBuilderModifier;
-    }
-
-    public function getNbResults(): int
-    {
-        $qb = $this->prepareCountQueryBuilder();
-
-        return (int) $qb->execute()->fetchColumn();
-    }
-
-    public function getSlice(int $offset, int $length): iterable
-    {
-        $qb = clone $this->queryBuilder;
-
-        return $qb->setMaxResults($length)
-            ->setFirstResult($offset)
-            ->execute()
-            ->fetchAll();
-    }
-
-    private function prepareCountQueryBuilder(): QueryBuilder
-    {
-        $qb = clone $this->queryBuilder;
-        $callable = $this->countQueryBuilderModifier;
-
-        $callable($qb);
-
-        return $qb;
-    }
 }

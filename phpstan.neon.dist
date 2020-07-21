@@ -1,6 +1,7 @@
 parameters:
   level: 6
   paths:
+    - %currentWorkingDirectory%/lib
     - %currentWorkingDirectory%/src
     - %currentWorkingDirectory%/tests
   ignoreErrors:

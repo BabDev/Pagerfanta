@@ -1,0 +1,35 @@
+{%- extends '@Pagerfanta/default.html.twig' -%}
+
+{%- block pager_widget -%}
+    <div class="pagination"><ul>
+        {{- block('pager') -}}
+    </ul></div>
+{%- endblock pager_widget -%}
+
+{%- block page_link -%}
+    <li><a href="{{- path -}}">{{- page -}}</a></li>
+{%- endblock page_link -%}
+
+{%- block current_page_link -%}
+    <li class="active" aria-current="page"><span>{{- page -}}</span></li>
+{%- endblock current_page_link -%}
+
+{%- block previous_page_link -%}
+    <li><a href="{{- path -}}" rel="prev">{{- block('previous_page_message') -}}</a></li>
+{%- endblock previous_page_link -%}
+
+{%- block previous_page_link_disabled -%}
+    <li class="disabled"><span>{{- block('previous_page_message') -}}</span></li>
+{%- endblock previous_page_link_disabled -%}
+
+{%- block next_page_link -%}
+    <li><a href="{{- path -}}" rel="next">{{- block('next_page_message') -}}</a></li>
+{%- endblock next_page_link -%}
+
+{%- block next_page_link_disabled -%}
+    <li class="disabled"><span>{{- block('next_page_message') -}}</span></li>
+{%- endblock next_page_link_disabled -%}
+
+{%- block ellipsis -%}
+    <li class="disabled"><span>&hellip;</span></li>
+{%- endblock ellipsis -%}
