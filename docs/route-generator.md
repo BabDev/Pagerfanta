@@ -41,6 +41,12 @@ final class PagerfantaExtension extends AbstractExtension
     private RouteGeneratorFactoryInterface $routeGeneratorFactory;
     private ViewFactoryInterface $viewFactory;
 
+    public function __construct(RouteGeneratorFactoryInterface $routeGeneratorFactory, ViewFactoryInterface $viewFactory)
+    {
+        $this->routeGeneratorFactory = $routeGeneratorFactory;
+        $this->viewFactory = $viewFactory;
+    }
+
     public function getFunctions(): array
     {
         return [
