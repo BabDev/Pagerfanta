@@ -3,7 +3,7 @@
 set -e
 set -x
 
-CURRENT_BRANCH="2.x"
+CURRENT_BRANCH="3.x"
 
 function split()
 {
