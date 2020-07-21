@@ -6,12 +6,12 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
-        "ext-json": "*"
+        "ext-json": "*",
+        "symfony/deprecation-contracts": "^2.1"
     },
     "require-dev": {
         "doctrine/collections": "^1.6",
         "doctrine/dbal": "^2.8",
-        "doctrine/mongodb-odm": "^2.0",
         "doctrine/orm": "^2.7",
         "doctrine/phpcr-odm": "^1.4",
         "friendsofphp/php-cs-fixer": "^2.16.3",
