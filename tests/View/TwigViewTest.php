@@ -3,7 +3,6 @@
 namespace Pagerfanta\Tests\View;
 
 use Pagerfanta\Adapter\FixedAdapter;
-use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Twig\View\TwigView;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -109,22 +108,6 @@ final class TwigViewTest extends TestCase
             'Twig template',
             (new TwigView($this->twig))->render($this->createPagerfanta(), $this->createRouteGenerator())
         );
-    }
-
-    public function testRejectsANonCallableRouteGenerator(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        $template = $this->createMock(Template::class);
-        $template->expects($this->never())
-            ->method('displayBlock');
-
-        $this->twig->expects($this->once())
-            ->method('load')
-            ->with(TwigView::DEFAULT_TEMPLATE)
-            ->willReturn(new TemplateWrapper($this->twig, $template));
-
-        (new TwigView($this->twig))->render($this->createPagerfanta(), new \stdClass());
     }
 
     private function createPagerfanta(): Pagerfanta
