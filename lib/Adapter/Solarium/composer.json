@@ -14,10 +14,5 @@
             "Pagerfanta\\Solarium\\": "./"
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-2.x": "2.x-dev"
-        }
-    },
     "minimum-stability": "dev"
 }
