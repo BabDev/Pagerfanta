@@ -17,5 +17,6 @@ The following first party packages are available to include additional functiona
 - `pagerfanta/doctrine-phpcr-odm-adapter`: Provides support for the [Doctrine PHPCR ODM](https://www.doctrine-project.org/projects/phpcr-odm.html) package
 - `pagerfanta/elastica-adapter`: Provides support for [Elastica](https://elastica.io/) (an ElasticSearch PHP client)
 - `pagerfanta/solarium-adapter`: Provides support for [Solarium](https://github.com/solariumphp/solarium) (a Solr search client)
+- `pagerfanta/twig`: Provides support for [Twig](https://twig.symfony.com/)
 
 <div class="docs-note">Deprecated adapters have not been split into new packages, continue to use the <code>pagerfanta/pagerfanta</code> monopackage if you rely on them.</div>
