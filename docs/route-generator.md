@@ -66,3 +66,13 @@ final class PagerfantaExtension extends AbstractExtension
     }
 }
 ```
+
+## Generator Decorator
+
+<div class="docs-note docs-note--new-feature">This feature was introduced in Pagerfanta 2.4.</div>
+
+Included in the core API is the `Pagerfanta\RouteGenerator\RouteGeneratorDecorator` class which can be used to decorate any route generator, whether the generator implements the interface or any callable.
+
+The primary reason this class was created is to allow any generator to be used within Twig, but the decorator can also be used to enforce strict typehinting for generators.
+
+<div class="docs-note docs-note--tip">When using the Twig view, it will automatically decorate any route generator so you will not need to do this on your own.</div>

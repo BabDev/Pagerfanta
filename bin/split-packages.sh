@@ -26,6 +26,7 @@ remote doctrine-orm git@github.com:pagerfanta-packages/doctrine-orm-adapter.git
 remote doctrine-phpcr-odm git@github.com:pagerfanta-packages/doctrine-phpcr-odm-adapter.git
 remote elastica git@github.com:pagerfanta-packages/elastica-adapter.git
 remote solarium git@github.com:pagerfanta-packages/solarium-adapter.git
+remote twig git@github.com:pagerfanta-packages/twig.git
 
 split 'lib/Core' core
 split 'lib/Adapter/Doctrine/Collections' doctrine-collections
@@ -35,3 +36,4 @@ split 'lib/Adapter/Doctrine/ORM' doctrine-orm
 split 'lib/Adapter/Doctrine/PHPCRODM' doctrine-phpcr-odm
 split 'lib/Adapter/Elastica' elastica
 split 'lib/Adapter/Solarium' solarium
+split 'lib/Twig' twig

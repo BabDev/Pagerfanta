@@ -23,7 +23,14 @@
         "propel/propel": "^2.0@dev",
         "propel/propel1": "^1.7",
         "ruflin/elastica": "^1.3 || ^2.0 || ^3.0 || ^5.0 || ^6.0 || ^7.0",
-        "solarium/solarium": "^2.3 || ^3.0 || ^4.0 || ^5.0"
+        "solarium/solarium": "^2.3 || ^3.0 || ^4.0 || ^5.0",
+        "twig/twig": "^1.35 || ^2.5 || ^3.0"
+    },
+    "conflict": {
+        "twig/twig": "<1.35 || >=2.0,<2.5"
+    },
+    "suggest": {
+        "twig/twig": "To integrate Pagerfanta with Twig"
     },
     "replace": {
         "pagerfanta/core": "self.version",
@@ -33,7 +40,8 @@
         "pagerfanta/doctrine-orm-adapter": "self.version",
         "pagerfanta/doctrine-phpcr-odm-adapter": "self.version",
         "pagerfanta/elastica-adapter": "self.version",
-        "pagerfanta/solarium-adapter": "self.version"
+        "pagerfanta/solarium-adapter": "self.version",
+        "pagerfanta/twig": "self.version"
     },
     "autoload": {
         "psr-4": {
@@ -45,7 +53,8 @@
             "Pagerfanta\\Doctrine\\ORM\\": "lib/Adapter/Doctrine/ORM/",
             "Pagerfanta\\Doctrine\\PHPCRODM\\": "lib/Adapter/Doctrine/PHPCRODM/",
             "Pagerfanta\\Elastica\\": "lib/Adapter/Elastica/",
-            "Pagerfanta\\Solarium\\": "lib/Adapter/Solarium/"
+            "Pagerfanta\\Solarium\\": "lib/Adapter/Solarium/",
+            "Pagerfanta\\Twig\\": "lib/Twig/"
         }
     },
     "autoload-dev": {
