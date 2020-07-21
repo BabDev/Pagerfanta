@@ -1,6 +1,6 @@
 <?php
 
-namespace Pagerfanta\Twig;
+namespace Pagerfanta\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

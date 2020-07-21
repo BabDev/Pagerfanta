@@ -7,7 +7,7 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
-use Pagerfanta\Twig\PagerfantaRuntime;
+use Pagerfanta\Twig\Extension\PagerfantaRuntime;
 use Pagerfanta\View\DefaultView;
 use Pagerfanta\View\ViewFactory;
 use Pagerfanta\View\ViewFactoryInterface;

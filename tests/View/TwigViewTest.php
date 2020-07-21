@@ -5,7 +5,7 @@ namespace Pagerfanta\Tests\View;
 use Pagerfanta\Adapter\FixedAdapter;
 use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
-use Pagerfanta\View\TwigView;
+use Pagerfanta\Twig\View\TwigView;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;

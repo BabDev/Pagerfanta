@@ -1,6 +1,6 @@
 <?php
 
-namespace Pagerfanta\Twig;
+namespace Pagerfanta\Twig\Extension;
 
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\Pagerfanta;
@@ -8,8 +8,9 @@ use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 use Pagerfanta\View\ViewFactoryInterface;
+use Twig\Extension\RuntimeExtensionInterface;
 
-final class PagerfantaRuntime
+final class PagerfantaRuntime implements RuntimeExtensionInterface
 {
     /**
      * @var string

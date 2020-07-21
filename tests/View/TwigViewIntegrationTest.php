@@ -6,9 +6,9 @@ use Pagerfanta\Adapter\FixedAdapter;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
-use Pagerfanta\Twig\PagerfantaExtension;
-use Pagerfanta\Twig\PagerfantaRuntime;
-use Pagerfanta\View\TwigView;
+use Pagerfanta\Twig\Extension\PagerfantaExtension;
+use Pagerfanta\Twig\Extension\PagerfantaRuntime;
+use Pagerfanta\Twig\View\TwigView;
 use Pagerfanta\View\ViewFactory;
 use Pagerfanta\View\ViewFactoryInterface;
 use PHPUnit\Framework\TestCase;
@@ -41,7 +41,7 @@ final class TwigViewIntegrationTest extends TestCase
     protected function setUp(): void
     {
         $filesystemLoader = new FilesystemLoader();
-        $filesystemLoader->addPath(__DIR__.'/../../templates', 'Pagerfanta');
+        $filesystemLoader->addPath(__DIR__.'/../../lib/Twig/templates', 'Pagerfanta');
 
         $this->twig = new Environment(new ChainLoader([new ArrayLoader(['integration.html.twig' => '{{ pagerfanta(pager, options) }}']), $filesystemLoader]));
         $this->twig->addExtension(new PagerfantaExtension());

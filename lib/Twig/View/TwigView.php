@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\View;
+namespace Pagerfanta\Twig\View;
 
 use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorDecorator;
+use Pagerfanta\View\View;
 use Twig\Environment;
 
 final class TwigView extends View
