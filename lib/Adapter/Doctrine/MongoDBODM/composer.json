@@ -5,9 +5,9 @@
     "keywords": ["pagerfanta", "doctrine", "mongodb", "odm"],
     "license": "MIT",
     "require": {
-        "php": "^7.2",
+        "php": "^7.4",
         "doctrine/mongodb-odm": "^2.0",
-        "pagerfanta/core": "^2.4"
+        "pagerfanta/core": "^3.0"
     },
     "autoload": {
         "psr-4": {

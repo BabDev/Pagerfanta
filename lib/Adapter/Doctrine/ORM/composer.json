@@ -5,9 +5,9 @@
     "keywords": ["pagerfanta", "doctrine", "orm"],
     "license": "MIT",
     "require": {
-        "php": "^7.2",
-        "doctrine/orm": "^2.5",
-        "pagerfanta/core": "^2.4"
+        "php": "^7.4",
+        "doctrine/orm": "^2.7",
+        "pagerfanta/core": "^3.0"
     },
     "autoload": {
         "psr-4": {
