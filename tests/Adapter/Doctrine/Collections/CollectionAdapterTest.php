@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Adapter\Doctrine\Collections;
 
 use Doctrine\Common\Collections\Collection;
-use Pagerfanta\Adapter\DoctrineCollectionAdapter;
+use Pagerfanta\Doctrine\Collections\CollectionAdapter;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class DoctrineCollectionAdapterTest extends TestCase
+final class CollectionAdapterTest extends TestCase
 {
     /**
      * @var MockObject|Collection
@@ -15,7 +15,7 @@ class DoctrineCollectionAdapterTest extends TestCase
     private $collection;
 
     /**
-     * @var DoctrineCollectionAdapter
+     * @var CollectionAdapter
      */
     private $adapter;
 
@@ -23,7 +23,7 @@ class DoctrineCollectionAdapterTest extends TestCase
     {
         $this->collection = $this->createMock(Collection::class);
 
-        $this->adapter = new DoctrineCollectionAdapter($this->collection);
+        $this->adapter = new CollectionAdapter($this->collection);
     }
 
     public function testGetCollectionShouldReturnTheCollection(): void

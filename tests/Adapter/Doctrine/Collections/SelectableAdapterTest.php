@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Adapter\Doctrine\Collections;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Selectable;
-use Pagerfanta\Adapter\DoctrineSelectableAdapter;
+use Pagerfanta\Doctrine\Collections\SelectableAdapter;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class DoctrineSelectableAdapterTest extends TestCase
+final class SelectableAdapterTest extends TestCase
 {
     /**
      * @var MockObject|Selectable
@@ -22,7 +22,7 @@ class DoctrineSelectableAdapterTest extends TestCase
     private $criteria;
 
     /**
-     * @var DoctrineSelectableAdapter
+     * @var SelectableAdapter
      */
     private $adapter;
 
@@ -31,7 +31,7 @@ class DoctrineSelectableAdapterTest extends TestCase
         $this->selectable = $this->createMock(Selectable::class);
         $this->criteria = $this->createCriteria();
 
-        $this->adapter = new DoctrineSelectableAdapter($this->selectable, $this->criteria);
+        $this->adapter = new SelectableAdapter($this->selectable, $this->criteria);
     }
 
     private function createCriteria(): Criteria
