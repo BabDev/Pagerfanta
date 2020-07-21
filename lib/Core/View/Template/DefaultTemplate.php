@@ -26,11 +26,19 @@ class DefaultTemplate extends Template
         return $this->option('container_template');
     }
 
+    /**
+     * @param int $page
+     */
     public function page($page): string
     {
-        return $this->pageWithText($page, $page);
+        return $this->pageWithText($page, (string) $page);
     }
 
+    /**
+     * @param int $page
+     * @param string $text
+     * @param string|null $rel
+     */
     public function pageWithText($page, $text, $rel = null): string
     {
         $href = $this->generateRoute($page);
@@ -44,6 +52,9 @@ class DefaultTemplate extends Template
         return $this->generateSpan($this->option('css_disabled_class'), $this->option('prev_message'));
     }
 
+    /**
+     * @param int $page
+     */
     public function previousEnabled($page): string
     {
         return $this->pageWithText($page, $this->option('prev_message'), $this->option('rel_previous'));
@@ -54,6 +65,9 @@ class DefaultTemplate extends Template
         return $this->generateSpan($this->option('css_disabled_class'), $this->option('next_message'));
     }
 
+    /**
+     * @param int $page
+     */
     public function nextEnabled($page): string
     {
         return $this->pageWithText($page, $this->option('next_message'), $this->option('rel_next'));
@@ -64,11 +78,17 @@ class DefaultTemplate extends Template
         return $this->page(1);
     }
 
+    /**
+     * @param int $page
+     */
     public function last($page): string
     {
         return $this->page($page);
     }
 
+    /**
+     * @param int $page
+     */
     public function current($page): string
     {
         return $this->generateSpan($this->option('css_current_class'), $page);

@@ -8,7 +8,7 @@ use Pagerfanta\PagerfantaInterface;
 abstract class View implements ViewInterface
 {
     /**
-     * @var Pagerfanta
+     * @var PagerfantaInterface
      */
     protected $pagerfanta;
 
@@ -91,26 +91,53 @@ abstract class View implements ViewInterface
         $this->endPage = $endPage;
     }
 
+    /**
+     * @param int $startPage
+     *
+     * @return bool
+     */
     protected function startPageUnderflow($startPage)
     {
         return $startPage < 1;
     }
 
+    /**
+     * @param int $endPage
+     *
+     * @return bool
+     */
     protected function endPageOverflow($endPage)
     {
         return $endPage > $this->nbPages;
     }
 
+    /**
+     * @param int $startPage
+     * @param int $endPage
+     *
+     * @return int
+     */
     protected function calculateEndPageForStartPageUnderflow($startPage, $endPage)
     {
         return min($endPage + (1 - $startPage), $this->nbPages);
     }
 
+    /**
+     * @param int $startPage
+     * @param int $endPage
+     *
+     * @return int
+     */
     protected function calculateStartPageForEndPageOverflow($startPage, $endPage)
     {
         return max($startPage - ($endPage - $this->nbPages), 1);
     }
 
+    /**
+     * @param int $n
+     *
+     * @return int
+     */
     protected function toLast($n)
     {
         return $this->pagerfanta->getNbPages() - ($n - 1);

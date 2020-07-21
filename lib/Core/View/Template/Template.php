@@ -13,14 +13,14 @@ abstract class Template implements TemplateInterface
     protected static $defaultOptions = [];
 
     /**
-     * @var callable
-     */
-    private $routeGenerator;
-
-    /**
      * @var array
      */
     private $options;
+
+    /**
+     * @var callable|null
+     */
+    private $routeGenerator;
 
     public function __construct()
     {

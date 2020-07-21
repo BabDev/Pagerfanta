@@ -292,7 +292,7 @@ EOF
         , $this->renderView($options));
     }
 
-    protected function filterExpectedView($expected)
+    protected function filterExpectedView(string $expected): string
     {
         return $this->removeWhitespacesBetweenTags($expected);
     }

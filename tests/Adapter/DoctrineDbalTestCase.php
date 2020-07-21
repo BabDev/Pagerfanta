@@ -4,39 +4,35 @@ namespace Pagerfanta\Tests\Adapter;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Schema\Schema;
 use PHPUnit\Framework\TestCase;
 
 abstract class DoctrineDbalTestCase extends TestCase
 {
     /**
-     * @var QueryBuilder
+     * @var Connection
      */
-    protected $qb;
+    protected $connection;
 
     protected function setUp(): void
     {
-        $conn = $this->getConnection();
+        $this->connection = $this->createConnection();
 
-        $this->createSchema($conn);
-        $this->insertData($conn);
-
-        $this->qb = new QueryBuilder($conn);
-        $this->qb->select('p.*')->from('posts', 'p');
+        $this->createSchema();
+        $this->insertData();
     }
 
-    private function getConnection(): Connection
+    private function createConnection(): Connection
     {
-        $params = $conn = [
-            'driver' => 'pdo_sqlite',
-            'memory' => true,
-        ];
-
-        return DriverManager::getConnection($params);
+        return DriverManager::getConnection(
+            [
+                'driver' => 'pdo_sqlite',
+                'memory' => true,
+            ]
+        );
     }
 
-    private function createSchema($conn): void
+    private function createSchema(): void
     {
         $schema = new Schema();
         $posts = $schema->createTable('posts');
@@ -52,21 +48,25 @@ abstract class DoctrineDbalTestCase extends TestCase
         $comments->addColumn('content', 'text');
         $comments->setPrimaryKey(['id']);
 
-        $queries = $schema->toSql($conn->getDatabasePlatform()); // get queries to create this schema.
+        $queries = $schema->toSql($this->connection->getDatabasePlatform()); // get queries to create this schema.
 
         foreach ($queries as $sql) {
-            $conn->executeQuery($sql);
+            $this->connection->executeQuery($sql);
         }
     }
 
-    private function insertData($conn): void
+    private function insertData(): void
     {
-        for ($i = 1; $i <= 50; ++$i) {
-            $conn->insert('posts', ['username' => 'Jon Doe', 'post_content' => 'Post #'.$i]);
+        $this->connection->transactional(
+            static function (Connection $connection): void {
+                for ($i = 1; $i <= 50; ++$i) {
+                    $connection->insert('posts', ['username' => 'Jon Doe', 'post_content' => 'Post #'.$i]);
 
-            for ($j = 1; $j <= 5; ++$j) {
-                $conn->insert('comments', ['post_id' => $i, 'username' => 'Jon Doe', 'content' => 'Comment #'.$j]);
+                    for ($j = 1; $j <= 5; ++$j) {
+                        $connection->insert('comments', ['post_id' => $i, 'username' => 'Jon Doe', 'content' => 'Comment #'.$j]);
+                    }
+                }
             }
-        }
+        );
     }
 }

@@ -1,6 +1,6 @@
 # Available Adapters
 
-The Pagerfanta package provides out-of-the-box support for a number of storage backends.
+The Pagerfanta package provides out-of-the-box support for a number of storage backends. Please review the [installation guide](/open-source/packages/pagerfanta/docs/2.x/intro) for details on how to install optional packages.
 
 ## Third Party
 
@@ -12,9 +12,9 @@ Adapters are available for a number of [Doctrine](https://www.doctrine-project.o
 
 #### Collections
 
-The `DoctrineCollectionAdapter` and `DoctrineSelectableAdapter` are available when using the [Doctrine Collections](https://www.doctrine-project.org/projects/collections.html) package.
+The collections adapters are available with the `pagerfanta/doctrine-collections-adapter` package for use with [Doctrine Collections](https://www.doctrine-project.org/projects/collections.html).
 
-Below is an example of using the `DoctrineCollectionAdapter` on a collection from an entity.
+Below is an example of using the `CollectionAdapter` on a collection from an entity.
 
 ```php
 <?php
@@ -22,7 +22,7 @@ Below is an example of using the `DoctrineCollectionAdapter` on a collection fro
 use App\Entity\User;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
-use Pagerfanta\Adapter\DoctrineCollectionAdapter;
+use Pagerfanta\Doctrine\Collections\CollectionAdapter;
 
 $config = new Configuration();
 
@@ -35,10 +35,10 @@ $em = EntityManager::create($connection, $config);
 
 $user = $em->find(User::class, 1);
 
-$adapter = new DoctrineCollectionAdapter($user->getGroups());
+$adapter = new CollectionAdapter($user->getGroups());
 ```
 
-Below is an example of using the `DoctrineSelectableAdapter` on a class which implements `Doctrine\Common\Collection\Selectable` (such as a `Doctrine\ORM\PersistentCollection`).
+Below is an example of using the `SelectableAdapter` on a class which implements `Doctrine\Common\Collection\Selectable` (such as a `Doctrine\ORM\PersistentCollection`).
 
 ```php
 <?php
@@ -47,7 +47,7 @@ use App\Entity\User;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
-use Pagerfanta\Adapter\DoctrineSelectableAdapter;
+use Pagerfanta\Doctrine\Collections\SelectableAdapter;
 
 $config = new Configuration();
 
@@ -62,26 +62,26 @@ $user = $em->find(User::class, 1);
 
 $criteria = Criteria::create()->andWhere(Criteria::expr()->in('id', [1, 2, 3]));
 
-$adapter = new DoctrineSelectableAdapter($user->getGroups(), $criteria);
+$adapter = new SelectableAdapter($user->getGroups(), $criteria);
 ```
 
 #### DBAL
 
-The `DoctrineDbalAdapter` and `DoctrineDbalSingleTableAdapter` are available when using the [Doctrine DBAL](https://www.doctrine-project.org/projects/dbal.html) package.
+The DBAL adapters are available with the `pagerfanta/doctrine-dbal-adapter` package for use with [Doctrine's DBAL](https://www.doctrine-project.org/projects/dbal.html).
 
-The `DoctrineDbalSingleTableAdapter` is a helper class which is optimized for queries which do not have any join statements.
+The `SingleTableQueryAdapter` is a helper class which is optimized for queries which do not have any join statements.
 
 The class constructor requires a `Doctrine\DBAL\Query\QueryBuilder` and the field name that should be counted (typically this will be your primary key).
 
 <div class="docs-note">Using this adapter requires that you have a table alias for your query.</div>
 
-Below is an example of using the `DoctrineDbalSingleTableAdapter`.
+Below is an example of using the `SingleTableQueryAdapter`.
 
 ```php
 <?php
 
 use Doctrine\DBAL\DriverManager;
-use Pagerfanta\Adapter\DoctrineDbalSingleTableAdapter;
+use Pagerfanta\Doctrine\DBAL\SingleTableQueryAdapter;
 
 $params = [
     'driver' => 'pdo_sqlite',
@@ -94,21 +94,21 @@ $query = $connection->createQueryBuilder()
     ->select('p.*')
     ->from('posts', 'p');
 
-$adapter = new DoctrineDbalSingleTableAdapter($query, 'p.id');
+$adapter = new SingleTableQueryAdapter($query, 'p.id');
 ```
 
-The `DoctrineDbalAdapter` is the main adapter for use with the DBAL package, you should use this on queries that have join statements.
+The `QueryAdapter` is the main adapter for use with the DBAL package, you should use this on queries that have join statements.
 
 The class constructor requires a `Doctrine\DBAL\Query\QueryBuilder` and a callable which can be used to modify a clone of the `QueryBuilder` for a COUNT query. The callable should have a signature of `function (QueryBuilder $queryBuilder): void {}`.
 
-Below is an example of using the `DoctrineDbalAdapter`.
+Below is an example of using the `QueryAdapter`.
 
 ```php
 <?php
 
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Pagerfanta\Adapter\DoctrineDbalAdapter;
+use Pagerfanta\Doctrine\DBAL\QueryAdapter;
 
 $params = [
     'driver' => 'pdo_sqlite',
@@ -126,16 +126,16 @@ $countQueryBuilderModifier = function (QueryBuilder $queryBuilder): void {
         ->setMaxResults(1);
 };
 
-$adapter = new DoctrineDbalAdapter($query, $countQueryBuilderModifier);
+$adapter = new QueryAdapter($query, $countQueryBuilderModifier);
 ```
 
 #### MongoDB ODM
 
-The `DoctrineODMMongoDBAdapter` is available when using the [Doctrine MongoDB ODM](https://www.doctrine-project.org/projects/mongodb-odm.html) package.
+The MongoDB ODM adapter is available with the `pagerfanta/doctrine-mongodb-odm-adapter` package for use with [Doctrine' MongoDB ODM](https://www.doctrine-project.org/projects/mongodb-odm.html).
 
 The class constructor requires a `Doctrine\ODM\MongoDB\Query\Builder`.
 
-Below is an example of using the `DoctrineODMMongoDBAdapter`.
+Below is an example of using the `QueryAdapter`.
 
 ```php
 <?php
@@ -143,7 +143,7 @@ Below is an example of using the `DoctrineODMMongoDBAdapter`.
 use App\Document\Article;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Pagerfanta\Adapter\DoctrineODMMongoDBAdapter;
+use Pagerfanta\Doctrine\MongoDBODM\QueryAdapter;
 
 $config = new Configuration();
 
@@ -151,16 +151,16 @@ $dm = DocumentManager::create(null, $config);
 
 $query = $dm->createQueryBuilder(Article::class);
 
-$adapter = new DoctrineODMMongoDBAdapter($query);
+$adapter = new QueryAdapter($query);
 ```
 
 #### ORM
 
-The `DoctrineORMAdapter` is available when using the [Doctrine ORM](https://www.doctrine-project.org/projects/orm.html) package.
+The ORM adapter is available with the `pagerfanta/doctrine-orm-adapter` package for use with [Doctrine's ORM](https://www.doctrine-project.org/projects/orm.html).
 
 The class constructor requires either a `Doctrine\ORM\Query` or `Doctrine\ORM\QueryBuilder` instance. You can also specify whether to query join collections or use output walkers on the underlying [`Paginator`](https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/pagination.html#pagination).
 
-Below is an example of using the `DoctrineORMAdapter`.
+Below is an example of using the `QueryAdapter`.
 
 ```php
 <?php
@@ -168,7 +168,7 @@ Below is an example of using the `DoctrineORMAdapter`.
 use App\Entity\User;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
 
 $config = new Configuration();
 
@@ -183,16 +183,16 @@ $repository = $em->getRepository(User::class);
 
 $query = $repository->createQueryBuilder('u');
 
-$adapter = new DoctrineORMAdapter($query);
+$adapter = new QueryAdapter($query);
 ```
 
 #### PHPCR ODM
 
-The `DoctrineODMPhpcrAdapter` is available when using the [Doctrine PHPCR ODM](https://www.doctrine-project.org/projects/phpcr-odm.html) package.
+The PHPCR ODM adapter is available with the `pagerfanta/doctrine-phpcr-odm-adapter` package for use with [Doctrine's PHPCR ODM](https://www.doctrine-project.org/projects/phpcr-odm.html).
 
 The class constructor requires a `Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder`.
 
-Below is an example of using the `DoctrineODMPhpcrAdapter`.
+Below is an example of using the `QueryAdapter`.
 
 ```php
 <?php
@@ -200,7 +200,7 @@ Below is an example of using the `DoctrineODMPhpcrAdapter`.
 use App\Document\Article;
 use Doctrine\ODM\PHPCR\Configuration;
 use Doctrine\ODM\PHPCR\DocumentManager;
-use Pagerfanta\Adapter\DoctrineODMPhpcrAdapter;
+use Pagerfanta\Doctrine\PHPCRODM\QueryAdapter;
 
 $config = new Configuration();
 
@@ -209,12 +209,12 @@ $dm = DocumentManager::create($session, $config);
 $query = $dm->createQueryBuilder()
     ->from(Article::class);
 
-$adapter = new DoctrineODMPhpcrAdapter($query);
+$adapter = new QueryAdapter($query);
 ```
 
 ### Elastica
 
-An adapter is available for the [Elastica](https://elastica.io/) package.
+The Elastica adapter is available with the `pagerfanta/elastica-adapter` package for use with [Elastica](https://elastica.io/).
 
 ```php
 <?php
@@ -222,7 +222,7 @@ An adapter is available for the [Elastica](https://elastica.io/) package.
 use Elastica\Index;
 use Elastica\Query;
 use Elastica\Query\Term;
-use Pagerfanta\Adapter\ElasticaAdapter;
+use Pagerfanta\Elastica\ElasticaAdapter;
 
 // Searchable can be any valid searchable Elastica object. For example, a Type or Index
 $searchable = new Index($elasticaClient, 'index_name');
@@ -300,12 +300,12 @@ $adapter = new Propel2Adapter($query);
 
 ### Solarium
 
-An adapter is available for the [Solarium](https://github.com/solariumphp/solarium) package.
+The Solarium adapter is available with the `pagerfanta/solarium-adapter` package for use with [Solarium](https://github.com/solariumphp/solarium).
 
 ```php
 <?php
 
-use Pagerfanta\Adapter\SolariumAdapter;
+use Pagerfanta\Solarium\SolariumAdapter;
 
 $query = $solarium->createSelect();
 $query->setQuery('search term');
@@ -315,7 +315,7 @@ $adapter = new SolariumAdapter($solarium, $query);
 
 ## First Party
 
-There are also several "first party" adapters which are not dependent upon an external storage solution.
+There are also several "first party" adapters which are not dependent upon an external storage solution. All first party adapters are available with the `pagerfanta/core` package.
 
 ### Array
 
