@@ -514,8 +514,6 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * @param bool $value
      *
-     * @return bool
-     *
      * @throws NotBooleanException if the value is not boolean
      */
     private function filterBoolean($value): bool

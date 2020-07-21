@@ -37,7 +37,7 @@ class SemanticUiTemplate extends Template
     }
 
     /**
-     * @param int $page
+     * @param int    $page
      * @param string $text
      */
     public function pageWithText($page, $text, ?string $rel = null): string
@@ -46,7 +46,7 @@ class SemanticUiTemplate extends Template
     }
 
     /**
-     * @param int $page
+     * @param int    $page
      * @param string $text
      * @param string $class
      */

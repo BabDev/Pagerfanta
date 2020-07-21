@@ -29,7 +29,7 @@ class ElasticaAdapter implements AdapterInterface
 
     /**
      * Used to limit the number of totalHits returned by ElasticSearch.
-     * For more information, see: https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892
+     * For more information, see: https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892.
      *
      * @var int|null
      */

@@ -46,12 +46,10 @@ final class PagerfantaRuntimeTest extends TestCase
 
     private function createRouteGeneratorFactory(): RouteGeneratorFactoryInterface
     {
-        return new class() implements RouteGeneratorFactoryInterface
-        {
+        return new class() implements RouteGeneratorFactoryInterface {
             public function create(array $options = []): RouteGeneratorInterface
             {
-                return new class($options) implements RouteGeneratorInterface
-                {
+                return new class($options) implements RouteGeneratorInterface {
                     private $options;
 
                     public function __construct(array $options)
@@ -63,7 +61,7 @@ final class PagerfantaRuntimeTest extends TestCase
                     {
                         $omitFirstPage = $this->options['omitFirstPage'] ?? false;
 
-                        if ($page > 1 || ($page === 1 && !$omitFirstPage)) {
+                        if ($page > 1 || (1 === $page && !$omitFirstPage)) {
                             return '/my-page?page='.$page;
                         }
 

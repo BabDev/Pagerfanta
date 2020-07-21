@@ -35,8 +35,8 @@ class DefaultTemplate extends Template
     }
 
     /**
-     * @param int $page
-     * @param string $text
+     * @param int         $page
+     * @param string      $text
      * @param string|null $rel
      */
     public function pageWithText($page, $text, $rel = null): string

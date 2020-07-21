@@ -38,7 +38,7 @@ class TwitterBootstrapTemplate extends Template
     }
 
     /**
-     * @param int $page
+     * @param int    $page
      * @param string $text
      */
     public function pageWithText($page, $text, ?string $rel = null): string
@@ -47,7 +47,7 @@ class TwitterBootstrapTemplate extends Template
     }
 
     /**
-     * @param int $page
+     * @param int    $page
      * @param string $text
      * @param string $class
      */
@@ -121,9 +121,9 @@ class TwitterBootstrapTemplate extends Template
     }
 
     /**
-     * @param string $class
-     * @param string $href
-     * @param int|string $text
+     * @param string      $class
+     * @param string      $href
+     * @param int|string  $text
      * @param string|null $rel
      */
     protected function linkLi($class, $href, $text, $rel = null): string
@@ -135,7 +135,7 @@ class TwitterBootstrapTemplate extends Template
     }
 
     /**
-     * @param string $class
+     * @param string     $class
      * @param int|string $text
      */
     protected function spanLi($class, $text): string

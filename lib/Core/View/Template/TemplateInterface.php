@@ -25,9 +25,8 @@ interface TemplateInterface
     /**
      * Renders a given page with a specified text.
      *
-     * @param int         $page
-     * @param string      $text
-     * @param string|null $rel An optional relation for the item
+     * @param int    $page
+     * @param string $text
      *
      * @return string
      */

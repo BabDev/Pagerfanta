@@ -63,8 +63,7 @@ interface ViewFactoryInterface
     /**
      * Sets a view to the factory.
      *
-     * @param string        $name
-     * @param ViewInterface $view
+     * @param string $name
      *
      * @return void
      */

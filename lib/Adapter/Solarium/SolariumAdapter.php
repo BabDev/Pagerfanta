@@ -96,7 +96,7 @@ class SolariumAdapter implements AdapterInterface
             'The client object should be a %s or %s instance, %s given',
             \Solarium_Client::class,
             Client::class,
-            'object' === gettype($client) ? \get_class($client) : gettype($client)
+            'object' === \gettype($client) ? \get_class($client) : \gettype($client)
         );
     }
 
@@ -137,7 +137,7 @@ class SolariumAdapter implements AdapterInterface
             'The query object should be a %s or %s instance, %s given',
             \Solarium_Query_Select::class,
             Query::class,
-            'object' === gettype($query) ? \get_class($query) : gettype($query)
+            'object' === \gettype($query) ? \get_class($query) : \gettype($query)
         );
     }
 

@@ -11,9 +11,7 @@ interface ViewInterface
      *
      * The route generator can be any callable to generate the routes receiving the page number as first and unique argument.
      *
-     * @param PagerfantaInterface $pagerfanta
-     * @param callable            $routeGenerator
-     * @param array               $options
+     * @param callable $routeGenerator
      *
      * @return string
      */

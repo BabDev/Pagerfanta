@@ -29,8 +29,8 @@ abstract class TemplateView extends View
      */
     public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = [])
     {
-        if (!is_callable($routeGenerator)) {
-            throw new InvalidArgumentException(sprintf('The $routeGenerator argument of %s() must be a callable, a %s was given.', __METHOD__, gettype($routeGenerator)));
+        if (!\is_callable($routeGenerator)) {
+            throw new InvalidArgumentException(sprintf('The $routeGenerator argument of %s() must be a callable, a %s was given.', __METHOD__, \gettype($routeGenerator)));
         }
 
         $this->initializePagerfanta($pagerfanta);

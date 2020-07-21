@@ -22,8 +22,7 @@ class QueryAdapter implements AdapterInterface
     private $countQueryBuilderModifier;
 
     /**
-     * @param QueryBuilder $queryBuilder
-     * @param callable     $countQueryBuilderModifier a callable to modify the query builder to count the results
+     * @param callable $countQueryBuilderModifier a callable to modify the query builder to count the results
      *
      * @throws InvalidArgumentException if a non-SELECT query is given or the modifier is not a callable
      */
@@ -34,7 +33,7 @@ class QueryAdapter implements AdapterInterface
         }
 
         if (!\is_callable($countQueryBuilderModifier)) {
-            throw new InvalidArgumentException(sprintf('The $countQueryBuilderModifier argument of the %s constructor must be a callable, a %s was given.', self::class, gettype($countQueryBuilderModifier)));
+            throw new InvalidArgumentException(sprintf('The $countQueryBuilderModifier argument of the %s constructor must be a callable, a %s was given.', self::class, \gettype($countQueryBuilderModifier)));
         }
 
         $this->queryBuilder = clone $queryBuilder;

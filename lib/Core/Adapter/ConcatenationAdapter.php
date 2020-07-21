@@ -42,7 +42,7 @@ class ConcatenationAdapter implements AdapterInterface
      */
     public function getNbResults()
     {
-        if ($this->adaptersNbResultsCache === null) {
+        if (null === $this->adaptersNbResultsCache) {
             $this->refreshAdaptersNbResults();
         }
 
@@ -57,7 +57,7 @@ class ConcatenationAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        if ($this->adaptersNbResultsCache === null) {
+        if (null === $this->adaptersNbResultsCache) {
             $this->refreshAdaptersNbResults();
         }
 
@@ -114,7 +114,7 @@ class ConcatenationAdapter implements AdapterInterface
      */
     protected function refreshAdaptersNbResults(): void
     {
-        if ($this->adaptersNbResultsCache === null) {
+        if (null === $this->adaptersNbResultsCache) {
             $this->adaptersNbResultsCache = [];
         }
 
