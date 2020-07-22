@@ -30,6 +30,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+          tools: composer:v2
           extensions: curl, iconv, mbstring, mongodb, pdo, pdo_sqlite, sqlite, zip
           coverage: pcov
 
