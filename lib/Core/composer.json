@@ -6,8 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
-        "ext-json": "*",
-        "symfony/deprecation-contracts": "^2.1"
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
