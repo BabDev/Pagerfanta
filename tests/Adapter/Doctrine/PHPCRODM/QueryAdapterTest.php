@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Adapter\Doctrine\PHPCRODM;
 
 use Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder;
 use Doctrine\ODM\PHPCR\Query\Query;
-use Pagerfanta\Adapter\DoctrineODMPhpcrAdapter;
+use Pagerfanta\Doctrine\PHPCRODM\QueryAdapter;
 use PHPCR\Query\QueryResultInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class DoctrineODMPhpcrAdapterTest extends TestCase
+class QueryAdapterTest extends TestCase
 {
     /**
      * @var MockObject|QueryBuilder
@@ -22,7 +22,7 @@ class DoctrineODMPhpcrAdapterTest extends TestCase
     private $query;
 
     /**
-     * @var DoctrineODMPhpcrAdapter
+     * @var QueryAdapter
      */
     private $adapter;
 
@@ -31,7 +31,7 @@ class DoctrineODMPhpcrAdapterTest extends TestCase
         $this->queryBuilder = $this->createMock(QueryBuilder::class);
         $this->query = $this->createMock(Query::class);
 
-        $this->adapter = new DoctrineODMPhpcrAdapter($this->queryBuilder);
+        $this->adapter = new QueryAdapter($this->queryBuilder);
     }
 
     public function testGetQueryBuilder(): void
