@@ -9,7 +9,7 @@ use PHPCR\Query\QueryResultInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class QueryAdapterTest extends TestCase
+final class QueryAdapterTest extends TestCase
 {
     /**
      * @var MockObject|QueryBuilder

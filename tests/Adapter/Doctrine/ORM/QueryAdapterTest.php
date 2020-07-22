@@ -9,7 +9,7 @@ use Pagerfanta\Tests\Doctrine\Entity\Person;
 use Pagerfanta\Tests\Doctrine\Entity\User;
 use Pagerfanta\Tests\Doctrine\ORMTestCase;
 
-class QueryAdapterTest extends ORMTestCase
+final class QueryAdapterTest extends ORMTestCase
 {
     protected function setUp(): void
     {
