@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Schema\Schema;
 use PHPUnit\Framework\TestCase;
 
-abstract class DoctrineDbalTestCase extends TestCase
+abstract class DBALTestCase extends TestCase
 {
     /**
      * @var Connection

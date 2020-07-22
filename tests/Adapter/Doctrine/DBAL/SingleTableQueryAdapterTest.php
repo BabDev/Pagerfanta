@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Adapter\Doctrine\DBAL;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Pagerfanta\Adapter\DoctrineDbalSingleTableAdapter;
+use Pagerfanta\Doctrine\DBAL\SingleTableQueryAdapter;
 use Pagerfanta\Exception\InvalidArgumentException;
+use Pagerfanta\Tests\Doctrine\DBALTestCase;
 
-class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
+final class SingleTableQueryAdapterTest extends DBALTestCase
 {
     /**
      * @var QueryBuilder
@@ -14,7 +15,7 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
     private $qb;
 
     /**
-     * @var DoctrineDbalSingleTableAdapter
+     * @var SingleTableQueryAdapter
      */
     private $adapter;
 
@@ -25,7 +26,7 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
         $this->qb = new QueryBuilder($this->connection);
         $this->qb->select('p.*')->from('posts', 'p');
 
-        $this->adapter = new DoctrineDbalSingleTableAdapter($this->qb, 'p.id');
+        $this->adapter = new SingleTableQueryAdapter($this->qb, 'p.id');
     }
 
     public function testACountFieldWithoutAnAliasIsRejected(): void
@@ -33,7 +34,7 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The $countField must contain a table alias in the string.');
 
-        new DoctrineDbalSingleTableAdapter($this->qb, 'id');
+        new SingleTableQueryAdapter($this->qb, 'id');
     }
 
     public function testAQueryWithJoinStatementsIsRejected(): void
@@ -43,7 +44,7 @@ class DoctrineDbalSingleTableAdapterTest extends DoctrineDbalTestCase
 
         $this->qb->innerJoin('p', 'comments', 'c', 'c.post_id = p.id');
 
-        new DoctrineDbalSingleTableAdapter($this->qb, 'p.id');
+        new SingleTableQueryAdapter($this->qb, 'p.id');
     }
 
     public function testAdapterReturnsNumberOfResults(): void

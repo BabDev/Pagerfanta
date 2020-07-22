@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Adapter\Doctrine\DBAL;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Pagerfanta\Adapter\DoctrineDbalAdapter;
+use Pagerfanta\Doctrine\DBAL\QueryAdapter;
 use Pagerfanta\Exception\InvalidArgumentException;
+use Pagerfanta\Tests\Doctrine\DBALTestCase;
 
-class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
+final class QueryAdapterTest extends DBALTestCase
 {
     /**
      * @var QueryBuilder
@@ -28,7 +29,7 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
 
         $this->qb->delete('posts');
 
-        new DoctrineDbalAdapter($this->qb, static function (QueryBuilder $qb): void { });
+        new QueryAdapter($this->qb, static function (QueryBuilder $qb): void { });
     }
 
     public function testAdapterReturnsNumberOfResults(): void
@@ -49,7 +50,7 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
 
     public function testGetSlice(): void
     {
-        $adapter = new DoctrineDbalAdapter($this->qb, static function (QueryBuilder $qb): void { });
+        $adapter = new QueryAdapter($this->qb, static function (QueryBuilder $qb): void { });
 
         $offset = 30;
         $length = 10;
@@ -70,9 +71,9 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
         $this->assertSame(50, $adapter->getNbResults());
     }
 
-    private function createAdapterToTestGetNbResults(): DoctrineDbalAdapter
+    private function createAdapterToTestGetNbResults(): QueryAdapter
     {
-        return new DoctrineDbalAdapter(
+        return new QueryAdapter(
             $this->qb,
             static function (QueryBuilder $qb): void {
                 $qb->select('COUNT(DISTINCT p.id) AS total_results')
