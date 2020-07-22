@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\View;
+namespace Pagerfanta\Tests\Core\View;
 
 use Pagerfanta\View\TwitterBootstrap4View;
 use Pagerfanta\View\ViewInterface;
 
-class TwitterBootstrap4ViewTest extends TwitterBootstrapViewTest
+final class TwitterBootstrap4ViewTest extends TwitterBootstrapViewTest
 {
     protected function createView(): ViewInterface
     {

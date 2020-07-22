@@ -1,14 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\View;
+namespace Pagerfanta\Tests\Core\View;
 
 use Pagerfanta\View\SemanticUiView;
 use Pagerfanta\View\ViewInterface;
 
-/**
- * @author Loïc Frémont <loic@mobizel.com>
- */
-class SemanticUiViewTest extends ViewTestCase
+final class SemanticUiViewTest extends ViewTestCase
 {
     protected function createView(): ViewInterface
     {

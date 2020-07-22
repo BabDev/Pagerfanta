@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\View;
+namespace Pagerfanta\Tests\Core\View;
 
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Pagerfanta;

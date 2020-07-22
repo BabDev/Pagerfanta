@@ -10,7 +10,7 @@ use Solarium\Core\Client\Endpoint;
 use Solarium\QueryType\Select\Query\Query;
 use Solarium\QueryType\Select\Result\Result;
 
-class SolariumAdapterTest extends TestCase
+final class SolariumAdapterTest extends TestCase
 {
     /**
      * @return MockObject|ClientInterface

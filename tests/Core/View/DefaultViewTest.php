@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\View;
+namespace Pagerfanta\Tests\Core\View;
 
 use Pagerfanta\View\DefaultView;
 use Pagerfanta\View\ViewInterface;
 
-class DefaultViewTest extends ViewTestCase
+final class DefaultViewTest extends ViewTestCase
 {
     protected function createView(): ViewInterface
     {

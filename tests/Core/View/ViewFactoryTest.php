@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\View;
+namespace Pagerfanta\Tests\Core\View;
 
 use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\View\ViewFactory;
 use Pagerfanta\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 
-class ViewFactoryTest extends TestCase
+final class ViewFactoryTest extends TestCase
 {
     public function testFactory(): void
     {

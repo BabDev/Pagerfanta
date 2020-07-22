@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\View;
+namespace Pagerfanta\Tests\Core\View;
 
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\OptionableView;
@@ -8,7 +8,7 @@ use Pagerfanta\View\ViewInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class OptionableViewTest extends TestCase
+final class OptionableViewTest extends TestCase
 {
     private const RENDERED_VIEW = 'rendered';
 
