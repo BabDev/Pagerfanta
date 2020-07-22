@@ -18,3 +18,4 @@ The below guide will assist in upgrading from the 2.x versions to 3.0.
 
 - Removed the PagerfantaInterface
 - Removed the Mandango, Mongo, and Propel adapters
+- Removed the deprecated adapters from the `Pagerfanta\Adapter` namespace, use the separate adapter packages instead
