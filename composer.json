@@ -50,7 +50,6 @@
     "autoload": {
         "psr-4": {
             "Pagerfanta\\": "lib/Core/",
-            "Pagerfanta\\Adapter\\": "src/Adapter/",
             "Pagerfanta\\Doctrine\\Collections\\": "lib/Adapter/Doctrine/Collections/",
             "Pagerfanta\\Doctrine\\DBAL\\": "lib/Adapter/Doctrine/DBAL/",
             "Pagerfanta\\Doctrine\\MongoDBODM\\": "lib/Adapter/Doctrine/MongoDBODM/",

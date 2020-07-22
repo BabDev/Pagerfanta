@@ -2,7 +2,6 @@ parameters:
   level: 6
   paths:
     - %currentWorkingDirectory%/lib
-    - %currentWorkingDirectory%/src
     - %currentWorkingDirectory%/tests
   ignoreErrors:
     # Ignore errors for incompatible types, types are checked at runtime and exceptions thrown as appropriate
