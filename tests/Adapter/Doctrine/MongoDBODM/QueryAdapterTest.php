@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Adapter\Doctrine\MongoDBODM;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Doctrine\ODM\MongoDB\Query\Query;
-use Pagerfanta\Adapter\DoctrineODMMongoDBAdapter;
+use Pagerfanta\Doctrine\MongoDBODM\QueryAdapter;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class DoctrineODMMongoDBAdapterTest extends TestCase
+final class QueryAdapterTest extends TestCase
 {
     /**
      * @var MockObject|Builder
@@ -17,7 +17,7 @@ class DoctrineODMMongoDBAdapterTest extends TestCase
     private $queryBuilder;
 
     /**
-     * @var DoctrineODMMongoDBAdapter
+     * @var QueryAdapter
      */
     private $adapter;
 
@@ -32,7 +32,7 @@ class DoctrineODMMongoDBAdapterTest extends TestCase
     {
         $this->queryBuilder = $this->createMock(Builder::class);
 
-        $this->adapter = new DoctrineODMMongoDBAdapter($this->queryBuilder);
+        $this->adapter = new QueryAdapter($this->queryBuilder);
     }
 
     public function testGetQueryBuilder(): void
@@ -46,13 +46,11 @@ class DoctrineODMMongoDBAdapterTest extends TestCase
 
         $query = $this->createMock(Query::class);
 
-        $query
-            ->expects($this->once())
+        $query->expects($this->once())
             ->method('count')
             ->willReturn(110);
 
-        $this->queryBuilder
-            ->expects($this->once())
+        $this->queryBuilder->expects($this->once())
             ->method('getQuery')
             ->willReturn($query);
 
@@ -68,29 +66,24 @@ class DoctrineODMMongoDBAdapterTest extends TestCase
         $slice = new \ArrayIterator();
 
         $query = $this->createMock(Query::class);
-        $query
-            ->expects($this->once())
+        $query->expects($this->once())
             ->method('execute')
-            ->willReturn($slice)
-        ;
+            ->willReturn($slice);
+
+        $this->queryBuilder->expects($this->once())
+            ->method('limit')
+            ->with($length)
+            ->willReturn($this->queryBuilder);
+
+        $this->queryBuilder->expects($this->once())
+            ->method('skip')
+            ->with($offset)
+            ->willReturn($this->queryBuilder);
 
         $this->queryBuilder
             ->expects($this->once())
-            ->method('limit')
-            ->with($length)
-            ->willReturn($this->queryBuilder)
-        ;
-        $this->queryBuilder
-            ->expects($this->once())
-            ->method('skip')
-            ->with($offset)
-            ->willReturn($this->queryBuilder)
-        ;
-        $this->queryBuilder
-            ->expects($this->once())
             ->method('getQuery')
-            ->willReturn($query)
-        ;
+            ->willReturn($query);
 
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
