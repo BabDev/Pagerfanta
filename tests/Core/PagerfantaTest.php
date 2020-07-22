@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests;
+namespace Pagerfanta\Tests\Core;
 
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Exception\LessThan1CurrentPageException;
@@ -11,7 +11,7 @@ use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class PagerfantaTest extends TestCase
+final class PagerfantaTest extends TestCase
 {
     /**
      * @var MockObject|AdapterInterface
