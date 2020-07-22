@@ -50,6 +50,9 @@ final class PagerfantaRuntimeTest extends TestCase
             public function create(array $options = []): RouteGeneratorInterface
             {
                 return new class($options) implements RouteGeneratorInterface {
+                    /**
+                     * @var array
+                     */
                     private $options;
 
                     public function __construct(array $options)
@@ -175,7 +178,7 @@ final class PagerfantaRuntimeTest extends TestCase
         $this->assertSame($this->removeWhitespacesBetweenTags($expected), $view);
     }
 
-    private function removeWhitespacesBetweenTags($string)
+    private function removeWhitespacesBetweenTags(string $string): string
     {
         return preg_replace('/>\s+</', '><', $string);
     }

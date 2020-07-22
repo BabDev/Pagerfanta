@@ -59,6 +59,9 @@ final class TwigView extends View
         );
     }
 
+    /**
+     * @param callable $routeGenerator
+     */
     private function decorateRouteGenerator($routeGenerator): RouteGeneratorDecorator
     {
         if (!\is_callable($routeGenerator)) {

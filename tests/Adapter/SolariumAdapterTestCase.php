@@ -37,7 +37,7 @@ abstract class SolariumAdapterTestCase extends TestCase
     abstract protected function getResultClass(): string;
 
     /**
-     * @return MockObject|Client|\Solarium_Client
+     * @return (MockObject&Client)|(MockObject&\Solarium_Client)
      */
     protected function createClientMock()
     {
@@ -45,7 +45,7 @@ abstract class SolariumAdapterTestCase extends TestCase
     }
 
     /**
-     * @return MockObject|Query|\Solarium_Query_Select
+     * @return (MockObject&Query)|(MockObject&\Solarium_Query_Select)
      */
     protected function createQueryMock()
     {
@@ -53,7 +53,7 @@ abstract class SolariumAdapterTestCase extends TestCase
     }
 
     /**
-     * @return MockObject|Query|\Solarium_Query_Select
+     * @return (MockObject&Query)|(MockObject&\Solarium_Query_Select)
      */
     protected function createQueryStub()
     {
@@ -71,7 +71,7 @@ abstract class SolariumAdapterTestCase extends TestCase
     }
 
     /**
-     * @return MockObject|Result|\Solarium_Result_Select
+     * @return (MockObject&Result)|(MockObject&\Solarium_Result_Select)
      */
     protected function createResultMock()
     {

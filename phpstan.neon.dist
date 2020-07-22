@@ -32,8 +32,11 @@ parameters:
     - '/Return typehint of method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createResultMock\(\) has invalid type Solarium_Result_Select\./'
     - '/Parameter #1 \$client of class Pagerfanta\\Adapter\\SolariumAdapter constructor expects Solarium\\Core\\Client\\Client\|Solarium_Client, ArrayObject<mixed, mixed> given\./'
     - '/Parameter #2 \$query of class Pagerfanta\\Adapter\\SolariumAdapter constructor expects Solarium\\QueryType\\Select\\Query\\Query\|Solarium_Query_Select, ArrayObject<mixed, mixed> given\./'
-    - '/Call to method expects\(\) on an unknown class (Solarium_Client|Solarium_Query_Select|Solarium_Result_Select)\./'
     - '/Method Pagerfanta\\Tests\\Adapter\\Solarium2AdapterTest::(getClientClass|getQueryClass|getResultClass)\(\) should return class-string but returns string\./'
+    - '/Parameter #1 \$query of method Pagerfanta\\Tests\\Adapter\\Solarium3AdapterTest::doTestGetResultSet\(\) expects PHPUnit\\Framework\\MockObject\\MockObject\&Solarium\\QueryType\\Select\\Query\\Query, \(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium\\QueryType\\Select\\Query\\Query\)\|\(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium_Query_Select\) given\./'
+    - '/Method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createClientMock\(\) should return \(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium\\Core\\Client\\Client\)\|\(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium_Client\) but returns PHPUnit\\Framework\\MockObject\\MockObject\./'
+    - '/Method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createQueryMock\(\) should return \(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium\\QueryType\\Select\\Query\\Query\)\|\(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium_Query_Select\) but returns PHPUnit\\Framework\\MockObject\\MockObject\./'
+    - '/Method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createResultMock\(\) should return \(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium\\QueryType\\Select\\Result\\Result\)\|\(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium_Result_Select\) but returns PHPUnit\\Framework\\MockObject\\MockObject\./'
 
     # Ignore errors for arguments in interface doc blocks not included in runtime signatures
     -
@@ -44,6 +47,19 @@ parameters:
     - '/Parameter #1 \$adapters of class Pagerfanta\\Adapter\\ConcatenationAdapter constructor expects array<Pagerfanta\\Adapter\\AdapterInterface>, array<int, Pagerfanta\\Adapter\\ArrayAdapter\|string> given\./'
     - "/Parameter #2 \\$countQueryBuilderModifier of class Pagerfanta\\\\Adapter\\\\DoctrineDbalAdapter constructor expects callable\\(\\): mixed, \\'ups\\' given\\./"
     - '/Parameter #1 \$position of method Pagerfanta\\Pagerfanta::getPageNumberForItemAtPosition\(\) expects int, string given\./'
+
+    # Ignore errors from tests validating runtime type checks
+    -
+      message: '/Parameter #2 \$viewName of method Pagerfanta\\Twig\\Extension\\PagerfantaRuntime::renderPagerfanta\(\) expects array\|string\|null, stdClass given\./'
+      path: %currentWorkingDirectory%/tests/Twig/PagerfantaRuntimeTest.php
+
+    -
+      message: '/Unreachable statement - code above always terminates\./'
+      path: %currentWorkingDirectory%/tests/Adapter/DoctrineODMMongoDBAdapterTest.php
+
+    -
+      message: '/Call to method PHPUnit\\Framework\\Assert::assertSame\(\) with Elastica\\ResultSet\&PHPUnit\\Framework\\MockObject\\MockObject and null will always evaluate to false\./'
+      path: %currentWorkingDirectory%/tests/Adapter/ElasticaAdapterTest.php
 
   checkGenericClassInNonGenericObjectType: false
   checkMissingIterableValueType: false

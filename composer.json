@@ -17,6 +17,7 @@
         "friendsofphp/php-cs-fixer": "^2.16.3",
         "jackalope/jackalope-doctrine-dbal": "^1.3",
         "mandango/mandango": "^1.0@dev",
+        "phpstan/extension-installer": "^1.0.4",
         "phpstan/phpstan": "^0.12.33",
         "phpstan/phpstan-phpunit": "^0.12.12",
         "phpunit/phpunit": "^8.5 || ^9.0",

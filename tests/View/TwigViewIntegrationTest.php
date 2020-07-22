@@ -334,6 +334,9 @@ final class TwigViewIntegrationTest extends TestCase
             public function create(array $options = []): RouteGeneratorInterface
             {
                 return new class($options) implements RouteGeneratorInterface {
+                    /**
+                     * @var array
+                     */
                     private $options;
 
                     public function __construct(array $options)
@@ -359,6 +362,9 @@ final class TwigViewIntegrationTest extends TestCase
     private function createRuntimeLoader(): RuntimeLoaderInterface
     {
         return new class($this) implements RuntimeLoaderInterface {
+            /**
+             * @var TwigViewIntegrationTest
+             */
             private $testCase;
 
             public function __construct(TwigViewIntegrationTest $testCase)
@@ -366,6 +372,11 @@ final class TwigViewIntegrationTest extends TestCase
                 $this->testCase = $testCase;
             }
 
+            /**
+             * @param string $class
+             *
+             * @return object|null
+             */
             public function load($class)
             {
                 switch ($class) {
@@ -380,7 +391,7 @@ final class TwigViewIntegrationTest extends TestCase
                         );
 
                     default:
-                        return;
+                        return null;
                 }
             }
         };
@@ -391,7 +402,7 @@ final class TwigViewIntegrationTest extends TestCase
         $this->assertSame($this->removeWhitespacesBetweenTags($expected), $view);
     }
 
-    private function removeWhitespacesBetweenTags($string)
+    private function removeWhitespacesBetweenTags(string $string): string
     {
         return preg_replace('/>\s+</', '><', $string);
     }
