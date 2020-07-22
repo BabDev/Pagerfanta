@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Adapter\Elastica;
 
 use Elastica\Query;
 use Elastica\ResultSet;
 use Elastica\SearchableInterface;
-use Pagerfanta\Adapter\ElasticaAdapter;
+use Pagerfanta\Elastica\ElasticaAdapter;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class ElasticaAdapterTest extends TestCase
+final class ElasticaAdapterTest extends TestCase
 {
     /**
      * @var MockObject|Query
