@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Core\Adapter;
 
 use Pagerfanta\Adapter\ArrayAdapter;
 use PHPUnit\Framework\TestCase;
 
-class ArrayAdapterTest extends TestCase
+final class ArrayAdapterTest extends TestCase
 {
     /**
      * @var int[]

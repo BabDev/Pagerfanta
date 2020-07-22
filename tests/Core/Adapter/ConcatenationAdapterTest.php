@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Core\Adapter;
 
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Adapter\ArrayAdapter;
@@ -11,7 +11,7 @@ use Pagerfanta\Adapter\NullAdapter;
 use Pagerfanta\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
-class ConcatenationAdapterTest extends TestCase
+final class ConcatenationAdapterTest extends TestCase
 {
     /**
      * @doesNotPerformAssertions

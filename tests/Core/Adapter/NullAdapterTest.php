@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Core\Adapter;
 
 use Pagerfanta\Adapter\NullAdapter;
 use PHPUnit\Framework\TestCase;
 
-class NullAdapterTest extends TestCase
+final class NullAdapterTest extends TestCase
 {
     public function testGetNbResults(): void
     {

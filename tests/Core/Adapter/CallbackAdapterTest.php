@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Core\Adapter;
 
 use Pagerfanta\Adapter\CallbackAdapter;
 use PHPUnit\Framework\TestCase;
 
-class CallbackAdapterTest extends TestCase
+final class CallbackAdapterTest extends TestCase
 {
     public function testAdapterReturnsNumberOfItemsInResultSet(): void
     {
