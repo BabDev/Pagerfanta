@@ -7,6 +7,10 @@ parameters:
     # Ignore errors for incompatible types, types are checked at runtime and exceptions thrown as appropriate
     - '/Parameter #1 \$adapters of class Pagerfanta\\Adapter\\ConcatenationAdapter constructor expects array<Pagerfanta\\Adapter\\AdapterInterface>, array<int, Pagerfanta\\Adapter\\ArrayAdapter\|string> given\./'
 
+    -
+      message: '/Parameter #2 \$viewName of method Pagerfanta\\Twig\\Extension\\PagerfantaRuntime::renderPagerfanta\(\) expects array\|string\|null, stdClass given\./'
+      path: %currentWorkingDirectory%/tests/Twig/PagerfantaRuntimeTest.php
+
   checkGenericClassInNonGenericObjectType: false
   checkMissingIterableValueType: false
   treatPhpDocTypesAsCertain: false
