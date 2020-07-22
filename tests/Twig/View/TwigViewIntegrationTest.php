@@ -366,7 +366,12 @@ final class TwigViewIntegrationTest extends TestCase
                 $this->testCase = $testCase;
             }
 
-            public function load(string $class): ?object
+            /**
+             * @param string $class
+             *
+             * @return object|null
+             */
+            public function load($class)
             {
                 switch ($class) {
                     case PagerfantaRuntime::class:
