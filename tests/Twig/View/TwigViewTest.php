@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\View;
+namespace Pagerfanta\Tests\Twig\View;
 
 use Pagerfanta\Adapter\FixedAdapter;
 use Pagerfanta\Pagerfanta;

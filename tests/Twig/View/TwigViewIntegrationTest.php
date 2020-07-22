@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\View;
+namespace Pagerfanta\Tests\Twig\View;
 
 use Pagerfanta\Adapter\FixedAdapter;
 use Pagerfanta\Pagerfanta;
@@ -41,7 +41,7 @@ final class TwigViewIntegrationTest extends TestCase
     protected function setUp(): void
     {
         $filesystemLoader = new FilesystemLoader();
-        $filesystemLoader->addPath(__DIR__.'/../../lib/Twig/templates', 'Pagerfanta');
+        $filesystemLoader->addPath(__DIR__.'/../../../lib/Twig/templates', 'Pagerfanta');
 
         $this->twig = new Environment(new ChainLoader([new ArrayLoader(['integration.html.twig' => '{{ pagerfanta(pager, options) }}']), $filesystemLoader]));
         $this->twig->addExtension(new PagerfantaExtension());
