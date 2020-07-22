@@ -67,7 +67,7 @@ final class SelectableAdapterTest extends TestCase
         $this->criteria->setFirstResult(10);
         $this->criteria->setMaxResults(20);
 
-        $slice = new \ArrayIterator();
+        $slice = [];
 
         $this->selectable->expects($this->once())
             ->method('matching')

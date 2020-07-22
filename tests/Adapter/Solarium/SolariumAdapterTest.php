@@ -13,7 +13,7 @@ use Solarium\QueryType\Select\Result\Result;
 final class SolariumAdapterTest extends TestCase
 {
     /**
-     * @return MockObject|ClientInterface
+     * @return MockObject&ClientInterface
      */
     protected function createClientMock()
     {
@@ -21,7 +21,7 @@ final class SolariumAdapterTest extends TestCase
     }
 
     /**
-     * @return MockObject|Query
+     * @return MockObject&Query
      */
     protected function createQueryMock()
     {
@@ -29,7 +29,7 @@ final class SolariumAdapterTest extends TestCase
     }
 
     /**
-     * @return MockObject|Query
+     * @return MockObject&Query
      */
     protected function createQueryStub()
     {
@@ -47,7 +47,7 @@ final class SolariumAdapterTest extends TestCase
     }
 
     /**
-     * @return MockObject|Result
+     * @return MockObject&Result
      */
     protected function createResultMock()
     {

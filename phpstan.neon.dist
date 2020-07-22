@@ -7,9 +7,18 @@ parameters:
     # Ignore errors for incompatible types, types are checked at runtime and exceptions thrown as appropriate
     - '/Parameter #1 \$adapters of class Pagerfanta\\Adapter\\ConcatenationAdapter constructor expects array<Pagerfanta\\Adapter\\AdapterInterface>, array<int, Pagerfanta\\Adapter\\ArrayAdapter\|string> given\./'
 
+    # Ignore errors from tests validating runtime type checks
     -
       message: '/Parameter #2 \$viewName of method Pagerfanta\\Twig\\Extension\\PagerfantaRuntime::renderPagerfanta\(\) expects array\|string\|null, stdClass given\./'
-      path: %currentWorkingDirectory%/tests/Twig/PagerfantaRuntimeTest.php
+      path: %currentWorkingDirectory%/tests/Twig/Extension/PagerfantaRuntimeTest.php
+
+    -
+      message: '/Unreachable statement - code above always terminates\./'
+      path: %currentWorkingDirectory%/tests/Adapter/Doctrine/MongoDBODM/QueryAdapterTest.php
+
+    -
+      message: '/Call to method PHPUnit\\Framework\\Assert::assertSame\(\) with Elastica\\ResultSet\&PHPUnit\\Framework\\MockObject\\MockObject and null will always evaluate to false\./'
+      path: %currentWorkingDirectory%/tests/Adapter/Elastica/ElasticaAdapterTest.php
 
   checkGenericClassInNonGenericObjectType: false
   checkMissingIterableValueType: false
