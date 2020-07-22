@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter\Entity;
+namespace Pagerfanta\Tests\Doctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,7 +22,7 @@ class User
     /**
      * @var Group[]|null
      *
-     * @ORM\ManyToMany(targetEntity="\Pagerfanta\Tests\Adapter\Entity\Group", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="\Pagerfanta\Tests\Doctrine\Entity\Group", inversedBy="users")
      * @ORM\JoinTable(
      *     name="user_groups",
      *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")},

@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Doctrine;
 
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 
-abstract class DoctrineORMTestCase extends TestCase
+abstract class ORMTestCase extends TestCase
 {
     /**
      * @var EntityManager

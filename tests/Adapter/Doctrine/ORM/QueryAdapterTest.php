@@ -1,14 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Adapter\Doctrine\ORM;
 
 use Doctrine\ORM\Tools\SchemaTool;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
-use Pagerfanta\Tests\Adapter\Entity\Group;
-use Pagerfanta\Tests\Adapter\Entity\Person;
-use Pagerfanta\Tests\Adapter\Entity\User;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Tests\Doctrine\Entity\Group;
+use Pagerfanta\Tests\Doctrine\Entity\Person;
+use Pagerfanta\Tests\Doctrine\Entity\User;
+use Pagerfanta\Tests\Doctrine\ORMTestCase;
 
-class DoctrineORMAdapterTest extends DoctrineORMTestCase
+class QueryAdapterTest extends ORMTestCase
 {
     protected function setUp(): void
     {
@@ -61,14 +62,14 @@ class DoctrineORMAdapterTest extends DoctrineORMTestCase
 
     public function testAdapterReturnsNumberOfResultsForSingleTableQuery(): void
     {
-        $adapter = new DoctrineORMAdapter($this->entityManager->createQuery('SELECT u FROM '.User::class.' u'));
+        $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u FROM '.User::class.' u'));
 
         $this->assertSame(2, $adapter->getNbResults());
     }
 
     public function testAdapterReturnsNumberOfResultsForAJoinedCollection(): void
     {
-        $adapter = new DoctrineORMAdapter($this->entityManager->createQuery('SELECT u, g FROM '.User::class.' u INNER JOIN u.groups g'));
+        $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u, g FROM '.User::class.' u INNER JOIN u.groups g'));
 
         $this->assertSame(2, $adapter->getNbResults());
     }
@@ -85,7 +86,7 @@ class DoctrineORMAdapterTest extends DoctrineORMTestCase
      */
     public function testCurrentPageSliceForSingleTableQuery(int $offset, int $length, int $expectedCount): void
     {
-        $adapter = new DoctrineORMAdapter($this->entityManager->createQuery('SELECT u FROM '.User::class.' u'));
+        $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u FROM '.User::class.' u'));
 
         $this->assertCount($expectedCount, $adapter->getSlice($offset, $length));
     }
@@ -95,14 +96,14 @@ class DoctrineORMAdapterTest extends DoctrineORMTestCase
      */
     public function testCurrentPageSliceForAJoinedCollection(int $offset, int $length, int $expectedCount): void
     {
-        $adapter = new DoctrineORMAdapter($this->entityManager->createQuery('SELECT u, g FROM '.User::class.' u INNER JOIN u.groups g'));
+        $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u, g FROM '.User::class.' u INNER JOIN u.groups g'));
 
         $this->assertCount($expectedCount, $adapter->getSlice($offset, $length));
     }
 
     public function testResultCountStaysConsistentAfterSlicing(): void
     {
-        $adapter = new DoctrineORMAdapter($this->entityManager->createQuery('SELECT u FROM '.User::class.' u'));
+        $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u FROM '.User::class.' u'));
         $results = $adapter->getNbResults();
 
         $adapter->getSlice(0, 1);
@@ -112,7 +113,7 @@ class DoctrineORMAdapterTest extends DoctrineORMTestCase
 
     public function testResultSetIsSlicedWhenSelectingEntitiesAndSingleFields(): void
     {
-        $adapter = new DoctrineORMAdapter($this->entityManager->createQuery('SELECT p, p.name FROM '.Person::class.' p'));
+        $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT p, p.name FROM '.Person::class.' p'));
 
         $this->assertSame(2, $adapter->getNbResults());
 
@@ -133,7 +134,7 @@ CASE
   ELSE 3
 END AS relevance
 
-FROM Pagerfanta\Tests\Adapter\Entity\Person p
+FROM Pagerfanta\Tests\Doctrine\Entity\Person p
 WHERE (
      p.name LIKE :keyword
   OR p.biography LIKE :keyword
@@ -146,7 +147,7 @@ DQL
         $query = $this->entityManager->createQuery($dql);
         $query->setParameter('keyword', '%Foo%');
 
-        $adapter = new DoctrineORMAdapter($query);
+        $adapter = new QueryAdapter($query);
 
         $this->assertSame(1, $adapter->getNbResults());
 
@@ -162,7 +163,7 @@ DQL
             ->select('u')
             ->from(User::class, 'u');
 
-        $adapter = new DoctrineORMAdapter($queryBuilder);
+        $adapter = new QueryAdapter($queryBuilder);
 
         $this->assertSame(2, $adapter->getNbResults());
         $this->assertCount(2, $adapter->getSlice(0, 10));

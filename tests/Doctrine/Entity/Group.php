@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter\Entity;
+namespace Pagerfanta\Tests\Doctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,7 +22,7 @@ class Group
     /**
      * @var User[]|null
      *
-     * @ORM\ManyToMany(targetEntity="\Pagerfanta\Tests\Adapter\Entity\User", mappedBy="groups")
+     * @ORM\ManyToMany(targetEntity="\Pagerfanta\Tests\Doctrine\Entity\User", mappedBy="groups")
      */
     public $users;
 }
