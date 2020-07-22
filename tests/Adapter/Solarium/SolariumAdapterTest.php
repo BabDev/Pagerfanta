@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Pagerfanta\Tests\Adapter;
+namespace Pagerfanta\Tests\Adapter\Solarium;
 
-use Pagerfanta\Adapter\SolariumAdapter;
+use Pagerfanta\Solarium\SolariumAdapter;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Solarium\Core\Client\ClientInterface;
