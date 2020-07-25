@@ -8,7 +8,7 @@ use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
-interface PagerfantaInterface
+interface PagerfantaInterface extends \Countable, \IteratorAggregate
 {
     public function getAdapter(): AdapterInterface;
 

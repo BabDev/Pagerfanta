@@ -9,7 +9,7 @@ use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfBoundsException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
-class Pagerfanta implements PagerfantaInterface, \Countable, \IteratorAggregate, \JsonSerializable
+class Pagerfanta implements PagerfantaInterface, \JsonSerializable
 {
     private AdapterInterface $adapter;
     private bool $allowOutOfRangePages = false;
