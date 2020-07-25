@@ -29,7 +29,7 @@ class Pagerfanta implements PagerfantaInterface, \Countable, \IteratorAggregate,
         return $this->adapter;
     }
 
-    public function setAllowOutOfRangePages(bool $allowOutOfRangePages): self
+    public function setAllowOutOfRangePages(bool $allowOutOfRangePages): PagerfantaInterface
     {
         $this->allowOutOfRangePages = $allowOutOfRangePages;
 
@@ -41,7 +41,7 @@ class Pagerfanta implements PagerfantaInterface, \Countable, \IteratorAggregate,
         return $this->allowOutOfRangePages;
     }
 
-    public function setNormalizeOutOfRangePages(bool $normalizeOutOfRangePages): self
+    public function setNormalizeOutOfRangePages(bool $normalizeOutOfRangePages): PagerfantaInterface
     {
         $this->normalizeOutOfRangePages = $normalizeOutOfRangePages;
 
@@ -56,7 +56,7 @@ class Pagerfanta implements PagerfantaInterface, \Countable, \IteratorAggregate,
     /**
      * @throws LessThan1MaxPerPageException if the page is less than 1
      */
-    public function setMaxPerPage(int $maxPerPage): self
+    public function setMaxPerPage(int $maxPerPage): PagerfantaInterface
     {
         $this->filterMaxPerPage($maxPerPage);
 
@@ -96,7 +96,7 @@ class Pagerfanta implements PagerfantaInterface, \Countable, \IteratorAggregate,
      * @throws LessThan1CurrentPageException  if the current page is less than 1
      * @throws OutOfRangeCurrentPageException if It is not allowed out of range pages and they are not normalized
      */
-    public function setCurrentPage(int $currentPage): self
+    public function setCurrentPage(int $currentPage): PagerfantaInterface
     {
         $this->currentPage = $this->filterCurrentPage($currentPage);
         $this->resetForCurrentPageChange();

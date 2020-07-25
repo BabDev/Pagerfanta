@@ -4,6 +4,7 @@ namespace Pagerfanta\View\Template;
 
 use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Exception\RuntimeException;
+use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 
 abstract class Template implements TemplateInterface
 {
@@ -21,11 +22,19 @@ abstract class Template implements TemplateInterface
         $this->options = static::$defaultOptions;
     }
 
+    /**
+     * Sets the route generator used while rendering the template.
+     *
+     * @param callable|RouteGeneratorInterface $routeGenerator
+     */
     public function setRouteGenerator(callable $routeGenerator): void
     {
         $this->routeGenerator = $routeGenerator;
     }
 
+    /**
+     * Sets the options for the template, overwriting keys that were previously set.
+     */
     public function setOptions(array $options): void
     {
         $this->options = array_merge($this->options, $options);

@@ -2,12 +2,22 @@
 
 namespace Pagerfanta\View\Template;
 
-/**
- * @method void setRouteGenerator(callable $routeGenerator)
- * @method void setOptions(array $options)
- */
+use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
+
 interface TemplateInterface
 {
+    /**
+     * Sets the route generator used while rendering the template.
+     *
+     * @param callable|RouteGeneratorInterface $routeGenerator
+     */
+    public function setRouteGenerator(callable $routeGenerator): void;
+
+    /**
+     * Sets the options for the template, overwriting keys that were previously set.
+     */
+    public function setOptions(array $options): void;
+
     /**
      * Renders the container for the pagination.
      *
