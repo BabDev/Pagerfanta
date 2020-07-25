@@ -2,14 +2,14 @@
 
 namespace Pagerfanta\View;
 
-use Pagerfanta\Pagerfanta;
+use Pagerfanta\PagerfantaInterface;
 
 interface ViewInterface
 {
     /**
      * @param callable $routeGenerator callable with a signature of `function (int $page): string {}`
      */
-    public function render(Pagerfanta $pagerfanta, callable $routeGenerator, array $options = []): string;
+    public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string;
 
     public function getName(): string;
 }

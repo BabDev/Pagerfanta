@@ -3,7 +3,7 @@
 namespace Pagerfanta\Twig\Extension;
 
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
-use Pagerfanta\Pagerfanta;
+use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 use Pagerfanta\View\ViewFactoryInterface;
@@ -27,7 +27,7 @@ final class PagerfantaRuntime implements RuntimeExtensionInterface
      *
      * @throws \InvalidArgumentException if the $viewName argument is an invalid type
      */
-    public function renderPagerfanta(Pagerfanta $pagerfanta, $viewName = null, array $options = []): string
+    public function renderPagerfanta(PagerfantaInterface $pagerfanta, $viewName = null, array $options = []): string
     {
         if (\is_array($viewName)) {
             [$viewName, $options] = [null, $viewName];
@@ -43,7 +43,7 @@ final class PagerfantaRuntime implements RuntimeExtensionInterface
     /**
      * @throws OutOfRangeCurrentPageException if the page is out of bounds
      */
-    public function getPageUrl(Pagerfanta $pagerfanta, int $page, array $options = []): string
+    public function getPageUrl(PagerfantaInterface $pagerfanta, int $page, array $options = []): string
     {
         if ($page < 0 || $page > $pagerfanta->getNbPages()) {
             throw new OutOfRangeCurrentPageException("Page '{$page}' is out of bounds");

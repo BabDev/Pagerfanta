@@ -2,7 +2,7 @@
 
 namespace Pagerfanta\View;
 
-use Pagerfanta\Pagerfanta;
+use Pagerfanta\PagerfantaInterface;
 
 /**
  * Decorator for a view with a default options list, enables re-use of option configurations.
@@ -18,7 +18,7 @@ class OptionableView implements ViewInterface
         $this->defaultOptions = $defaultOptions;
     }
 
-    public function render(Pagerfanta $pagerfanta, callable $routeGenerator, array $options = []): string
+    public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {
         return $this->view->render($pagerfanta, $routeGenerator, array_merge($this->defaultOptions, $options));
     }

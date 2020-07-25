@@ -2,6 +2,10 @@
 
 namespace Pagerfanta\View\Template;
 
+/**
+ * @method void setRouteGenerator(callable $routeGenerator)
+ * @method void setOptions(array $options)
+ */
 interface TemplateInterface
 {
     /**

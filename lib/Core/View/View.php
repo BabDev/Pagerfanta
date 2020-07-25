@@ -2,11 +2,11 @@
 
 namespace Pagerfanta\View;
 
-use Pagerfanta\Pagerfanta;
+use Pagerfanta\PagerfantaInterface;
 
 abstract class View implements ViewInterface
 {
-    protected Pagerfanta $pagerfanta;
+    protected PagerfantaInterface $pagerfanta;
 
     protected ?int $currentPage = null;
     protected ?int $nbPages = null;
@@ -14,7 +14,7 @@ abstract class View implements ViewInterface
     protected ?int $startPage = null;
     protected ?int $endPage = null;
 
-    protected function initializePagerfanta(Pagerfanta $pagerfanta): void
+    protected function initializePagerfanta(PagerfantaInterface $pagerfanta): void
     {
         $this->pagerfanta = $pagerfanta;
 

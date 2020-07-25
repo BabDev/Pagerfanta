@@ -2,7 +2,7 @@
 
 namespace Pagerfanta\View;
 
-use Pagerfanta\Pagerfanta;
+use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\Template\Template;
 use Pagerfanta\View\Template\TemplateInterface;
 
@@ -24,7 +24,7 @@ abstract class TemplateView extends View
 
     abstract protected function createDefaultTemplate(): TemplateInterface;
 
-    public function render(Pagerfanta $pagerfanta, callable $routeGenerator, array $options = []): string
+    public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {
         $this->initializePagerfanta($pagerfanta);
         $this->initializeOptions($options);
@@ -36,8 +36,11 @@ abstract class TemplateView extends View
 
     private function configureTemplate(callable $routeGenerator, array $options): void
     {
-        if ($this->template instanceof Template) {
+        if (method_exists($this->template, 'setRouteGenerator')) {
             $this->template->setRouteGenerator($routeGenerator);
+        }
+
+        if (method_exists($this->template, 'setOptions')) {
             $this->template->setOptions($options);
         }
     }

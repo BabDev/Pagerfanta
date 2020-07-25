@@ -2,7 +2,7 @@
 
 namespace Pagerfanta\Twig\View;
 
-use Pagerfanta\Pagerfanta;
+use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorDecorator;
 use Pagerfanta\View\View;
 use Twig\Environment;
@@ -27,7 +27,7 @@ final class TwigView extends View
         return 'twig';
     }
 
-    public function render(Pagerfanta $pagerfanta, callable $routeGenerator, array $options = []): string
+    public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {
         $this->initializePagerfanta($pagerfanta);
         $this->initializeOptions($options);
