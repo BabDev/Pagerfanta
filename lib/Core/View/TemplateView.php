@@ -43,8 +43,11 @@ abstract class TemplateView extends View
 
     private function configureTemplate(callable $routeGenerator, array $options): void
     {
-        if ($this->template instanceof Template) {
+        if (method_exists($this->template, 'setRouteGenerator')) {
             $this->template->setRouteGenerator($routeGenerator);
+        }
+
+        if (method_exists($this->template, 'setOptions')) {
             $this->template->setOptions($options);
         }
     }
