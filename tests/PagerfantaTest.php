@@ -627,13 +627,9 @@ class PagerfantaTest extends TestCase
     {
         $this->pagerfanta->setMaxPerPage(10);
 
-        $this->adapter->expects($this->at(0))
+        $this->adapter->expects($this->exactly(2))
             ->method('getNbResults')
-            ->willReturn(100);
-
-        $this->adapter->expects($this->at(1))
-            ->method('getNbResults')
-            ->willReturn(50);
+            ->willReturnOnConsecutiveCalls(100, 50);
     }
 
     private function resetCurrentPageResults(callable $callback): void
@@ -643,13 +639,12 @@ class PagerfantaTest extends TestCase
         $currentPageResults0 = new \ArrayObject();
         $currentPageResults1 = new \ArrayObject();
 
-        $this->adapter->expects($this->at(0))
+        $this->adapter->expects($this->exactly(2))
             ->method('getSlice')
-            ->willReturn($currentPageResults0);
-
-        $this->adapter->expects($this->at(1))
-            ->method('getSlice')
-            ->willReturn($currentPageResults1);
+            ->willReturnOnConsecutiveCalls(
+                $currentPageResults0,
+                $currentPageResults1
+            );
 
         $this->assertSame($currentPageResults0, $this->pagerfanta->getCurrentPageResults());
         $callback();
