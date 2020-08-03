@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.1 (2020-08-03)
+
+- Add `solarium/solarium` 6.0 support
+
 ## 2.4.0 (2020-07-25)
 
 - Add `Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface` representing a PHP class which builds a route generator at runtime
