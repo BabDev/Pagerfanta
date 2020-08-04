@@ -20,7 +20,7 @@
         "phpstan/phpstan-phpunit": "^0.12.12",
         "phpunit/phpunit": "^8.5 || ^9.0",
         "ruflin/elastica": "^5.0 || ^6.0 || ^7.0",
-        "solarium/solarium": "^4.0 || ^5.0",
+        "solarium/solarium": "^4.0 || ^5.0 || ^6.0",
         "twig/twig": "^1.35 || ^2.5 || ^3.0"
     },
     "conflict": {
