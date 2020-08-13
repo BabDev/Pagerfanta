@@ -2,6 +2,6 @@
 
 namespace Pagerfanta\Exception;
 
-class RuntimeException extends \RuntimeException implements Exception
+class RuntimeException extends \RuntimeException implements PagerfantaException
 {
 }
