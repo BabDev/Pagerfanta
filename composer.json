@@ -18,7 +18,7 @@
         "phpstan/extension-installer": "^1.0.4",
         "phpstan/phpstan": "^0.12.33",
         "phpstan/phpstan-phpunit": "^0.12.12",
-        "phpunit/phpunit": "^8.5 || ^9.0",
+        "phpunit/phpunit": "^9.3",
         "ruflin/elastica": "^5.0 || ^6.0 || ^7.0",
         "solarium/solarium": "^4.0 || ^5.0 || ^6.0",
         "twig/twig": "^1.35 || ^2.5 || ^3.0"
