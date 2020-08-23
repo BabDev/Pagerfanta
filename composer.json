@@ -58,12 +58,10 @@
             "Pagerfanta\\Elastica\\": "lib/Adapter/Elastica/",
             "Pagerfanta\\Solarium\\": "lib/Adapter/Solarium/",
             "Pagerfanta\\Twig\\": "lib/Twig/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Pagerfanta\\Tests\\": "tests/"
-        }
+        },
+        "exclude-from-classmap": [
+            "lib/**/Tests/"
+        ]
     },
     "minimum-stability": "dev"
 }

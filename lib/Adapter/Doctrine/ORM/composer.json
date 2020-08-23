@@ -9,9 +9,20 @@
         "doctrine/orm": "^2.7",
         "pagerfanta/core": "^3.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9.3"
+    },
     "autoload": {
         "psr-4": {
             "Pagerfanta\\Doctrine\\ORM\\": "./"
+        },
+        "exclude-from-classmap": [
+            "Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pagerfanta\\Doctrine\\ORM\\Tests\\": "Tests"
         }
     },
     "minimum-stability": "dev"

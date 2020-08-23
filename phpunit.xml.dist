@@ -7,7 +7,9 @@
 >
     <testsuites>
         <testsuite name="Pagerfanta Test Suite">
-            <directory>./tests</directory>
+            <directory>./lib/**/Tests</directory>
+            <directory>./lib/Adapter/**/Tests</directory>
+            <directory>./lib/Adapter/Doctrine/**/Tests</directory>
         </testsuite>
     </testsuites>
 
@@ -15,5 +17,10 @@
         <include>
             <directory suffix=".php">./lib</directory>
         </include>
+        <exclude>
+            <directory>./lib/**/Tests</directory>
+            <directory>./lib/Adapter/**/Tests</directory>
+            <directory>./lib/Adapter/Doctrine/**/Tests</directory>
+        </exclude>
     </coverage>
 </phpunit>

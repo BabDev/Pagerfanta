@@ -2,5 +2,3 @@
 composer.lock
 .phpunit.result.cache
 /phpunit.xml
-.php_cs.cache
-/.php_cs
