@@ -16,6 +16,7 @@ The below guide will assist in upgrading from the 2.x versions to 3.0.
 - Added `@method` annotated methods to their interfaces
 - `Pagerfanta\PagerfantaInterface` now extends `Countable` and `IteratorAggregate`
 - Renamed the `dots_text` option for the default template to `dots_message` for consistency with other templates and consistently use the HTML entity for an ellipsis instead of separated characters
+- The Bootstrap 3 view template will only set a default `active_suffix` option if one isn't provided
 
 ## Removed Features
 

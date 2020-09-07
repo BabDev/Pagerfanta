@@ -8,7 +8,9 @@ class TwitterBootstrap3Template extends TwitterBootstrapTemplate
     {
         parent::__construct();
 
-        $this->setOptions(['active_suffix' => '<span class="sr-only">(current)</span>']);
+        if ($this->option('active_suffix') === '') {
+            $this->setOptions(['active_suffix' => '<span class="sr-only">(current)</span>']);
+        }
     }
 
     public function container(): string
