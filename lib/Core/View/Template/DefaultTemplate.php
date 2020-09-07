@@ -12,10 +12,11 @@ class DefaultTemplate extends Template
         'next_message' => 'Next',
         'dots_message' => '&hellip;',
         'active_suffix' => '',
+        'css_container_class' => '',
         'css_disabled_class' => 'disabled',
         'css_dots_class' => 'dots',
         'css_current_class' => 'current',
-        'container_template' => '<nav>%pages%</nav>',
+        'container_template' => '<nav class="%s">%%pages%%</nav>',
         'page_template' => '<a href="%href%"%rel%>%text%</a>',
         'span_template' => '<span class="%class%">%text%</span>',
         'rel_previous' => 'prev',
@@ -24,7 +25,10 @@ class DefaultTemplate extends Template
 
     public function container(): string
     {
-        return $this->option('container_template');
+        return sprintf(
+            $this->option('container_template'),
+            $this->option('css_container_class')
+        );
     }
 
     public function page(int $page): string

@@ -20,7 +20,7 @@ final class DefaultViewTest extends ViewTestCase
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<nav>
+<nav class="">
     <a href="|9|" rel="prev">Previous</a>
     <a href="|1|">1</a>
     <span class="dots">&hellip;</span>
@@ -45,7 +45,7 @@ EOF
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<nav>
+<nav class="">
     <span class="disabled">Previous</span>
     <span class="current">1</span>
     <a href="|2|">2</a>
@@ -68,7 +68,7 @@ EOF
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<nav>
+<nav class="">
     <a href="|99|" rel="prev">Previous</a>
     <a href="|1|">1</a>
     <span class="dots">&hellip;</span>
@@ -91,7 +91,7 @@ EOF
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<nav>
+<nav class="">
     <a href="|3|" rel="prev">Previous</a>
     <a href="|1|">1</a>
     <a href="|2|">2</a>
@@ -115,7 +115,7 @@ EOF
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<nav>
+<nav class="">
     <a href="|4|" rel="prev">Previous</a>
     <a href="|1|">1</a>
     <a href="|2|">2</a>
@@ -140,7 +140,7 @@ EOF
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<nav>
+<nav class="">
     <a href="|96|" rel="prev">Previous</a>
     <a href="|1|">1</a>
     <span class="dots">&hellip;</span>
@@ -164,7 +164,7 @@ EOF
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<nav>
+<nav class="">
     <a href="|95|" rel="prev">Previous</a>
     <a href="|1|">1</a>
     <span class="dots">&hellip;</span>
@@ -189,7 +189,7 @@ EOF
         $options = ['proximity' => 3];
 
         $this->assertRenderedView(<<<EOF
-<nav>
+<nav class="">
     <a href="|9|" rel="prev">Previous</a>
     <a href="|1|">1</a>
     <span class="dots">&hellip;</span>
@@ -219,7 +219,7 @@ EOF
         ];
 
         $this->assertRenderedView(<<<EOF
-<nav>
+<nav class="">
     <a href="|9|" rel="prev">Anterior</a>
     <a href="|1|">1</a>
     <span class="dots">&hellip;</span>
@@ -248,7 +248,7 @@ EOF
         ];
 
         $this->assertRenderedView(<<<EOF
-<nav>
+<nav class="">
     <span class="deshabilitado">Previous</span>
     <span class="actual">1</span>
     <a href="|2|">2</a>
@@ -269,13 +269,13 @@ EOF
         $this->setCurrentPage(1);
 
         $options = [
-            'container_template' => '<nav><ul>%pages%</ul></nav>',
+            'container_template' => '<nav class="%s"><ul>%%pages%%</ul></nav>',
             'page_template' => '<li><a href="%href%">%text%</a></li>',
             'span_template' => '<li><span class="%class%">%text%</span></li>',
         ];
 
         $this->assertRenderedView(<<<EOF
-<nav>
+<nav class="">
     <ul>
         <li><span class="disabled">Previous</span></li>
         <li><span class="current">1</span></li>

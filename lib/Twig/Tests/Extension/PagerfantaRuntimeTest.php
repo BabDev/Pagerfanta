@@ -81,7 +81,7 @@ final class PagerfantaRuntimeTest extends TestCase
     {
         $this->assertViewOutputMatches(
             $this->extension->renderPagerfanta($this->createPagerfanta()),
-            '<nav>
+            '<nav class="">
     <span class="disabled">Previous</span>
     <span class="current">1</span>
     <a href="/my-page?page=2">2</a>
@@ -102,7 +102,7 @@ final class PagerfantaRuntimeTest extends TestCase
 
         $this->assertViewOutputMatches(
             $this->extension->renderPagerfanta($pagerfanta, null, ['omitFirstPage' => true]),
-            '<nav>
+            '<nav class="">
     <a href="/my-page?page=4" rel="prev">Previous</a>
     <a href="/my-page">1</a>
     <a href="/my-page?page=2">2</a>
@@ -125,7 +125,7 @@ final class PagerfantaRuntimeTest extends TestCase
 
         $this->assertViewOutputMatches(
             $this->extension->renderPagerfanta($pagerfanta, ['omitFirstPage' => true]),
-            '<nav>
+            '<nav class="">
     <a href="/my-page?page=4" rel="prev">Previous</a>
     <a href="/my-page">1</a>
     <a href="/my-page?page=2">2</a>
