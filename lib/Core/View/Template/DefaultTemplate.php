@@ -10,10 +10,11 @@ class DefaultTemplate extends Template
     protected static array $defaultOptions = [
         'prev_message' => 'Previous',
         'next_message' => 'Next',
+        'dots_message' => '&hellip;',
+        'active_suffix' => '',
         'css_disabled_class' => 'disabled',
         'css_dots_class' => 'dots',
         'css_current_class' => 'current',
-        'dots_message' => '&hellip;',
         'container_template' => '<nav>%pages%</nav>',
         'page_template' => '<a href="%href%"%rel%>%text%</a>',
         'span_template' => '<span class="%class%">%text%</span>',
@@ -71,7 +72,9 @@ class DefaultTemplate extends Template
 
     public function current(int $page): string
     {
-        return $this->generateSpan($this->option('css_current_class'), $page);
+        $text = trim($page.' '.$this->option('active_suffix'));
+
+        return $this->generateSpan($this->option('css_current_class'), $text);
     }
 
     public function separator(): string
