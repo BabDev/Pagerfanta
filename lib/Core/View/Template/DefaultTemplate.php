@@ -13,7 +13,7 @@ class DefaultTemplate extends Template
         'css_disabled_class' => 'disabled',
         'css_dots_class' => 'dots',
         'css_current_class' => 'current',
-        'dots_text' => '...',
+        'dots_message' => '&hellip;',
         'container_template' => '<nav>%pages%</nav>',
         'page_template' => '<a href="%href%"%rel%>%text%</a>',
         'span_template' => '<span class="%class%">%text%</span>',
@@ -76,7 +76,7 @@ class DefaultTemplate extends Template
 
     public function separator(): string
     {
-        return $this->generateSpan($this->option('css_dots_class'), $this->option('dots_text'));
+        return $this->generateSpan($this->option('css_dots_class'), $this->option('dots_message'));
     }
 
     /**

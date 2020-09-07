@@ -23,13 +23,13 @@ final class DefaultViewTest extends ViewTestCase
 <nav>
     <a href="|9|" rel="prev">Previous</a>
     <a href="|1|">1</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="|8|">8</a>
     <a href="|9|">9</a>
     <span class="current">10</span>
     <a href="|11|">11</a>
     <a href="|12|">12</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="|100|">100</a>
     <a href="|11|" rel="next">Next</a>
 </nav>
@@ -52,7 +52,7 @@ EOF
     <a href="|3|">3</a>
     <a href="|4|">4</a>
     <a href="|5|">5</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="|100|">100</a>
     <a href="|2|" rel="next">Next</a>
 </nav>
@@ -71,7 +71,7 @@ EOF
 <nav>
     <a href="|99|" rel="prev">Previous</a>
     <a href="|1|">1</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="|96|">96</a>
     <a href="|97|">97</a>
     <a href="|98|">98</a>
@@ -99,7 +99,7 @@ EOF
     <span class="current">4</span>
     <a href="|5|">5</a>
     <a href="|6|">6</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="|100|">100</a>
     <a href="|5|" rel="next">Next</a>
 </nav>
@@ -124,7 +124,7 @@ EOF
     <span class="current">5</span>
     <a href="|6|">6</a>
     <a href="|7|">7</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="|100|">100</a>
     <a href="|6|" rel="next">Next</a>
 </nav>
@@ -143,7 +143,7 @@ EOF
 <nav>
     <a href="|96|" rel="prev">Previous</a>
     <a href="|1|">1</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="|95|">95</a>
     <a href="|96|">96</a>
     <span class="current">97</span>
@@ -167,7 +167,7 @@ EOF
 <nav>
     <a href="|95|" rel="prev">Previous</a>
     <a href="|1|">1</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="|94|">94</a>
     <a href="|95|">95</a>
     <span class="current">96</span>
@@ -192,7 +192,7 @@ EOF
 <nav>
     <a href="|9|" rel="prev">Previous</a>
     <a href="|1|">1</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="|7|">7</a>
     <a href="|8|">8</a>
     <a href="|9|">9</a>
@@ -200,7 +200,7 @@ EOF
     <a href="|11|">11</a>
     <a href="|12|">12</a>
     <a href="|13|">13</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="|100|">100</a>
     <a href="|11|" rel="next">Next</a>
 </nav>
@@ -222,13 +222,13 @@ EOF
 <nav>
     <a href="|9|" rel="prev">Anterior</a>
     <a href="|1|">1</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="|8|">8</a>
     <a href="|9|">9</a>
     <span class="current">10</span>
     <a href="|11|">11</a>
     <a href="|12|">12</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="|100|">100</a>
     <a href="|11|" rel="next">Siguiente</a>
 </nav>
@@ -255,7 +255,7 @@ EOF
     <a href="|3|">3</a>
     <a href="|4|">4</a>
     <a href="|5|">5</a>
-    <span class="puntos">...</span>
+    <span class="puntos">&hellip;</span>
     <a href="|100|">100</a>
     <a href="|2|" rel="next">Next</a>
 </nav>
@@ -283,7 +283,7 @@ EOF
         <li><a href="|3|">3</a></li>
         <li><a href="|4|">4</a></li>
         <li><a href="|5|">5</a></li>
-        <li><span class="dots">...</span></li>
+        <li><span class="dots">&hellip;</span></li>
         <li><a href="|100|">100</a></li>
         <li><a href="|2|">Next</a></li>
     </ul>

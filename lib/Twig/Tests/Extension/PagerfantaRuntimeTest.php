@@ -88,7 +88,7 @@ final class PagerfantaRuntimeTest extends TestCase
     <a href="/my-page?page=3">3</a>
     <a href="/my-page?page=4">4</a>
     <a href="/my-page?page=5">5</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="/my-page?page=10">10</a>
     <a href="/my-page?page=2" rel="next">Next</a>
 </nav>'
@@ -111,7 +111,7 @@ final class PagerfantaRuntimeTest extends TestCase
     <span class="current">5</span>
     <a href="/my-page?page=6">6</a>
     <a href="/my-page?page=7">7</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="/my-page?page=10">10</a>
     <a href="/my-page?page=6" rel="next">Next</a>
 </nav>'
@@ -134,7 +134,7 @@ final class PagerfantaRuntimeTest extends TestCase
     <span class="current">5</span>
     <a href="/my-page?page=6">6</a>
     <a href="/my-page?page=7">7</a>
-    <span class="dots">...</span>
+    <span class="dots">&hellip;</span>
     <a href="/my-page?page=10">10</a>
     <a href="/my-page?page=6" rel="next">Next</a>
 </nav>'
