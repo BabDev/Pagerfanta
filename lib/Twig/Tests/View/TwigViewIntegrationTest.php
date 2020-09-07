@@ -61,7 +61,7 @@ final class TwigViewIntegrationTest extends TestCase
             1,
             ['omitFirstPage' => false, 'template' => '@Pagerfanta/default.html.twig'],
             '<nav>
-    <span class="disabled">Previous</span>
+    <span class="prev disabled">Previous</span>
     <span class="current" aria-current="page">1</span>
     <a href="/pagerfanta-view?page=2">2</a>
     <a href="/pagerfanta-view?page=3">3</a>
@@ -69,7 +69,7 @@ final class TwigViewIntegrationTest extends TestCase
     <a href="/pagerfanta-view?page=5">5</a>
     <span class="dots">&hellip;</span>
     <a href="/pagerfanta-view?page=10">10</a>
-    <a href="/pagerfanta-view?page=2" rel="next">Next</a>
+    <a class="next" href="/pagerfanta-view?page=2" rel="next">Next</a>
 </nav>',
         ];
 
@@ -77,7 +77,7 @@ final class TwigViewIntegrationTest extends TestCase
             1,
             ['omitFirstPage' => false, 'template' => '@Pagerfanta/default.html.twig', 'prev_message' => 'Previous Page', 'next_message' => 'Next Page'],
             '<nav>
-    <span class="disabled">Previous Page</span>
+    <span class="prev disabled">Previous Page</span>
     <span class="current" aria-current="page">1</span>
     <a href="/pagerfanta-view?page=2">2</a>
     <a href="/pagerfanta-view?page=3">3</a>
@@ -85,7 +85,7 @@ final class TwigViewIntegrationTest extends TestCase
     <a href="/pagerfanta-view?page=5">5</a>
     <span class="dots">&hellip;</span>
     <a href="/pagerfanta-view?page=10">10</a>
-    <a href="/pagerfanta-view?page=2" rel="next">Next Page</a>
+    <a class="next" href="/pagerfanta-view?page=2" rel="next">Next Page</a>
 </nav>',
         ];
 
@@ -93,7 +93,7 @@ final class TwigViewIntegrationTest extends TestCase
             5,
             ['omitFirstPage' => true, 'template' => '@Pagerfanta/default.html.twig'],
             '<nav>
-    <a href="/pagerfanta-view?page=4" rel="prev">Previous</a>
+    <a class="prev" href="/pagerfanta-view?page=4" rel="prev">Previous</a>
     <a href="/pagerfanta-view">1</a>
     <a href="/pagerfanta-view?page=2">2</a>
     <a href="/pagerfanta-view?page=3">3</a>
@@ -103,7 +103,7 @@ final class TwigViewIntegrationTest extends TestCase
     <a href="/pagerfanta-view?page=7">7</a>
     <span class="dots">&hellip;</span>
     <a href="/pagerfanta-view?page=10">10</a>
-    <a href="/pagerfanta-view?page=6" rel="next">Next</a>
+    <a class="next" href="/pagerfanta-view?page=6" rel="next">Next</a>
 </nav>',
         ];
 

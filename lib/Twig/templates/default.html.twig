@@ -79,11 +79,11 @@
 {%- endblock current_page_link -%}
 
 {%- block previous_page_link -%}
-    <a href="{{- path -}}" rel="prev">{{- block('previous_page_message') -}}</a>
+    <a class="prev" href="{{- path -}}" rel="prev">{{- block('previous_page_message') -}}</a>
 {%- endblock previous_page_link -%}
 
 {%- block previous_page_link_disabled -%}
-    <span class="disabled">{{- block('previous_page_message') -}}</span>
+    <span class="prev disabled">{{- block('previous_page_message') -}}</span>
 {%- endblock previous_page_link_disabled -%}
 
 {%- block previous_page_message -%}
@@ -95,11 +95,11 @@
 {%- endblock previous_page_message -%}
 
 {%- block next_page_link -%}
-    <a href="{{- path -}}" rel="next">{{- block('next_page_message') -}}</a>
+    <a class="next" href="{{- path -}}" rel="next">{{- block('next_page_message') -}}</a>
 {%- endblock next_page_link -%}
 
 {%- block next_page_link_disabled -%}
-    <span class="disabled">{{- block('next_page_message') -}}</span>
+    <span class="next disabled">{{- block('next_page_message') -}}</span>
 {%- endblock next_page_link_disabled -%}
 
 {%- block next_page_message -%}
