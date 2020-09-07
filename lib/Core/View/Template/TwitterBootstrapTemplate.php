@@ -15,11 +15,11 @@ class TwitterBootstrapTemplate extends Template
             'css_container_class' => 'pagination',
             'css_disabled_class' => 'disabled',
             'css_dots_class' => 'disabled',
+            'css_prev_class' => 'prev',
+            'css_next_class' => 'next',
             'container_template' => '<div class="%s"><ul>%%pages%%</ul></div>',
             'rel_previous' => 'prev',
             'rel_next' => 'next',
-            'css_prev_class' => 'prev',
-            'css_next_class' => 'next',
         ];
     }
 

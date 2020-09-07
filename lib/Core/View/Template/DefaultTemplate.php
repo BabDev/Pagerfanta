@@ -15,10 +15,12 @@ class DefaultTemplate extends Template
             'css_container_class' => '',
             'css_disabled_class' => 'disabled',
             'css_dots_class' => 'dots',
+            'css_prev_class' => 'prev',
+            'css_next_class' => 'next',
             'container_template' => '<nav class="%s">%%pages%%</nav>',
             'rel_previous' => 'prev',
             'rel_next' => 'next',
-            'page_template' => '<a href="%href%"%rel%>%text%</a>',
+            'page_template' => '<a class="%class%" href="%href%"%rel%>%text%</a>',
             'span_template' => '<span class="%class%">%text%</span>',
         ];
     }
@@ -38,30 +40,45 @@ class DefaultTemplate extends Template
 
     public function pageWithText(int $page, string $text, ?string $rel = null): string
     {
-        $href = $this->generateRoute($page);
-        $replace = $rel ? [$href, $text, ' rel="'.$rel.'"'] : [$href, $text, ''];
+        return $this->pageWithTextAndClass($page, $text, '', $rel);
+    }
 
-        return str_replace(['%href%', '%text%', '%rel%'], $replace, $this->option('page_template'));
+    private function pageWithTextAndClass(int $page, string $text, string $class, ?string $rel = null): string
+    {
+        $href = $this->generateRoute($page);
+        $replace = $rel ? [$class, $href, $text, ' rel="'.$rel.'"'] : [$class, $href, $text, ''];
+
+        return str_replace(['%class%', '%href%', '%text%', '%rel%'], $replace, $this->option('page_template'));
     }
 
     public function previousDisabled(): string
     {
-        return $this->generateSpan($this->option('css_disabled_class'), $this->option('prev_message'));
+        return $this->generateSpan($this->previousDisabledClass(), $this->option('prev_message'));
+    }
+
+    private function previousDisabledClass(): string
+    {
+        return $this->option('css_prev_class').' '.$this->option('css_disabled_class');
     }
 
     public function previousEnabled(int $page): string
     {
-        return $this->pageWithText($page, $this->option('prev_message'), $this->option('rel_previous'));
+        return $this->pageWithTextAndClass($page, $this->option('prev_message'), $this->option('css_prev_class'), $this->option('rel_previous'));
     }
 
     public function nextDisabled(): string
     {
-        return $this->generateSpan($this->option('css_disabled_class'), $this->option('next_message'));
+        return $this->generateSpan($this->nextDisabledClass(), $this->option('next_message'));
+    }
+
+    private function nextDisabledClass(): string
+    {
+        return $this->option('css_next_class').' '.$this->option('css_disabled_class');
     }
 
     public function nextEnabled(int $page): string
     {
-        return $this->pageWithText($page, $this->option('next_message'), $this->option('rel_next'));
+        return $this->pageWithTextAndClass($page, $this->option('next_message'), $this->option('css_next_class'), $this->option('rel_next'));
     }
 
     public function first(): string
