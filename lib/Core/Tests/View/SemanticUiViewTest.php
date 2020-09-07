@@ -20,7 +20,7 @@ final class SemanticUiViewTest extends ViewTestCase
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<div class="ui stackable fluid pagination menu">
+<div class="ui pagination menu">
     <a class="item prev" href="|9|" rel="prev">&larr; Previous</a>
     <a class="item " href="|1|">1</a>
     <div class="item disabled">&hellip;</div>
@@ -47,7 +47,7 @@ EOF
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<div class="ui stackable fluid pagination menu">
+<div class="ui pagination menu">
     <div class="item prev disabled">&larr; Previous</div>
     <div class="item active">1</div>
     <a class="item " href="|2|">2</a>
@@ -72,7 +72,7 @@ EOF
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<div class="ui stackable fluid pagination menu">
+<div class="ui pagination menu">
     <a class="item prev" href="|99|" rel="prev">&larr; Previous</a>
     <a class="item " href="|1|">1</a>
     <div class="item disabled">&hellip;</div>
@@ -97,7 +97,7 @@ EOF
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<div class="ui stackable fluid pagination menu">
+<div class="ui pagination menu">
     <a class="item prev" href="|3|" rel="prev">&larr; Previous</a>
     <a class="item " href="|1|">1</a><a class="item " href="|2|">2</a>
     <a class="item " href="|3|">3</a>
@@ -121,7 +121,7 @@ EOF
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<div class="ui stackable fluid pagination menu">
+<div class="ui pagination menu">
     <a class="item prev" href="|4|" rel="prev">&larr; Previous</a>
     <a class="item " href="|1|">1</a>
     <a class="item " href="|2|">2</a>
@@ -147,7 +147,7 @@ EOF
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<div class="ui stackable fluid pagination menu">
+<div class="ui pagination menu">
     <a class="item prev" href="|96|" rel="prev">&larr; Previous</a>
     <a class="item " href="|1|">1</a>
     <div class="item disabled">&hellip;</div>
@@ -172,7 +172,7 @@ EOF
         $options = [];
 
         $this->assertRenderedView(<<<EOF
-<div class="ui stackable fluid pagination menu">
+<div class="ui pagination menu">
     <a class="item prev" href="|95|" rel="prev">&larr; Previous</a>
     <a class="item " href="|1|">1</a>
     <div class="item disabled">&hellip;</div>
@@ -198,7 +198,7 @@ EOF
         $options = ['proximity' => 2];
 
         $this->assertRenderedView(<<<EOF
-<div class="ui stackable fluid pagination menu">
+<div class="ui pagination menu">
     <a class="item prev" href="|9|" rel="prev">&larr; Previous</a>
     <a class="item " href="|1|">1</a>
     <div class="item disabled">&hellip;</div>
@@ -226,7 +226,7 @@ EOF
         ];
 
         $this->assertRenderedView(<<<EOF
-<div class="ui stackable fluid pagination menu">
+<div class="ui pagination menu">
     <a class="item prev" href="|9|" rel="prev">Anterior</a>
     <a class="item " href="|1|">1</a>
     <div class="item disabled">&hellip;</div>

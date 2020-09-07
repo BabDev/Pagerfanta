@@ -12,7 +12,7 @@ class SemanticUiTemplate extends Template
             'dots_message' => '&hellip;',
             'active_suffix' => '',
             'css_active_class' => 'active',
-            'css_container_class' => 'ui stackable fluid pagination menu',
+            'css_container_class' => 'ui pagination menu',
             'css_disabled_class' => 'disabled',
             'css_dots_class' => 'disabled',
             'css_item_class' => 'item',
