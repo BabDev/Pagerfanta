@@ -3,14 +3,10 @@
 namespace Pagerfanta\View;
 
 use Pagerfanta\PagerfantaInterface;
-use Pagerfanta\View\Template\Template;
 use Pagerfanta\View\Template\TemplateInterface;
 
 abstract class TemplateView extends View
 {
-    /**
-     * @var TemplateInterface|Template
-     */
     private TemplateInterface $template;
 
     public function __construct(TemplateInterface $template = null)
@@ -36,13 +32,8 @@ abstract class TemplateView extends View
 
     private function configureTemplate(callable $routeGenerator, array $options): void
     {
-        if (method_exists($this->template, 'setRouteGenerator')) {
-            $this->template->setRouteGenerator($routeGenerator);
-        }
-
-        if (method_exists($this->template, 'setOptions')) {
-            $this->template->setOptions($options);
-        }
+        $this->template->setRouteGenerator($routeGenerator);
+        $this->template->setOptions($options);
     }
 
     private function generate(): string
