@@ -11,6 +11,7 @@ class SemanticUiTemplate extends Template
             'next_message' => 'Next &rarr;',
             'dots_message' => '&hellip;',
             'active_suffix' => '',
+            'css_active_class' => 'active',
             'css_container_class' => 'ui stackable fluid pagination menu',
             'css_disabled_class' => 'disabled',
             'css_dots_class' => 'disabled',
@@ -18,7 +19,6 @@ class SemanticUiTemplate extends Template
             'css_item_class' => 'item',
             'css_prev_class' => 'prev',
             'css_next_class' => 'next',
-            'css_active_class' => 'active',
         ];
     }
 

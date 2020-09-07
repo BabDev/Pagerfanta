@@ -11,10 +11,10 @@ class DefaultTemplate extends Template
             'next_message' => 'Next',
             'dots_message' => '&hellip;',
             'active_suffix' => '',
+            'css_active_class' => 'current',
             'css_container_class' => '',
             'css_disabled_class' => 'disabled',
             'css_dots_class' => 'dots',
-            'css_current_class' => 'current',
             'container_template' => '<nav class="%s">%%pages%%</nav>',
             'page_template' => '<a href="%href%"%rel%>%text%</a>',
             'span_template' => '<span class="%class%">%text%</span>',
@@ -78,7 +78,7 @@ class DefaultTemplate extends Template
     {
         $text = trim($page.' '.$this->option('active_suffix'));
 
-        return $this->generateSpan($this->option('css_current_class'), $text);
+        return $this->generateSpan($this->option('css_active_class'), $text);
     }
 
     public function separator(): string

@@ -242,9 +242,9 @@ EOF
         $this->setCurrentPage(1);
 
         $options = [
+            'css_active_class' => 'actual',
             'css_disabled_class' => 'deshabilitado',
             'css_dots_class' => 'puntos',
-            'css_current_class' => 'actual',
         ];
 
         $this->assertRenderedView(<<<EOF
