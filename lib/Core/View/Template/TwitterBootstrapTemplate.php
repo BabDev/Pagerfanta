@@ -7,8 +7,8 @@ class TwitterBootstrapTemplate extends Template
     protected function getDefaultOptions(): array
     {
         return [
-            'prev_message' => '&larr; Previous',
-            'next_message' => 'Next &rarr;',
+            'prev_message' => 'Previous',
+            'next_message' => 'Next',
             'dots_message' => '&hellip;',
             'active_suffix' => '',
             'css_active_class' => 'active',

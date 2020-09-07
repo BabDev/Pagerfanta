@@ -21,6 +21,7 @@ The below guide will assist in upgrading from the 2.x versions to 3.0.
 - The default template now supports the `css_prev_class` and `css_next_class` options used by other view templates, if customizing the `page_template` option then a placeholder for a CSS class will need to be added
 - The Bootstrap 3 view template will only set a default `active_suffix` option if one isn't provided
 - Removed `Pagerfanta\View\Template\Template::$defaultOptions`, use the `getDefaultOptions()` method instead
+- Removed arrows from default option values in templates
 
 ## Removed Features
 
