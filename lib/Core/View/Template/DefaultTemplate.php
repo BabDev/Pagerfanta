@@ -15,6 +15,7 @@ class DefaultTemplate extends Template
             'css_container_class' => '',
             'css_disabled_class' => 'disabled',
             'css_dots_class' => 'dots',
+            'css_item_class' => 'item',
             'css_prev_class' => 'prev',
             'css_next_class' => 'next',
             'container_template' => '<nav class="%s">%%pages%%</nav>',
@@ -46,7 +47,14 @@ class DefaultTemplate extends Template
     private function pageWithTextAndClass(int $page, string $text, string $class, ?string $rel = null): string
     {
         $href = $this->generateRoute($page);
-        $replace = $rel ? [$class, $href, $text, ' rel="'.$rel.'"'] : [$class, $href, $text, ''];
+
+        $replace = [
+            trim($this->option('css_item_class')  . ' ' . $class),
+            $href,
+            $text,
+        ];
+
+        $replace[] = $rel ? sprintf(' rel="%s"', $rel) : '';
 
         return str_replace(['%class%', '%href%', '%text%', '%rel%'], $replace, $this->option('page_template'));
     }

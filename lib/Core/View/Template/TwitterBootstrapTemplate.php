@@ -15,6 +15,7 @@ class TwitterBootstrapTemplate extends Template
             'css_container_class' => 'pagination',
             'css_disabled_class' => 'disabled',
             'css_dots_class' => 'disabled',
+            'css_item_class' => '',
             'css_prev_class' => 'prev',
             'css_next_class' => 'next',
             'container_template' => '<div class="%s"><ul>%%pages%%</ul></div>',
@@ -103,10 +104,10 @@ class TwitterBootstrapTemplate extends Template
      */
     protected function linkLi(string $class, string $href, $text, ?string $rel = null): string
     {
-        $liClass = $class ? sprintf(' class="%s"', $class) : '';
-        $rel = $rel ? sprintf(' rel="%s"', $rel) : '';
+        $liClass = sprintf(' class="%s"', trim($this->option('css_item_class') . ' ' . $class));
+        $itemRel = $rel ? sprintf(' rel="%s"', $rel) : '';
 
-        return sprintf('<li%s><a href="%s"%s>%s</a></li>', $liClass, $href, $rel, $text);
+        return sprintf('<li%s><a href="%s"%s>%s</a></li>', $liClass, $href, $itemRel, $text);
     }
 
     /**
@@ -114,7 +115,7 @@ class TwitterBootstrapTemplate extends Template
      */
     protected function spanLi(string $class, $text): string
     {
-        $liClass = $class ? sprintf(' class="%s"', $class) : '';
+        $liClass = sprintf(' class="%s"', trim($this->option('css_item_class') . ' ' . $class));
 
         return sprintf('<li%s><span>%s</span></li>', $liClass, $text);
     }

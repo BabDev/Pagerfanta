@@ -15,12 +15,12 @@ class SemanticUiTemplate extends Template
             'css_container_class' => 'ui stackable fluid pagination menu',
             'css_disabled_class' => 'disabled',
             'css_dots_class' => 'disabled',
+            'css_item_class' => 'item',
             'css_prev_class' => 'prev',
             'css_next_class' => 'next',
             'container_template' => '<div class="%s">%%pages%%</div>',
             'rel_previous' => 'prev',
             'rel_next' => 'next',
-            'css_item_class' => 'item',
         ];
     }
 

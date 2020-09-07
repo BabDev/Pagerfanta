@@ -84,13 +84,13 @@ final class PagerfantaRuntimeTest extends TestCase
             '<nav class="">
     <span class="prev disabled">Previous</span>
     <span class="current">1</span>
-    <a class="" href="/my-page?page=2">2</a>
-    <a class="" href="/my-page?page=3">3</a>
-    <a class="" href="/my-page?page=4">4</a>
-    <a class="" href="/my-page?page=5">5</a>
+    <a class="item" href="/my-page?page=2">2</a>
+    <a class="item" href="/my-page?page=3">3</a>
+    <a class="item" href="/my-page?page=4">4</a>
+    <a class="item" href="/my-page?page=5">5</a>
     <span class="dots">&hellip;</span>
-    <a class="" href="/my-page?page=10">10</a>
-    <a class="next" href="/my-page?page=2" rel="next">Next</a>
+    <a class="item" href="/my-page?page=10">10</a>
+    <a class="item next" href="/my-page?page=2" rel="next">Next</a>
 </nav>'
         );
     }
@@ -103,17 +103,17 @@ final class PagerfantaRuntimeTest extends TestCase
         $this->assertViewOutputMatches(
             $this->extension->renderPagerfanta($pagerfanta, null, ['omitFirstPage' => true]),
             '<nav class="">
-    <a class="prev" href="/my-page?page=4" rel="prev">Previous</a>
-    <a class="" href="/my-page">1</a>
-    <a class="" href="/my-page?page=2">2</a>
-    <a class="" href="/my-page?page=3">3</a>
-    <a class="" href="/my-page?page=4">4</a>
+    <a class="item prev" href="/my-page?page=4" rel="prev">Previous</a>
+    <a class="item" href="/my-page">1</a>
+    <a class="item" href="/my-page?page=2">2</a>
+    <a class="item" href="/my-page?page=3">3</a>
+    <a class="item" href="/my-page?page=4">4</a>
     <span class="current">5</span>
-    <a class="" href="/my-page?page=6">6</a>
-    <a class="" href="/my-page?page=7">7</a>
+    <a class="item" href="/my-page?page=6">6</a>
+    <a class="item" href="/my-page?page=7">7</a>
     <span class="dots">&hellip;</span>
-    <a class="" href="/my-page?page=10">10</a>
-    <a class="next" href="/my-page?page=6" rel="next">Next</a>
+    <a class="item" href="/my-page?page=10">10</a>
+    <a class="item next" href="/my-page?page=6" rel="next">Next</a>
 </nav>'
         );
     }
@@ -126,17 +126,17 @@ final class PagerfantaRuntimeTest extends TestCase
         $this->assertViewOutputMatches(
             $this->extension->renderPagerfanta($pagerfanta, ['omitFirstPage' => true]),
             '<nav class="">
-    <a class="prev" href="/my-page?page=4" rel="prev">Previous</a>
-    <a class="" href="/my-page">1</a>
-    <a class="" href="/my-page?page=2">2</a>
-    <a class="" href="/my-page?page=3">3</a>
-    <a class="" href="/my-page?page=4">4</a>
+    <a class="item prev" href="/my-page?page=4" rel="prev">Previous</a>
+    <a class="item" href="/my-page">1</a>
+    <a class="item" href="/my-page?page=2">2</a>
+    <a class="item" href="/my-page?page=3">3</a>
+    <a class="item" href="/my-page?page=4">4</a>
     <span class="current">5</span>
-    <a class="" href="/my-page?page=6">6</a>
-    <a class="" href="/my-page?page=7">7</a>
+    <a class="item" href="/my-page?page=6">6</a>
+    <a class="item" href="/my-page?page=7">7</a>
     <span class="dots">&hellip;</span>
-    <a class="" href="/my-page?page=10">10</a>
-    <a class="next" href="/my-page?page=6" rel="next">Next</a>
+    <a class="item" href="/my-page?page=10">10</a>
+    <a class="item next" href="/my-page?page=6" rel="next">Next</a>
 </nav>'
         );
     }
