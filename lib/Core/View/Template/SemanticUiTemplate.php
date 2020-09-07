@@ -16,6 +16,8 @@ class SemanticUiTemplate extends Template
             'css_disabled_class' => 'disabled',
             'css_dots_class' => 'disabled',
             'container_template' => '<div class="%s">%%pages%%</div>',
+            'rel_previous' => 'prev',
+            'rel_next' => 'next',
             'css_item_class' => 'item',
             'css_prev_class' => 'prev',
             'css_next_class' => 'next',
@@ -37,12 +39,12 @@ class SemanticUiTemplate extends Template
 
     public function pageWithText(int $page, string $text, ?string $rel = null): string
     {
-        return $this->pageWithTextAndClass($page, $text, '');
+        return $this->pageWithTextAndClass($page, $text, '', $rel);
     }
 
-    private function pageWithTextAndClass(int $page, string $text, string $class): string
+    private function pageWithTextAndClass(int $page, string $text, string $class, ?string $rel = null): string
     {
-        return $this->link($class, $this->generateRoute($page), $text);
+        return $this->link($class, $this->generateRoute($page), $text, $rel);
     }
 
     public function previousDisabled(): string
@@ -57,7 +59,7 @@ class SemanticUiTemplate extends Template
 
     public function previousEnabled(int $page): string
     {
-        return $this->pageWithTextAndClass($page, $this->option('prev_message'), $this->option('css_prev_class'));
+        return $this->pageWithTextAndClass($page, $this->option('prev_message'), $this->option('css_prev_class'), $this->option('rel_previous'));
     }
 
     public function nextDisabled(): string
@@ -72,7 +74,7 @@ class SemanticUiTemplate extends Template
 
     public function nextEnabled(int $page): string
     {
-        return $this->pageWithTextAndClass($page, $this->option('next_message'), $this->option('css_next_class'));
+        return $this->pageWithTextAndClass($page, $this->option('next_message'), $this->option('css_next_class'), $this->option('rel_next'));
     }
 
     public function first(): string
@@ -100,9 +102,11 @@ class SemanticUiTemplate extends Template
     /**
      * @param int|string $text
      */
-    private function link(string $class, string $href, $text): string
+    private function link(string $class, string $href, $text, ?string $rel = null): string
     {
-        return sprintf('<a class="%s %s" href="%s">%s</a>', $this->option('css_item_class'), $class, $href, $text);
+        $rel = $rel ? sprintf(' rel="%s"', $rel) : '';
+
+        return sprintf('<a class="%s %s" href="%s"%s>%s</a>', $this->option('css_item_class'), $class, $href, $rel, $text);
     }
 
     /**

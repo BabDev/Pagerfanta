@@ -16,10 +16,10 @@ class DefaultTemplate extends Template
             'css_disabled_class' => 'disabled',
             'css_dots_class' => 'dots',
             'container_template' => '<nav class="%s">%%pages%%</nav>',
-            'page_template' => '<a href="%href%"%rel%>%text%</a>',
-            'span_template' => '<span class="%class%">%text%</span>',
             'rel_previous' => 'prev',
             'rel_next' => 'next',
+            'page_template' => '<a href="%href%"%rel%>%text%</a>',
+            'span_template' => '<span class="%class%">%text%</span>',
         ];
     }
 

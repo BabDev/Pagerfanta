@@ -16,10 +16,10 @@ class TwitterBootstrapTemplate extends Template
             'css_disabled_class' => 'disabled',
             'css_dots_class' => 'disabled',
             'container_template' => '<div class="%s"><ul>%%pages%%</ul></div>',
-            'css_prev_class' => 'prev',
-            'css_next_class' => 'next',
             'rel_previous' => 'prev',
             'rel_next' => 'next',
+            'css_prev_class' => 'prev',
+            'css_next_class' => 'next',
         ];
     }
 
