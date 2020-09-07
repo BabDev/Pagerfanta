@@ -4,27 +4,29 @@ namespace Pagerfanta\View\Template;
 
 class TwitterBootstrapTemplate extends Template
 {
-    /**
-     * @var string[]
-     */
-    protected static array $defaultOptions = [
-        'prev_message' => '&larr; Previous',
-        'next_message' => 'Next &rarr;',
-        'dots_message' => '&hellip;',
-        'active_suffix' => '',
-        'css_container_class' => 'pagination',
-        'css_prev_class' => 'prev',
-        'css_next_class' => 'next',
-        'css_disabled_class' => 'disabled',
-        'css_dots_class' => 'disabled',
-        'css_active_class' => 'active',
-        'rel_previous' => 'prev',
-        'rel_next' => 'next',
-    ];
+    protected function getDefaultOptions(): array
+    {
+        return [
+            'prev_message' => '&larr; Previous',
+            'next_message' => 'Next &rarr;',
+            'dots_message' => '&hellip;',
+            'active_suffix' => '',
+            'css_container_class' => 'pagination',
+            'css_disabled_class' => 'disabled',
+            'css_dots_class' => 'disabled',
+            'container_template' => '<div class="%s"><ul>%%pages%%</ul></div>',
+            'css_prev_class' => 'prev',
+            'css_next_class' => 'next',
+            'css_active_class' => 'active',
+            'rel_previous' => 'prev',
+            'rel_next' => 'next',
+        ];
+    }
 
     public function container(): string
     {
-        return sprintf('<div class="%s"><ul>%%pages%%</ul></div>',
+        return sprintf(
+            $this->option('container_template'),
             $this->option('css_container_class')
         );
     }

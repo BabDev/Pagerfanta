@@ -4,19 +4,14 @@ namespace Pagerfanta\View\Template;
 
 class TwitterBootstrap3Template extends TwitterBootstrapTemplate
 {
-    public function __construct()
+    protected function getDefaultOptions(): array
     {
-        parent::__construct();
-
-        if ($this->option('active_suffix') === '') {
-            $this->setOptions(['active_suffix' => '<span class="sr-only">(current)</span>']);
-        }
-    }
-
-    public function container(): string
-    {
-        return sprintf('<ul class="%s">%%pages%%</ul>',
-            $this->option('css_container_class')
+        return array_merge(
+            parent::getDefaultOptions(),
+            [
+                'active_suffix' => '<span class="sr-only">(current)</span>',
+                'container_template' => '<ul class="%s">%%pages%%</ul>',
+            ]
         );
     }
 }

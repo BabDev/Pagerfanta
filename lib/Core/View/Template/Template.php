@@ -8,8 +8,6 @@ use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 
 abstract class Template implements TemplateInterface
 {
-    protected static array $defaultOptions = [];
-
     private array $options;
 
     /**
@@ -19,7 +17,7 @@ abstract class Template implements TemplateInterface
 
     public function __construct()
     {
-        $this->options = static::$defaultOptions;
+        $this->options = $this->getDefaultOptions();
     }
 
     /**
@@ -48,6 +46,11 @@ abstract class Template implements TemplateInterface
         $generator = $this->getRouteGenerator();
 
         return $generator($page);
+    }
+
+    protected function getDefaultOptions(): array
+    {
+        return [];
     }
 
     /**

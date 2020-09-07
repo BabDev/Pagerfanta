@@ -18,6 +18,7 @@ The below guide will assist in upgrading from the 2.x versions to 3.0.
 - Renamed the `dots_text` option for the default template to `dots_message` for consistency with other templates and consistently use the HTML entity for an ellipsis instead of separated characters
 - The default template now supports the `css_container_class` option used by other view templates, if customizing the `container_template` option then a placeholder for a CSS class will need to be added
 - The Bootstrap 3 view template will only set a default `active_suffix` option if one isn't provided
+- Removed `Pagerfanta\View\Template\Template::$defaultOptions`, use the `getDefaultOptions()` method instead
 
 ## Removed Features
 

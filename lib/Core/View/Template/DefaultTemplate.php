@@ -4,24 +4,24 @@ namespace Pagerfanta\View\Template;
 
 class DefaultTemplate extends Template
 {
-    /**
-     * @var string[]
-     */
-    protected static array $defaultOptions = [
-        'prev_message' => 'Previous',
-        'next_message' => 'Next',
-        'dots_message' => '&hellip;',
-        'active_suffix' => '',
-        'css_container_class' => '',
-        'css_disabled_class' => 'disabled',
-        'css_dots_class' => 'dots',
-        'css_current_class' => 'current',
-        'container_template' => '<nav class="%s">%%pages%%</nav>',
-        'page_template' => '<a href="%href%"%rel%>%text%</a>',
-        'span_template' => '<span class="%class%">%text%</span>',
-        'rel_previous' => 'prev',
-        'rel_next' => 'next',
-    ];
+    protected function getDefaultOptions(): array
+    {
+        return [
+            'prev_message' => 'Previous',
+            'next_message' => 'Next',
+            'dots_message' => '&hellip;',
+            'active_suffix' => '',
+            'css_container_class' => '',
+            'css_disabled_class' => 'disabled',
+            'css_dots_class' => 'dots',
+            'css_current_class' => 'current',
+            'container_template' => '<nav class="%s">%%pages%%</nav>',
+            'page_template' => '<a href="%href%"%rel%>%text%</a>',
+            'span_template' => '<span class="%class%">%text%</span>',
+            'rel_previous' => 'prev',
+            'rel_next' => 'next',
+        ];
+    }
 
     public function container(): string
     {
