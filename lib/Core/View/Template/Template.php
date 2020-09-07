@@ -9,6 +9,7 @@ abstract class Template implements TemplateInterface
 {
     /**
      * @var array
+     * @deprecated to be removed in 3.0, use the `getDefaultOptions()` method instead
      */
     protected static $defaultOptions = [];
 
@@ -24,7 +25,7 @@ abstract class Template implements TemplateInterface
 
     public function __construct()
     {
-        $this->options = static::$defaultOptions;
+        $this->options = $this->getDefaultOptions();
     }
 
     /**
@@ -58,6 +59,11 @@ abstract class Template implements TemplateInterface
         $generator = $this->getRouteGenerator();
 
         return $generator($page);
+    }
+
+    protected function getDefaultOptions(): array
+    {
+        return static::$defaultOptions;
     }
 
     /**

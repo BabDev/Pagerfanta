@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.0 (202?-??-??)
+
+- Deprecated `Pagerfanta\View\Template\Template::$defaultOptions`, use the `Pagerfanta\View\Template\Template::getDefaultOptions()` method instead
+
 ## 2.4.1 (2020-08-03)
 
 - Add `solarium/solarium` 6.0 support
