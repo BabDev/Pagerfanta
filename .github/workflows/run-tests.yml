@@ -15,6 +15,7 @@ jobs:
         include:
           - php: 7.4
             composer-flags: '--prefer-stable --prefer-lowest'
+            next-php: false
           - php: 8.0
             composer-flags: '--prefer-stable --ignore-platform-req=php'
             next-php: true
