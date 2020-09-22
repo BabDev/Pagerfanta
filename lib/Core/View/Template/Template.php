@@ -9,6 +9,7 @@ abstract class Template implements TemplateInterface
 {
     /**
      * @var array
+     *
      * @deprecated to be removed in 3.0, use the `getDefaultOptions()` method instead
      */
     protected static $defaultOptions = [];

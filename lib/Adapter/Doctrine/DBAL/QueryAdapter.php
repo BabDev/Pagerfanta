@@ -52,6 +52,7 @@ class QueryAdapter implements AdapterInterface
         if (method_exists($stmt, 'fetchOne')) {
             return (int) $stmt->fetchOne();
         }
+
         return (int) $stmt->fetchColumn();
     }
 
