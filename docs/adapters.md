@@ -241,63 +241,6 @@ $adapter = new ElasticaAdapter($searchable, $query);
 
 <div class="docs-note">Be careful when paginating a huge set of documents. By default, offset + limit cannot exceed 10,000 items. You can mitigate this by setting the <code>$maxResults</code> parameter when constructing the <code>ElasticaAdapter</code>. For more information, see <a href="https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892" target="_blank" rel="noopener nofollow">https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892</a>.</div>
 
-### Mandango
-
-<div class="docs-note docs-note--deprecated-feature">This adapter is deprecated as of Pagerfanta 2.2 and will be removed in 3.0.</div>
-
-An adapter is available for the [Mandango](https://github.com/mandango/mandango) package.
-
-```php
-<?php
-
-use App\Document\Article;
-use Pagerfanta\Adapter\MandangoAdapter;
-
-$query = $mandango->getRepository(Article::class)->createQuery();
-$adapter = new MandangoAdapter($query);
-```
-
-### Mongo
-
-<div class="docs-note docs-note--deprecated-feature">This adapter is deprecated as of Pagerfanta 2.2 and will be removed in 3.0.</div>
-
-An adapter is available for the [mongo](https://pecl.php.net/package/mongo) PHP extension.
-
-```php
-<?php
-
-use Pagerfanta\Adapter\MongoAdapter;
-
-$cursor = $collection->find();
-$adapter = new MongoAdapter($cursor);
-```
-
-### Propel
-
-<div class="docs-note docs-note--deprecated-feature">These adapters are deprecated as of Pagerfanta 2.2 and will be removed in 3.0.</div>
-
-Adapters are available for versions 1 and 2 of the [Propel ORM](http://propelorm.org/).
-
-#### Propel1
-
-```php
-<?php
-
-use Pagerfanta\Adapter\PropelAdapter;
-
-$adapter = new PropelAdapter($query);
-```
-
-#### Propel2
-
-```php
-<?php
-
-use Pagerfanta\Adapter\Propel2Adapter;
-
-$adapter = new Propel2Adapter($query);
-```
-
 ### Solarium
 
 The Solarium adapter is available with the `pagerfanta/solarium-adapter` package for use with [Solarium](https://github.com/solariumphp/solarium).
