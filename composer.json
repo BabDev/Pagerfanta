@@ -25,9 +25,9 @@
     },
     "conflict": {
         "doctrine/collections": "<1.6",
-        "doctrine/dbal": "<2.8",
+        "doctrine/dbal": "<2.11",
         "doctrine/mongodb-odm": "<2.0",
-        "doctrine/orm": "<2.6",
+        "doctrine/orm": "<2.7",
         "doctrine/phpcr-odm": "<1.4",
         "ruflin/elastica": "<5.0",
         "solarium/solarium": "<4.0",
