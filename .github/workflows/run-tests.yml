@@ -17,11 +17,11 @@ jobs:
           - php: 7.4
             composer-flags: '--prefer-stable --prefer-lowest'
             next-php: false
-            extensions: ['curl, iconv, mbstring, mongodb, pdo, pdo_sqlite, sqlite, zip']
+            extensions: 'curl, iconv, mbstring, mongodb, pdo, pdo_sqlite, sqlite, zip'
           - php: 8.0
             composer-flags: '--prefer-stable --ignore-platform-req=php --ignore-platform-req=ext-mongo'
             next-php: true
-            extensions: ['curl, iconv, mbstring, pdo, pdo_sqlite, sqlite, zip']
+            extensions: 'curl, iconv, mbstring, pdo, pdo_sqlite, sqlite, zip'
 
     name: PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
