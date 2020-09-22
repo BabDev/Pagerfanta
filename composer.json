@@ -10,7 +10,7 @@
     },
     "require-dev": {
         "doctrine/collections": "^1.6",
-        "doctrine/dbal": "^2.11",
+        "doctrine/dbal": "^2.11 || ^3.0",
         "doctrine/orm": "^2.7",
         "doctrine/phpcr-odm": "^1.4",
         "friendsofphp/php-cs-fixer": "^2.16.3",
