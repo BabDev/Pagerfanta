@@ -37,28 +37,17 @@ class QueryAdapter implements AdapterInterface
     {
         $qb = $this->prepareCountQueryBuilder();
 
-        $stmt = $qb->execute();
-
-        if (method_exists($stmt, 'fetchOne')) {
-            return (int) $stmt->fetchOne();
-        }
-
-        return (int) $stmt->fetchColumn();
+        return (int) $qb->execute()->fetchOne();
     }
 
     public function getSlice(int $offset, int $length): iterable
     {
         $qb = clone $this->queryBuilder;
 
-        $stmt = $qb->setMaxResults($length)
+        return $qb->setMaxResults($length)
             ->setFirstResult($offset)
-            ->execute();
-
-        if (method_exists($stmt, 'fetchAllAssociative')) {
-            return $stmt->fetchAllAssociative();
-        }
-
-        return $stmt->fetchAll();
+            ->execute()
+            ->fetchAllAssociative();
     }
 
     private function prepareCountQueryBuilder(): QueryBuilder

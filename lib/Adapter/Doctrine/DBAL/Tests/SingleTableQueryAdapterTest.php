@@ -67,10 +67,6 @@ final class SingleTableQueryAdapterTest extends DBALTestCase
         $q->setFirstResult($offset)
             ->setMaxResults($length);
 
-        $stmt = $q->execute();
-
-        $fetcher = method_exists($stmt, 'fetchAllAssociative') ? 'fetchAllAssociative' : 'fetchAll';
-
-        $this->assertSame($stmt->$fetcher(), $this->adapter->getSlice($offset, $length));
+        $this->assertSame($q->execute()->fetchAllAssociative(), $this->adapter->getSlice($offset, $length));
     }
 }
