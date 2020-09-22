@@ -8,7 +8,7 @@ This package is a continuation of the original [`Pagerfanta`](https://github.com
 
 ## Documentation
 
-Please see the [BabDev website](https://www.babdev.com/open-source/packages/pagerfanta/docs/2.x) for detailed information on how to use this package.
+Please see the [BabDev website](https://www.babdev.com/open-source/packages/pagerfanta/docs/3.x) for detailed information on how to use this package.
 
 ## Security
 

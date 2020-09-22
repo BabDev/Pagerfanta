@@ -6,7 +6,7 @@ To install the full package, run the following [Composer](https://getcomposer.or
 composer require pagerfanta/pagerfanta
 ```
 
-Starting with Pagerfanta 2.4, the package is split into several smaller packages to allow more granular control over the features used and dependencies required. All packages are dependent on the `pagerfanta/core` package which contains all of the interfaces for the Pagerfanta API, the `Pagerfanta\Pagerfanta` class, and the PHP based views and templates.
+Pagerfanta is also split into several smaller packages to allow more granular control over the features used and dependencies required. All packages are dependent on the `pagerfanta/core` package which contains all of the interfaces for the Pagerfanta API, the `Pagerfanta\Pagerfanta` class, and the PHP based views and templates.
 
 The following first party packages are available to include additional functionality:
 
@@ -18,5 +18,3 @@ The following first party packages are available to include additional functiona
 - `pagerfanta/elastica-adapter`: Provides support for [Elastica](https://elastica.io/) (an ElasticSearch PHP client)
 - `pagerfanta/solarium-adapter`: Provides support for [Solarium](https://github.com/solariumphp/solarium) (a Solr search client)
 - `pagerfanta/twig`: Provides support for [Twig](https://twig.symfony.com/)
-
-<div class="docs-note">Deprecated adapters have not been split into new packages, continue to use the <code>pagerfanta/pagerfanta</code> monopackage if you rely on them.</div>

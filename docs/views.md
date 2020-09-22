@@ -17,22 +17,11 @@ use Pagerfanta\PagerfantaInterface;
 interface ViewInterface
 {
     /**
-     * Renders a Pagerfanta instance.
-     *
-     * The route generator can be any callable to generate the routes receiving the page number as first and unique argument.
-     *
-     * @param PagerfantaInterface $pagerfanta
-     * @param callable            $routeGenerator
-     * @param array               $options
+     * @param callable $routeGenerator callable with a signature of `function (int $page): string {}`
      */
-    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = []);
+    public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string;
 
-    /**
-     * Returns the canonical name.
-     *
-     * @return string
-     */
-    public function getName();
+    public function getName(): string;
 }
 ```
 
@@ -61,8 +50,6 @@ Below is a list of the views that are available with this package, and the corre
 | `twitter_bootstrap4` | `Pagerfanta\View\TwitterBootstrap4View` | `Pagerfanta\View\Template\TwitterBootstrap4Template` |
 
 ## Twig View
-
-<div class="docs-note docs-note--new-feature">This feature was introduced in Pagerfanta 2.4.</div>
 
 Pagerfanta includes native support for the [Twig](https://twig.symfony.com/) templating engine and allows integrators to build flexible templates for rendering their pagers.
 
@@ -116,8 +103,8 @@ For this you can define views with the `Pagerfanta\View\OptionableView` class, w
 ```php
 <?php
 
-use Pagerfanta\DefaultView;
-use Pagerfanta\OptionableView;
+use Pagerfanta\View\DefaultView;
+use Pagerfanta\View\OptionableView;
 
 $defaultView = new DefaultView();
 
