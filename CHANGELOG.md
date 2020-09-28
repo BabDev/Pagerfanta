@@ -27,6 +27,7 @@
 
 ## 2.2.0 (2020-06-06)
 
+- **B/C Break** Return typehints added to `Pagerfanta\View\Template\DefaultTemplate`, subclasses will need to be updated to account for this change
 - Added runtime deprecations for views when receiving a deprecated `Pagerfanta\PagerfantaInterface` implementation without being a `Pagerfanta\Pagerfanta` subclass
 - Added a new `Pagerfanta\View\View` class which views can extend to re-use the pagination calculation logic
 - Added a new `Pagerfanta\View\TemplateView` class which views that render `Pagerfanta\View\Template\TemplateInterface` instances can extend to re-use template related logic
