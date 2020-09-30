@@ -10,16 +10,16 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.4]
-        composer-flags: ['--prefer-stable']
+        composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         extensions: ['curl, iconv, mbstring, mongodb, pdo, pdo_sqlite, sqlite, zip']
         include:
           - php: 7.4
-            composer-flags: '--prefer-stable --prefer-lowest'
+            composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
             extensions: 'curl, iconv, mbstring, mongodb, pdo, pdo_sqlite, sqlite, zip'
           - php: 8.0
-            composer-flags: '--ignore-platform-req=php --ignore-platform-req=ext-mongodb'
+            composer-flags: '--prefer-dist --ignore-platform-req=php --ignore-platform-req=ext-mongodb'
             next-php: true
             extensions: 'curl, iconv, mbstring, pdo, pdo_sqlite, sqlite, zip'
 
@@ -43,10 +43,30 @@ jobs:
           extensions: ${{ matrix.extensions }}
           coverage: pcov
 
+      - name: Patch Composer manifests
+        run: |
+          php .github/patch-packages.php
+
       - name: Install dependencies
         run: |
-          composer require --dev --no-update doctrine/mongodb-odm:^2.0
-          composer update ${{ matrix.composer-flags }} --prefer-dist
+          (echo "::group::Doctrine Collections Dependencies" && cd lib/Adapter/Doctrine/Collections && composer update ${{ matrix.composer-flags }} && echo "::endgroup::")
+          (echo "::group::Doctrine DBAL Dependencies" && cd lib/Adapter/Doctrine/DBAL && composer update ${{ matrix.composer-flags }} && echo "::endgroup::")
+          (echo "::group::Doctrine MongoDB ODM Dependencies" && cd lib/Adapter/Doctrine/MongoDBODM && composer update ${{ matrix.composer-flags }} && echo "::endgroup::")
+          (echo "::group::Doctrine ORM Dependencies" && cd lib/Adapter/Doctrine/ORM && composer update ${{ matrix.composer-flags }} && echo "::endgroup::")
+          (echo "::group::Doctrine PHPCR ODM Dependencies" && cd lib/Adapter/Doctrine/PHPCRODM && composer update ${{ matrix.composer-flags }} && echo "::endgroup::")
+          (echo "::group::Elastica Dependencies" && cd lib/Adapter/Elastica && composer update ${{ matrix.composer-flags }} && echo "::endgroup::")
+          (echo "::group::Solarium Dependencies" && cd lib/Adapter/Solarium && composer update ${{ matrix.composer-flags }} && echo "::endgroup::")
+          (echo "::group::Core Dependencies" && cd lib/Core && composer update ${{ matrix.composer-flags }} && echo "::endgroup::")
+          (echo "::group::Twig Dependencies" && cd lib/Twig && composer update ${{ matrix.composer-flags }} && echo "::endgroup::")
 
       - name: Execute tests
-        run: vendor/bin/phpunit
+        run: |
+          (echo "::group::Doctrine Collections Tests" && cd lib/Adapter/Doctrine/Collections && vendor/bin/phpunit && echo "::endgroup::")
+          (echo "::group::Doctrine DBAL Tests" && cd lib/Adapter/Doctrine/DBAL && vendor/bin/phpunit && echo "::endgroup::")
+          (echo "::group::Doctrine MongoDB ODM Tests" && cd lib/Adapter/Doctrine/MongoDBODM && vendor/bin/phpunit && echo "::endgroup::")
+          (echo "::group::Doctrine ORM Tests" && cd lib/Adapter/Doctrine/ORM && vendor/bin/phpunit && echo "::endgroup::")
+          (echo "::group::Doctrine PHPCR ODM Tests" && cd lib/Adapter/Doctrine/PHPCRODM && vendor/bin/phpunit && echo "::endgroup::")
+          (echo "::group::Elastica Tests" && cd lib/Adapter/Elastica && vendor/bin/phpunit && echo "::endgroup::")
+          (echo "::group::Solarium Tests" && cd lib/Adapter/Solarium && vendor/bin/phpunit && echo "::endgroup::")
+          (echo "::group::Core Tests" && cd lib/Core && vendor/bin/phpunit && echo "::endgroup::")
+          (echo "::group::Twig Tests" && cd lib/Twig && vendor/bin/phpunit && echo "::endgroup::")
