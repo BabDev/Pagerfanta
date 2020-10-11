@@ -22,7 +22,7 @@ class QueryAdapter implements AdapterInterface
     private $countQueryBuilderModifier;
 
     /**
-     * @param callable $countQueryBuilderModifier a callable to modify the query builder to count the results
+     * @param callable $countQueryBuilderModifier a callable to modify the query builder to count the results, the callable should have a signature of `function (QueryBuilder $queryBuilder): void {}`
      *
      * @throws InvalidArgumentException if a non-SELECT query is given or the modifier is not a callable
      */
