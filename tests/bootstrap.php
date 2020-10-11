@@ -8,3 +8,5 @@ if (isset($prefixes['Solarium'])) {
     $loader->add('Solarium_', $prefixes['Solarium']);
     $loader->set('Solarium', []);
 }
+
+DG\BypassFinals::enable();

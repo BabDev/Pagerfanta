@@ -42,14 +42,32 @@ class DoctrineODMMongoDBAdapterTest extends TestCase
 
     public function testGetNbResultsShouldCreateTheQueryAndCount(): void
     {
-        $this->markTestSkipped(sprintf('Test relies on mocking the %s class which is final.', Query::class));
-
         $query = $this->createMock(Query::class);
 
         $query
             ->expects($this->once())
-            ->method('count')
+            ->method('execute')
             ->willReturn(110);
+
+        $this->queryBuilder
+            ->expects($this->once())
+            ->method('limit')
+            ->willReturn($this->queryBuilder);
+
+        $this->queryBuilder
+            ->expects($this->once())
+            ->method('skip')
+            ->willReturn($this->queryBuilder);
+
+        $this->queryBuilder
+            ->expects($this->once())
+            ->method('count')
+            ->willReturn($this->queryBuilder);
+
+        $this->queryBuilder
+            ->expects($this->once())
+            ->method('getQuery')
+            ->willReturn($query);
 
         $this->queryBuilder
             ->expects($this->once())
@@ -61,7 +79,6 @@ class DoctrineODMMongoDBAdapterTest extends TestCase
 
     public function testGetSlice(): void
     {
-        $this->markTestSkipped(sprintf('Test relies on mocking the %s class which is final.', Query::class));
 
         $offset = 10;
         $length = 15;
