@@ -10,6 +10,7 @@
         "pagerfanta/core": "^3.0"
     },
     "require-dev": {
+        "dg/bypass-finals": "^1.2.2",
         "phpunit/phpunit": "^9.3"
     },
     "autoload": {
