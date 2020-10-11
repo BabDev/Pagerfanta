@@ -13,6 +13,7 @@
         "doctrine/dbal": "^2.11 || ^3.0",
         "doctrine/orm": "^2.7",
         "doctrine/phpcr-odm": "^1.4",
+        "dg/bypass-finals": "^1.2.2",
         "friendsofphp/php-cs-fixer": "^2.16.4",
         "jackalope/jackalope-doctrine-dbal": "^1.5",
         "phpstan/extension-installer": "^1.0.5",

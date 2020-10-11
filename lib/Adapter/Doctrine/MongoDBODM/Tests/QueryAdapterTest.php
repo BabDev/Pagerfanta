@@ -42,13 +42,23 @@ final class QueryAdapterTest extends TestCase
 
     public function testGetNbResultsShouldCreateTheQueryAndCount(): void
     {
-        $this->markTestSkipped(sprintf('Test relies on mocking the %s class which is final.', Query::class));
-
         $query = $this->createMock(Query::class);
 
         $query->expects($this->once())
             ->method('count')
             ->willReturn(110);
+
+        $this->queryBuilder->expects($this->once())
+            ->method('limit')
+            ->willReturnSelf();
+
+        $this->queryBuilder->expects($this->once())
+            ->method('skip')
+            ->willReturnSelf();
+
+        $this->queryBuilder->expects($this->once())
+            ->method('count')
+            ->willReturnSelf();
 
         $this->queryBuilder->expects($this->once())
             ->method('getQuery')
@@ -59,8 +69,6 @@ final class QueryAdapterTest extends TestCase
 
     public function testGetSlice(): void
     {
-        $this->markTestSkipped(sprintf('Test relies on mocking the %s class which is final.', Query::class));
-
         $offset = 10;
         $length = 15;
         $slice = new \ArrayIterator();
@@ -73,12 +81,12 @@ final class QueryAdapterTest extends TestCase
         $this->queryBuilder->expects($this->once())
             ->method('limit')
             ->with($length)
-            ->willReturn($this->queryBuilder);
+            ->willReturnSelf();
 
         $this->queryBuilder->expects($this->once())
             ->method('skip')
             ->with($offset)
-            ->willReturn($this->queryBuilder);
+            ->willReturnSelf();
 
         $this->queryBuilder
             ->expects($this->once())
