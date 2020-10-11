@@ -52,22 +52,17 @@ class DoctrineODMMongoDBAdapterTest extends TestCase
         $this->queryBuilder
             ->expects($this->once())
             ->method('limit')
-            ->willReturn($this->queryBuilder);
+            ->willReturnSelf();
 
         $this->queryBuilder
             ->expects($this->once())
             ->method('skip')
-            ->willReturn($this->queryBuilder);
+            ->willReturnSelf();
 
         $this->queryBuilder
             ->expects($this->once())
             ->method('count')
-            ->willReturn($this->queryBuilder);
-
-        $this->queryBuilder
-            ->expects($this->once())
-            ->method('getQuery')
-            ->willReturn($query);
+            ->willReturnSelf();
 
         $this->queryBuilder
             ->expects($this->once())
@@ -79,7 +74,6 @@ class DoctrineODMMongoDBAdapterTest extends TestCase
 
     public function testGetSlice(): void
     {
-
         $offset = 10;
         $length = 15;
         $slice = new \ArrayIterator();
@@ -95,14 +89,14 @@ class DoctrineODMMongoDBAdapterTest extends TestCase
             ->expects($this->once())
             ->method('limit')
             ->with($length)
-            ->willReturn($this->queryBuilder)
-        ;
+            ->willReturnSelf();
+
         $this->queryBuilder
             ->expects($this->once())
             ->method('skip')
             ->with($offset)
-            ->willReturn($this->queryBuilder)
-        ;
+            ->willReturnSelf();
+
         $this->queryBuilder
             ->expects($this->once())
             ->method('getQuery')

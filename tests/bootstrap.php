@@ -9,4 +9,10 @@ if (isset($prefixes['Solarium'])) {
     $loader->set('Solarium', []);
 }
 
+DG\BypassFinals::setWhitelist(
+    [
+        '*/Doctrine/ODM/MongoDB/*',
+    ]
+);
+
 DG\BypassFinals::enable();
