@@ -45,7 +45,7 @@ final class QueryAdapterTest extends TestCase
         $query = $this->createMock(Query::class);
 
         $query->expects($this->once())
-            ->method('count')
+            ->method('execute')
             ->willReturn(110);
 
         $this->queryBuilder->expects($this->once())
