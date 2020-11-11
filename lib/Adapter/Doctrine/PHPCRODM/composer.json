@@ -5,7 +5,7 @@
     "keywords": ["pagerfanta", "doctrine", "phpcr", "odm"],
     "license": "MIT",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4 || ^8.0",
         "doctrine/phpcr-odm": "^1.4",
         "pagerfanta/core": "^3.0"
     },

@@ -5,7 +5,7 @@
     "keywords": ["page", "paging", "paginator", "pagination"],
     "license": "MIT",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4 || ^8.0",
         "ext-json": "*"
     },
     "require-dev": {
