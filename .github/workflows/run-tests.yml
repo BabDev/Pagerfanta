@@ -5,11 +5,19 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.next-php }}
     strategy:
       fail-fast: true
       matrix:
         php: [7.2, 7.3, 7.4]
-        composer-flags: ['--prefer-stable']
+        composer-flags: ['--prefer-stable --prefer-dist']
+        next-php: [false]
+        extensions: ['curl, iconv, mbstring, mongodb, pdo, pdo_sqlite, sqlite, zip']
+        include:
+          - php: 8.0
+            composer-flags: '--prefer-dist --ignore-platform-req=php --ignore-platform-req=ext-mongodb'
+            next-php: true
+            extensions: 'curl, iconv, mbstring, pdo, pdo_sqlite, sqlite, zip'
 
     name: PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
@@ -27,13 +35,18 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: curl, iconv, mbstring, mongodb, pdo, pdo_sqlite, sqlite, zip
+          tools: composer:v2
+          extensions: ${{ matrix.extensions }}
           coverage: pcov
+
+      - name: Install MongoDB ODM
+        if: matrix.php != '8.0'
+        run: |
+          composer require --dev --no-update doctrine/mongodb-odm:^2.0
 
       - name: Install dependencies
         run: |
-          composer require --dev --no-update doctrine/mongodb-odm:^2.0
-          composer update ${{ matrix.composer-flags }} --prefer-dist --no-suggest
+          composer update ${{ matrix.composer-flags }}
 
       - name: Execute tests
         run: vendor/bin/phpunit
