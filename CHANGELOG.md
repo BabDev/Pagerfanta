@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.5.0 (202?-??-??)
+## 2.5.0 (2020-11-10)
 
 - Deprecated `Pagerfanta\View\Template\Template::$defaultOptions`, use the `Pagerfanta\View\Template\Template::getDefaultOptions()` method instead
 - Allow install on PHP 8
