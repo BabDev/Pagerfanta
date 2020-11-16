@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.1 (2020-11-15)
+
+- Add `doctrine/dbal` 3.0 support
+
 ## 2.5.0 (2020-11-10)
 
 - Deprecated `Pagerfanta\View\Template\Template::$defaultOptions`, use the `Pagerfanta\View\Template\Template::getDefaultOptions()` method instead
