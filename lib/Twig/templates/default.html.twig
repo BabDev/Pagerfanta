@@ -1,5 +1,5 @@
 {%- block pager_widget -%}
-    <nav>
+    <nav class="pagination">
         {{- block('pager') -}}
     </nav>
 {%- endblock pager_widget -%}
@@ -71,19 +71,19 @@
 {%- endblock pager -%}
 
 {%- block page_link -%}
-    <a href="{{- path -}}">{{- page -}}</a>
+    <a class="pagination__item" href="{{- path -}}">{{- page -}}</a>
 {%- endblock page_link -%}
 
 {%- block current_page_link -%}
-    <span class="current" aria-current="page">{{- page -}}</span>
+    <span class="pagination__item pagination__item--current-page" aria-current="page">{{- page -}}</span>
 {%- endblock current_page_link -%}
 
 {%- block previous_page_link -%}
-    <a class="prev" href="{{- path -}}" rel="prev">{{- block('previous_page_message') -}}</a>
+    <a class="pagination__item pagination__item--previous-page" href="{{- path -}}" rel="prev">{{- block('previous_page_message') -}}</a>
 {%- endblock previous_page_link -%}
 
 {%- block previous_page_link_disabled -%}
-    <span class="prev disabled">{{- block('previous_page_message') -}}</span>
+    <span class="pagination__item pagination__item--previous-page pagination__item--disabled">{{- block('previous_page_message') -}}</span>
 {%- endblock previous_page_link_disabled -%}
 
 {%- block previous_page_message -%}
@@ -95,11 +95,11 @@
 {%- endblock previous_page_message -%}
 
 {%- block next_page_link -%}
-    <a class="next" href="{{- path -}}" rel="next">{{- block('next_page_message') -}}</a>
+    <a class="pagination__item pagination__item--next-page" href="{{- path -}}" rel="next">{{- block('next_page_message') -}}</a>
 {%- endblock next_page_link -%}
 
 {%- block next_page_link_disabled -%}
-    <span class="next disabled">{{- block('next_page_message') -}}</span>
+    <span class="pagination__item pagination__item--next-page pagination__item--disabled">{{- block('next_page_message') -}}</span>
 {%- endblock next_page_link_disabled -%}
 
 {%- block next_page_message -%}
@@ -111,5 +111,5 @@
 {%- endblock next_page_message -%}
 
 {%- block ellipsis -%}
-    <span class="dots">&hellip;</span>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
 {%- endblock ellipsis -%}

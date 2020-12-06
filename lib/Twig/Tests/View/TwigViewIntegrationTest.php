@@ -60,50 +60,50 @@ final class TwigViewIntegrationTest extends TestCase
         yield 'default template at page 1' => [
             1,
             ['omitFirstPage' => false, 'template' => '@Pagerfanta/default.html.twig'],
-            '<nav>
-    <span class="prev disabled">Previous</span>
-    <span class="current" aria-current="page">1</span>
-    <a href="/pagerfanta-view?page=2">2</a>
-    <a href="/pagerfanta-view?page=3">3</a>
-    <a href="/pagerfanta-view?page=4">4</a>
-    <a href="/pagerfanta-view?page=5">5</a>
-    <span class="dots">&hellip;</span>
-    <a href="/pagerfanta-view?page=10">10</a>
-    <a class="next" href="/pagerfanta-view?page=2" rel="next">Next</a>
+            '<nav class="pagination">
+    <span class="pagination__item pagination__item--previous-page pagination__item--disabled">Previous</span>
+    <span class="pagination__item pagination__item--current-page" aria-current="page">1</span>
+    <a class="pagination__item" href="/pagerfanta-view?page=2">2</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=3">3</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=4">4</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=5">5</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="/pagerfanta-view?page=10">10</a>
+    <a class="pagination__item pagination__item--next-page" href="/pagerfanta-view?page=2" rel="next">Next</a>
 </nav>',
         ];
 
         yield 'default template at page 1 with translated labels' => [
             1,
             ['omitFirstPage' => false, 'template' => '@Pagerfanta/default.html.twig', 'prev_message' => 'Previous Page', 'next_message' => 'Next Page'],
-            '<nav>
-    <span class="prev disabled">Previous Page</span>
-    <span class="current" aria-current="page">1</span>
-    <a href="/pagerfanta-view?page=2">2</a>
-    <a href="/pagerfanta-view?page=3">3</a>
-    <a href="/pagerfanta-view?page=4">4</a>
-    <a href="/pagerfanta-view?page=5">5</a>
-    <span class="dots">&hellip;</span>
-    <a href="/pagerfanta-view?page=10">10</a>
-    <a class="next" href="/pagerfanta-view?page=2" rel="next">Next Page</a>
+            '<nav class="pagination">
+    <span class="pagination__item pagination__item--previous-page pagination__item--disabled">Previous Page</span>
+    <span class="pagination__item pagination__item--current-page" aria-current="page">1</span>
+    <a class="pagination__item" href="/pagerfanta-view?page=2">2</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=3">3</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=4">4</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=5">5</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="/pagerfanta-view?page=10">10</a>
+    <a class="pagination__item pagination__item--next-page" href="/pagerfanta-view?page=2" rel="next">Next Page</a>
 </nav>',
         ];
 
         yield 'default template at page 5 with first page omitted' => [
             5,
             ['omitFirstPage' => true, 'template' => '@Pagerfanta/default.html.twig'],
-            '<nav>
-    <a class="prev" href="/pagerfanta-view?page=4" rel="prev">Previous</a>
-    <a href="/pagerfanta-view">1</a>
-    <a href="/pagerfanta-view?page=2">2</a>
-    <a href="/pagerfanta-view?page=3">3</a>
-    <a href="/pagerfanta-view?page=4">4</a>
-    <span class="current" aria-current="page">5</span>
-    <a href="/pagerfanta-view?page=6">6</a>
-    <a href="/pagerfanta-view?page=7">7</a>
-    <span class="dots">&hellip;</span>
-    <a href="/pagerfanta-view?page=10">10</a>
-    <a class="next" href="/pagerfanta-view?page=6" rel="next">Next</a>
+            '<nav class="pagination">
+    <a class="pagination__item pagination__item--previous-page" href="/pagerfanta-view?page=4" rel="prev">Previous</a>
+    <a class="pagination__item" href="/pagerfanta-view">1</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=2">2</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=3">3</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=4">4</a>
+    <span class="pagination__item pagination__item--current-page" aria-current="page">5</span>
+    <a class="pagination__item" href="/pagerfanta-view?page=6">6</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=7">7</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="/pagerfanta-view?page=10">10</a>
+    <a class="pagination__item pagination__item--next-page" href="/pagerfanta-view?page=6" rel="next">Next</a>
 </nav>',
         ];
 

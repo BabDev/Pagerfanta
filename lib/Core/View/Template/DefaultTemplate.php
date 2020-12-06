@@ -11,13 +11,13 @@ class DefaultTemplate extends Template
             'next_message' => 'Next',
             'dots_message' => '&hellip;',
             'active_suffix' => '',
-            'css_active_class' => 'current',
-            'css_container_class' => '',
-            'css_disabled_class' => 'disabled',
-            'css_dots_class' => 'dots',
-            'css_item_class' => 'item',
-            'css_prev_class' => 'prev',
-            'css_next_class' => 'next',
+            'css_active_class' => 'pagination__item--current-page',
+            'css_container_class' => 'pagination',
+            'css_disabled_class' => 'pagination__item--disabled',
+            'css_dots_class' => 'pagination__item--separator',
+            'css_item_class' => 'pagination__item',
+            'css_prev_class' => 'pagination__item--previous-page',
+            'css_next_class' => 'pagination__item--next-page',
             'container_template' => '<nav class="%s">%%pages%%</nav>',
             'rel_previous' => 'prev',
             'rel_next' => 'next',
@@ -49,7 +49,7 @@ class DefaultTemplate extends Template
         $href = $this->generateRoute($page);
 
         $replace = [
-            trim($this->option('css_item_class')  . ' ' . $class),
+            trim($this->option('css_item_class').' '.$class),
             $href,
             $text,
         ];
@@ -61,12 +61,18 @@ class DefaultTemplate extends Template
 
     public function previousDisabled(): string
     {
-        return $this->generateSpan($this->previousDisabledClass(), $this->option('prev_message'));
-    }
+        $class = trim(
+            implode(
+                ' ',
+                [
+                    $this->option('css_item_class'),
+                    $this->option('css_prev_class'),
+                    $this->option('css_disabled_class'),
+                ]
+            )
+        );
 
-    private function previousDisabledClass(): string
-    {
-        return $this->option('css_prev_class').' '.$this->option('css_disabled_class');
+        return $this->generateSpan($class, $this->option('prev_message'));
     }
 
     public function previousEnabled(int $page): string
@@ -76,12 +82,18 @@ class DefaultTemplate extends Template
 
     public function nextDisabled(): string
     {
-        return $this->generateSpan($this->nextDisabledClass(), $this->option('next_message'));
-    }
+        $class = trim(
+            implode(
+                ' ',
+                [
+                    $this->option('css_item_class'),
+                    $this->option('css_next_class'),
+                    $this->option('css_disabled_class'),
+                ]
+            )
+        );
 
-    private function nextDisabledClass(): string
-    {
-        return $this->option('css_next_class').' '.$this->option('css_disabled_class');
+        return $this->generateSpan($class, $this->option('next_message'));
     }
 
     public function nextEnabled(int $page): string
@@ -101,14 +113,34 @@ class DefaultTemplate extends Template
 
     public function current(int $page): string
     {
+        $class = trim(
+            implode(
+                ' ',
+                [
+                    $this->option('css_item_class'),
+                    $this->option('css_active_class'),
+                ]
+            )
+        );
+
         $text = trim($page.' '.$this->option('active_suffix'));
 
-        return $this->generateSpan($this->option('css_active_class'), $text);
+        return $this->generateSpan($class, $text);
     }
 
     public function separator(): string
     {
-        return $this->generateSpan($this->option('css_dots_class'), $this->option('dots_message'));
+        $class = trim(
+            implode(
+                ' ',
+                [
+                    $this->option('css_item_class'),
+                    $this->option('css_dots_class'),
+                ]
+            )
+        );
+
+        return $this->generateSpan($class, $this->option('dots_message'));
     }
 
     /**

@@ -19,21 +19,21 @@ final class DefaultViewTest extends ViewTestCase
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<nav class="">
-    <a class="item prev" href="|9|" rel="prev">Previous</a>
-    <a class="item" href="|1|">1</a>
-    <span class="dots">&hellip;</span>
-    <a class="item" href="|8|">8</a>
-    <a class="item" href="|9|">9</a>
-    <span class="current">10</span>
-    <a class="item" href="|11|">11</a>
-    <a class="item" href="|12|">12</a>
-    <span class="dots">&hellip;</span>
-    <a class="item" href="|100|">100</a>
-    <a class="item next" href="|11|" rel="next">Next</a>
+        $this->assertRenderedView(<<<HTML
+<nav class="pagination">
+    <a class="pagination__item pagination__item--previous-page" href="|9|" rel="prev">Previous</a>
+    <a class="pagination__item" href="|1|">1</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="|8|">8</a>
+    <a class="pagination__item" href="|9|">9</a>
+    <span class="pagination__item pagination__item--current-page">10</span>
+    <a class="pagination__item" href="|11|">11</a>
+    <a class="pagination__item" href="|12|">12</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="|100|">100</a>
+    <a class="pagination__item pagination__item--next-page" href="|11|" rel="next">Next</a>
 </nav>
-EOF
+HTML
             , $this->renderView($options));
     }
 
@@ -44,19 +44,19 @@ EOF
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<nav class="">
-    <span class="prev disabled">Previous</span>
-    <span class="current">1</span>
-    <a class="item" href="|2|">2</a>
-    <a class="item" href="|3|">3</a>
-    <a class="item" href="|4|">4</a>
-    <a class="item" href="|5|">5</a>
-    <span class="dots">&hellip;</span>
-    <a class="item" href="|100|">100</a>
-    <a class="item next" href="|2|" rel="next">Next</a>
+        $this->assertRenderedView(<<<HTML
+<nav class="pagination">
+    <span class="pagination__item pagination__item--previous-page pagination__item--disabled">Previous</span>
+    <span class="pagination__item pagination__item--current-page">1</span>
+    <a class="pagination__item" href="|2|">2</a>
+    <a class="pagination__item" href="|3|">3</a>
+    <a class="pagination__item" href="|4|">4</a>
+    <a class="pagination__item" href="|5|">5</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="|100|">100</a>
+    <a class="pagination__item pagination__item--next-page" href="|2|" rel="next">Next</a>
 </nav>
-EOF
+HTML
         , $this->renderView($options));
     }
 
@@ -67,19 +67,19 @@ EOF
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<nav class="">
-    <a class="item prev" href="|99|" rel="prev">Previous</a>
-    <a class="item" href="|1|">1</a>
-    <span class="dots">&hellip;</span>
-    <a class="item" href="|96|">96</a>
-    <a class="item" href="|97|">97</a>
-    <a class="item" href="|98|">98</a>
-    <a class="item" href="|99|">99</a>
-    <span class="current">100</span>
-    <span class="next disabled">Next</span>
+        $this->assertRenderedView(<<<HTML
+<nav class="pagination">
+    <a class="pagination__item pagination__item--previous-page" href="|99|" rel="prev">Previous</a>
+    <a class="pagination__item" href="|1|">1</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="|96|">96</a>
+    <a class="pagination__item" href="|97|">97</a>
+    <a class="pagination__item" href="|98|">98</a>
+    <a class="pagination__item" href="|99|">99</a>
+    <span class="pagination__item pagination__item--current-page">100</span>
+    <span class="pagination__item pagination__item--next-page pagination__item--disabled">Next</span>
 </nav>
-EOF
+HTML
         , $this->renderView($options));
     }
 
@@ -90,20 +90,20 @@ EOF
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<nav class="">
-    <a class="item prev" href="|3|" rel="prev">Previous</a>
-    <a class="item" href="|1|">1</a>
-    <a class="item" href="|2|">2</a>
-    <a class="item" href="|3|">3</a>
-    <span class="current">4</span>
-    <a class="item" href="|5|">5</a>
-    <a class="item" href="|6|">6</a>
-    <span class="dots">&hellip;</span>
-    <a class="item" href="|100|">100</a>
-    <a class="item next" href="|5|" rel="next">Next</a>
+        $this->assertRenderedView(<<<HTML
+<nav class="pagination">
+    <a class="pagination__item pagination__item--previous-page" href="|3|" rel="prev">Previous</a>
+    <a class="pagination__item" href="|1|">1</a>
+    <a class="pagination__item" href="|2|">2</a>
+    <a class="pagination__item" href="|3|">3</a>
+    <span class="pagination__item pagination__item--current-page">4</span>
+    <a class="pagination__item" href="|5|">5</a>
+    <a class="pagination__item" href="|6|">6</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="|100|">100</a>
+    <a class="pagination__item pagination__item--next-page" href="|5|" rel="next">Next</a>
 </nav>
-EOF
+HTML
         , $this->renderView($options));
     }
 
@@ -114,21 +114,21 @@ EOF
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<nav class="">
-    <a class="item prev" href="|4|" rel="prev">Previous</a>
-    <a class="item" href="|1|">1</a>
-    <a class="item" href="|2|">2</a>
-    <a class="item" href="|3|">3</a>
-    <a class="item" href="|4|">4</a>
-    <span class="current">5</span>
-    <a class="item" href="|6|">6</a>
-    <a class="item" href="|7|">7</a>
-    <span class="dots">&hellip;</span>
-    <a class="item" href="|100|">100</a>
-    <a class="item next" href="|6|" rel="next">Next</a>
+        $this->assertRenderedView(<<<HTML
+<nav class="pagination">
+    <a class="pagination__item pagination__item--previous-page" href="|4|" rel="prev">Previous</a>
+    <a class="pagination__item" href="|1|">1</a>
+    <a class="pagination__item" href="|2|">2</a>
+    <a class="pagination__item" href="|3|">3</a>
+    <a class="pagination__item" href="|4|">4</a>
+    <span class="pagination__item pagination__item--current-page">5</span>
+    <a class="pagination__item" href="|6|">6</a>
+    <a class="pagination__item" href="|7|">7</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="|100|">100</a>
+    <a class="pagination__item pagination__item--next-page" href="|6|" rel="next">Next</a>
 </nav>
-EOF
+HTML
         , $this->renderView($options));
     }
 
@@ -139,20 +139,20 @@ EOF
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<nav class="">
-    <a class="item prev" href="|96|" rel="prev">Previous</a>
-    <a class="item" href="|1|">1</a>
-    <span class="dots">&hellip;</span>
-    <a class="item" href="|95|">95</a>
-    <a class="item" href="|96|">96</a>
-    <span class="current">97</span>
-    <a class="item" href="|98|">98</a>
-    <a class="item" href="|99|">99</a>
-    <a class="item" href="|100|">100</a>
-    <a class="item next" href="|98|" rel="next">Next</a>
+        $this->assertRenderedView(<<<HTML
+<nav class="pagination">
+    <a class="pagination__item pagination__item--previous-page" href="|96|" rel="prev">Previous</a>
+    <a class="pagination__item" href="|1|">1</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="|95|">95</a>
+    <a class="pagination__item" href="|96|">96</a>
+    <span class="pagination__item pagination__item--current-page">97</span>
+    <a class="pagination__item" href="|98|">98</a>
+    <a class="pagination__item" href="|99|">99</a>
+    <a class="pagination__item" href="|100|">100</a>
+    <a class="pagination__item pagination__item--next-page" href="|98|" rel="next">Next</a>
 </nav>
-EOF
+HTML
         , $this->renderView($options));
     }
 
@@ -163,21 +163,21 @@ EOF
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<nav class="">
-    <a class="item prev" href="|95|" rel="prev">Previous</a>
-    <a class="item" href="|1|">1</a>
-    <span class="dots">&hellip;</span>
-    <a class="item" href="|94|">94</a>
-    <a class="item" href="|95|">95</a>
-    <span class="current">96</span>
-    <a class="item" href="|97|">97</a>
-    <a class="item" href="|98|">98</a>
-    <a class="item" href="|99|">99</a>
-    <a class="item" href="|100|">100</a>
-    <a class="item next" href="|97|" rel="next">Next</a>
+        $this->assertRenderedView(<<<HTML
+<nav class="pagination">
+    <a class="pagination__item pagination__item--previous-page" href="|95|" rel="prev">Previous</a>
+    <a class="pagination__item" href="|1|">1</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="|94|">94</a>
+    <a class="pagination__item" href="|95|">95</a>
+    <span class="pagination__item pagination__item--current-page">96</span>
+    <a class="pagination__item" href="|97|">97</a>
+    <a class="pagination__item" href="|98|">98</a>
+    <a class="pagination__item" href="|99|">99</a>
+    <a class="pagination__item" href="|100|">100</a>
+    <a class="pagination__item pagination__item--next-page" href="|97|" rel="next">Next</a>
 </nav>
-EOF
+HTML
         , $this->renderView($options));
     }
 
@@ -188,23 +188,23 @@ EOF
 
         $options = ['proximity' => 3];
 
-        $this->assertRenderedView(<<<EOF
-<nav class="">
-    <a class="item prev" href="|9|" rel="prev">Previous</a>
-    <a class="item" href="|1|">1</a>
-    <span class="dots">&hellip;</span>
-    <a class="item" href="|7|">7</a>
-    <a class="item" href="|8|">8</a>
-    <a class="item" href="|9|">9</a>
-    <span class="current">10</span>
-    <a class="item" href="|11|">11</a>
-    <a class="item" href="|12|">12</a>
-    <a class="item" href="|13|">13</a>
-    <span class="dots">&hellip;</span>
-    <a class="item" href="|100|">100</a>
-    <a class="item next" href="|11|" rel="next">Next</a>
+        $this->assertRenderedView(<<<HTML
+<nav class="pagination">
+    <a class="pagination__item pagination__item--previous-page" href="|9|" rel="prev">Previous</a>
+    <a class="pagination__item" href="|1|">1</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="|7|">7</a>
+    <a class="pagination__item" href="|8|">8</a>
+    <a class="pagination__item" href="|9|">9</a>
+    <span class="pagination__item pagination__item--current-page">10</span>
+    <a class="pagination__item" href="|11|">11</a>
+    <a class="pagination__item" href="|12|">12</a>
+    <a class="pagination__item" href="|13|">13</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="|100|">100</a>
+    <a class="pagination__item pagination__item--next-page" href="|11|" rel="next">Next</a>
 </nav>
-EOF
+HTML
         , $this->renderView($options));
     }
 
@@ -218,21 +218,21 @@ EOF
             'next_message' => 'Siguiente',
         ];
 
-        $this->assertRenderedView(<<<EOF
-<nav class="">
-    <a class="item prev" href="|9|" rel="prev">Anterior</a>
-    <a class="item" href="|1|">1</a>
-    <span class="dots">&hellip;</span>
-    <a class="item" href="|8|">8</a>
-    <a class="item" href="|9|">9</a>
-    <span class="current">10</span>
-    <a class="item" href="|11|">11</a>
-    <a class="item" href="|12|">12</a>
-    <span class="dots">&hellip;</span>
-    <a class="item" href="|100|">100</a>
-    <a class="item next" href="|11|" rel="next">Siguiente</a>
+        $this->assertRenderedView(<<<HTML
+<nav class="pagination">
+    <a class="pagination__item pagination__item--previous-page" href="|9|" rel="prev">Anterior</a>
+    <a class="pagination__item" href="|1|">1</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="|8|">8</a>
+    <a class="pagination__item" href="|9|">9</a>
+    <span class="pagination__item pagination__item--current-page">10</span>
+    <a class="pagination__item" href="|11|">11</a>
+    <a class="pagination__item" href="|12|">12</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="|100|">100</a>
+    <a class="pagination__item pagination__item--next-page" href="|11|" rel="next">Siguiente</a>
 </nav>
-EOF
+HTML
         , $this->renderView($options));
     }
 
@@ -247,19 +247,19 @@ EOF
             'css_dots_class' => 'puntos',
         ];
 
-        $this->assertRenderedView(<<<EOF
-<nav class="">
-    <span class="prev deshabilitado">Previous</span>
-    <span class="actual">1</span>
-    <a class="item" href="|2|">2</a>
-    <a class="item" href="|3|">3</a>
-    <a class="item" href="|4|">4</a>
-    <a class="item" href="|5|">5</a>
-    <span class="puntos">&hellip;</span>
-    <a class="item" href="|100|">100</a>
-    <a class="item next" href="|2|" rel="next">Next</a>
+        $this->assertRenderedView(<<<HTML
+<nav class="pagination">
+    <span class="pagination__item pagination__item--previous-page deshabilitado">Previous</span>
+    <span class="pagination__item actual">1</span>
+    <a class="pagination__item" href="|2|">2</a>
+    <a class="pagination__item" href="|3|">3</a>
+    <a class="pagination__item" href="|4|">4</a>
+    <a class="pagination__item" href="|5|">5</a>
+    <span class="pagination__item puntos">&hellip;</span>
+    <a class="pagination__item" href="|100|">100</a>
+    <a class="pagination__item pagination__item--next-page" href="|2|" rel="next">Next</a>
 </nav>
-EOF
+HTML
         , $this->renderView($options));
     }
 
@@ -274,21 +274,21 @@ EOF
             'span_template' => '<li><span class="%class%">%text%</span></li>',
         ];
 
-        $this->assertRenderedView(<<<EOF
-<nav class="">
+        $this->assertRenderedView(<<<HTML
+<nav class="pagination">
     <ul>
-        <li><span class="prev disabled">Previous</span></li>
-        <li><span class="current">1</span></li>
-        <li><a class="item" href="|2|">2</a></li>
-        <li><a class="item" href="|3|">3</a></li>
-        <li><a class="item" href="|4|">4</a></li>
-        <li><a class="item" href="|5|">5</a></li>
-        <li><span class="dots">&hellip;</span></li>
-        <li><a class="item" href="|100|">100</a></li>
-        <li><a class="item next" href="|2|" rel="next">Next</a></li>
+        <li><span class="pagination__item pagination__item--previous-page pagination__item--disabled">Previous</span></li>
+        <li><span class="pagination__item pagination__item--current-page">1</span></li>
+        <li><a class="pagination__item" href="|2|">2</a></li>
+        <li><a class="pagination__item" href="|3|">3</a></li>
+        <li><a class="pagination__item" href="|4|">4</a></li>
+        <li><a class="pagination__item" href="|5|">5</a></li>
+        <li><span class="pagination__item pagination__item--separator">&hellip;</span></li>
+        <li><a class="pagination__item" href="|100|">100</a></li>
+        <li><a class="pagination__item pagination__item--next-page" href="|2|" rel="next">Next</a></li>
     </ul>
 </nav>
-EOF
+HTML
         , $this->renderView($options));
     }
 
