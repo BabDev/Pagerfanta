@@ -1,6 +1,6 @@
 # Pagerfanta
 
-[![Latest Stable Version](https://poser.pugx.org/pagerfanta/pagerfanta/v/stable)](https://packagist.org/packages/pagerfanta/pagerfanta) [![Latest Unstable Version](https://poser.pugx.org/pagerfanta/pagerfanta/v/unstable)](https://packagist.org/packages/pagerfanta/pagerfanta) [![Total Downloads](https://poser.pugx.org/pagerfanta/pagerfanta/downloads)](https://packagist.org/packages/pagerfanta/pagerfanta) [![License](https://poser.pugx.org/pagerfanta/pagerfanta/license)](https://packagist.org/packages/pagerfanta/pagerfanta) ![Run Tests](https://github.com/BabDev/Pagerfanta/workflows/Run%20Tests/badge.svg?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/pagerfanta/pagerfanta/v/stable)](https://packagist.org/packages/pagerfanta/pagerfanta) [![Latest Unstable Version](https://poser.pugx.org/pagerfanta/pagerfanta/v/unstable)](https://packagist.org/packages/pagerfanta/pagerfanta) [![Total Downloads](https://poser.pugx.org/pagerfanta/pagerfanta/downloads)](https://packagist.org/packages/pagerfanta/pagerfanta) [![License](https://poser.pugx.org/pagerfanta/pagerfanta/license)](https://packagist.org/packages/pagerfanta/pagerfanta) ![Run Tests](https://github.com/BabDev/Pagerfanta/workflows/Run%20Tests/badge.svg?branch=2.x)
 
 Pagerfanta is a PHP library which helps with calculating and rendering paginated lists with support for a number of data providers.
 
