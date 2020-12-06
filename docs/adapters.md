@@ -1,6 +1,6 @@
 # Available Adapters
 
-The Pagerfanta package provides out-of-the-box support for a number of storage backends. Please review the [installation guide](/open-source/packages/pagerfanta/docs/2.x/intro) for details on how to install optional packages.
+The Pagerfanta package provides out-of-the-box support for a number of storage backends. Please review the [installation guide](/open-source/packages/pagerfanta/docs/3.x/intro) for details on how to install optional packages.
 
 ## Third Party
 
