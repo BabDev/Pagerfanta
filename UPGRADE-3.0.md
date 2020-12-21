@@ -8,10 +8,12 @@ The below guide will assist in upgrading from the 2.x versions to 3.0.
 
 ## General Changes
 
-- Dropped support for versions of Doctrine DBAL before 2.11
-- Dropped support for versions of Doctrine ORM before 2.7
-- Dropped support for versions of Elastica before 5.0
-- Dropped support for versions of Solarium before 4.0
+- Dropped support for versions of Doctrine Collections before 1.6
+- Dropped support for versions of Doctrine DBAL before 2.12
+- Dropped support for versions of Doctrine ORM before 2.8
+- Dropped support for versions of Doctrine PHPCR ODM before 1.5
+- Dropped support for versions of Elastica before 6.0
+- Dropped support for versions of Solarium before 5.0
 - The `Pagerfanta\View\ViewFactory` class is now final
 - Added `@method` annotated methods to their interfaces
 - `Pagerfanta\PagerfantaInterface` now extends `Countable` and `IteratorAggregate`

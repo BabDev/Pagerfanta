@@ -258,12 +258,12 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.4]
-        elastica: [^5.0, ^6.0, ^7.0]
+        elastica: [^6.0, ^7.0]
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
           - php: 7.4
-            elastica: ^5.0
+            elastica: ^6.0
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
           - php: 8.0
@@ -305,12 +305,12 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.4]
-        solarium: [^4.0, ^5.0, ^6.0]
+        solarium: [^5.0, ^6.0]
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
           - php: 7.4
-            solarium: ^4.0
+            solarium: ^5.0
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
           - php: 8.0
