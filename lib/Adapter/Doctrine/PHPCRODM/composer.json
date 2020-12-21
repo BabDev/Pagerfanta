@@ -10,8 +10,8 @@
         "pagerfanta/core": "^3.0"
     },
     "require-dev": {
-        "jackalope/jackalope-doctrine-dbal": "^1.5",
-        "phpunit/phpunit": "^9.3"
+        "jackalope/jackalope-doctrine-dbal": "^1.6",
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
