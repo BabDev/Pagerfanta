@@ -26,12 +26,12 @@
     },
     "conflict": {
         "doctrine/collections": "<1.6",
-        "doctrine/dbal": "<2.11",
+        "doctrine/dbal": "<2.12",
         "doctrine/mongodb-odm": "<2.0",
-        "doctrine/orm": "<2.7",
-        "doctrine/phpcr-odm": "<1.4",
-        "ruflin/elastica": "<5.0",
-        "solarium/solarium": "<4.0",
+        "doctrine/orm": "<2.8",
+        "doctrine/phpcr-odm": "<1.5",
+        "ruflin/elastica": "<6.0",
+        "solarium/solarium": "<5.0",
         "twig/twig": "<1.35 || >=2.0,<2.5"
     },
     "suggest": {
