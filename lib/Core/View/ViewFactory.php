@@ -51,15 +51,8 @@ final class ViewFactory implements ViewFactoryInterface
         return isset($this->views[$name]);
     }
 
-    /**
-     * @throws InvalidArgumentException if the view does not exist
-     */
     public function remove(string $name): void
     {
-        if (!$this->has($name)) {
-            throw new InvalidArgumentException(sprintf('The view "%s" does not exist.', $name));
-        }
-
         unset($this->views[$name]);
     }
 

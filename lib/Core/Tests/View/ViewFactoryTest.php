@@ -25,6 +25,7 @@ final class ViewFactoryTest extends TestCase
 
         $this->assertSame($view1, $factory->get('foo'));
         $this->assertSame($view2, $factory->get('bar'));
+
         try {
             $factory->get('foobar');
             $this->fail();
@@ -61,12 +62,6 @@ final class ViewFactoryTest extends TestCase
             'ups' => $view3,
             'man' => $view4,
         ], $factory->all());
-        try {
-            $factory->remove('foobar');
-            $this->fail();
-        } catch (\Exception $e) {
-            $this->assertInstanceOf(InvalidArgumentException::class, $e);
-        }
 
         $factory->clear();
         $this->assertSame([], $factory->all());

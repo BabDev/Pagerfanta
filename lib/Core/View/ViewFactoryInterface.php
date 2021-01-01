@@ -25,9 +25,6 @@ interface ViewFactoryInterface
 
     public function has(string $name): bool;
 
-    /**
-     * @throws InvalidArgumentException if the view does not exist
-     */
     public function remove(string $name): void;
 
     public function set(string $name, ViewInterface $view): void;

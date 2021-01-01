@@ -15,6 +15,7 @@ The below guide will assist in upgrading from the 2.x versions to 3.0.
 - Dropped support for versions of Elastica before 6.0
 - Dropped support for versions of Solarium before 5.0
 - The `Pagerfanta\View\ViewFactory` class is now final
+- `Pagerfanta\View\ViewFactoryInterface::remove()` is no longer required to throw an exception if the view to remove is not set
 - Added `@method` annotated methods to their interfaces
 - `Pagerfanta\PagerfantaInterface` now extends `Countable` and `IteratorAggregate`
 - Renamed the `dots_text` option for the default template to `dots_message` for consistency with other templates and consistently use the HTML entity for an ellipsis instead of separated characters
