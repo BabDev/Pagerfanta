@@ -24,7 +24,7 @@ final class ViewFactory implements ViewFactoryInterface
     /**
      * @return array<string, ViewInterface>
      */
-    public function all()
+    public function all(): array
     {
         return $this->views;
     }
