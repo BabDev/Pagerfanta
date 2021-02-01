@@ -46,6 +46,11 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     private $nbResults;
 
     /**
+     * @var int
+     */
+    private $maxNbPages;
+
+    /**
      * @var iterable|null
      */
     private $currentPageResults;
@@ -383,6 +388,10 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
             return $this->minimumNbPages();
         }
 
+        if ($this->maxNbPages && $this->maxNbPages < $nbPages) {
+            return $this->maxNbPages;
+        }
+
         return $nbPages;
     }
 
@@ -545,5 +554,19 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     private function needsToIntegerConversion($value): bool
     {
         return (\is_string($value) || \is_float($value)) && (int) $value == $value;
+    }
+
+    /**
+     * @param int $maxNbPages
+     */
+    public function setMaxNbPages(int $maxNbPages): self
+    {
+        if ($maxNbPages < 1)  {
+            throw new LogicException('You can\'t set maxNbPages < 1');
+        }
+
+        $this->maxNbPages = $maxNbPages;
+
+        return $this;
     }
 }

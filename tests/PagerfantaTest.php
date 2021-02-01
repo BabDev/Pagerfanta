@@ -132,6 +132,17 @@ class PagerfantaTest extends TestCase
     }
 
     /**
+     * @param int $maxNbrPages
+     *
+     * @dataProvider dataCountsAsIntegers
+     */
+    public function testTheMaximumNumberPagesCanBeSet($maxNbrPages): void
+    {
+        $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxNbPages($maxNbrPages), 'setMaxNbrPages has a fluent interface');
+        $this->assertTrue($this->pagerfanta->getNbPages() <= $maxNbrPages);
+    }
+
+    /**
      * @param mixed $maxPerPage
      *
      * @dataProvider dataCountsAsNonIntegers
