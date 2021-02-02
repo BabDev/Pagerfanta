@@ -4,6 +4,7 @@ namespace Pagerfanta\Tests;
 
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Exception\LessThan1CurrentPageException;
+use Pagerfanta\Exception\LessThan1MaxPagesException;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\NotBooleanException;
@@ -132,17 +133,6 @@ class PagerfantaTest extends TestCase
     }
 
     /**
-     * @param int $maxNbrPages
-     *
-     * @dataProvider dataCountsAsIntegers
-     */
-    public function testTheMaximumNumberPagesCanBeSet($maxNbrPages): void
-    {
-        $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxNbPages($maxNbrPages), 'setMaxNbrPages has a fluent interface');
-        $this->assertTrue($this->pagerfanta->getNbPages() <= $maxNbrPages);
-    }
-
-    /**
      * @param mixed $maxPerPage
      *
      * @dataProvider dataCountsAsNonIntegers
@@ -239,6 +229,22 @@ class PagerfantaTest extends TestCase
             ->willReturn(0);
 
         $this->assertSame(1, $this->pagerfanta->getNbPages());
+    }
+
+    public function testTheMaximumNumberPagesCanBeSet(): void
+    {
+        $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxNbPages(10), 'setMaxNbPages has a fluent interface');
+        $this->assertTrue($this->pagerfanta->getNbPages() <= 10);
+    }
+
+    /**
+     * @dataProvider dataLessThan1
+     */
+    public function testSetMaxNbPagesShouldThrowExceptionWhenLessThan1(int $maxPages): void
+    {
+        $this->expectException(LessThan1MaxPagesException::class);
+
+        $this->pagerfanta->setMaxNbPages($maxPages);
     }
 
     /**

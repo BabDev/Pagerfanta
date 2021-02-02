@@ -1,9 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace Pagerfanta;
 
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Exception\LessThan1CurrentPageException;
+use Pagerfanta\Exception\LessThan1MaxPagesException;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\NotBooleanException;
@@ -406,6 +408,20 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
+     * @throws LessThan1MaxPagesException if the max number of pages is less than 1
+     */
+    public function setMaxNbPages(int $maxNbPages): self
+    {
+        if ($maxNbPages < 1) {
+            throw new LessThan1MaxPagesException();
+        }
+
+        $this->maxNbPages = $maxNbPages;
+
+        return $this;
+    }
+
+    /**
      * @return bool
      */
     public function haveToPaginate()
@@ -535,8 +551,6 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
-     * @param mixed $value
-     *
      * @return int
      */
     private function toInteger($value)
@@ -548,25 +562,8 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $value;
     }
 
-    /**
-     * @param mixed $value
-     */
     private function needsToIntegerConversion($value): bool
     {
         return (\is_string($value) || \is_float($value)) && (int) $value == $value;
-    }
-
-    /**
-     * @param int $maxNbPages
-     */
-    public function setMaxNbPages(int $maxNbPages): self
-    {
-        if ($maxNbPages < 1)  {
-            throw new LogicException('You can\'t set maxNbPages < 1');
-        }
-
-        $this->maxNbPages = $maxNbPages;
-
-        return $this;
     }
 }
