@@ -231,15 +231,23 @@ class PagerfantaTest extends TestCase
         $this->assertSame(1, $this->pagerfanta->getNbPages());
     }
 
-    public function testTheMaximumNumberPagesCanBeSet(): void
+    public function testTheMaximumNumberPagesCanBeSetAndReset(): void
     {
+        // Fake 10 pages being expected
+        $this->adapter->expects($this->once())
+            ->method('getNbResults')
+            ->willReturn(100);
+
         $originalPageCount = $this->pagerfanta->getNbPages();
 
-        $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxNbPages(10), 'setMaxNbPages has a fluent interface');
-        $this->assertTrue($this->pagerfanta->getNbPages() <= 10);
+        $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxNbPages(5), 'setMaxNbPages has a fluent interface');
+        $this->assertSame(5, $this->pagerfanta->getNbPages(), 'The configured maximum number of pages should be used');
 
-        $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxNbPages(null), 'setMaxNbPages has a fluent interface');
-        $this->assertSame($originalPageCount, $this->pagerfanta->getNbPages());
+        $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxNbPages(15), 'setMaxNbPages has a fluent interface');
+        $this->assertSame($originalPageCount, $this->pagerfanta->getNbPages(), 'When the configured maximum number of pages is less than the real number of pages, then the number of pages should be used');
+
+        $this->assertSame($this->pagerfanta, $this->pagerfanta->resetMaxNbPages(), 'resetMaxNbPages has a fluent interface');
+        $this->assertSame($originalPageCount, $this->pagerfanta->getNbPages(), 'When there is no maximum number of pages configured, then the number of pages should be used');
     }
 
     /**
