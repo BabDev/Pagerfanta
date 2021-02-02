@@ -93,6 +93,30 @@ $pagerfanta->setMaxPerPage(50);
 $pagerfanta->getNbPages(); // Will return 1
 ```
 
+## Set and Reset Maximum Number Of Pages In List
+
+You can set the maximum number of pages for your list using the `setMaxNbPages` method on the `Pagerfanta` instance.
+
+You can reset the maximum number of pages to the number of pages determined by the pagination settings using the `resetMaxNbPages` method on the `Pagerfanta` instance.
+
+```php
+<?php
+
+use Pagerfanta\Adapter\NullAdapter;
+use Pagerfanta\Pagerfanta;
+
+$pagerfanta = new Pagerfanta(new NullAdapter(30));
+
+$pagerfanta->setMaxNbPages(2);
+$pagerfanta->getNbPages(); // Will return 2
+
+$pagerfanta->setMaxNbPages(5);
+$pagerfanta->getNbPages(); // Will return 3 since the configured max is less than the number of pages
+
+$pagerfanta->resetMaxNbPages();
+$pagerfanta->getNbPages(); // Will return 3 since there is no configured max
+```
+
 ## Previous/Next Page Helpers
 
 You can check if the list has a previous or next page using the `hasPreviousPage` and `hasNextMethods` methods respectively on the `Pagerfanta` instance.
