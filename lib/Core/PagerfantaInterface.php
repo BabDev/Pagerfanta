@@ -19,6 +19,8 @@ use Pagerfanta\Adapter\AdapterInterface;
  * @method int                 getCurrentPageOffsetEnd()
  * @method int                 getNbResults()
  * @method int                 getNbPages()
+ * @method PagerfantaInterface setMaxNbPages(int $maxNbPages)
+ * @method PagerfantaInterface resetMaxNbPages()
  * @method bool                haveToPaginate()
  * @method bool                hasPreviousPage()
  * @method int                 getPreviousPage()
