@@ -233,8 +233,13 @@ class PagerfantaTest extends TestCase
 
     public function testTheMaximumNumberPagesCanBeSet(): void
     {
+        $originalPageCount = $this->pagerfanta->getNbPages();
+
         $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxNbPages(10), 'setMaxNbPages has a fluent interface');
         $this->assertTrue($this->pagerfanta->getNbPages() <= 10);
+
+        $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxNbPages(null), 'setMaxNbPages has a fluent interface');
+        $this->assertSame($originalPageCount, $this->pagerfanta->getNbPages());
     }
 
     /**
