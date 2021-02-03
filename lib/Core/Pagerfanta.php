@@ -245,7 +245,7 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
      */
     public function setMaxNbPages(int $maxNbPages): PagerfantaInterface
     {
-        if (null !== $maxNbPages && $maxNbPages < 1) {
+        if ($maxNbPages < 1) {
             throw new LessThan1MaxPagesException();
         }
 
