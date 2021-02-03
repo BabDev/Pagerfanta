@@ -4,14 +4,11 @@ namespace Pagerfanta;
 
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Exception\LessThan1CurrentPageException;
+use Pagerfanta\Exception\LessThan1MaxPagesException;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
-/**
- * @method PagerfantaInterface setMaxNbPages(int $maxNbPages)
- * @method PagerfantaInterface resetMaxNbPages()
- */
 interface PagerfantaInterface extends \Countable, \IteratorAggregate
 {
     public function getAdapter(): AdapterInterface;
@@ -48,6 +45,13 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function getNbResults(): int;
 
     public function getNbPages(): int;
+
+    /**
+     * @throws LessThan1MaxPagesException if the max number of pages is less than 1
+     */
+    public function setMaxNbPages(int $maxNbPages): PagerfantaInterface;
+
+    public function resetMaxNbPages(): PagerfantaInterface;
 
     public function haveToPaginate(): bool;
 
