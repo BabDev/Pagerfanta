@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.0 (2021-02-02)
+
+- Add support for setting a maximum number of pages
+
 ## 2.5.1 (2020-11-15)
 
 - Add `doctrine/dbal` 3.0 support
