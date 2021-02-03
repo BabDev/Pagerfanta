@@ -81,8 +81,6 @@ class PagerfantaTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @dataProvider dataNotBoolean
      */
     public function testSettingOutOfRangePagesRejectsNonBooleanValues($value): void
@@ -104,8 +102,6 @@ class PagerfantaTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @dataProvider dataNotBoolean
      */
     public function testNormalizingOutOfRangePagesRejectsNonBooleanValues($value): void
@@ -133,8 +129,6 @@ class PagerfantaTest extends TestCase
     }
 
     /**
-     * @param mixed $maxPerPage
-     *
      * @dataProvider dataCountsAsNonIntegers
      */
     public function testTheMaximumNumberOfItemsPerPageCannotBeSetWithNonIntegerValues($maxPerPage): void
@@ -281,8 +275,6 @@ class PagerfantaTest extends TestCase
     }
 
     /**
-     * @param mixed $currentPage
-     *
      * @dataProvider dataCountsAsNonIntegers
      */
     public function testTheCurrentPageNumberCannotBeSetWithNonIntegerValues($currentPage): void

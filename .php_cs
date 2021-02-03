@@ -9,6 +9,7 @@ return (new PhpCsFixer\Config())
         'blank_line_after_opening_tag' => false,
         'declare_strict_types' => false,
         'fopen_flags' => false,
+        'linebreak_after_opening_tag' => false,
         'no_superfluous_phpdoc_tags' => ['remove_inheritdoc' => true],
         'ordered_imports' => true,
         'protected_to_private' => true,

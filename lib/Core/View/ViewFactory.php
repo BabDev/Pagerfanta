@@ -7,7 +7,7 @@ use Pagerfanta\Exception\InvalidArgumentException;
 /**
  * @final
  */
-/* final */class ViewFactory implements ViewFactoryInterface
+/* final */ class ViewFactory implements ViewFactoryInterface
 {
     /**
      * @var array<string, ViewInterface>
