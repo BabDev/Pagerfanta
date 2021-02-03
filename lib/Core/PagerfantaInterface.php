@@ -13,18 +13,18 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
 {
     public function getAdapter(): AdapterInterface;
 
-    public function setAllowOutOfRangePages(bool $allowOutOfRangePages): PagerfantaInterface;
+    public function setAllowOutOfRangePages(bool $allowOutOfRangePages): self;
 
     public function getAllowOutOfRangePages(): bool;
 
-    public function setNormalizeOutOfRangePages(bool $normalizeOutOfRangePages): PagerfantaInterface;
+    public function setNormalizeOutOfRangePages(bool $normalizeOutOfRangePages): self;
 
     public function getNormalizeOutOfRangePages(): bool;
 
     /**
      * @throws LessThan1MaxPerPageException if the page is less than 1
      */
-    public function setMaxPerPage(int $maxPerPage): PagerfantaInterface;
+    public function setMaxPerPage(int $maxPerPage): self;
 
     public function getMaxPerPage(): int;
 
@@ -32,7 +32,7 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
      * @throws LessThan1CurrentPageException  if the current page is less than 1
      * @throws OutOfRangeCurrentPageException if It is not allowed out of range pages and they are not normalized
      */
-    public function setCurrentPage(int $currentPage): PagerfantaInterface;
+    public function setCurrentPage(int $currentPage): self;
 
     public function getCurrentPage(): int;
 
@@ -49,9 +49,9 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     /**
      * @throws LessThan1MaxPagesException if the max number of pages is less than 1
      */
-    public function setMaxNbPages(int $maxNbPages): PagerfantaInterface;
+    public function setMaxNbPages(int $maxNbPages): self;
 
-    public function resetMaxNbPages(): PagerfantaInterface;
+    public function resetMaxNbPages(): self;
 
     public function haveToPaginate(): bool;
 
