@@ -8,6 +8,10 @@ use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
+/**
+ * @method PagerfantaInterface setMaxNbPages(int $maxNbPages)
+ * @method PagerfantaInterface resetMaxNbPages()
+ */
 interface PagerfantaInterface extends \Countable, \IteratorAggregate
 {
     public function getAdapter(): AdapterInterface;

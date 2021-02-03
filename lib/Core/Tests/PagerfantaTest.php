@@ -4,6 +4,7 @@ namespace Pagerfanta\Tests;
 
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Exception\LessThan1CurrentPageException;
+use Pagerfanta\Exception\LessThan1MaxPagesException;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
@@ -171,6 +172,35 @@ final class PagerfantaTest extends TestCase
             ->willReturn(0);
 
         $this->assertSame(1, $this->pagerfanta->getNbPages());
+    }
+
+    public function testTheMaximumNumberPagesCanBeSetAndReset(): void
+    {
+        // Fake 10 pages being expected
+        $this->adapter->expects($this->once())
+            ->method('getNbResults')
+            ->willReturn(100);
+
+        $originalPageCount = $this->pagerfanta->getNbPages();
+
+        $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxNbPages(5), 'setMaxNbPages has a fluent interface');
+        $this->assertSame(5, $this->pagerfanta->getNbPages(), 'The configured maximum number of pages should be used');
+
+        $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxNbPages(15), 'setMaxNbPages has a fluent interface');
+        $this->assertSame($originalPageCount, $this->pagerfanta->getNbPages(), 'When the configured maximum number of pages is less than the real number of pages, then the number of pages should be used');
+
+        $this->assertSame($this->pagerfanta, $this->pagerfanta->resetMaxNbPages(), 'resetMaxNbPages has a fluent interface');
+        $this->assertSame($originalPageCount, $this->pagerfanta->getNbPages(), 'When there is no maximum number of pages configured, then the number of pages should be used');
+    }
+
+    /**
+     * @dataProvider dataLessThan1
+     */
+    public function testSetMaxNbPagesShouldThrowExceptionWhenLessThan1(int $maxPages): void
+    {
+        $this->expectException(LessThan1MaxPagesException::class);
+
+        $this->pagerfanta->setMaxNbPages($maxPages);
     }
 
     /**

@@ -12,10 +12,6 @@ parameters:
       path: %currentWorkingDirectory%/lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
 
     -
-      message: '/Unreachable statement - code above always terminates\./'
-      path: %currentWorkingDirectory%/lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
-
-    -
       message: '/Call to method PHPUnit\\Framework\\Assert::assertSame\(\) with Elastica\\ResultSet\&PHPUnit\\Framework\\MockObject\\MockObject and null will always evaluate to false\./'
       path: %currentWorkingDirectory%/lib/Adapter/Elastica/Tests/ElasticaAdapterTest.php
 

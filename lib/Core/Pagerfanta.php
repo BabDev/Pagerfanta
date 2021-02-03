@@ -4,6 +4,7 @@ namespace Pagerfanta;
 
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Exception\LessThan1CurrentPageException;
+use Pagerfanta\Exception\LessThan1MaxPagesException;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfBoundsException;
@@ -17,6 +18,7 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     private int $maxPerPage = 10;
     private int $currentPage = 1;
     private ?int $nbResults = null;
+    private ?int $maxNbPages = null;
     private ?iterable $currentPageResults = null;
 
     public function __construct(AdapterInterface $adapter)
@@ -221,6 +223,10 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
             return $this->minimumNbPages();
         }
 
+        if (null !== $this->maxNbPages && $this->maxNbPages < $nbPages) {
+            return $this->maxNbPages;
+        }
+
         return $nbPages;
     }
 
@@ -232,6 +238,27 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     private function minimumNbPages(): int
     {
         return 1;
+    }
+
+    /**
+     * @throws LessThan1MaxPagesException if the max number of pages is less than 1
+     */
+    public function setMaxNbPages(int $maxNbPages): self
+    {
+        if (null !== $maxNbPages && $maxNbPages < 1) {
+            throw new LessThan1MaxPagesException();
+        }
+
+        $this->maxNbPages = $maxNbPages;
+
+        return $this;
+    }
+
+    public function resetMaxNbPages(): self
+    {
+        $this->maxNbPages = null;
+
+        return $this;
     }
 
     public function haveToPaginate(): bool
