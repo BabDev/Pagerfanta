@@ -411,7 +411,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
      */
     public function setMaxNbPages(int $maxNbPages): self
     {
-        if (null !== $maxNbPages && $maxNbPages < 1) {
+        if ($maxNbPages < 1) {
             throw new LessThan1MaxPagesException();
         }
 
