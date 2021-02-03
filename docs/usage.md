@@ -95,8 +95,6 @@ $pagerfanta->getNbPages(); // Will return 1
 
 ## Set and Reset Maximum Number Of Pages In List
 
-<div class="docs-note docs-note--new-feature">This feature was introduced in Pagerfanta 2.6.</div>
-
 You can set the maximum number of pages for your list using the `setMaxNbPages` method on the `Pagerfanta` instance.
 
 You can reset the maximum number of pages to the number of pages determined by the pagination settings using the `resetMaxNbPages` method on the `Pagerfanta` instance.
