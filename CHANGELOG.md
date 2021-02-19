@@ -2,7 +2,8 @@
 
 ## 2.7.0 (2021-02-18)
 
-- Add Bootstrap 5 PHP and Twig templates 
+- Add Bootstrap 5 PHP and Twig templates
+- Add doc blocks to improve static analysis
 
 ## 2.6.0 (2021-02-02)
 

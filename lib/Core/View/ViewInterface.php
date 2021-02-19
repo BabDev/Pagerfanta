@@ -11,7 +11,7 @@ interface ViewInterface
      *
      * The route generator can be any callable to generate the routes receiving the page number as first and unique argument.
      *
-     * @param callable $routeGenerator
+     * @param callable             $routeGenerator
      * @param array<string, mixed> $options
      *
      * @return string

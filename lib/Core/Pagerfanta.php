@@ -491,7 +491,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
-     * @return \Traversable
+     * @return \Traversable<mixed>
      */
     public function getIterator()
     {
