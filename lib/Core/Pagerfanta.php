@@ -10,6 +10,9 @@ use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfBoundsException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
+/**
+ * @implements \IteratorAggregate<mixed>
+ */
 class Pagerfanta implements PagerfantaInterface, \JsonSerializable
 {
     private AdapterInterface $adapter;
@@ -305,6 +308,9 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
         return $this->getNbResults();
     }
 
+    /**
+     * @return \Traversable<mixed>
+     */
     public function getIterator(): \Traversable
     {
         $results = $this->getCurrentPageResults();
