@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.0 (2021-02-18)
+
+- Add Bootstrap 5 PHP and Twig templates 
+
 ## 2.6.0 (2021-02-02)
 
 - Add support for setting a maximum number of pages
