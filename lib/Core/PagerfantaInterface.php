@@ -9,6 +9,9 @@ use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
+/**
+ * @extends \IteratorAggregate<mixed>
+ */
 interface PagerfantaInterface extends \Countable, \IteratorAggregate
 {
     public function getAdapter(): AdapterInterface;
