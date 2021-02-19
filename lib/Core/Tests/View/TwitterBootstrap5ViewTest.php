@@ -5,7 +5,7 @@ namespace Pagerfanta\Tests\View;
 use Pagerfanta\View\TwitterBootstrap5View;
 use Pagerfanta\View\ViewInterface;
 
-class TwitterBootstrap5ViewTest extends TwitterBootstrapViewTest
+final class TwitterBootstrap5ViewTest extends TwitterBootstrapViewTest
 {
     protected function createView(): ViewInterface
     {
