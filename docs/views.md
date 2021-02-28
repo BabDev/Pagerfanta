@@ -48,6 +48,7 @@ Below is a list of the views that are available with this package, and the corre
 | `twitter_bootstrap`  | `Pagerfanta\View\TwitterBootstrapView`  | `Pagerfanta\View\Template\TwitterBootstrapTemplate`  |
 | `twitter_bootstrap3` | `Pagerfanta\View\TwitterBootstrap3View` | `Pagerfanta\View\Template\TwitterBootstrap3Template` |
 | `twitter_bootstrap4` | `Pagerfanta\View\TwitterBootstrap4View` | `Pagerfanta\View\Template\TwitterBootstrap4Template` |
+| `twitter_bootstrap5` | `Pagerfanta\View\TwitterBootstrap5View` | `Pagerfanta\View\Template\TwitterBootstrap5Template` |
 
 ## Twig View
 
