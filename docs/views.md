@@ -117,8 +117,8 @@ For this you can define views with the `Pagerfanta\View\OptionableView` class, w
 ```php
 <?php
 
-use Pagerfanta\DefaultView;
-use Pagerfanta\OptionableView;
+use Pagerfanta\View\DefaultView;
+use Pagerfanta\View\OptionableView;
 
 $defaultView = new DefaultView();
 
