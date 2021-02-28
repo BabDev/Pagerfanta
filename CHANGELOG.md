@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.1 (2021-02-28)
+
+- Fix the Tailwind Twig template using a hardcoded English string
+
 ## 2.7.0 (2021-02-18)
 
 - Add Bootstrap 5 PHP and Twig templates
