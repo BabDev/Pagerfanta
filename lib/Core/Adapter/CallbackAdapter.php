@@ -11,17 +11,19 @@ class CallbackAdapter implements AdapterInterface
 {
     /**
      * @var callable
+     * @phpstan-var callable(): int
      */
     private $nbResultsCallable;
 
     /**
      * @var callable
+     * @phpstan-var callable(int $offset, int $length): iterable
      */
     private $sliceCallable;
 
     /**
-     * @param callable $nbResultsCallable a callable to retrieve the number of results in the lookup, the callable should have a signature of `function (): int {}`
-     * @param callable $sliceCallable     a callable to retrieve the results for the current page, the callable should have a signature of `function (int $offset, int $length): iterable {}`
+     * @phpstan-param callable(): int                              $nbResultsCallable
+     * @phpstan-param callable(int $offset, int $length): iterable $sliceCallable
      *
      * @throws InvalidArgumentException if a non-callable was passed as either constructor argument
      */

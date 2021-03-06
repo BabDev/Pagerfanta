@@ -22,7 +22,7 @@ class CallbackAdapterTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new CallbackAdapter($value, static function (int $offset, int $length): void {});
+        new CallbackAdapter($value, static function (int $offset, int $length): iterable { return []; });
     }
 
     /**
@@ -32,7 +32,7 @@ class CallbackAdapterTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new CallbackAdapter(static function (): void {}, $value);
+        new CallbackAdapter(static function (): int { return 0; }, $value);
     }
 
     public function testAdapterReturnsNumberOfItemsInResultSet(): void
@@ -41,7 +41,7 @@ class CallbackAdapterTest extends TestCase
 
         $adapter = new CallbackAdapter(
             static function () use ($expected): int { return $expected; },
-            static function (int $offset, int $length): void {}
+            static function (int $offset, int $length): iterable { return []; }
         );
 
         $this->assertSame($expected, $adapter->getNbResults());
@@ -52,7 +52,7 @@ class CallbackAdapterTest extends TestCase
         $expected = new \ArrayObject();
 
         $adapter = new CallbackAdapter(
-            static function (): void {},
+            static function (): int { return 0; },
             static function (int $offset, int $length) use ($expected): iterable { return $expected; }
         );
 
@@ -61,9 +61,6 @@ class CallbackAdapterTest extends TestCase
 
     public function testGetSliceShouldPassTheOffsetAndLengthToTheGetSliceCallback(): void
     {
-        $offset = 10;
-        $length = 18;
-
         $sliceCallable = function (int $offset, int $length): iterable {
             $this->assertSame(10, $offset);
             $this->assertSame(18, $length);
@@ -72,7 +69,7 @@ class CallbackAdapterTest extends TestCase
         };
 
         $adapter = new CallbackAdapter(
-            static function (): void {},
+            static function (): int { return 10; },
             $sliceCallable
         );
         $adapter->getSlice(10, 18);
