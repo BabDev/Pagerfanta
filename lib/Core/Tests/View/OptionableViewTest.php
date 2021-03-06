@@ -30,7 +30,7 @@ final class OptionableViewTest extends TestCase
 
     private function createRouteGenerator(): \Closure
     {
-        return static function (int $page): string { return ''; };
+        return static fn (int $page) => '';
     }
 
     public function testRenderShouldDelegateToTheView(): void

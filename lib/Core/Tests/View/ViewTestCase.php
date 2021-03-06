@@ -63,7 +63,7 @@ abstract class ViewTestCase extends TestCase
 
     protected function createRouteGenerator(): \Closure
     {
-        return static function (int $page): string { return '|'.$page.'|'; };
+        return static fn (int $page) => '|'.$page.'|';
     }
 
     protected function assertRenderedView(string $expected, string $result): void

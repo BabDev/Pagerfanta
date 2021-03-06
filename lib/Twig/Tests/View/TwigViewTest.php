@@ -117,6 +117,6 @@ final class TwigViewTest extends TestCase
 
     private function createRouteGenerator(): callable
     {
-        return static function (int $page): string { return ''; };
+        return static fn (int $page) => '';
     }
 }

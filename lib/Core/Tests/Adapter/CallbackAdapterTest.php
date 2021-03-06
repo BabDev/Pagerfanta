@@ -12,7 +12,7 @@ final class CallbackAdapterTest extends TestCase
         $expected = 42;
 
         $adapter = new CallbackAdapter(
-            static function () use ($expected): int { return $expected; },
+            static fn () => $expected,
             static function (int $offset, int $length): void {}
         );
 
@@ -25,7 +25,7 @@ final class CallbackAdapterTest extends TestCase
 
         $adapter = new CallbackAdapter(
             static function (): void {},
-            static function (int $offset, int $length) use ($expected): iterable { return $expected; }
+            static fn (int $offset, int $length) => $expected
         );
 
         $this->assertSame($expected, $adapter->getSlice(1, 1));
@@ -33,9 +33,6 @@ final class CallbackAdapterTest extends TestCase
 
     public function testGetSliceShouldPassTheOffsetAndLengthToTheGetSliceCallback(): void
     {
-        $offset = 10;
-        $length = 18;
-
         $sliceCallable = function (int $offset, int $length): iterable {
             $this->assertSame(10, $offset);
             $this->assertSame(18, $length);

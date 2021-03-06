@@ -87,12 +87,12 @@ final class ConcatenationAdapterTest extends TestCase
         $adapter = new ConcatenationAdapter(
             [
                 new CallbackAdapter(
-                    static function (): int { return 5; },
-                    static function (int $offset, int $length): iterable { return new \ArrayIterator(\array_slice([1, 2, 3, 4, 5], $offset, $length)); }
+                    static fn () => 5,
+                    static fn (int $offset, int $length) => new \ArrayIterator(\array_slice([1, 2, 3, 4, 5], $offset, $length))
                 ),
                 new CallbackAdapter(
-                    static function (): int { return 3; },
-                    static function (int $offset, int $length): iterable { return new \ArrayIterator(\array_slice([6, 7, 8], $offset, $length)); }
+                    static fn () => 3,
+                    static fn (int $offset, int $length) => new \ArrayIterator(\array_slice([6, 7, 8], $offset, $length))
                 ),
             ]
         );
