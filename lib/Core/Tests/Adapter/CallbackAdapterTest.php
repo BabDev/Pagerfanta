@@ -13,7 +13,7 @@ final class CallbackAdapterTest extends TestCase
 
         $adapter = new CallbackAdapter(
             static fn () => $expected,
-            static function (int $offset, int $length): void {}
+            static fn (int $offset, int $length) => []
         );
 
         $this->assertSame($expected, $adapter->getNbResults());
@@ -24,7 +24,7 @@ final class CallbackAdapterTest extends TestCase
         $expected = new \ArrayObject();
 
         $adapter = new CallbackAdapter(
-            static function (): void {},
+            static fn () => 0,
             static fn (int $offset, int $length) => $expected
         );
 
@@ -41,7 +41,7 @@ final class CallbackAdapterTest extends TestCase
         };
 
         $adapter = new CallbackAdapter(
-            static function (): void {},
+            static fn () => 10,
             $sliceCallable
         );
 

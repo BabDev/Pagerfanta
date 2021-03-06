@@ -15,11 +15,12 @@ class QueryAdapter implements AdapterInterface
 
     /**
      * @var callable
+     * @phpstan-var callable(QueryBuilder): void
      */
     private $countQueryBuilderModifier;
 
     /**
-     * @param callable $countQueryBuilderModifier a callable to modify the query builder to count the results, the callable should have a signature of `function (QueryBuilder $queryBuilder): void {}`
+     * @phpstan-param callable(QueryBuilder): void $countQueryBuilderModifier
      *
      * @throws InvalidArgumentException if a non-SELECT query is given
      */
