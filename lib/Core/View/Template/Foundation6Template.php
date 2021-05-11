@@ -19,8 +19,8 @@ class Foundation6Template extends Template
             'css_prev_class' => 'pagination-previous',
             'css_next_class' => 'pagination-next',
             'container_template' => '<nav aria-label="Pagination"><ul class="%s">%%pages%%</ul></nav>',
-            'rel_previous' => '',
-            'rel_next' => '',
+            'rel_previous' => 'prev',
+            'rel_next' => 'next',
         ];
     }
 
@@ -99,8 +99,6 @@ class Foundation6Template extends Template
         $liClass = sprintf(' class="%s"', trim($this->option('css_item_class').' '.$this->option('css_dots_class')));
 
         return sprintf('<li aria-hidden="true"%s>%s</li>', $liClass, $this->option('dots_message'));
-
-        return $this->li($this->option('css_dots_class'), $this->option('dots_message'));
     }
 
     /**

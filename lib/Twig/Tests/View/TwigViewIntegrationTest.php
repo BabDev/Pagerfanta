@@ -336,6 +336,44 @@ final class TwigViewIntegrationTest extends TestCase
     </div>
 </nav>',
         ];
+
+        yield 'Foundation 6 template at page 1' => [
+            1,
+            ['omitFirstPage' => false, 'template' => '@Pagerfanta/foundation6.html.twig'],
+            '<nav aria-label="Pagination">
+    <ul class="pagination">
+    <li class="pagination-previous disabled">Previous</li>
+    <li class="current" aria-current="page">1</li>
+    <li><a href="/pagerfanta-view?page=2">2</a></li>
+    <li><a href="/pagerfanta-view?page=3">3</a></li>
+    <li><a href="/pagerfanta-view?page=4">4</a></li>
+    <li><a href="/pagerfanta-view?page=5">5</a></li>
+    <li class="ellipsis" aria-hidden="true"></li>
+    <li><a href="/pagerfanta-view?page=10">10</a></li>
+    <li class="pagination-next"><a href="/pagerfanta-view?page=2" rel="next">Next</a></li>
+    </ul>
+</nav>',
+        ];
+
+        yield 'Foundation 6 template at page 5 with first page omitted' => [
+            5,
+            ['omitFirstPage' => true, 'template' => '@Pagerfanta/foundation6.html.twig'],
+            '<nav aria-label="Pagination">
+    <ul class="pagination">
+    <li class="pagination-previous"><a href="/pagerfanta-view?page=4" rel="prev">Previous</a></li>
+    <li><a href="/pagerfanta-view">1</a></li>
+    <li><a href="/pagerfanta-view?page=2">2</a></li>
+    <li><a href="/pagerfanta-view?page=3">3</a></li>
+    <li><a href="/pagerfanta-view?page=4">4</a></li>
+    <li class="current" aria-current="page">5</li>
+    <li><a href="/pagerfanta-view?page=6">6</a></li>
+    <li><a href="/pagerfanta-view?page=7">7</a></li>
+    <li class="ellipsis" aria-hidden="true"></li>
+    <li><a href="/pagerfanta-view?page=10">10</a></li>
+    <li class="pagination-next"><a href="/pagerfanta-view?page=6" rel="next">Next</a></li>
+    </ul>
+</nav>',
+        ];
     }
 
     /**
