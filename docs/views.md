@@ -44,6 +44,7 @@ Below is a list of the views that are available with this package, and the corre
 | View Name            | View Class Name                         | Template Class Name                                  |
 | -------------------- | --------------------------------------- | ---------------------------------------------------- |
 | `default`            | `Pagerfanta\View\DefaultView`           | `Pagerfanta\View\Template\DefaultTemplate`           |
+| `foundation6`        | `Pagerfanta\View\Foundation6View`       | `Pagerfanta\View\Template\Foundation6Template`       |
 | `semantic_ui`        | `Pagerfanta\View\SemanticUiView`        | `Pagerfanta\View\Template\SemanticUiTemplate`        |
 | `twitter_bootstrap`  | `Pagerfanta\View\TwitterBootstrapView`  | `Pagerfanta\View\Template\TwitterBootstrapTemplate`  |
 | `twitter_bootstrap3` | `Pagerfanta\View\TwitterBootstrap3View` | `Pagerfanta\View\Template\TwitterBootstrap3Template` |
