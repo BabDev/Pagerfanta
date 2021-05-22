@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.0 (????-??-??)
+
+- Deprecate accessors for injected dependencies in `PagerfantaInterface` and `AdapterInterface` implementations
+
 ## 3.1.0 (2021-05-11)
 
 - [#27](https://github.com/BabDev/Pagerfanta/pull/27) Add Foundation 6 templates

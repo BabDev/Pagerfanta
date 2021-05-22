@@ -26,8 +26,13 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
         $this->adapter = $adapter;
     }
 
+    /**
+     * @deprecated to be removed in 4.0
+     */
     public function getAdapter(): AdapterInterface
     {
+        trigger_deprecation('pagerfanta/pagerfanta', '3.2', 'Retrieving the %s from "%s" implementations is deprecated and will be removed in 4.0.', AdapterInterface::class, PagerfantaInterface::class);
+
         return $this->adapter;
     }
 

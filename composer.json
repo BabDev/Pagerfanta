@@ -6,7 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.4 || ^8.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "symfony/deprecation-contracts": "^2.1"
     },
     "require-dev": {
         "doctrine/collections": "^1.6",

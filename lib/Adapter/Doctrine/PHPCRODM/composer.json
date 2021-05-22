@@ -7,7 +7,8 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "doctrine/phpcr-odm": "^1.5",
-        "pagerfanta/core": "^3.0"
+        "pagerfanta/core": "^3.0",
+        "symfony/deprecation-contracts": "^2.1"
     },
     "require-dev": {
         "jackalope/jackalope-doctrine-dbal": "^1.6",
