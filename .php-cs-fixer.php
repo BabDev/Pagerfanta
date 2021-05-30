@@ -17,7 +17,7 @@ return (new PhpCsFixer\Config())
     ])
     ->setRiskyAllowed(true)
     ->setFinder(
-        PhpCsFixer\Finder::create()
+        (new PhpCsFixer\Finder())
             ->in(__DIR__.'/lib')
             ->in(__DIR__.'/src')
             ->in(__DIR__.'/tests')
