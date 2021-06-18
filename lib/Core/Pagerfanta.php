@@ -209,7 +209,7 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     public function getNbResults(): int
     {
         if ($this->notCachedNbResults()) {
-            $this->nbResults = $this->getAdapter()->getNbResults();
+            $this->nbResults = $this->adapter->getNbResults();
         }
 
         return $this->nbResults;
