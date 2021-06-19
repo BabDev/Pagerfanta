@@ -13,7 +13,7 @@ final class OptionableViewTest extends TestCase
     private const RENDERED_VIEW = 'rendered';
 
     /**
-     * @var MockObject|PagerfantaInterface
+     * @var MockObject&PagerfantaInterface
      */
     private $pagerfanta;
 
@@ -55,11 +55,11 @@ final class OptionableViewTest extends TestCase
     }
 
     /**
-     * @return MockObject|ViewInterface
+     * @return MockObject&ViewInterface
      */
     private function createViewMock(array $expectedOptions)
     {
-        /** @var MockObject|ViewInterface $view */
+        /** @var MockObject&ViewInterface $view */
         $view = $this->createMock(ViewInterface::class);
 
         $view->expects($this->once())

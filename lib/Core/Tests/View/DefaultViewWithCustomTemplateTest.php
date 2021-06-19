@@ -22,24 +22,23 @@ final class DefaultViewWithCustomTemplateTest extends ViewTestCase
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<div class="pagination">
-    <ul>
-        <li class=""><a href="|9|" rel="prev">Previous</a></li>
-        <li class=""><a href="|1|">1</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|8|">8</a></li>
-        <li class=""><a href="|9|">9</a></li>
-        <li class="active"><span>10</span></li>
-        <li class=""><a href="|11|">11</a></li>
-        <li class=""><a href="|12|">12</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|100|">100</a></li>
-        <li class=""><a href="|11|" rel="next">Next</a></li>
-    </ul>
-</div>
-EOF
-        , $this->renderView($options));
+        $this->assertRenderedView(<<<HTML
+            <div class="pagination">
+                <ul>
+                    <li class=""><a href="|9|" rel="prev">Previous</a></li>
+                    <li class=""><a href="|1|">1</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|8|">8</a></li>
+                    <li class=""><a href="|9|">9</a></li>
+                    <li class="active"><span>10</span></li>
+                    <li class=""><a href="|11|">11</a></li>
+                    <li class=""><a href="|12|">12</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|100|">100</a></li>
+                    <li class=""><a href="|11|" rel="next">Next</a></li>
+                </ul>
+            </div>
+            HTML, $this->renderView($options));
     }
 
     protected function filterExpectedView(string $expected): string

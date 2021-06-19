@@ -125,22 +125,22 @@ final class QueryAdapterTest extends ORMTestCase
     public function testResultSetIsLoadedWithCaseInSelectStatement(): void
     {
         $dql = <<<DQL
-SELECT p,
-CASE
-  WHEN p.name LIKE :keyword AND p.biography LIKE :keyword THEN 0
-  WHEN p.name LIKE :keyword THEN 1
-  WHEN p.biography LIKE :keyword THEN 2
-  ELSE 3
-END AS relevance
+            SELECT p,
+            CASE
+              WHEN p.name LIKE :keyword AND p.biography LIKE :keyword THEN 0
+              WHEN p.name LIKE :keyword THEN 1
+              WHEN p.biography LIKE :keyword THEN 2
+              ELSE 3
+            END AS relevance
 
-FROM Pagerfanta\Doctrine\ORM\Tests\Entity\Person p
-WHERE (
-     p.name LIKE :keyword
-  OR p.biography LIKE :keyword
-)
-GROUP BY p.id
-ORDER BY relevance ASC, p.id DESC
-DQL
+            FROM Pagerfanta\Doctrine\ORM\Tests\Entity\Person p
+            WHERE (
+                 p.name LIKE :keyword
+              OR p.biography LIKE :keyword
+            )
+            GROUP BY p.id
+            ORDER BY relevance ASC, p.id DESC
+            DQL
         ;
 
         $query = $this->entityManager->createQuery($dql);

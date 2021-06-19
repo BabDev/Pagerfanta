@@ -19,26 +19,25 @@ class TwitterBootstrapViewTest extends ViewTestCase
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<div class="pagination">
-    <ul>
-        <li class=""><a href="|9|" rel="prev">Previous</a></li>
-        <li class=""><a href="|1|">1</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|7|">7</a></li>
-        <li class=""><a href="|8|">8</a></li>
-        <li class=""><a href="|9|">9</a></li>
-        <li class="active"><span>10</span></li>
-        <li class=""><a href="|11|">11</a></li>
-        <li class=""><a href="|12|">12</a></li>
-        <li class=""><a href="|13|">13</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|100|">100</a></li>
-        <li class=""><a href="|11|" rel="next">Next</a></li>
-    </ul>
-</div>
-EOF
-        , $this->renderView($options));
+        $this->assertRenderedView(<<<HTML
+            <div class="pagination">
+                <ul>
+                    <li class=""><a href="|9|" rel="prev">Previous</a></li>
+                    <li class=""><a href="|1|">1</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|7|">7</a></li>
+                    <li class=""><a href="|8|">8</a></li>
+                    <li class=""><a href="|9|">9</a></li>
+                    <li class="active"><span>10</span></li>
+                    <li class=""><a href="|11|">11</a></li>
+                    <li class=""><a href="|12|">12</a></li>
+                    <li class=""><a href="|13|">13</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|100|">100</a></li>
+                    <li class=""><a href="|11|" rel="next">Next</a></li>
+                </ul>
+            </div>
+            HTML, $this->renderView($options));
     }
 
     public function testRenderFirstPage(): void
@@ -48,24 +47,23 @@ EOF
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<div class="pagination">
-    <ul>
-        <li class="disabled"><span>Previous</span></li>
-        <li class="active"><span>1</span></li>
-        <li class=""><a href="|2|">2</a></li>
-        <li class=""><a href="|3|">3</a></li>
-        <li class=""><a href="|4|">4</a></li>
-        <li class=""><a href="|5|">5</a></li>
-        <li class=""><a href="|6|">6</a></li>
-        <li class=""><a href="|7|">7</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|100|">100</a></li>
-        <li class=""><a href="|2|" rel="next">Next</a></li>
-    </ul>
-</div>
-EOF
-        , $this->renderView($options));
+        $this->assertRenderedView(<<<HTML
+            <div class="pagination">
+                <ul>
+                    <li class="disabled"><span>Previous</span></li>
+                    <li class="active"><span>1</span></li>
+                    <li class=""><a href="|2|">2</a></li>
+                    <li class=""><a href="|3|">3</a></li>
+                    <li class=""><a href="|4|">4</a></li>
+                    <li class=""><a href="|5|">5</a></li>
+                    <li class=""><a href="|6|">6</a></li>
+                    <li class=""><a href="|7|">7</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|100|">100</a></li>
+                    <li class=""><a href="|2|" rel="next">Next</a></li>
+                </ul>
+            </div>
+            HTML, $this->renderView($options));
     }
 
     public function testRenderLastPage(): void
@@ -75,24 +73,23 @@ EOF
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<div class="pagination">
-    <ul>
-        <li class=""><a href="|99|" rel="prev">Previous</a></li>
-        <li class=""><a href="|1|">1</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|94|">94</a></li>
-        <li class=""><a href="|95|">95</a></li>
-        <li class=""><a href="|96|">96</a></li>
-        <li class=""><a href="|97|">97</a></li>
-        <li class=""><a href="|98|">98</a></li>
-        <li class=""><a href="|99|">99</a></li>
-        <li class="active"><span>100</span></li>
-        <li class="disabled"><span>Next</span></li>
-    </ul>
-</div>
-EOF
-        , $this->renderView($options));
+        $this->assertRenderedView(<<<HTML
+            <div class="pagination">
+                <ul>
+                    <li class=""><a href="|99|" rel="prev">Previous</a></li>
+                    <li class=""><a href="|1|">1</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|94|">94</a></li>
+                    <li class=""><a href="|95|">95</a></li>
+                    <li class=""><a href="|96|">96</a></li>
+                    <li class=""><a href="|97|">97</a></li>
+                    <li class=""><a href="|98|">98</a></li>
+                    <li class=""><a href="|99|">99</a></li>
+                    <li class="active"><span>100</span></li>
+                    <li class="disabled"><span>Next</span></li>
+                </ul>
+            </div>
+            HTML, $this->renderView($options));
     }
 
     public function testRenderWhenStartProximityIs2(): void
@@ -102,24 +99,23 @@ EOF
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<div class="pagination">
-    <ul>
-        <li class=""><a href="|3|" rel="prev">Previous</a></li>
-        <li class=""><a href="|1|">1</a></li>
-        <li class=""><a href="|2|">2</a></li>
-        <li class=""><a href="|3|">3</a></li>
-        <li class="active"><span>4</span></li>
-        <li class=""><a href="|5|">5</a></li>
-        <li class=""><a href="|6|">6</a></li>
-        <li class=""><a href="|7|">7</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|100|">100</a></li>
-        <li class=""><a href="|5|" rel="next">Next</a></li>
-    </ul>
-</div>
-EOF
-        , $this->renderView($options));
+        $this->assertRenderedView(<<<HTML
+            <div class="pagination">
+                <ul>
+                    <li class=""><a href="|3|" rel="prev">Previous</a></li>
+                    <li class=""><a href="|1|">1</a></li>
+                    <li class=""><a href="|2|">2</a></li>
+                    <li class=""><a href="|3|">3</a></li>
+                    <li class="active"><span>4</span></li>
+                    <li class=""><a href="|5|">5</a></li>
+                    <li class=""><a href="|6|">6</a></li>
+                    <li class=""><a href="|7|">7</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|100|">100</a></li>
+                    <li class=""><a href="|5|" rel="next">Next</a></li>
+                </ul>
+            </div>
+            HTML, $this->renderView($options));
     }
 
     public function testRenderWhenStartProximityIs3(): void
@@ -129,25 +125,24 @@ EOF
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<div class="pagination">
-    <ul>
-        <li class=""><a href="|4|" rel="prev">Previous</a></li>
-        <li class=""><a href="|1|">1</a></li>
-        <li class=""><a href="|2|">2</a></li>
-        <li class=""><a href="|3|">3</a></li>
-        <li class=""><a href="|4|">4</a></li>
-        <li class="active"><span>5</span></li>
-        <li class=""><a href="|6|">6</a></li>
-        <li class=""><a href="|7|">7</a></li>
-        <li class=""><a href="|8|">8</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|100|">100</a></li>
-        <li class=""><a href="|6|" rel="next">Next</a></li>
-    </ul>
-</div>
-EOF
-        , $this->renderView($options));
+        $this->assertRenderedView(<<<HTML
+            <div class="pagination">
+                <ul>
+                    <li class=""><a href="|4|" rel="prev">Previous</a></li>
+                    <li class=""><a href="|1|">1</a></li>
+                    <li class=""><a href="|2|">2</a></li>
+                    <li class=""><a href="|3|">3</a></li>
+                    <li class=""><a href="|4|">4</a></li>
+                    <li class="active"><span>5</span></li>
+                    <li class=""><a href="|6|">6</a></li>
+                    <li class=""><a href="|7|">7</a></li>
+                    <li class=""><a href="|8|">8</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|100|">100</a></li>
+                    <li class=""><a href="|6|" rel="next">Next</a></li>
+                </ul>
+            </div>
+            HTML, $this->renderView($options));
     }
 
     public function testRenderWhenEndProximityIs2FromLast(): void
@@ -157,24 +152,23 @@ EOF
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<div class="pagination">
-    <ul>
-        <li class=""><a href="|96|" rel="prev">Previous</a></li>
-        <li class=""><a href="|1|">1</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|94|">94</a></li>
-        <li class=""><a href="|95|">95</a></li>
-        <li class=""><a href="|96|">96</a></li>
-        <li class="active"><span>97</span></li>
-        <li class=""><a href="|98|">98</a></li>
-        <li class=""><a href="|99|">99</a></li>
-        <li class=""><a href="|100|">100</a></li>
-        <li class=""><a href="|98|" rel="next">Next</a></li>
-    </ul>
-</div>
-EOF
-        , $this->renderView($options));
+        $this->assertRenderedView(<<<HTML
+            <div class="pagination">
+                <ul>
+                    <li class=""><a href="|96|" rel="prev">Previous</a></li>
+                    <li class=""><a href="|1|">1</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|94|">94</a></li>
+                    <li class=""><a href="|95|">95</a></li>
+                    <li class=""><a href="|96|">96</a></li>
+                    <li class="active"><span>97</span></li>
+                    <li class=""><a href="|98|">98</a></li>
+                    <li class=""><a href="|99|">99</a></li>
+                    <li class=""><a href="|100|">100</a></li>
+                    <li class=""><a href="|98|" rel="next">Next</a></li>
+                </ul>
+            </div>
+            HTML, $this->renderView($options));
     }
 
     public function testRenderWhenEndProximityIs3FromLast(): void
@@ -184,25 +178,24 @@ EOF
 
         $options = [];
 
-        $this->assertRenderedView(<<<EOF
-<div class="pagination">
-    <ul>
-        <li class=""><a href="|95|" rel="prev">Previous</a></li>
-        <li class=""><a href="|1|">1</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|93|">93</a></li>
-        <li class=""><a href="|94|">94</a></li>
-        <li class=""><a href="|95|">95</a></li>
-        <li class="active"><span>96</span></li>
-        <li class=""><a href="|97|">97</a></li>
-        <li class=""><a href="|98|">98</a></li>
-        <li class=""><a href="|99|">99</a></li>
-        <li class=""><a href="|100|">100</a></li>
-        <li class=""><a href="|97|" rel="next">Next</a></li>
-    </ul>
-</div>
-EOF
-        , $this->renderView($options));
+        $this->assertRenderedView(<<<HTML
+            <div class="pagination">
+                <ul>
+                    <li class=""><a href="|95|" rel="prev">Previous</a></li>
+                    <li class=""><a href="|1|">1</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|93|">93</a></li>
+                    <li class=""><a href="|94|">94</a></li>
+                    <li class=""><a href="|95|">95</a></li>
+                    <li class="active"><span>96</span></li>
+                    <li class=""><a href="|97|">97</a></li>
+                    <li class=""><a href="|98|">98</a></li>
+                    <li class=""><a href="|99|">99</a></li>
+                    <li class=""><a href="|100|">100</a></li>
+                    <li class=""><a href="|97|" rel="next">Next</a></li>
+                </ul>
+            </div>
+            HTML, $this->renderView($options));
     }
 
     public function testRenderModifyingProximity(): void
@@ -212,24 +205,23 @@ EOF
 
         $options = ['proximity' => 2];
 
-        $this->assertRenderedView(<<<EOF
-<div class="pagination">
-    <ul>
-        <li class=""><a href="|9|" rel="prev">Previous</a></li>
-        <li class=""><a href="|1|">1</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|8|">8</a></li>
-        <li class=""><a href="|9|">9</a></li>
-        <li class="active"><span>10</span></li>
-        <li class=""><a href="|11|">11</a></li>
-        <li class=""><a href="|12|">12</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|100|">100</a></li>
-        <li class=""><a href="|11|" rel="next">Next</a></li>
-    </ul>
-</div>
-EOF
-        , $this->renderView($options));
+        $this->assertRenderedView(<<<HTML
+            <div class="pagination">
+                <ul>
+                    <li class=""><a href="|9|" rel="prev">Previous</a></li>
+                    <li class=""><a href="|1|">1</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|8|">8</a></li>
+                    <li class=""><a href="|9|">9</a></li>
+                    <li class="active"><span>10</span></li>
+                    <li class=""><a href="|11|">11</a></li>
+                    <li class=""><a href="|12|">12</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|100|">100</a></li>
+                    <li class=""><a href="|11|" rel="next">Next</a></li>
+                </ul>
+            </div>
+            HTML, $this->renderView($options));
     }
 
     public function testRenderModifyingPreviousAndNextMessages(): void
@@ -242,26 +234,25 @@ EOF
             'next_message' => 'Siguiente',
         ];
 
-        $this->assertRenderedView(<<<EOF
-<div class="pagination">
-    <ul>
-        <li class=""><a href="|9|" rel="prev">Anterior</a></li>
-        <li class=""><a href="|1|">1</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|7|">7</a></li>
-        <li class=""><a href="|8|">8</a></li>
-        <li class=""><a href="|9|">9</a></li>
-        <li class="active"><span>10</span></li>
-        <li class=""><a href="|11|">11</a></li>
-        <li class=""><a href="|12|">12</a></li>
-        <li class=""><a href="|13|">13</a></li>
-        <li class="disabled"><span>&hellip;</span></li>
-        <li class=""><a href="|100|">100</a></li>
-        <li class=""><a href="|11|" rel="next">Siguiente</a></li>
-    </ul>
-</div>
-EOF
-        , $this->renderView($options));
+        $this->assertRenderedView(<<<HTML
+            <div class="pagination">
+                <ul>
+                    <li class=""><a href="|9|" rel="prev">Anterior</a></li>
+                    <li class=""><a href="|1|">1</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|7|">7</a></li>
+                    <li class=""><a href="|8|">8</a></li>
+                    <li class=""><a href="|9|">9</a></li>
+                    <li class="active"><span>10</span></li>
+                    <li class=""><a href="|11|">11</a></li>
+                    <li class=""><a href="|12|">12</a></li>
+                    <li class=""><a href="|13|">13</a></li>
+                    <li class="disabled"><span>&hellip;</span></li>
+                    <li class=""><a href="|100|">100</a></li>
+                    <li class=""><a href="|11|" rel="next">Siguiente</a></li>
+                </ul>
+            </div>
+            HTML, $this->renderView($options));
     }
 
     public function testRenderModifyingCssClasses(): void
@@ -278,24 +269,23 @@ EOF
             'css_active_class' => 'activo',
         ];
 
-        $this->assertRenderedView(<<<EOF
-<div class="paginacion">
-    <ul>
-        <li class="anterior deshabilitado"><span>Previous</span></li>
-        <li class="activo"><span>1</span></li>
-        <li class=""><a href="|2|">2</a></li>
-        <li class=""><a href="|3|">3</a></li>
-        <li class=""><a href="|4|">4</a></li>
-        <li class=""><a href="|5|">5</a></li>
-        <li class=""><a href="|6|">6</a></li>
-        <li class=""><a href="|7|">7</a></li>
-        <li class="puntos"><span>&hellip;</span></li>
-        <li class=""><a href="|100|">100</a></li>
-        <li class="siguiente"><a href="|2|" rel="next">Next</a></li>
-    </ul>
-</div>
-EOF
-        , $this->renderView($options));
+        $this->assertRenderedView(<<<HTML
+            <div class="paginacion">
+                <ul>
+                    <li class="anterior deshabilitado"><span>Previous</span></li>
+                    <li class="activo"><span>1</span></li>
+                    <li class=""><a href="|2|">2</a></li>
+                    <li class=""><a href="|3|">3</a></li>
+                    <li class=""><a href="|4|">4</a></li>
+                    <li class=""><a href="|5|">5</a></li>
+                    <li class=""><a href="|6|">6</a></li>
+                    <li class=""><a href="|7|">7</a></li>
+                    <li class="puntos"><span>&hellip;</span></li>
+                    <li class=""><a href="|100|">100</a></li>
+                    <li class="siguiente"><a href="|2|" rel="next">Next</a></li>
+                </ul>
+            </div>
+            HTML, $this->renderView($options));
     }
 
     protected function filterExpectedView(string $expected): string
