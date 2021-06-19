@@ -9,15 +9,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.2, 7.3, 7.4]
+        php: [7.2, 7.3, 7.4, 8.0]
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         extensions: ['curl, iconv, mbstring, mongodb, pdo, pdo_sqlite, sqlite, zip']
-        include:
-          - php: 8.0
-            composer-flags: '--prefer-dist --ignore-platform-req=php --ignore-platform-req=ext-mongodb'
-            next-php: true
-            extensions: 'curl, iconv, mbstring, pdo, pdo_sqlite, sqlite, zip'
 
     name: PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
@@ -40,7 +35,6 @@ jobs:
           coverage: pcov
 
       - name: Install MongoDB ODM
-        if: matrix.php != '8.0'
         run: |
           composer require --dev --no-update doctrine/mongodb-odm:^2.0
 
