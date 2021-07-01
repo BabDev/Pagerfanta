@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.2.0 (????-??-??)
+## 3.2.0 (2021-06-30)
 
 - Deprecate accessors for injected dependencies in `PagerfantaInterface` and `AdapterInterface` implementations
 
