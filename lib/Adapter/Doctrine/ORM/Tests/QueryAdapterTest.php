@@ -150,7 +150,12 @@ final class QueryAdapterTest extends ORMTestCase
         $items = $adapter->getSlice(0, 10);
 
         $this->assertSame('Foo', $items[0][0]->name);
-        $this->assertSame('1', $items[0]['relevance']);
+
+        if (\PHP_VERSION_ID >= 80100) {
+            $this->assertSame(1, $items[0]['relevance']);
+        } else {
+            $this->assertSame('1', $items[0]['relevance']);
+        }
     }
 
     public function testAQueryBuilderIsAccepted(): void

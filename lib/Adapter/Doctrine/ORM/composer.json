@@ -11,6 +11,7 @@
         "symfony/deprecation-contracts": "^2.1"
     },
     "require-dev": {
+        "doctrine/annotations": "^1.11.1",
         "doctrine/cache": "^1.11 || ^2.0",
         "phpunit/phpunit": "^9.5",
         "symfony/cache": "^4.4 || ^5.2 || ^6.0",
