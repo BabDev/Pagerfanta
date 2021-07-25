@@ -28,15 +28,11 @@ class DoctrineORMAdapterTest extends DoctrineORMTestCase
         $group2 = new Group();
         $group3 = new Group();
 
-        $user1->groups = [
-            $group1,
-            $group2,
-            $group3,
-        ];
+        $user1->addGroup($group1);
+        $user1->addGroup($group2);
+        $user1->addGroup($group3);
 
-        $user2->groups = [
-            $group1,
-        ];
+        $user2->addGroup($group1);
 
         $person1 = new Person();
         $person1->name = 'Foo';
