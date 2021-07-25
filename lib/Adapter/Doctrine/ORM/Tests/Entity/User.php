@@ -2,6 +2,8 @@
 
 namespace Pagerfanta\Doctrine\ORM\Tests\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,7 +22,7 @@ class User
     public $id;
 
     /**
-     * @var Group[]|null
+     * @var Collection<array-key, Group>
      *
      * @ORM\ManyToMany(targetEntity="\Pagerfanta\Doctrine\ORM\Tests\Entity\Group", inversedBy="users")
      * @ORM\JoinTable(
@@ -30,4 +32,9 @@ class User
      * )
      */
     public $groups;
+
+    public function __construct()
+    {
+        $this->groups = new ArrayCollection();
+    }
 }
