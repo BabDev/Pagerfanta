@@ -10,6 +10,10 @@ use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfBoundsException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
+/**
+ * @template T
+ * @implements PagerfantaInterface<T>
+ */
 class Pagerfanta implements PagerfantaInterface, \JsonSerializable
 {
     private AdapterInterface $adapter;
@@ -19,6 +23,10 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     private int $currentPage = 1;
     private ?int $nbResults = null;
     private ?int $maxNbPages = null;
+
+    /**
+     * @phpstan-var iterable<array-key, T>|null
+     */
     private ?iterable $currentPageResults = null;
 
     public function __construct(AdapterInterface $adapter)
@@ -36,6 +44,9 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
         return $this->adapter;
     }
 
+    /**
+     * @return $this<T>
+     */
     public function setAllowOutOfRangePages(bool $allowOutOfRangePages): PagerfantaInterface
     {
         $this->allowOutOfRangePages = $allowOutOfRangePages;
@@ -61,6 +72,8 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     }
 
     /**
+     * @return $this<T>
+     *
      * @throws LessThan1MaxPerPageException if the page is less than 1
      */
     public function setMaxPerPage(int $maxPerPage): PagerfantaInterface
@@ -100,6 +113,8 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     }
 
     /**
+     * @return $this<T>
+     *
      * @throws LessThan1CurrentPageException  if the current page is less than 1
      * @throws OutOfRangeCurrentPageException if It is not allowed out of range pages and they are not normalized
      */
@@ -169,20 +184,21 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
         return $this->currentPage;
     }
 
+    /**
+     * @phpstan-return iterable<array-key, T>
+     */
     public function getCurrentPageResults(): iterable
     {
-        if ($this->notCachedCurrentPageResults()) {
+        if (null === $this->currentPageResults) {
             $this->currentPageResults = $this->getCurrentPageResultsFromAdapter();
         }
 
         return $this->currentPageResults;
     }
 
-    private function notCachedCurrentPageResults(): bool
-    {
-        return null === $this->currentPageResults;
-    }
-
+    /**
+     * @return iterable<array-key, T>
+     */
     private function getCurrentPageResultsFromAdapter(): iterable
     {
         $offset = $this->calculateOffsetForCurrentPageResults();
@@ -208,16 +224,11 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
 
     public function getNbResults(): int
     {
-        if ($this->notCachedNbResults()) {
+        if (null === $this->nbResults) {
             $this->nbResults = $this->adapter->getNbResults();
         }
 
         return $this->nbResults;
-    }
-
-    private function notCachedNbResults(): bool
-    {
-        return null === $this->nbResults;
     }
 
     public function getNbPages(): int
@@ -246,6 +257,8 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     }
 
     /**
+     * @return $this<T>
+     *
      * @throws LessThan1MaxPagesException if the max number of pages is less than 1
      */
     public function setMaxNbPages(int $maxNbPages): PagerfantaInterface
@@ -259,6 +272,9 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
         return $this;
     }
 
+    /**
+     * @return $this<T>
+     */
     public function resetMaxNbPages(): PagerfantaInterface
     {
         $this->maxNbPages = null;
@@ -311,7 +327,7 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     }
 
     /**
-     * @return \Traversable<mixed>
+     * @return \Traversable<array-key, T>
      */
     public function getIterator(): \Traversable
     {
@@ -325,7 +341,11 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
             return $results->getIterator();
         }
 
-        return new \ArrayIterator($results);
+        if (\is_array($results)) {
+            return new \ArrayIterator($results);
+        }
+
+        throw new \InvalidArgumentException(sprintf('Cannot create iterator with page results of type "%s".', get_debug_type($results)));
     }
 
     public function jsonSerialize(): array

@@ -10,12 +10,12 @@ use PHPUnit\Framework\TestCase;
 final class CollectionAdapterTest extends TestCase
 {
     /**
-     * @var MockObject|Collection
+     * @var MockObject&Collection<array-key, mixed>
      */
     private $collection;
 
     /**
-     * @var CollectionAdapter
+     * @var CollectionAdapter<array-key, mixed>
      */
     private $adapter;
 

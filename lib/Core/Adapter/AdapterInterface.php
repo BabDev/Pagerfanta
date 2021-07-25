@@ -11,6 +11,8 @@ interface AdapterInterface
 
     /**
      * Returns an slice of the results representing the current page of items in the list.
+     *
+     * @return iterable<array-key, mixed>
      */
     public function getSlice(int $offset, int $length): iterable;
 }

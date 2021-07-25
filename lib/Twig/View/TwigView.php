@@ -14,7 +14,7 @@ final class TwigView extends View
     private Environment $twig;
     private ?string $defaultTemplate;
 
-    private ?string $template = null;
+    private string $template = self::DEFAULT_TEMPLATE;
 
     public function __construct(Environment $twig, ?string $defaultTemplate = null)
     {
@@ -27,6 +27,9 @@ final class TwigView extends View
         return 'twig';
     }
 
+    /**
+     * @param PagerfantaInterface<mixed> $pagerfanta
+     */
     public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {
         $this->initializePagerfanta($pagerfanta);
@@ -59,8 +62,6 @@ final class TwigView extends View
             $this->template = $options['template'];
         } elseif (null !== $this->defaultTemplate) {
             $this->template = $this->defaultTemplate;
-        } else {
-            $this->template = self::DEFAULT_TEMPLATE;
         }
 
         parent::initializeOptions($options);

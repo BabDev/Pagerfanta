@@ -6,6 +6,9 @@ use Pagerfanta\PagerfantaInterface;
 
 abstract class View implements ViewInterface
 {
+    /**
+     * @var PagerfantaInterface<mixed>
+     */
     protected PagerfantaInterface $pagerfanta;
 
     protected ?int $currentPage = null;
@@ -14,6 +17,9 @@ abstract class View implements ViewInterface
     protected ?int $startPage = null;
     protected ?int $endPage = null;
 
+    /**
+     * @param PagerfantaInterface<mixed> $pagerfanta
+     */
     protected function initializePagerfanta(PagerfantaInterface $pagerfanta): void
     {
         $this->pagerfanta = $pagerfanta;

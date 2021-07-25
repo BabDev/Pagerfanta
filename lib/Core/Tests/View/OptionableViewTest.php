@@ -13,12 +13,13 @@ final class OptionableViewTest extends TestCase
     private const RENDERED_VIEW = 'rendered';
 
     /**
-     * @var MockObject&PagerfantaInterface
+     * @var MockObject&PagerfantaInterface<mixed>
      */
     private $pagerfanta;
 
     /**
      * @var callable
+     * @phpstan-var \Closure(int $page): string
      */
     private $routeGenerator;
 
@@ -28,6 +29,9 @@ final class OptionableViewTest extends TestCase
         $this->routeGenerator = $this->createRouteGenerator();
     }
 
+    /**
+     * @phpstan-return \Closure(int $page): string
+     */
     private function createRouteGenerator(): \Closure
     {
         return static fn (int $page) => '';

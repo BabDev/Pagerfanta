@@ -49,10 +49,10 @@ class SolariumAdapter implements AdapterInterface
             $this->resultSetRows = $rows;
 
             $this->modifyQuery();
-            $this->clearResultSet();
+            $this->resultSet = null;
         }
 
-        if ($this->resultSetEmpty()) {
+        if (null === $this->resultSet) {
             $this->resultSet = $this->createResultSet();
         }
 
@@ -83,16 +83,6 @@ class SolariumAdapter implements AdapterInterface
     private function createResultSet(): Result
     {
         return $this->client->select($this->query, $this->endpoint);
-    }
-
-    private function clearResultSet(): void
-    {
-        $this->resultSet = null;
-    }
-
-    private function resultSetEmpty(): bool
-    {
-        return null === $this->resultSet;
     }
 
     /**

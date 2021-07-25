@@ -50,6 +50,9 @@ final class TwigViewIntegrationTest extends TestCase
         $this->routeGeneratorFactory = $this->createRouteGeneratorFactory();
     }
 
+    /**
+     * @return Pagerfanta<int>
+     */
     private function createPagerfanta(): Pagerfanta
     {
         return new Pagerfanta(new FixedAdapter(100, range(1, 100)));

@@ -20,6 +20,9 @@ abstract class TemplateView extends View
 
     abstract protected function createDefaultTemplate(): TemplateInterface;
 
+    /**
+     * @param PagerfantaInterface<mixed> $pagerfanta
+     */
     public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {
         $this->initializePagerfanta($pagerfanta);

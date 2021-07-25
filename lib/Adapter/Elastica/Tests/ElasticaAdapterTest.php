@@ -12,17 +12,17 @@ use PHPUnit\Framework\TestCase;
 final class ElasticaAdapterTest extends TestCase
 {
     /**
-     * @var MockObject|Query
+     * @var MockObject&Query
      */
     private $query;
 
     /**
-     * @var MockObject|ResultSet
+     * @var MockObject&ResultSet
      */
     private $resultSet;
 
     /**
-     * @var MockObject|SearchableInterface
+     * @var MockObject&SearchableInterface
      */
     private $searchable;
 

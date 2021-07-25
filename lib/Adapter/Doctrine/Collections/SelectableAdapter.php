@@ -8,12 +8,21 @@ use Pagerfanta\Adapter\AdapterInterface;
 
 /**
  * Adapter which calculates pagination from a Selectable instance.
+ *
+ * @template TKey of array-key
+ * @template T
  */
 class SelectableAdapter implements AdapterInterface
 {
+    /**
+     * @var Selectable<TKey, T>
+     */
     private Selectable $selectable;
     private Criteria $criteria;
 
+    /**
+     * @param Selectable<TKey, T> $selectable
+     */
     public function __construct(Selectable $selectable, Criteria $criteria)
     {
         $this->selectable = $selectable;

@@ -10,7 +10,8 @@ use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
 /**
- * @extends \IteratorAggregate<mixed>
+ * @template T
+ * @extends \IteratorAggregate<T>
  */
 interface PagerfantaInterface extends \Countable, \IteratorAggregate
 {
@@ -19,15 +20,23 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
      */
     public function getAdapter(): AdapterInterface;
 
+    /**
+     * @return $this<T>
+     */
     public function setAllowOutOfRangePages(bool $allowOutOfRangePages): self;
 
     public function getAllowOutOfRangePages(): bool;
 
+    /**
+     * @return $this<T>
+     */
     public function setNormalizeOutOfRangePages(bool $normalizeOutOfRangePages): self;
 
     public function getNormalizeOutOfRangePages(): bool;
 
     /**
+     * @return $this<T>
+     *
      * @throws LessThan1MaxPerPageException if the page is less than 1
      */
     public function setMaxPerPage(int $maxPerPage): self;
@@ -35,6 +44,8 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function getMaxPerPage(): int;
 
     /**
+     * @return $this<T>
+     *
      * @throws LessThan1CurrentPageException  if the current page is less than 1
      * @throws OutOfRangeCurrentPageException if It is not allowed out of range pages and they are not normalized
      */
@@ -42,6 +53,9 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
 
     public function getCurrentPage(): int;
 
+    /**
+     * @phpstan-return iterable<array-key, T>
+     */
     public function getCurrentPageResults(): iterable;
 
     public function getCurrentPageOffsetStart(): int;
@@ -53,10 +67,15 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function getNbPages(): int;
 
     /**
+     * @return $this<T>
+     *
      * @throws LessThan1MaxPagesException if the max number of pages is less than 1
      */
     public function setMaxNbPages(int $maxNbPages): self;
 
+    /**
+     * @return $this<T>
+     */
     public function resetMaxNbPages(): self;
 
     public function haveToPaginate(): bool;

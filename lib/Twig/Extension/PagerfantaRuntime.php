@@ -23,7 +23,8 @@ final class PagerfantaRuntime implements RuntimeExtensionInterface
     }
 
     /**
-     * @param string|array|null $viewName the view name
+     * @param PagerfantaInterface<mixed> $pagerfanta
+     * @param string|array|null          $viewName   the view name
      *
      * @throws \InvalidArgumentException if the $viewName argument is an invalid type
      */
@@ -32,7 +33,7 @@ final class PagerfantaRuntime implements RuntimeExtensionInterface
         if (\is_array($viewName)) {
             [$viewName, $options] = [null, $viewName];
         } elseif (null !== $viewName && !\is_string($viewName)) {
-            throw new \InvalidArgumentException(sprintf('The $viewName argument of %s() must be an array, a string, or a null value; a %s was given.', __METHOD__, \gettype($viewName)));
+            throw new \InvalidArgumentException(sprintf('The $viewName argument of %s() must be an array, a string, or a null value; %s given.', __METHOD__, get_debug_type($viewName)));
         }
 
         $viewName = $viewName ?: $this->defaultView;
@@ -41,6 +42,8 @@ final class PagerfantaRuntime implements RuntimeExtensionInterface
     }
 
     /**
+     * @param PagerfantaInterface<mixed> $pagerfanta
+     *
      * @throws OutOfRangeCurrentPageException if the page is out of bounds
      */
     public function getPageUrl(PagerfantaInterface $pagerfanta, int $page, array $options = []): string

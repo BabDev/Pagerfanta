@@ -1,5 +1,7 @@
+#includes:
+#  - phpstan-baseline.neon
 parameters:
-  level: 6
+  level: 8
   paths:
     - %currentWorkingDirectory%/lib
   ignoreErrors:
@@ -8,13 +10,12 @@ parameters:
 
     # Ignore errors from tests validating runtime type checks
     -
-      message: '/Parameter #2 \$viewName of method Pagerfanta\\Twig\\Extension\\PagerfantaRuntime::renderPagerfanta\(\) expects array\|string\|null, stdClass given\./'
-      path: %currentWorkingDirectory%/lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
-
-    -
       message: '/Call to method PHPUnit\\Framework\\Assert::assertSame\(\) with Elastica\\ResultSet\&PHPUnit\\Framework\\MockObject\\MockObject and null will always evaluate to false\./'
       path: %currentWorkingDirectory%/lib/Adapter/Elastica/Tests/ElasticaAdapterTest.php
 
-  checkGenericClassInNonGenericObjectType: false
+    -
+      message: '/Parameter #2 \$viewName of method Pagerfanta\\Twig\\Extension\\PagerfantaRuntime::renderPagerfanta\(\) expects array\|string\|null, stdClass given\./'
+      path: %currentWorkingDirectory%/lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
+
   checkMissingIterableValueType: false
   treatPhpDocTypesAsCertain: false

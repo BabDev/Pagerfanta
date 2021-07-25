@@ -15,12 +15,12 @@ use PHPUnit\Framework\TestCase;
 final class PagerfantaTest extends TestCase
 {
     /**
-     * @var MockObject|AdapterInterface
+     * @var MockObject&AdapterInterface
      */
     private $adapter;
 
     /**
-     * @var Pagerfanta
+     * @var Pagerfanta<mixed>
      */
     private $pagerfanta;
 
@@ -489,7 +489,7 @@ final class PagerfantaTest extends TestCase
             ->method('getSlice')
             ->willReturn($pageResults);
 
-        $this->assertJsonStringEqualsJsonString(json_encode($pageResults), json_encode($this->pagerfanta));
+        $this->assertJsonStringEqualsJsonString(json_encode($pageResults, \JSON_THROW_ON_ERROR), json_encode($this->pagerfanta, \JSON_THROW_ON_ERROR));
     }
 
     public function testThePagerCanBeJsonEncodedWithTheCurrentPageResultsWhenTheAdapterReturnsATraversable(): void
@@ -508,7 +508,7 @@ final class PagerfantaTest extends TestCase
             ->method('getSlice')
             ->willReturn($currentPageResults);
 
-        $this->assertJsonStringEqualsJsonString(json_encode($pageResults), json_encode($this->pagerfanta));
+        $this->assertJsonStringEqualsJsonString(json_encode($pageResults, \JSON_THROW_ON_ERROR), json_encode($this->pagerfanta, \JSON_THROW_ON_ERROR));
     }
 
     public function dataGetPageNumberForItemAtPosition(): \Generator

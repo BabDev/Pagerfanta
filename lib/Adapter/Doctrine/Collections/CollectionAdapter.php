@@ -7,17 +7,28 @@ use Pagerfanta\Adapter\AdapterInterface;
 
 /**
  * Adapter which calculates pagination from a Doctrine Collection.
+ *
+ * @template TKey of array-key
+ * @template T
  */
 class CollectionAdapter implements AdapterInterface
 {
+    /**
+     * @var Collection<TKey, T>
+     */
     private Collection $collection;
 
+    /**
+     * @param Collection<TKey, T> $collection
+     */
     public function __construct(Collection $collection)
     {
         $this->collection = $collection;
     }
 
     /**
+     * @return Collection<TKey, T>
+     *
      * @deprecated to be removed in 4.0
      */
     public function getCollection(): Collection

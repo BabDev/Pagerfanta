@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class SelectableAdapterTest extends TestCase
 {
     /**
-     * @var MockObject|Selectable
+     * @var MockObject&Selectable<array-key, mixed>
      */
     private $selectable;
 
@@ -22,7 +22,7 @@ final class SelectableAdapterTest extends TestCase
     private $criteria;
 
     /**
-     * @var SelectableAdapter
+     * @var SelectableAdapter<array-key, mixed>
      */
     private $adapter;
 

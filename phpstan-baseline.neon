@@ -1,0 +1,92 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
+
+		-
+			message: "#^Cannot call method fetchOne\\(\\) on Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
+
+		-
+			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/DBAL/Tests/QueryAdapterTest.php
+
+		-
+			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/DBAL/Tests/SingleTableQueryAdapterTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getNbResults\\(\\) should return int but returns array\\|int\\|object\\|null\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getSlice\\(\\) should return iterable\\<\\(int\\|string\\), mixed\\> but returns array\\|int\\|object\\|null\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:getNbResults\\(\\) should return int but returns int\\|null\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Parameter \\#1 \\$rows of method Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\:\\:setRows\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Parameter \\#1 \\$start of method Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\:\\:setStart\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Adapter\\\\ConcatenationAdapter\\:\\:getNbResults\\(\\) should return int but returns float\\|int\\.$#"
+			count: 1
+			path: lib/Core/Adapter/ConcatenationAdapter.php
+
+		-
+			message: "#^Offset \\(int\\|string\\) does not exist on array\\<int\\>\\|null\\.$#"
+			count: 1
+			path: lib/Core/Adapter/ConcatenationAdapter.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_sum expects array, array\\<int\\>\\|null given\\.$#"
+			count: 1
+			path: lib/Core/Adapter/ConcatenationAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\View\\\\ViewTestCase\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: lib/Core/Tests/View/ViewTestCase.php
+
+		-
+			message: "#^Parameter \\#1 \\$start of function range expects float\\|int\\|string, int\\|null given\\.$#"
+			count: 1
+			path: lib/Core/View/TemplateView.php
+
+		-
+			message: "#^Parameter \\#2 \\$end of function range expects float\\|int\\|string, int\\|null given\\.$#"
+			count: 1
+			path: lib/Core/View/TemplateView.php
+
+		-
+			message: "#^Method Pagerfanta\\\\View\\\\View\\:\\:calculateEndPageForStartPageUnderflow\\(\\) should return int but returns int\\|null\\.$#"
+			count: 1
+			path: lib/Core/View/View.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Twig\\\\Tests\\\\Extension\\\\PagerfantaRuntimeTest\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Twig\\\\Tests\\\\View\\\\TwigViewIntegrationTest\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: lib/Twig/Tests/View/TwigViewIntegrationTest.php
+

@@ -10,19 +10,19 @@ use Pagerfanta\Exception\InvalidArgumentException;
 class ConcatenationAdapter implements AdapterInterface
 {
     /**
-     * @var AdapterInterface[]
+     * @var array<array-key, AdapterInterface>
      */
     protected array $adapters;
 
     /**
      * Cache of the numbers of results of the adapters. The indexes correspond the indexes of the $adapters property.
      *
-     * @var int[]|null
+     * @var array<array-key, int>|null
      */
     protected $adaptersNbResultsCache = null;
 
     /**
-     * @param AdapterInterface[] $adapters
+     * @param array<array-key, AdapterInterface> $adapters
      *
      * @throws InvalidArgumentException if an adapter is not a `Pagerfanta\Adapter\AdapterInterface` instance
      */
