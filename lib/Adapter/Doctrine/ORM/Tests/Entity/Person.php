@@ -11,25 +11,19 @@ use Doctrine\ORM\Mapping as ORM;
 class Person
 {
     /**
-     * @var int|null
-     *
      * @ORM\Column(type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
-     * @var string|null
-     *
      * @ORM\Column(type="string", nullable=true)
      */
-    public $name;
+    public ?string $name = null;
 
     /**
-     * @var string|null
-     *
      * @ORM\Column(type="string", nullable=true)
      */
-    public $biography;
+    public ?string $biography = null;
 }

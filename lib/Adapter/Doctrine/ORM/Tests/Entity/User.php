@@ -13,13 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class User
 {
     /**
-     * @var int|null
-     *
      * @ORM\Column(type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @var Collection<array-key, Group>
@@ -31,7 +29,7 @@ class User
      *     inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id", onDelete="CASCADE")}
      * )
      */
-    public $groups;
+    public Collection $groups;
 
     public function __construct()
     {

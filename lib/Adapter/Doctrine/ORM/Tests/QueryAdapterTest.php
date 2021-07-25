@@ -2,6 +2,7 @@
 
 namespace Pagerfanta\Doctrine\ORM\Tests;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Tools\SchemaTool;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Doctrine\ORM\Tests\Entity\Group;
@@ -28,15 +29,19 @@ final class QueryAdapterTest extends ORMTestCase
         $group2 = new Group();
         $group3 = new Group();
 
-        $user1->groups = [
-            $group1,
-            $group2,
-            $group3,
-        ];
+        $user1->groups = new ArrayCollection(
+            [
+                $group1,
+                $group2,
+                $group3,
+            ]
+        );
 
-        $user2->groups = [
-            $group1,
-        ];
+        $user2->groups = new ArrayCollection(
+            [
+                $group1,
+            ]
+        );
 
         $person1 = new Person();
         $person1->name = 'Foo';

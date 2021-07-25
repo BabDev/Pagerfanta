@@ -13,20 +13,18 @@ use Doctrine\ORM\Mapping as ORM;
 class Group
 {
     /**
-     * @var int|null
-     *
      * @ORM\Column(type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @var Collection<array-key, User>
      *
      * @ORM\ManyToMany(targetEntity="\Pagerfanta\Doctrine\ORM\Tests\Entity\User", mappedBy="groups")
      */
-    public $users;
+    public Collection $users;
 
     public function __construct()
     {
