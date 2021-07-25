@@ -10,12 +10,12 @@ use PHPUnit\Framework\TestCase;
 class DoctrineCollectionAdapterTest extends TestCase
 {
     /**
-     * @var MockObject|Collection
+     * @var MockObject&Collection<array-key, mixed>
      */
     private $collection;
 
     /**
-     * @var DoctrineCollectionAdapter
+     * @var DoctrineCollectionAdapter<array-key, mixed>
      */
     private $adapter;
 

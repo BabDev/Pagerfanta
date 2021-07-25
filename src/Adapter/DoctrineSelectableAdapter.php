@@ -9,6 +9,10 @@ trigger_deprecation('pagerfanta/pagerfanta', '2.4', 'The "%s" class is deprecate
 /**
  * Adapter which calculates pagination from a Selectable instance.
  *
+ * @template TKey of array-key
+ * @template T
+ * @extends SelectableAdapter<TKey, T>
+ *
  * @deprecated to be removed in 3.0, use the `Pagerfanta\Doctrine\Collections\SelectableAdapter` from the `pagerfanta/doctrine-collections-adapter` package instead
  */
 class DoctrineSelectableAdapter extends SelectableAdapter

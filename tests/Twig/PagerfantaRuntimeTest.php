@@ -75,6 +75,9 @@ final class PagerfantaRuntimeTest extends TestCase
         };
     }
 
+    /**
+     * @return Pagerfanta<int>
+     */
     private function createPagerfanta(): Pagerfanta
     {
         return new Pagerfanta(new FixedAdapter(100, range(1, 100)));
@@ -149,7 +152,7 @@ final class PagerfantaRuntimeTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
             sprintf(
-                'The $viewName argument of %s::renderPagerfanta() must be an array, a string, or a null value; a object was given.',
+                'The $viewName argument of %s::renderPagerfanta() must be an array, a string, or a null value; stdClass given.',
                 PagerfantaRuntime::class
             )
         );

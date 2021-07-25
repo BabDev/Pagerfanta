@@ -127,6 +127,9 @@ final class TwigViewTest extends TestCase
         (new TwigView($this->twig))->render($this->createPagerfanta(), new \stdClass());
     }
 
+    /**
+     * @return Pagerfanta<int>
+     */
     private function createPagerfanta(): Pagerfanta
     {
         return new Pagerfanta(new FixedAdapter(100, range(1, 100)));

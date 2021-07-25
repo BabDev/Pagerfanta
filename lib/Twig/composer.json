@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.2 || ^8.0",
         "pagerfanta/core": "^2.4",
+        "symfony/polyfill-php80": "^1.15",
         "twig/twig": "^1.35 || ^2.5 || ^3.0"
     },
     "autoload": {

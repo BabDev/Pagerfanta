@@ -7,7 +7,8 @@
     "require": {
         "php": "^7.2 || ^8.0",
         "pagerfanta/core": "^2.4",
-        "solarium/solarium": "^2.3 || ^3.0 || ^4.0 || ^5.0 || ^6.0"
+        "solarium/solarium": "^2.3 || ^3.0 || ^4.0 || ^5.0 || ^6.0",
+        "symfony/polyfill-php80": "^1.15"
     },
     "autoload": {
         "psr-4": {

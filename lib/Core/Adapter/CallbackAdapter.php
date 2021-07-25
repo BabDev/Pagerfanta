@@ -30,11 +30,11 @@ class CallbackAdapter implements AdapterInterface
     public function __construct($nbResultsCallable, $sliceCallable)
     {
         if (!\is_callable($nbResultsCallable)) {
-            throw new InvalidArgumentException(sprintf('The $nbResultsCallable argument of the %s constructor must be a callable, a %s was given.', self::class, \gettype($nbResultsCallable)));
+            throw new InvalidArgumentException(sprintf('The $nbResultsCallable argument of the %s constructor must be a callable, %s given.', self::class, get_debug_type($nbResultsCallable)));
         }
 
         if (!\is_callable($sliceCallable)) {
-            throw new InvalidArgumentException(sprintf('The $sliceCallable argument of the %s constructor must be a callable, a %s was given.', self::class, \gettype($sliceCallable)));
+            throw new InvalidArgumentException(sprintf('The $sliceCallable argument of the %s constructor must be a callable, %s given.', self::class, get_debug_type($sliceCallable)));
         }
 
         $this->nbResultsCallable = $nbResultsCallable;

@@ -15,7 +15,8 @@ use Pagerfanta\Exception\OutOfBoundsException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
 /**
- * @implements \IteratorAggregate<mixed>
+ * @template T
+ * @implements \IteratorAggregate<T>
  */
 class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, PagerfantaInterface
 {
@@ -55,7 +56,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     private $maxNbPages;
 
     /**
-     * @var iterable|null
+     * @var iterable<array-key, T>|null
      */
     private $currentPageResults;
 
@@ -315,22 +316,20 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
-     * @return iterable
+     * @return iterable<array-key, T>
      */
     public function getCurrentPageResults()
     {
-        if ($this->notCachedCurrentPageResults()) {
+        if (null === $this->currentPageResults) {
             $this->currentPageResults = $this->getCurrentPageResultsFromAdapter();
         }
 
         return $this->currentPageResults;
     }
 
-    private function notCachedCurrentPageResults(): bool
-    {
-        return null === $this->currentPageResults;
-    }
-
+    /**
+     * @return iterable<array-key, T>
+     */
     private function getCurrentPageResultsFromAdapter(): iterable
     {
         $offset = $this->calculateOffsetForCurrentPageResults();
@@ -369,16 +368,11 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
      */
     public function getNbResults()
     {
-        if ($this->notCachedNbResults()) {
+        if (null === $this->nbResults) {
             $this->nbResults = $this->getAdapter()->getNbResults();
         }
 
         return $this->nbResults;
-    }
-
-    private function notCachedNbResults(): bool
-    {
-        return null === $this->nbResults;
     }
 
     /**
@@ -410,6 +404,8 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
+     * @return $this<T>
+     *
      * @throws LessThan1MaxPagesException if the max number of pages is less than 1
      */
     public function setMaxNbPages(int $maxNbPages): self
@@ -423,6 +419,9 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $this;
     }
 
+    /**
+     * @return $this<T>
+     */
     public function resetMaxNbPages(): self
     {
         $this->maxNbPages = null;
@@ -491,7 +490,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
-     * @return \Traversable<mixed>
+     * @return \Traversable<array-key, T>
      */
     public function getIterator()
     {
@@ -505,7 +504,11 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
             return $results->getIterator();
         }
 
-        return new \ArrayIterator($results);
+        if (\is_array($results)) {
+            return new \ArrayIterator($results);
+        }
+
+        throw new \InvalidArgumentException(sprintf('Cannot create iterator with page results of type "%s".', get_debug_type($results)));
     }
 
     /**
@@ -560,6 +563,8 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     }
 
     /**
+     * @param int|float|string $value
+     *
      * @return int
      */
     private function toInteger($value)
@@ -571,6 +576,9 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
         return $value;
     }
 
+    /**
+     * @param int|float|string $value
+     */
     private function needsToIntegerConversion($value): bool
     {
         return (\is_string($value) || \is_float($value)) && (int) $value == $value;

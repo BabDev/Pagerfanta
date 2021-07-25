@@ -32,7 +32,7 @@ class OptionableView implements ViewInterface
     public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = [])
     {
         if (!\is_callable($routeGenerator)) {
-            throw new InvalidArgumentException(sprintf('The $routeGenerator argument of %s() must be a callable, a %s was given.', __METHOD__, \gettype($routeGenerator)));
+            throw new InvalidArgumentException(sprintf('The $routeGenerator argument of %s() must be a callable, %s given.', __METHOD__, get_debug_type($routeGenerator)));
         }
 
         return $this->view->render($pagerfanta, $routeGenerator, array_merge($this->defaultOptions, $options));

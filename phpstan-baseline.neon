@@ -1,0 +1,317 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot call method fetchAll\\(\\) on Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
+
+		-
+			message: "#^Cannot call method fetchColumn\\(\\) on Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
+
+		-
+			message: "#^Parameter \\#1 \\$object_or_class of function method_exists expects object\\|string, Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int given\\.$#"
+			count: 2
+			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getNbResults\\(\\) should return int but returns array\\|int\\|object\\|null\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getSlice\\(\\) should return iterable but returns array\\|int\\|object\\|null\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
+
+		-
+			message: "#^Call to method getNumFound\\(\\) on an unknown class Solarium_Result_Select\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Call to method select\\(\\) on an unknown class Solarium_Client\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Call to method setStart\\(\\) on an unknown class Solarium_Query_Select\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Class Solarium_Client not found\\.$#"
+			count: 4
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Class Solarium_Query_Select not found\\.$#"
+			count: 3
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:getNbResults\\(\\) should return int but returns int\\|null\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:getResultSet\\(\\) should return Solarium\\\\QueryType\\\\Select\\\\Result\\\\Result\\|Solarium_Result_Select but returns Solarium\\\\QueryType\\\\Select\\\\Result\\\\Result\\|Solarium_Result_Select\\|null\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:getSlice\\(\\) should return iterable but returns Solarium\\\\QueryType\\\\Select\\\\Result\\\\Result\\|Solarium_Result_Select\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Parameter \\#1 \\$query of method Solarium\\\\Core\\\\Client\\\\Client\\:\\:select\\(\\) expects Solarium\\\\Core\\\\Query\\\\QueryInterface, Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\|Solarium_Query_Select given\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Parameter \\#1 \\$rows of method Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\:\\:setRows\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Parameter \\$client of method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:__construct\\(\\) has invalid typehint type Solarium_Client\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Parameter \\$client of method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:checkClient\\(\\) has invalid typehint type Solarium_Client\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Parameter \\$client of method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:getClientInvalidMessage\\(\\) has invalid typehint type Solarium_Client\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Parameter \\$client of method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:isClientInvalid\\(\\) has invalid typehint type Solarium_Client\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Parameter \\$query of method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:__construct\\(\\) has invalid typehint type Solarium_Query_Select\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Parameter \\$query of method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:checkQuery\\(\\) has invalid typehint type Solarium_Query_Select\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Parameter \\$query of method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:getQueryInvalidMessage\\(\\) has invalid typehint type Solarium_Query_Select\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Parameter \\$query of method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:isQueryInvalid\\(\\) has invalid typehint type Solarium_Query_Select\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Property Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:\\$client has unknown class Solarium_Client as its type\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Property Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:\\$query has unknown class Solarium_Query_Select as its type\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Property Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:\\$resultSet has unknown class Solarium_Result_Select as its type\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Return typehint of method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:createResultSet\\(\\) has invalid type Solarium_Result_Select\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Return typehint of method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:getResultSet\\(\\) has invalid type Solarium_Result_Select\\.$#"
+			count: 1
+			path: lib/Adapter/Solarium/SolariumAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Adapter\\\\ConcatenationAdapter\\:\\:getNbResults\\(\\) should return int but returns float\\|int\\.$#"
+			count: 1
+			path: lib/Core/Adapter/ConcatenationAdapter.php
+
+		-
+			message: "#^Offset \\(int\\|string\\) does not exist on array\\<int\\>\\|null\\.$#"
+			count: 1
+			path: lib/Core/Adapter/ConcatenationAdapter.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_sum expects array, array\\<int\\>\\|null given\\.$#"
+			count: 1
+			path: lib/Core/Adapter/ConcatenationAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:toInteger\\(\\) should return int but returns float\\|int\\|string\\.$#"
+			count: 1
+			path: lib/Core/Pagerfanta.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$rel$#"
+			count: 1
+			path: lib/Core/View/Template/TemplateInterface.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\Adapter\\\\CallbackAdapterTest\\:\\:testTheConstructorRejectsTheNbResultsArgumentIfItIsNotACallable\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			count: 1
+			path: tests/Adapter/CallbackAdapterTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\Adapter\\\\CallbackAdapterTest\\:\\:testTheConstructorRejectsTheSliceArgumentIfItIsNotACallable\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			count: 1
+			path: tests/Adapter/CallbackAdapterTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$object_or_class of function method_exists expects object\\|string, Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int given\\.$#"
+			count: 1
+			path: tests/Adapter/DoctrineDbalAdapterTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$object_or_class of function method_exists expects object\\|string, Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int given\\.$#"
+			count: 1
+			path: tests/Adapter/DoctrineDbalSingleTableAdapterTest.php
+
+		-
+			message: "#^Class Solarium_Client not found\\.$#"
+			count: 1
+			path: tests/Adapter/Solarium2AdapterTest.php
+
+		-
+			message: "#^Class Solarium_Query_Select not found\\.$#"
+			count: 1
+			path: tests/Adapter/Solarium2AdapterTest.php
+
+		-
+			message: "#^Class Solarium_Result_Select not found\\.$#"
+			count: 1
+			path: tests/Adapter/Solarium2AdapterTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\Adapter\\\\Solarium2AdapterTest\\:\\:getClientClass\\(\\) should return class\\-string but returns string\\.$#"
+			count: 1
+			path: tests/Adapter/Solarium2AdapterTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\Adapter\\\\Solarium2AdapterTest\\:\\:getQueryClass\\(\\) should return class\\-string but returns string\\.$#"
+			count: 1
+			path: tests/Adapter/Solarium2AdapterTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\Adapter\\\\Solarium2AdapterTest\\:\\:getResultClass\\(\\) should return class\\-string but returns string\\.$#"
+			count: 1
+			path: tests/Adapter/Solarium2AdapterTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$query of method Pagerfanta\\\\Tests\\\\Adapter\\\\Solarium3AdapterTest\\:\\:doTestGetResultSet\\(\\) expects PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query, \\(PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\)\\|\\(PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Solarium_Query_Select\\) given\\.$#"
+			count: 2
+			path: tests/Adapter/Solarium3AdapterTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\Adapter\\\\SolariumAdapterTestCase\\:\\:createClientMock\\(\\) should return \\(PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Solarium\\\\Core\\\\Client\\\\Client\\)\\|\\(PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Solarium_Client\\) but returns PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
+			count: 1
+			path: tests/Adapter/SolariumAdapterTestCase.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\Adapter\\\\SolariumAdapterTestCase\\:\\:createQueryMock\\(\\) should return \\(PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\)\\|\\(PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Solarium_Query_Select\\) but returns PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
+			count: 1
+			path: tests/Adapter/SolariumAdapterTestCase.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\Adapter\\\\SolariumAdapterTestCase\\:\\:createResultMock\\(\\) should return \\(PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Solarium\\\\QueryType\\\\Select\\\\Result\\\\Result\\)\\|\\(PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Solarium_Result_Select\\) but returns PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
+			count: 1
+			path: tests/Adapter/SolariumAdapterTestCase.php
+
+		-
+			message: "#^Return typehint of method Pagerfanta\\\\Tests\\\\Adapter\\\\SolariumAdapterTestCase\\:\\:createClientMock\\(\\) has invalid type Solarium_Client\\.$#"
+			count: 1
+			path: tests/Adapter/SolariumAdapterTestCase.php
+
+		-
+			message: "#^Return typehint of method Pagerfanta\\\\Tests\\\\Adapter\\\\SolariumAdapterTestCase\\:\\:createQueryMock\\(\\) has invalid type Solarium_Query_Select\\.$#"
+			count: 1
+			path: tests/Adapter/SolariumAdapterTestCase.php
+
+		-
+			message: "#^Return typehint of method Pagerfanta\\\\Tests\\\\Adapter\\\\SolariumAdapterTestCase\\:\\:createQueryStub\\(\\) has invalid type Solarium_Query_Select\\.$#"
+			count: 1
+			path: tests/Adapter/SolariumAdapterTestCase.php
+
+		-
+			message: "#^Return typehint of method Pagerfanta\\\\Tests\\\\Adapter\\\\SolariumAdapterTestCase\\:\\:createResultMock\\(\\) has invalid type Solarium_Result_Select\\.$#"
+			count: 1
+			path: tests/Adapter/SolariumAdapterTestCase.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\PagerfantaTest\\:\\:testNormalizingOutOfRangePagesRejectsNonBooleanValues\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			count: 1
+			path: tests/PagerfantaTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\PagerfantaTest\\:\\:testSettingOutOfRangePagesRejectsNonBooleanValues\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			count: 1
+			path: tests/PagerfantaTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\PagerfantaTest\\:\\:testTheCurrentPageNumberCannotBeSetWithNonIntegerValues\\(\\) has parameter \\$currentPage with no typehint specified\\.$#"
+			count: 1
+			path: tests/PagerfantaTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\PagerfantaTest\\:\\:testTheMaximumNumberOfItemsPerPageCannotBeSetWithNonIntegerValues\\(\\) has parameter \\$maxPerPage with no typehint specified\\.$#"
+			count: 1
+			path: tests/PagerfantaTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$currentPage of method Pagerfanta\\\\Pagerfanta\\<mixed\\>\\:\\:setCurrentPage\\(\\) expects int, int\\|string given\\.$#"
+			count: 1
+			path: tests/PagerfantaTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$expectedJson of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
+			count: 2
+			path: tests/PagerfantaTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$maxPerPage of method Pagerfanta\\\\Pagerfanta\\<mixed\\>\\:\\:setMaxPerPage\\(\\) expects int, int\\|string given\\.$#"
+			count: 1
+			path: tests/PagerfantaTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$position of method Pagerfanta\\\\Pagerfanta\\<mixed\\>\\:\\:getPageNumberForItemAtPosition\\(\\) expects int, string given\\.$#"
+			count: 1
+			path: tests/PagerfantaTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$actualJson of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
+			count: 2
+			path: tests/PagerfantaTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\Twig\\\\PagerfantaRuntimeTest\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: tests/Twig/PagerfantaRuntimeTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\View\\\\TwigViewIntegrationTest\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: tests/View/TwigViewIntegrationTest.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Tests\\\\View\\\\ViewTestCase\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: tests/View/ViewTestCase.php
+

@@ -65,7 +65,7 @@ final class TwigView extends View
     private function decorateRouteGenerator($routeGenerator): RouteGeneratorDecorator
     {
         if (!\is_callable($routeGenerator)) {
-            throw new InvalidArgumentException(sprintf('The route generator for "%s" must be a callable, a "%s" was given.', self::class, \gettype($routeGenerator)));
+            throw new InvalidArgumentException(sprintf('The route generator for "%s" must be a callable, %s given.', self::class, get_debug_type($routeGenerator)));
         }
 
         return new RouteGeneratorDecorator($routeGenerator);

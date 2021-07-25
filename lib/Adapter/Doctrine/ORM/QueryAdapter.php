@@ -9,11 +9,13 @@ use Pagerfanta\Adapter\AdapterInterface;
 
 /**
  * Adapter which calculates pagination from a Doctrine ORM Query or QueryBuilder.
+ *
+ * @template T
  */
 class QueryAdapter implements AdapterInterface
 {
     /**
-     * @var Paginator
+     * @var Paginator<T>
      */
     private $paginator;
 
@@ -59,6 +61,7 @@ class QueryAdapter implements AdapterInterface
      * @param int $length
      *
      * @return iterable
+     * @phpstan-return \ArrayIterator<array-key, T>
      */
     public function getSlice($offset, $length)
     {

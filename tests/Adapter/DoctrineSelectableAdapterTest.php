@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 class DoctrineSelectableAdapterTest extends TestCase
 {
     /**
-     * @var MockObject|Selectable
+     * @var MockObject&Selectable<array-key, mixed>
      */
     private $selectable;
 
@@ -22,7 +22,7 @@ class DoctrineSelectableAdapterTest extends TestCase
     private $criteria;
 
     /**
-     * @var DoctrineSelectableAdapter
+     * @var DoctrineSelectableAdapter<array-key, mixed>
      */
     private $adapter;
 

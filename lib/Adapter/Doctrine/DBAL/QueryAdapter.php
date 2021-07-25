@@ -34,7 +34,7 @@ class QueryAdapter implements AdapterInterface
         }
 
         if (!\is_callable($countQueryBuilderModifier)) {
-            throw new InvalidArgumentException(sprintf('The $countQueryBuilderModifier argument of the %s constructor must be a callable, a %s was given.', self::class, \gettype($countQueryBuilderModifier)));
+            throw new InvalidArgumentException(sprintf('The $countQueryBuilderModifier argument of the %s constructor must be a callable, %s given.', self::class, get_debug_type($countQueryBuilderModifier)));
         }
 
         $this->queryBuilder = clone $queryBuilder;

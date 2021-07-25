@@ -19,12 +19,12 @@ use PHPUnit\Framework\TestCase;
 class PagerfantaTest extends TestCase
 {
     /**
-     * @var MockObject|AdapterInterface
+     * @var MockObject&AdapterInterface
      */
     private $adapter;
 
     /**
-     * @var Pagerfanta
+     * @var Pagerfanta<mixed>
      */
     private $pagerfanta;
 

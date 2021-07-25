@@ -1,61 +1,39 @@
+includes:
+  - phpstan-baseline.neon
 parameters:
-  level: 6
+  level: 8
   paths:
     - %currentWorkingDirectory%/lib
     - %currentWorkingDirectory%/src
     - %currentWorkingDirectory%/tests
   ignoreErrors:
-    # Errors conditionally ignored based on multiple Solarium versions being supported
-    - '/Class Solarium_Client not found\./'
-    - '/Class Solarium_Query_Select not found\./'
-    - '/Class Solarium_Result_Select not found\./'
-    - '/Property Pagerfanta\\Solarium\\SolariumAdapter::\$client has unknown class Solarium_Client as its type\./'
-    - '/Property Pagerfanta\\Solarium\\SolariumAdapter::\$query has unknown class Solarium_Query_Select as its type\./'
-    - '/Property Pagerfanta\\Solarium\\SolariumAdapter::\$resultSet has unknown class Solarium_Result_Select as its type\./'
-    - '/Parameter \$client of method Pagerfanta\\Solarium\\SolariumAdapter::__construct\(\) has invalid typehint type Solarium_Client\./'
-    - '/Parameter \$query of method Pagerfanta\\Solarium\\SolariumAdapter::__construct\(\) has invalid typehint type Solarium_Query_Select\./'
-    - '/Parameter \$client of method Pagerfanta\\Solarium\\SolariumAdapter::checkClient\(\) has invalid typehint type Solarium_Client\./'
-    - '/Parameter \$client of method Pagerfanta\\Solarium\\SolariumAdapter::isClientInvalid\(\) has invalid typehint type Solarium_Client\./'
-    - '/Parameter \$client of method Pagerfanta\\Solarium\\SolariumAdapter::getClientInvalidMessage\(\) has invalid typehint type Solarium_Client\./'
-    - '/Parameter \$query of method Pagerfanta\\Solarium\\SolariumAdapter::checkQuery\(\) has invalid typehint type Solarium_Query_Select\./'
-    - '/Parameter \$query of method Pagerfanta\\Solarium\\SolariumAdapter::isQueryInvalid\(\) has invalid typehint type Solarium_Query_Select\./'
-    - '/Parameter \$query of method Pagerfanta\\Solarium\\SolariumAdapter::getQueryInvalidMessage\(\) has invalid typehint type Solarium_Query_Select\./'
-    - '/Call to method getNumFound\(\) on an unknown class Solarium_Result_Select\./'
-    - '/Call to method setStart\(\) on an unknown class Solarium_Query_Select\./'
-    - '/Call to method select\(\) on an unknown class Solarium_Client\./'
-    - '/Return typehint of method Pagerfanta\\Solarium\\SolariumAdapter::getResultSet\(\) has invalid type Solarium_Result_Select\./'
-    - '/Return typehint of method Pagerfanta\\Solarium\\SolariumAdapter::createResultSet\(\) has invalid type Solarium_Result_Select\./'
-
-    - '/Return typehint of method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createClientMock\(\) has invalid type Solarium_Client\./'
-    - '/Return typehint of method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createQueryMock\(\) has invalid type Solarium_Query_Select\./'
-    - '/Return typehint of method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createQueryStub\(\) has invalid type Solarium_Query_Select\./'
-    - '/Return typehint of method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createResultMock\(\) has invalid type Solarium_Result_Select\./'
-    - '/Parameter #1 \$client of class Pagerfanta\\Adapter\\SolariumAdapter constructor expects Solarium\\Core\\Client\\Client\|Solarium_Client, ArrayObject<mixed, mixed> given\./'
-    - '/Parameter #2 \$query of class Pagerfanta\\Adapter\\SolariumAdapter constructor expects Solarium\\QueryType\\Select\\Query\\Query\|Solarium_Query_Select, ArrayObject<mixed, mixed> given\./'
-    - '/Method Pagerfanta\\Tests\\Adapter\\Solarium2AdapterTest::(getClientClass|getQueryClass|getResultClass)\(\) should return class-string but returns string\./'
-    - '/Parameter #1 \$query of method Pagerfanta\\Tests\\Adapter\\Solarium3AdapterTest::doTestGetResultSet\(\) expects PHPUnit\\Framework\\MockObject\\MockObject\&Solarium\\QueryType\\Select\\Query\\Query, \(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium\\QueryType\\Select\\Query\\Query\)\|\(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium_Query_Select\) given\./'
-    - '/Method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createClientMock\(\) should return \(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium\\Core\\Client\\Client\)\|\(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium_Client\) but returns PHPUnit\\Framework\\MockObject\\MockObject\./'
-    - '/Method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createQueryMock\(\) should return \(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium\\QueryType\\Select\\Query\\Query\)\|\(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium_Query_Select\) but returns PHPUnit\\Framework\\MockObject\\MockObject\./'
-    - '/Method Pagerfanta\\Tests\\Adapter\\SolariumAdapterTestCase::createResultMock\(\) should return \(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium\\QueryType\\Select\\Result\\Result\)\|\(PHPUnit\\Framework\\MockObject\\MockObject\&Solarium_Result_Select\) but returns PHPUnit\\Framework\\MockObject\\MockObject\./'
-
-    # Ignore errors for arguments in interface doc blocks not included in runtime signatures
-    -
-      message: '/PHPDoc tag \@param references unknown parameter: \$rel/'
-      path: %currentWorkingDirectory%/lib/Core/View/Template/TemplateInterface.php
-
     # Ignore errors for incompatible types, types are checked at runtime and exceptions thrown as appropriate
     - '/Parameter #1 \$adapters of class Pagerfanta\\Adapter\\ConcatenationAdapter constructor expects array<Pagerfanta\\Adapter\\AdapterInterface>, array<int, Pagerfanta\\Adapter\\ArrayAdapter\|string> given\./'
-    - '/Parameter #1 \$position of method Pagerfanta\\Pagerfanta::getPageNumberForItemAtPosition\(\) expects int, string given\./'
 
     # Ignore errors from tests validating runtime type checks
     -
-      message: '/Parameter #2 \$viewName of method Pagerfanta\\Twig\\Extension\\PagerfantaRuntime::renderPagerfanta\(\) expects array\|string\|null, stdClass given\./'
-      path: %currentWorkingDirectory%/tests/Twig/PagerfantaRuntimeTest.php
+      message: '/Parameter #2 \$countQueryBuilderModifier of class Pagerfanta\\Adapter\\DoctrineDbalAdapter constructor expects callable\(Doctrine\\DBAL\\Query\\QueryBuilder\): void, stdClass given\./'
+      path: %currentWorkingDirectory%/tests/Adapter/DoctrineDbalAdapterTest.php
 
     -
       message: '/Call to method PHPUnit\\Framework\\Assert::assertSame\(\) with Elastica\\ResultSet\&PHPUnit\\Framework\\MockObject\\MockObject and null will always evaluate to false\./'
       path: %currentWorkingDirectory%/tests/Adapter/ElasticaAdapterTest.php
 
-  checkGenericClassInNonGenericObjectType: false
+    -
+      message: '/Parameter #1 \$client of class Pagerfanta\\Adapter\\SolariumAdapter constructor expects Solarium\\Core\\Client\\Client\|Solarium_Client, stdClass given\./'
+      path: %currentWorkingDirectory%/tests/Adapter/SolariumAdapterTestCase.php
+
+    -
+      message: '/Parameter #2 \$query of class Pagerfanta\\Adapter\\SolariumAdapter constructor expects Solarium\\QueryType\\Select\\Query\\Query\|Solarium_Query_Select, stdClass given\./'
+      path: %currentWorkingDirectory%/tests/Adapter/SolariumAdapterTestCase.php
+
+    -
+      message: '/Parameter #2 \$viewName of method Pagerfanta\\Twig\\Extension\\PagerfantaRuntime::renderPagerfanta\(\) expects array\|string\|null, stdClass given\./'
+      path: %currentWorkingDirectory%/tests/Twig/PagerfantaRuntimeTest.php
+
+    -
+      message: '/Parameter #2 \$routeGenerator of method Pagerfanta\\Twig\\View\\TwigView::render\(\) expects callable\(\): mixed, stdClass given\./'
+      path: %currentWorkingDirectory%/tests/View/TwigViewTest.php
+
   checkMissingIterableValueType: false
   treatPhpDocTypesAsCertain: false

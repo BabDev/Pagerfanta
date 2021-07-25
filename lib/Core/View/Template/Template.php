@@ -37,7 +37,7 @@ abstract class Template implements TemplateInterface
     public function setRouteGenerator($routeGenerator): void
     {
         if (!\is_callable($routeGenerator)) {
-            throw new InvalidArgumentException(sprintf('The $routeGenerator argument of %s() must be a callable, a %s was given.', __METHOD__, \gettype($routeGenerator)));
+            throw new InvalidArgumentException(sprintf('The $routeGenerator argument of %s() must be a callable, %s given.', __METHOD__, get_debug_type($routeGenerator)));
         }
 
         $this->routeGenerator = $routeGenerator;

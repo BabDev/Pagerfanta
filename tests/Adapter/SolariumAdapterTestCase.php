@@ -82,14 +82,14 @@ abstract class SolariumAdapterTestCase extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new SolariumAdapter(new \ArrayObject(), $this->createQueryMock());
+        new SolariumAdapter(new \stdClass(), $this->createQueryMock());
     }
 
     public function testConstructorShouldThrowAnInvalidArgumentExceptionWhenInvalidQuery(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new SolariumAdapter($this->createClientMock(), new \ArrayObject());
+        new SolariumAdapter($this->createClientMock(), new \stdClass());
     }
 
     public function testGetNbResults(): void

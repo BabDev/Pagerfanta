@@ -17,7 +17,7 @@ interface AdapterInterface
      * @param int $offset
      * @param int $length
      *
-     * @return iterable
+     * @return iterable<array-key, mixed>
      */
     public function getSlice($offset, $length);
 }

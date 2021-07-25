@@ -35,9 +35,9 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
     public function testTheConstructorRejectsTheQueryBuilderModifierIfItIsNotCallable(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('The $countQueryBuilderModifier argument of the %s constructor must be a callable, a string was given.', QueryAdapter::class));
+        $this->expectExceptionMessage(sprintf('The $countQueryBuilderModifier argument of the %s constructor must be a callable, stdClass given.', QueryAdapter::class));
 
-        new DoctrineDbalAdapter($this->qb, 'ups');
+        new DoctrineDbalAdapter($this->qb, new \stdClass());
     }
 
     public function testAdapterReturnsNumberOfResults(): void
