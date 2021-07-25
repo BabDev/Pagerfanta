@@ -201,7 +201,7 @@ final class SolariumAdapterTest extends TestCase
     }
 
     /**
-     * @param MockObject|Query     $query
+     * @param MockObject&Query     $query
      * @param Endpoint|string|null $endpoint
      */
     private function doTestGetResultSet($query, $endpoint): void

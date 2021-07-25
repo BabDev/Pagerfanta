@@ -51,6 +51,9 @@ final class PagerfantaTest extends TestCase
         yield 'negative number' => [-1];
     }
 
+    /**
+     * @group legacy
+     */
     public function testTheAdapterCanBeRetrieved(): void
     {
         $this->assertSame($this->adapter, $this->pagerfanta->getAdapter());
@@ -445,7 +448,7 @@ final class PagerfantaTest extends TestCase
 
     public function testThePagerCanBeIteratedWithTheCurrentPageResultsWhenTheAdapterReturnsAnIterator(): void
     {
-        /** @var MockObject|\Iterator $currentPageResults */
+        /** @var MockObject&\Iterator $currentPageResults */
         $currentPageResults = $this->createMock(\Iterator::class);
 
         $this->adapter->expects($this->once())
@@ -459,7 +462,7 @@ final class PagerfantaTest extends TestCase
     {
         $iterator = new \ArrayIterator(['foo']);
 
-        /** @var MockObject|\IteratorAggregate $currentPageResults */
+        /** @var MockObject&\IteratorAggregate $currentPageResults */
         $currentPageResults = $this->createMock(\IteratorAggregate::class);
         $currentPageResults->expects($this->once())
             ->method('getIterator')
@@ -498,7 +501,7 @@ final class PagerfantaTest extends TestCase
 
         $iterator = new \ArrayIterator($pageResults);
 
-        /** @var MockObject|\IteratorAggregate $currentPageResults */
+        /** @var MockObject&\IteratorAggregate $currentPageResults */
         $currentPageResults = $this->createMock(\IteratorAggregate::class);
         $currentPageResults->expects($this->once())
             ->method('getIterator')

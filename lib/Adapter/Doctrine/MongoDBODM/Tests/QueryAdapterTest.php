@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class QueryAdapterTest extends TestCase
 {
     /**
-     * @var MockObject|Builder
+     * @var MockObject&Builder
      */
     private $queryBuilder;
 
@@ -35,6 +35,9 @@ final class QueryAdapterTest extends TestCase
         $this->adapter = new QueryAdapter($this->queryBuilder);
     }
 
+    /**
+     * @group legacy
+     */
     public function testGetQueryBuilder(): void
     {
         $this->assertSame($this->queryBuilder, $this->adapter->getQueryBuilder());

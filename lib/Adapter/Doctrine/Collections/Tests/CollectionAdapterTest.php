@@ -26,6 +26,9 @@ final class CollectionAdapterTest extends TestCase
         $this->adapter = new CollectionAdapter($this->collection);
     }
 
+    /**
+     * @group legacy
+     */
     public function testGetCollectionShouldReturnTheCollection(): void
     {
         $this->assertSame($this->collection, $this->adapter->getCollection());

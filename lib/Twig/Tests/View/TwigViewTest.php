@@ -14,7 +14,7 @@ use Twig\TemplateWrapper;
 final class TwigViewTest extends TestCase
 {
     /**
-     * @var MockObject|Environment
+     * @var MockObject&Environment
      */
     private $twig;
 

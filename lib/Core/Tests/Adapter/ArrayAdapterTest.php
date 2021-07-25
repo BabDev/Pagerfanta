@@ -23,6 +23,9 @@ final class ArrayAdapterTest extends TestCase
         $this->adapter = new ArrayAdapter($this->array);
     }
 
+    /**
+     * @group legacy
+     */
     public function testResultArrayIsRetrieved(): void
     {
         $this->assertSame($this->array, $this->adapter->getArray());
