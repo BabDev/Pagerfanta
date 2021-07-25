@@ -2,6 +2,8 @@
 
 namespace Pagerfanta\Tests\Adapter\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,9 +22,14 @@ class Group
     public $id;
 
     /**
-     * @var User[]|null
+     * @var Collection<array-key, User>
      *
      * @ORM\ManyToMany(targetEntity="\Pagerfanta\Tests\Adapter\Entity\User", mappedBy="groups")
      */
     public $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 }
