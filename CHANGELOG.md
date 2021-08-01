@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.2 (2021-08-01)
+
+- Add generics annotations
+
 ## 2.7.1 (2021-02-28)
 
 - Fix the Tailwind Twig template using a hardcoded English string
