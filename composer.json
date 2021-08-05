@@ -32,7 +32,7 @@
     "conflict": {
         "doctrine/collections": "<1.6",
         "doctrine/dbal": "<2.12",
-        "doctrine/mongodb-odm": "<2.0",
+        "doctrine/mongodb-odm": "<2.2.2",
         "doctrine/orm": "<2.8",
         "doctrine/phpcr-odm": "<1.5",
         "ruflin/elastica": "<6.0",
