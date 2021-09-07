@@ -38,6 +38,10 @@ class QueryAdapter implements AdapterInterface
     {
         $qb = $this->prepareCountQueryBuilder();
 
+        if (method_exists($qb, 'executeQuery')) {
+            return (int) $qb->executeQuery()->fetchOne();
+        }
+
         return (int) $qb->execute()->fetchOne();
     }
 
@@ -45,10 +49,16 @@ class QueryAdapter implements AdapterInterface
     {
         $qb = clone $this->queryBuilder;
 
-        return $qb->setMaxResults($length)
-            ->setFirstResult($offset)
-            ->execute()
-            ->fetchAllAssociative();
+        $qb->setMaxResults($length)
+            ->setFirstResult($offset);
+
+        if (method_exists($qb, 'executeQuery')) {
+            $stmt = $qb->executeQuery();
+        } else {
+            $stmt = $qb->execute();
+        }
+
+        return $stmt->fetchAllAssociative();
     }
 
     private function prepareCountQueryBuilder(): QueryBuilder

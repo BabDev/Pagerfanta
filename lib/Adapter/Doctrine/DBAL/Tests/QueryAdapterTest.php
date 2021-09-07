@@ -57,7 +57,13 @@ final class QueryAdapterTest extends DBALTestCase
         $this->qb->setFirstResult($offset)
             ->setMaxResults($length);
 
-        $this->assertSame($this->qb->execute()->fetchAllAssociative(), $adapter->getSlice($offset, $length));
+        if (method_exists($this->qb, 'executeQuery')) {
+            $stmt = $this->qb->executeQuery();
+        } else {
+            $stmt = $this->qb->execute();
+        }
+
+        $this->assertSame($stmt->fetchAllAssociative(), $adapter->getSlice($offset, $length));
     }
 
     public function testTheAdapterUsesAClonedQuery(): void
