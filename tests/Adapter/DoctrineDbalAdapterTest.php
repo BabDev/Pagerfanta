@@ -66,7 +66,11 @@ class DoctrineDbalAdapterTest extends DoctrineDbalTestCase
         $this->qb->setFirstResult($offset)
             ->setMaxResults($length);
 
-        $stmt = $this->qb->execute();
+        if (method_exists($this->qb, 'executeQuery')) {
+            $stmt = $this->qb->executeQuery();
+        } else {
+            $stmt = $this->qb->execute();
+        }
 
         $fetcher = method_exists($stmt, 'fetchAllAssociative') ? 'fetchAllAssociative' : 'fetchAll';
 

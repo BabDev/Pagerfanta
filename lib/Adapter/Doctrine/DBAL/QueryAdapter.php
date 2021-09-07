@@ -48,7 +48,11 @@ class QueryAdapter implements AdapterInterface
     {
         $qb = $this->prepareCountQueryBuilder();
 
-        $stmt = $qb->execute();
+        if (method_exists($qb, 'executeQuery')) {
+            $stmt = $qb->executeQuery();
+        } else {
+            $stmt = $qb->execute();
+        }
 
         if (method_exists($stmt, 'fetchOne')) {
             return (int) $stmt->fetchOne();
@@ -67,9 +71,14 @@ class QueryAdapter implements AdapterInterface
     {
         $qb = clone $this->queryBuilder;
 
-        $stmt = $qb->setMaxResults($length)
-            ->setFirstResult($offset)
-            ->execute();
+        $qb->setMaxResults($length)
+            ->setFirstResult($offset);
+
+        if (method_exists($qb, 'executeQuery')) {
+            $stmt = $qb->executeQuery();
+        } else {
+            $stmt = $qb->execute();
+        }
 
         if (method_exists($stmt, 'fetchAllAssociative')) {
             return $stmt->fetchAllAssociative();
