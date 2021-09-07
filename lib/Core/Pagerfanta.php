@@ -104,7 +104,6 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     private function resetForMaxPerPageChange(): void
     {
         $this->currentPageResults = null;
-        $this->nbResults = null;
     }
 
     public function getMaxPerPage(): int

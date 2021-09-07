@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.3.1 (????-??-??)
+
+- Calling `Pagerfanta::setMaxPerPage()` should not reset the number of results
+
 ## 3.3.0 (2021-08-08)
 
 - [#31](https://github.com/BabDev/Pagerfanta/pull/31) Add Doctrine MongoDB ODM Aggregation adapter
