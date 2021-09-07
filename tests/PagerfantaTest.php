@@ -155,21 +155,25 @@ class PagerfantaTest extends TestCase
         });
     }
 
-    public function testSetMaxPerPageShouldResetNbResults(): void
+    public function testSetMaxPerPageShouldNotResetNbResults(): void
     {
-        $this->prepareForResetNbResults();
+        $this->adapter->expects($this->once())
+            ->method('getNbResults')
+            ->willReturn(100);
 
         $this->assertSame(100, $this->pagerfanta->getNbResults());
-        $this->pagerfanta->setMaxPerPage(10);
-        $this->assertSame(50, $this->pagerfanta->getNbResults());
+        $this->pagerfanta->setMaxPerPage(5);
+        $this->assertSame(100, $this->pagerfanta->getNbResults());
     }
 
     public function testSetMaxPerPageShouldResetNbPages(): void
     {
-        $this->prepareForResetNbResults();
+        $this->adapter->expects($this->once())
+            ->method('getNbResults')
+            ->willReturn(100);
 
         $this->assertSame(10, $this->pagerfanta->getNbPages());
-        $this->pagerfanta->setMaxPerPage(10);
+        $this->pagerfanta->setMaxPerPage(20);
         $this->assertSame(5, $this->pagerfanta->getNbPages());
     }
 
@@ -643,15 +647,6 @@ class PagerfantaTest extends TestCase
             ->willReturn(100);
 
         $this->pagerfanta->getPageNumberForItemAtPosition(101);
-    }
-
-    private function prepareForResetNbResults(): void
-    {
-        $this->pagerfanta->setMaxPerPage(10);
-
-        $this->adapter->expects($this->exactly(2))
-            ->method('getNbResults')
-            ->willReturnOnConsecutiveCalls(100, 50);
     }
 
     private function resetCurrentPageResults(callable $callback): void

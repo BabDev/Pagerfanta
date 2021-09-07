@@ -168,7 +168,6 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     private function resetForMaxPerPageChange(): void
     {
         $this->currentPageResults = null;
-        $this->nbResults = null;
     }
 
     /**

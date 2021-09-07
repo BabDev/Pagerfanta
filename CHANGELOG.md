@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.3 (????-??-??)
+
+- Calling `Pagerfanta::setMaxPerPage()` should not reset the number of results
+
 ## 2.7.2 (2021-08-01)
 
 - Add generics annotations
