@@ -26,11 +26,20 @@ class ArrayAdapter implements AdapterInterface
         return $this->array;
     }
 
+    /**
+     * @phpstan-return int<0, max>
+     */
     public function getNbResults(): int
     {
         return \count($this->array);
     }
 
+    /**
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
+     * @return iterable<array-key, mixed>
+     */
     public function getSlice(int $offset, int $length): iterable
     {
         return \array_slice($this->array, $offset, $length);

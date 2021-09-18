@@ -34,6 +34,9 @@ class QueryAdapter implements AdapterInterface
         $this->countQueryBuilderModifier = $countQueryBuilderModifier;
     }
 
+    /**
+     * @phpstan-return int<0, max>
+     */
     public function getNbResults(): int
     {
         $qb = $this->prepareCountQueryBuilder();
@@ -45,6 +48,12 @@ class QueryAdapter implements AdapterInterface
         return (int) $qb->execute()->fetchOne();
     }
 
+    /**
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
+     * @return iterable<array-key, mixed>
+     */
     public function getSlice(int $offset, int $length): iterable
     {
         $qb = clone $this->queryBuilder;

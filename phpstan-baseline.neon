@@ -1,27 +1,32 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int\\.$#"
+			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
 
 		-
-			message: "#^Cannot call method fetchOne\\(\\) on Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int\\.$#"
+			message: "#^Cannot call method fetchOne\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
 
 		-
-			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int\\.$#"
+			message: "#^Method Pagerfanta\\\\Doctrine\\\\DBAL\\\\QueryAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
+			count: 2
+			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
+
+		-
+			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/Tests/QueryAdapterTest.php
 
 		-
-			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\ForwardCompatibility\\\\DriverStatement\\|int\\.$#"
+			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/Tests/SingleTableQueryAdapterTest.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getNbResults\\(\\) should return int but returns array\\|int\\|object\\|null\\.$#"
+			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns array\\|int\\|object\\|null\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
 
@@ -31,22 +36,27 @@ parameters:
 			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:getNbResults\\(\\) should return int but returns int\\|null\\.$#"
+			message: "#^Method Pagerfanta\\\\Elastica\\\\ElasticaAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
+			count: 2
+			path: lib/Adapter/Elastica/ElasticaAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\|null\\.$#"
 			count: 1
 			path: lib/Adapter/Solarium/SolariumAdapter.php
 
 		-
-			message: "#^Parameter \\#1 \\$rows of method Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\:\\:setRows\\(\\) expects int, int\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$rows of method Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\:\\:setRows\\(\\) expects int, int\\<0, max\\>\\|null given\\.$#"
 			count: 1
 			path: lib/Adapter/Solarium/SolariumAdapter.php
 
 		-
-			message: "#^Parameter \\#1 \\$start of method Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\:\\:setStart\\(\\) expects int, int\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$start of method Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\:\\:setStart\\(\\) expects int, int\\<0, max\\>\\|null given\\.$#"
 			count: 1
 			path: lib/Adapter/Solarium/SolariumAdapter.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Adapter\\\\ConcatenationAdapter\\:\\:getNbResults\\(\\) should return int but returns float\\|int\\.$#"
+			message: "#^Method Pagerfanta\\\\Adapter\\\\ConcatenationAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns float\\|int\\.$#"
 			count: 1
 			path: lib/Core/Adapter/ConcatenationAdapter.php
 
@@ -61,22 +71,82 @@ parameters:
 			path: lib/Core/Adapter/ConcatenationAdapter.php
 
 		-
+			message: "#^Parameter \\#2 \\$length of method Pagerfanta\\\\Adapter\\\\AdapterInterface\\:\\:getSlice\\(\\) expects int\\<0, max\\>, int given\\.$#"
+			count: 1
+			path: lib/Core/Adapter/ConcatenationAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Adapter\\\\NullAdapter\\:\\:remainCount\\(\\) should return int\\<0, max\\> but returns int\\.$#"
+			count: 1
+			path: lib/Core/Adapter/NullAdapter.php
+
+		-
+			message: "#^Comparison operation \"\\<\" between int\\<1, max\\> and 1 is always false\\.$#"
+			count: 3
+			path: lib/Core/Pagerfanta.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:calculateNbPages\\(\\) should return int\\<0, max\\> but returns int\\.$#"
+			count: 1
+			path: lib/Core/Pagerfanta.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:getPageNumberForItemAtPosition\\(\\) should return int\\<1, max\\> but returns int\\.$#"
+			count: 1
+			path: lib/Core/Pagerfanta.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:getPreviousPage\\(\\) should return int\\<1, max\\> but returns int\\<0, max\\>\\.$#"
+			count: 1
+			path: lib/Core/Pagerfanta.php
+
+		-
+			message: "#^Parameter \\#1 \\$currentPage of method Pagerfanta\\\\Pagerfanta\\<mixed\\>\\:\\:setCurrentPage\\(\\) expects int\\<1, max\\>, int given\\.$#"
+			count: 5
+			path: lib/Core/Tests/PagerfantaTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$maxNbPages of method Pagerfanta\\\\Pagerfanta\\<mixed\\>\\:\\:setMaxNbPages\\(\\) expects int\\<1, max\\>, int given\\.$#"
+			count: 1
+			path: lib/Core/Tests/PagerfantaTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$maxPerPage of method Pagerfanta\\\\Pagerfanta\\<mixed\\>\\:\\:setMaxPerPage\\(\\) expects int\\<1, max\\>, int given\\.$#"
+			count: 1
+			path: lib/Core/Tests/PagerfantaTest.php
+
+		-
 			message: "#^Method Pagerfanta\\\\Tests\\\\View\\\\ViewTestCase\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: lib/Core/Tests/View/ViewTestCase.php
 
 		-
-			message: "#^Parameter \\#1 \\$start of function range expects float\\|int\\|string, int\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$start of function range expects float\\|int\\|string, int\\<1, max\\>\\|null given\\.$#"
 			count: 1
 			path: lib/Core/View/TemplateView.php
 
 		-
-			message: "#^Parameter \\#2 \\$end of function range expects float\\|int\\|string, int\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$end of function range expects float\\|int\\|string, int\\<1, max\\>\\|null given\\.$#"
 			count: 1
 			path: lib/Core/View/TemplateView.php
 
 		-
-			message: "#^Method Pagerfanta\\\\View\\\\View\\:\\:calculateEndPageForStartPageUnderflow\\(\\) should return int but returns int\\|null\\.$#"
+			message: "#^Method Pagerfanta\\\\View\\\\View\\:\\:calculateEndPageForStartPageUnderflow\\(\\) should return int\\<1, max\\> but returns int\\|null\\.$#"
+			count: 1
+			path: lib/Core/View/View.php
+
+		-
+			message: "#^Method Pagerfanta\\\\View\\\\View\\:\\:calculateStartPageForEndPageOverflow\\(\\) should return int\\<1, max\\> but returns int\\.$#"
+			count: 1
+			path: lib/Core/View/View.php
+
+		-
+			message: "#^Property Pagerfanta\\\\View\\\\View\\:\\:\\$endPage \\(int\\<1, max\\>\\|null\\) does not accept int\\|null\\.$#"
+			count: 1
+			path: lib/Core/View/View.php
+
+		-
+			message: "#^Property Pagerfanta\\\\View\\\\View\\:\\:\\$startPage \\(int\\<1, max\\>\\|null\\) does not accept int\\.$#"
 			count: 1
 			path: lib/Core/View/View.php
 

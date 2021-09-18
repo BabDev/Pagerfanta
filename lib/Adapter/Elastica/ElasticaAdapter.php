@@ -42,6 +42,9 @@ class ElasticaAdapter implements AdapterInterface
         return $this->resultSet;
     }
 
+    /**
+     * @phpstan-return int<0, max>
+     */
     public function getNbResults(): int
     {
         if (!$this->resultSet) {
@@ -57,6 +60,12 @@ class ElasticaAdapter implements AdapterInterface
         return min($totalHits, $this->maxResults);
     }
 
+    /**
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
+     * @return iterable<array-key, mixed>
+     */
     public function getSlice(int $offset, int $length): iterable
     {
         return $this->resultSet = $this->searchable->search(

@@ -11,10 +11,25 @@ abstract class View implements ViewInterface
      */
     protected PagerfantaInterface $pagerfanta;
 
+    /**
+     * @phpstan-var positive-int|null
+     */
     protected ?int $currentPage = null;
+
+    /**
+     * @phpstan-var positive-int|null
+     */
     protected ?int $nbPages = null;
     protected ?int $proximity = null;
+
+    /**
+     * @phpstan-var positive-int|null
+     */
     protected ?int $startPage = null;
+
+    /**
+     * @phpstan-var positive-int|null
+     */
     protected ?int $endPage = null;
 
     /**
@@ -67,11 +82,17 @@ abstract class View implements ViewInterface
         return $endPage > $this->nbPages;
     }
 
+    /**
+     * @return positive-int
+     */
     protected function calculateEndPageForStartPageUnderflow(int $startPage, int $endPage): int
     {
         return min($endPage + (1 - $startPage), $this->nbPages);
     }
 
+    /**
+     * @return positive-int
+     */
     protected function calculateStartPageForEndPageOverflow(int $startPage, int $endPage): int
     {
         return max($startPage - ($endPage - $this->nbPages), 1);

@@ -49,6 +49,9 @@ abstract class ViewTestCase extends TestCase
         return $nbPages * $this->pagerfanta->getMaxPerPage();
     }
 
+    /**
+     * @phpstan-param positive-int $currentPage
+     */
     protected function setCurrentPage(int $currentPage): void
     {
         $this->pagerfanta->setCurrentPage($currentPage);

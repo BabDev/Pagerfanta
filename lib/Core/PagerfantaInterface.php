@@ -35,15 +35,22 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function getNormalizeOutOfRangePages(): bool;
 
     /**
+     * @phpstan-param positive-int $maxPerPage
+     *
      * @return $this<T>
      *
      * @throws LessThan1MaxPerPageException if the page is less than 1
      */
     public function setMaxPerPage(int $maxPerPage): self;
 
+    /**
+     * @phpstan-return positive-int
+     */
     public function getMaxPerPage(): int;
 
     /**
+     * @phpstan-param positive-int $currentPage
+     *
      * @return $this<T>
      *
      * @throws LessThan1CurrentPageException  if the current page is less than 1
@@ -51,6 +58,9 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
      */
     public function setCurrentPage(int $currentPage): self;
 
+    /**
+     * @phpstan-return positive-int
+     */
     public function getCurrentPage(): int;
 
     /**
@@ -58,15 +68,29 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
      */
     public function getCurrentPageResults(): iterable;
 
+    /**
+     * @phpstan-return int<0, max>
+     */
     public function getCurrentPageOffsetStart(): int;
 
+    /**
+     * @phpstan-return int<0, max>
+     */
     public function getCurrentPageOffsetEnd(): int;
 
+    /**
+     * @phpstan-return int<0, max>
+     */
     public function getNbResults(): int;
 
+    /**
+     * @phpstan-return positive-int
+     */
     public function getNbPages(): int;
 
     /**
+     * @phpstan-param positive-int $maxNbPages
+     *
      * @return $this<T>
      *
      * @throws LessThan1MaxPagesException if the max number of pages is less than 1
@@ -83,6 +107,8 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function hasPreviousPage(): bool;
 
     /**
+     * @phpstan-return positive-int
+     *
      * @throws LogicException if there is no previous page
      */
     public function getPreviousPage(): int;
@@ -90,9 +116,18 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function hasNextPage(): bool;
 
     /**
+     * @phpstan-return positive-int
+     *
      * @throws LogicException if there is no next page
      */
     public function getNextPage(): int;
 
+    /**
+     * Get page number of the item at specified position (1-based index).
+     *
+     * @phpstan-param positive-int $position
+     *
+     * @phpstan-return positive-int
+     */
     public function getPageNumberForItemAtPosition(int $position): int;
 }

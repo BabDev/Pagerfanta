@@ -43,6 +43,9 @@ final class ArrayAdapterTest extends TestCase
     }
 
     /**
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
      * @dataProvider dataGetSlice
      */
     public function testGetSlice(int $offset, int $length): void

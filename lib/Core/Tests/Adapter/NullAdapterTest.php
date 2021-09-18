@@ -42,6 +42,9 @@ final class NullAdapterTest extends TestCase
         $this->assertSame($this->createNullArray(3), $adapter->getSlice(30, 10));
     }
 
+    /**
+     * @phpstan-param int<0, max> $length
+     */
     private function createNullArray(int $length): array
     {
         return array_fill(0, $length, null);

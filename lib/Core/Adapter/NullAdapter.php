@@ -7,13 +7,22 @@ namespace Pagerfanta\Adapter;
  */
 class NullAdapter implements AdapterInterface
 {
+    /**
+     * @phpstan-var int<0, max>
+     */
     private int $nbResults;
 
+    /**
+     * @phpstan-param int<0, max> $nbResults
+     */
     public function __construct(int $nbResults = 0)
     {
-        $this->nbResults = (int) $nbResults;
+        $this->nbResults = $nbResults;
     }
 
+    /**
+     * @phpstan-return int<0, max>
+     */
     public function getNbResults(): int
     {
         return $this->nbResults;
@@ -24,6 +33,11 @@ class NullAdapter implements AdapterInterface
      * Code subject to the new BSD license (http://framework.zend.com/license/new-bsd).
      *
      * Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+     *
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
+     * @return iterable<array-key, mixed>
      */
     public function getSlice(int $offset, int $length): iterable
     {
@@ -34,6 +48,12 @@ class NullAdapter implements AdapterInterface
         return $this->createNullArray($this->calculateNullArrayLength($offset, $length));
     }
 
+    /**
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
+     * @phpstan-return int<0, max>
+     */
     private function calculateNullArrayLength(int $offset, int $length): int
     {
         $remainCount = $this->remainCount($offset);
@@ -45,11 +65,19 @@ class NullAdapter implements AdapterInterface
         return $length;
     }
 
+    /**
+     * @phpstan-param int<0, max> $offset
+     *
+     * @phpstan-return int<0, max>
+     */
     private function remainCount(int $offset): int
     {
         return $this->nbResults - $offset;
     }
 
+    /**
+     * @phpstan-param int<0, max> $length
+     */
     private function createNullArray(int $length): array
     {
         return array_fill(0, $length, null);

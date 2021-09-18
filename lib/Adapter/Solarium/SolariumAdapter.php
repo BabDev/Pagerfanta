@@ -23,7 +23,14 @@ class SolariumAdapter implements AdapterInterface
      */
     private $endpoint;
 
+    /**
+     * @phpstan-var int<0, max>|null
+     */
     private ?int $resultSetStart = null;
+
+    /**
+     * @phpstan-var int<0, max>|null
+     */
     private ?int $resultSetRows = null;
 
     public function __construct(ClientInterface $client, Query $query)
@@ -32,16 +39,29 @@ class SolariumAdapter implements AdapterInterface
         $this->query = $query;
     }
 
+    /**
+     * @phpstan-return int<0, max>
+     */
     public function getNbResults(): int
     {
         return $this->getResultSet()->getNumFound();
     }
 
+    /**
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
+     * @return iterable<array-key, mixed>
+     */
     public function getSlice(int $offset, int $length): iterable
     {
         return $this->getResultSet($offset, $length);
     }
 
+    /**
+     * @phpstan-param int<0, max>|null $start
+     * @phpstan-param int<0, max>|null $rows
+     */
     public function getResultSet(?int $start = null, ?int $rows = null): Result
     {
         if ($this->resultSetStartAndRowsAreNotNullAndChange($start, $rows)) {
@@ -59,16 +79,28 @@ class SolariumAdapter implements AdapterInterface
         return $this->resultSet;
     }
 
+    /**
+     * @phpstan-param int<0, max>|null $start
+     * @phpstan-param int<0, max>|null $rows
+     */
     private function resultSetStartAndRowsAreNotNullAndChange(?int $start, ?int $rows): bool
     {
         return $this->resultSetStartAndRowsAreNotNull($start, $rows) && $this->resultSetStartAndRowsChange($start, $rows);
     }
 
+    /**
+     * @phpstan-param int<0, max>|null $start
+     * @phpstan-param int<0, max>|null $rows
+     */
     private function resultSetStartAndRowsAreNotNull(?int $start, ?int $rows): bool
     {
         return null !== $start && null !== $rows;
     }
 
+    /**
+     * @phpstan-param int<0, max>|null $start
+     * @phpstan-param int<0, max>|null $rows
+     */
     private function resultSetStartAndRowsChange(?int $start, ?int $rows): bool
     {
         return $start !== $this->resultSetStart || $rows !== $this->resultSetRows;

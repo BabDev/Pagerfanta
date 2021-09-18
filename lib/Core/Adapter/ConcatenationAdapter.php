@@ -37,6 +37,9 @@ class ConcatenationAdapter implements AdapterInterface
         $this->adapters = $adapters;
     }
 
+    /**
+     * @phpstan-return int<0, max>
+     */
     public function getNbResults(): int
     {
         if (null === $this->adaptersNbResultsCache) {
@@ -46,6 +49,12 @@ class ConcatenationAdapter implements AdapterInterface
         return array_sum($this->adaptersNbResultsCache);
     }
 
+    /**
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
+     * @return iterable<array-key, mixed>
+     */
     public function getSlice(int $offset, int $length): iterable
     {
         if (null === $this->adaptersNbResultsCache) {

@@ -82,6 +82,8 @@ final class PagerfantaTest extends TestCase
     }
 
     /**
+     * @phpstan-param positive-int $maxPerPage
+     *
      * @dataProvider dataCountsAsIntegers
      */
     public function testTheMaximumNumberOfItemsPerPageCanBeSet(int $maxPerPage): void
@@ -211,6 +213,8 @@ final class PagerfantaTest extends TestCase
     }
 
     /**
+     * @phpstan-param positive-int $currentPage
+     *
      * @dataProvider dataCountsAsIntegers
      */
     public function testTheCurrentPageNumberCanBeSet(int $currentPage): void
@@ -274,6 +278,10 @@ final class PagerfantaTest extends TestCase
     }
 
     /**
+     * @phpstan-param positive-int $maxPerPage
+     * @phpstan-param positive-int $currentPage
+     * @phpstan-param int<0, max>  $offset
+     *
      * @dataProvider dataGetCurrentPageResultSizes
      */
     public function testGetCurrentPageResultsShouldReturnASliceFromTheAdapterForTheCurrentPageWithCorrectSizeAndCacheTheResults(int $maxPerPage, int $currentPage, int $offset): void
@@ -354,6 +362,9 @@ final class PagerfantaTest extends TestCase
     }
 
     /**
+     * @phpstan-param positive-int $maxPerPage
+     * @phpstan-param int<0, max>  $nbResults
+     *
      * @dataProvider dataHaveToPaginate
      */
     public function testHaveToPaginateReportsCorrectly(bool $expected, int $maxPerPage, int $nbResults): void
@@ -525,6 +536,8 @@ final class PagerfantaTest extends TestCase
     }
 
     /**
+     * @phpstan-param positive-int $position
+     *
      * @dataProvider dataGetPageNumberForItemAtPosition
      */
     public function testGetPageNumberForItemAtPosition(int $page, int $position): void

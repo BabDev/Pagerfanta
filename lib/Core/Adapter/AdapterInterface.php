@@ -6,11 +6,16 @@ interface AdapterInterface
 {
     /**
      * Returns the number of results for the list.
+     *
+     * @phpstan-return int<0, max>
      */
     public function getNbResults(): int;
 
     /**
-     * Returns an slice of the results representing the current page of items in the list.
+     * Returns a slice of the results representing the current page of items in the list.
+     *
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
      *
      * @return iterable<array-key, mixed>
      */

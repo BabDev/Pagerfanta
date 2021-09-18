@@ -78,6 +78,9 @@ final class QueryAdapterTest extends ORMTestCase
     }
 
     /**
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
      * @dataProvider dataGetSlice
      */
     public function testCurrentPageSliceForSingleTableQuery(int $offset, int $length, int $expectedCount): void
@@ -88,6 +91,9 @@ final class QueryAdapterTest extends ORMTestCase
     }
 
     /**
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
      * @dataProvider dataGetSlice
      */
     public function testCurrentPageSliceForAJoinedCollection(int $offset, int $length, int $expectedCount): void

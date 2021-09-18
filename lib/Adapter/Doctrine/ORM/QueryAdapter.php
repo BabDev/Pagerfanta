@@ -50,12 +50,18 @@ class QueryAdapter implements AdapterInterface
         return $this->paginator->getFetchJoinCollection();
     }
 
+    /**
+     * @phpstan-return int<0, max>
+     */
     public function getNbResults(): int
     {
         return \count($this->paginator);
     }
 
     /**
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
      * @phpstan-return \ArrayIterator<array-key, T>
      */
     public function getSlice(int $offset, int $length): iterable

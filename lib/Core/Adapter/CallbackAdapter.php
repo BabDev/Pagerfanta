@@ -9,19 +9,19 @@ class CallbackAdapter implements AdapterInterface
 {
     /**
      * @var callable
-     * @phpstan-var callable(): int
+     * @phpstan-var callable(): int<0, max>
      */
     private $nbResultsCallable;
 
     /**
      * @var callable
-     * @phpstan-var callable(int $offset, int $length): iterable
+     * @phpstan-var callable(int<0, max> $offset, int<0, max> $length): iterable
      */
     private $sliceCallable;
 
     /**
-     * @phpstan-param callable(): int                              $nbResultsCallable
-     * @phpstan-param callable(int $offset, int $length): iterable $sliceCallable
+     * @phpstan-param callable(): int<0, max>                                      $nbResultsCallable
+     * @phpstan-param callable(int<0, max> $offset, int<0, max> $length): iterable $sliceCallable
      */
     public function __construct(callable $nbResultsCallable, callable $sliceCallable)
     {
@@ -29,6 +29,9 @@ class CallbackAdapter implements AdapterInterface
         $this->sliceCallable = $sliceCallable;
     }
 
+    /**
+     * @phpstan-return int<0, max>
+     */
     public function getNbResults(): int
     {
         $callable = $this->nbResultsCallable;
@@ -36,6 +39,12 @@ class CallbackAdapter implements AdapterInterface
         return $callable();
     }
 
+    /**
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
+     * @return iterable<array-key, mixed>
+     */
     public function getSlice(int $offset, int $length): iterable
     {
         $callable = $this->sliceCallable;
