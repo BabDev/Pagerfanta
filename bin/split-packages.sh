@@ -18,15 +18,15 @@ function remote()
 
 git pull origin $CURRENT_BRANCH
 
-remote core git@github.com:pagerfanta-packages/core.git
-remote doctrine-collections git@github.com:pagerfanta-packages/doctrine-collections-adapter.git
-remote doctrine-dbal git@github.com:pagerfanta-packages/doctrine-dbal-adapter.git
-remote doctrine-mongodb-odm git@github.com:pagerfanta-packages/doctrine-mongodb-odm-adapter.git
-remote doctrine-orm git@github.com:pagerfanta-packages/doctrine-orm-adapter.git
-remote doctrine-phpcr-odm git@github.com:pagerfanta-packages/doctrine-phpcr-odm-adapter.git
-remote elastica git@github.com:pagerfanta-packages/elastica-adapter.git
-remote solarium git@github.com:pagerfanta-packages/solarium-adapter.git
-remote twig git@github.com:pagerfanta-packages/twig.git
+remote core git@github.com:Pagerfanta/core.git
+remote doctrine-collections git@github.com:Pagerfanta/doctrine-collections-adapter.git
+remote doctrine-dbal git@github.com:Pagerfanta/doctrine-dbal-adapter.git
+remote doctrine-mongodb-odm git@github.com:Pagerfanta/doctrine-mongodb-odm-adapter.git
+remote doctrine-orm git@github.com:Pagerfanta/doctrine-orm-adapter.git
+remote doctrine-phpcr-odm git@github.com:Pagerfanta/doctrine-phpcr-odm-adapter.git
+remote elastica git@github.com:Pagerfanta/elastica-adapter.git
+remote solarium git@github.com:Pagerfanta/solarium-adapter.git
+remote twig git@github.com:Pagerfanta/twig.git
 
 split 'lib/Core' core
 split 'lib/Adapter/Doctrine/Collections' doctrine-collections
