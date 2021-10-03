@@ -25,7 +25,12 @@ abstract class DoctrineORMTestCase extends TestCase
             $config->setMetadataCacheImpl(DoctrineProvider::wrap(new ArrayAdapter()));
         }
 
-        $config->setQueryCacheImpl(DoctrineProvider::wrap(new ArrayAdapter()));
+        if (method_exists($config, 'setQueryCache')) {
+            $config->setQueryCache(new ArrayAdapter());
+        } else {
+            $config->setQueryCacheImpl(DoctrineProvider::wrap(new ArrayAdapter()));
+        }
+
         $config->setResultCacheImpl(DoctrineProvider::wrap(new ArrayAdapter()));
         $config->setProxyDir(__DIR__.'/_files');
         $config->setProxyNamespace(__NAMESPACE__.'\Proxies');
