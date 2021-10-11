@@ -102,6 +102,18 @@ final class PagerfantaTest extends TestCase
         $this->pagerfanta->setMaxPerPage($maxPerPage);
     }
 
+    public function testSetMaxPerPageAfterCurrentPageShouldThrowExceptionOutOfRange()
+    {
+        $this->expectException(OutOfRangeCurrentPageException::class);
+
+        $this->pagerfanta->setCurrentPage(3);
+        $this->pagerfanta->setAllowOutOfRangePages(false);
+        $this->adapter->expects($this->once())
+            ->method('getNbResults')
+            ->willReturn(20);
+        $this->pagerfanta->setMaxPerPage(10);
+    }
+
     public function testSetMaxPerPageShouldResetCurrentPageResults(): void
     {
         $this->resetCurrentPageResults(function (): void {

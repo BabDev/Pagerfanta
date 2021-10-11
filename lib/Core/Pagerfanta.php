@@ -100,6 +100,7 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
 
         $this->maxPerPage = $maxPerPage;
         $this->resetForMaxPerPageChange();
+        $this->filterOutOfRangeCurrentPage($this->currentPage);
 
         return $this;
     }
