@@ -1,9 +1,10 @@
 # Changelog
 
-## 3.3.1 (????-??-??)
+## 3.3.1 (2021-10-16)
 
 - Calling `Pagerfanta::setMaxPerPage()` should not reset the number of results
 - Avoid using deprecated `Doctrine\DBAL\Query\QueryBuilder::execute()` when able
+- [#33](https://github.com/BabDev/Pagerfanta/pull/33) Check the current page after changing the max per page
 
 ## 3.3.0 (2021-08-08)
 
