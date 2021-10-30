@@ -173,7 +173,7 @@ if ($pagerfanta->hasNextPage()) {
 
 ## Retrieving The Adapter
 
-<div class="docs-note docs-note--deprecated-feature">Accessing the adapter from a `Pagerfanta` instance is deprecated as of Pagerfanta 3.2 and will be removed in 4.0.</div>
+<div class="docs-note docs-note--deprecated-feature">Accessing the adapter from a <code>Pagerfanta</code> instance is deprecated as of Pagerfanta 3.2 and will be removed in 4.0.</div>
 
 If needed, you can retrieve the underlying adapter using the `getAdapter` method on the `Pagerfanta` instance.
 
