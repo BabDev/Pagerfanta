@@ -51,6 +51,21 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     }
 
     /**
+     * @phpstan-param positive-int $currentPage
+     * @phpstan-param positive-int $maxPerPage
+     *
+     * @return self<T>
+     */
+    public static function createForCurrentPageWithMaxPerPage(AdapterInterface $adapter, int $currentPage, int $maxPerPage): self
+    {
+        $pagerfanta = new self($adapter);
+        $pagerfanta->setMaxPerPage($maxPerPage);
+        $pagerfanta->setCurrentPage($currentPage);
+
+        return $pagerfanta;
+    }
+
+    /**
      * @deprecated to be removed in 4.0
      */
     public function getAdapter(): AdapterInterface

@@ -15,6 +15,21 @@ $pagerfanta = new Pagerfanta($adapter);
 $currentPageResults = $pagerfanta->getCurrentPageResults();
 ```
 
+When configuring the `Pagerfanta` instance, you must set the maximum number of items per page before setting the current page. This is required due to the internal validation made by the `Pagerfanta` class to prevent invalid pagination state as the allowed current page is based on the number of items in the pagination list (provided by the adapter) and the maximum number of items per page. To simplify this part of setting the configuration, a static constructor is provided that will perform these steps in the right order.
+
+```php
+<?php
+
+use Pagerfanta\Adapter\NullAdapter;
+use Pagerfanta\Pagerfanta;
+
+$adapter = new NullAdapter(100);
+$pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage($adapter, 2, 5);
+
+// This will the return 5 items from the second page of the paginated list
+$currentPageResults = $pagerfanta->getCurrentPageResults();
+```
+
 ## Managing The Items Per Page
 
 You can set the number of items that should be shown on a page using the `setMaxPerPage` method on the `Pagerfanta` instance, and get the current value using the `getMaxPerPage` method.

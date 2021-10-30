@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.4.0 (2021-??-??)
+
+- Added the static `Pagerfanta::createForCurrentPageWithMaxPerPage()` constructor to simplify `Pagerfanta` instance configuration
+
 ## 3.3.1 (2021-10-16)
 
 - Calling `Pagerfanta::setMaxPerPage()` should not reset the number of results

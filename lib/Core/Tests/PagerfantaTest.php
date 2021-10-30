@@ -51,6 +51,18 @@ final class PagerfantaTest extends TestCase
         yield 'negative number' => [-1];
     }
 
+    public function testTheStaticConstructorCreatesAPagerfantaInstance(): void
+    {
+        $this->adapter->expects($this->once())
+            ->method('getNbResults')
+            ->willReturn(100);
+
+        $pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage($this->adapter, 2, 5);
+
+        $this->assertSame(2, $pagerfanta->getCurrentPage());
+        $this->assertSame(5, $pagerfanta->getMaxPerPage());
+    }
+
     /**
      * @group legacy
      */
