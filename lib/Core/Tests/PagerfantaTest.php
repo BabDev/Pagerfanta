@@ -114,7 +114,7 @@ final class PagerfantaTest extends TestCase
         $this->pagerfanta->setMaxPerPage($maxPerPage);
     }
 
-    public function testSetMaxPerPageAfterCurrentPageShouldThrowExceptionOutOfRange()
+    public function testSetMaxPerPageAfterCurrentPageShouldThrowExceptionOutOfRange(): void
     {
         $this->expectException(OutOfRangeCurrentPageException::class);
 

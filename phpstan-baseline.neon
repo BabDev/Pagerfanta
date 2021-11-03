@@ -36,6 +36,16 @@ parameters:
 			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
 
 		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 2
+			path: lib/Adapter/Doctrine/MongoDBODM/Tests/AggregationAdapterTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 2
+			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
+
+		-
 			message: "#^Method Pagerfanta\\\\Elastica\\\\ElasticaAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
 			count: 2
 			path: lib/Adapter/Elastica/ElasticaAdapter.php
