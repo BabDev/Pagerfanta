@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.4.0 (2021-??-??)
+## 3.4.0 (2021-11-10)
 
 - Added the static `Pagerfanta::createForCurrentPageWithMaxPerPage()` constructor to simplify `Pagerfanta` instance configuration
 
