@@ -9,16 +9,13 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0]
+        php: [7.4, 8.0, 8.1]
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
           - php: 7.4
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: 8.1
-            composer-flags: '--prefer-dist --ignore-platform-req=php'
-            next-php: true
 
     name: Core - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
@@ -47,16 +44,13 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0]
+        php: [7.4, 8.0, 8.1]
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
           - php: 7.4
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: 8.1
-            composer-flags: '--prefer-dist --ignore-platform-req=php'
-            next-php: true
 
     name: Doctrine Collections - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
@@ -89,16 +83,13 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0]
+        php: [7.4, 8.0, 8.1]
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
           - php: 7.4
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: 8.1
-            composer-flags: '--prefer-dist --ignore-platform-req=php'
-            next-php: true
 
     name: Doctrine DBAL - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
@@ -131,7 +122,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0]
+        php: [7.4, 8.0, 8.1]
         composer-flags: ['--prefer-stable --prefer-dist']
         extensions: ['curl, iconv, mbstring, mongodb, zip']
         next-php: [false]
@@ -139,10 +130,6 @@ jobs:
           - php: 7.4
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: 8.1
-            composer-flags: '--prefer-dist --ignore-platform-req=php'
-            extensions: 'curl, iconv, mbstring, mongodb-1.11.0alpha1, zip'
-            next-php: true
 
     name: Doctrine MongoDB ODM - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
@@ -175,16 +162,13 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0]
+        php: [7.4, 8.0, 8.1]
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
           - php: 7.4
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: 8.1
-            composer-flags: '--prefer-dist --ignore-platform-req=php'
-            next-php: true
 
     name: Doctrine ORM - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
@@ -217,16 +201,13 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0]
+        php: [7.4, 8.0, 8.1]
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
           - php: 7.4
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: 8.1
-            composer-flags: '--prefer-dist --ignore-platform-req=php'
-            next-php: true
 
     name: Doctrine PHPCR ODM - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
@@ -259,8 +240,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0]
-        elastica: [^6.0, ^7.0]
+        php: [7.4, 8.0, 8.1]
+        elastica: [^7.0]
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
@@ -268,13 +249,10 @@ jobs:
             elastica: ^6.0
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: 8.1
-            elastica: ^7.0
-            composer-flags: '--prefer-dist --ignore-platform-req=php'
-            next-php: true
-        exclude:
-          - php: 8.0
+          - php: 7.4
             elastica: ^6.0
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
 
     name: Elastica ${{ matrix.elastica }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
@@ -309,8 +287,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0]
-        solarium: [^5.0, ^6.0]
+        php: [7.4, 8.0, 8.1]
+        solarium: [^6.0]
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
@@ -318,13 +296,10 @@ jobs:
             solarium: ^5.0
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: 8.1
-            solarium: ^6.0
-            composer-flags: '--prefer-dist --ignore-platform-req=php'
-            next-php: true
-        exclude:
-          - php: 8.0
+          - php: 7.4
             solarium: ^5.0
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
 
     name: Solarium ${{ matrix.solarium }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
@@ -359,7 +334,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0]
+        php: [7.4, 8.0, 8.1]
         twig: [^1.35, ^2.5, ^3.0]
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
@@ -368,10 +343,9 @@ jobs:
             twig: ^1.35
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
+        exclude:
           - php: 8.1
-            twig: ^3.0
-            composer-flags: '--prefer-dist --ignore-platform-req=php'
-            next-php: true
+            twig: ^1.35
 
     name: Twig ${{ matrix.twig }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
