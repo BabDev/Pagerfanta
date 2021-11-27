@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.5.0 (????-??-??)
+
+- Bump `doctrine/dbal` dependencies to `^2.13.1 || ^3.1`
+
 ## 3.4.0 (2021-11-10)
 
 - Added the static `Pagerfanta::createForCurrentPageWithMaxPerPage()` constructor to simplify `Pagerfanta` instance configuration
