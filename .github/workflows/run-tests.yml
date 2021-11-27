@@ -84,14 +84,24 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.4, 8.0, 8.1]
+        dbal: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
           - php: 7.4
+            dbal: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
+          - php: 8.0
+            dbal: ^2.13.1
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+          - php: 8.1
+            dbal: ^3.1
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
 
-    name: Doctrine DBAL - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+    name: Doctrine DBAL${{ matrix.dbal != '' && format(' {0}', matrix.dbal) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
     steps:
       - name: Checkout code
@@ -108,6 +118,10 @@ jobs:
       - name: Patch Composer manifests
         run: |
           php .github/patch-packages.php
+
+      - name: Restrict DBAL version
+        if: ${{ matrix.dbal }}
+        run: (cd lib/Adapter/Doctrine/DBAL && composer require --no-update doctrine/dbal:${{ matrix.dbal }})
 
       - name: Install dependencies
         run: (cd lib/Adapter/Doctrine/DBAL && composer update ${{ matrix.composer-flags }})
@@ -241,7 +255,7 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.4, 8.0, 8.1]
-        elastica: [^7.0]
+        elastica: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
@@ -253,8 +267,12 @@ jobs:
             elastica: ^6.0
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
+          - php: 8.1
+            elastica: ^7.0
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
 
-    name: Elastica ${{ matrix.elastica }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+    name: Elastica${{ matrix.elastica != '' && format(' {0}', matrix.elastica) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
     steps:
       - name: Checkout code
@@ -272,10 +290,12 @@ jobs:
         run: |
           php .github/patch-packages.php
 
+      - name: Restrict Elastica version
+        if: ${{ matrix.elastica }}
+        run: (cd lib/Adapter/Elastica && composer require --no-update ruflin/elastica:${{ matrix.elastica }})
+
       - name: Install dependencies
-        run: |
-          (cd lib/Adapter/Elastica && composer require --no-update ruflin/elastica:${{ matrix.elastica }})
-          (cd lib/Adapter/Elastica && composer update ${{ matrix.composer-flags }})
+        run: (cd lib/Adapter/Elastica && composer update ${{ matrix.composer-flags }})
 
       - name: Execute tests
         run: (cd lib/Adapter/Elastica && vendor/bin/phpunit)
@@ -288,7 +308,7 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.4, 8.0, 8.1]
-        solarium: [^6.0]
+        solarium: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
@@ -300,8 +320,12 @@ jobs:
             solarium: ^5.0
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
+          - php: 8.1
+            solarium: ^6.0
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
 
-    name: Solarium ${{ matrix.solarium }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+    name: Solarium${{ matrix.solarium != '' && format(' {0}', matrix.solarium) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
     steps:
       - name: Checkout code
@@ -319,10 +343,12 @@ jobs:
         run: |
           php .github/patch-packages.php
 
+      - name: Restrict Solarium version
+        if: ${{ matrix.solarium }}
+        run: (cd lib/Adapter/Solarium && composer require --no-update solarium/solarium:${{ matrix.solarium }})
+
       - name: Install dependencies
-        run: |
-          (cd lib/Adapter/Solarium && composer require --no-update solarium/solarium:${{ matrix.solarium }})
-          (cd lib/Adapter/Solarium && composer update ${{ matrix.composer-flags }})
+        run: (cd lib/Adapter/Solarium && composer update ${{ matrix.composer-flags }})
 
       - name: Execute tests
         run: (cd lib/Adapter/Solarium && vendor/bin/phpunit)
@@ -335,19 +361,28 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.4, 8.0, 8.1]
-        twig: [^1.35, ^2.5, ^3.0]
+        twig: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
           - php: 7.4
-            twig: ^1.35
+            twig: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-        exclude:
-          - php: 8.1
+          - php: 8.0
             twig: ^1.35
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+          - php: 8.1
+            twig: ^2.5
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+          - php: 8.1
+            twig: ^3.0
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
 
-    name: Twig ${{ matrix.twig }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+    name: Twig${{ matrix.twig != '' && format(' {0}', matrix.twig) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
     steps:
       - name: Checkout code
@@ -365,10 +400,12 @@ jobs:
         run: |
           php .github/patch-packages.php
 
+      - name: Restrict Twig version
+        if: ${{ matrix.twig }}
+        run: (cd lib/Twig && composer require --no-update twig/twig:${{ matrix.twig }})
+
       - name: Install dependencies
-        run: |
-          (cd lib/Twig && composer require --no-update twig/twig:${{ matrix.twig }})
-          (cd lib/Twig && composer update ${{ matrix.composer-flags }})
+        run: (cd lib/Twig && composer update ${{ matrix.composer-flags }})
 
       - name: Execute tests
         run: (cd lib/Twig && vendor/bin/phpunit)
