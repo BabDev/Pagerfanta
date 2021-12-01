@@ -11,7 +11,8 @@ abstract class Template implements TemplateInterface
     private array $options;
 
     /**
-     * @var callable|null
+     * @var callable|RouteGeneratorInterface|null
+     * @phpstan-var callable(int $page): string|RouteGeneratorInterface|null
      */
     private $routeGenerator;
 
@@ -24,6 +25,7 @@ abstract class Template implements TemplateInterface
      * Sets the route generator used while rendering the template.
      *
      * @param callable|RouteGeneratorInterface $routeGenerator
+     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
      */
     public function setRouteGenerator(callable $routeGenerator): void
     {
@@ -54,6 +56,8 @@ abstract class Template implements TemplateInterface
     }
 
     /**
+     * @phpstan-return callable(int $page): string|RouteGeneratorInterface
+     *
      * @throws RuntimeException if the route generator has not been set
      */
     private function getRouteGenerator(): callable

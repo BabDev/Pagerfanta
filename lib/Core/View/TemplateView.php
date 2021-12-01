@@ -3,6 +3,7 @@
 namespace Pagerfanta\View;
 
 use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 use Pagerfanta\View\Template\TemplateInterface;
 
 abstract class TemplateView extends View
@@ -21,7 +22,10 @@ abstract class TemplateView extends View
     abstract protected function createDefaultTemplate(): TemplateInterface;
 
     /**
-     * @param PagerfantaInterface<mixed> $pagerfanta
+     * @param PagerfantaInterface<mixed>       $pagerfanta
+     * @param callable|RouteGeneratorInterface $routeGenerator
+     *
+     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
      */
     public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {
@@ -33,6 +37,11 @@ abstract class TemplateView extends View
         return $this->generate();
     }
 
+    /**
+     * @param callable|RouteGeneratorInterface $routeGenerator
+     *
+     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
+     */
     private function configureTemplate(callable $routeGenerator, array $options): void
     {
         $this->template->setRouteGenerator($routeGenerator);

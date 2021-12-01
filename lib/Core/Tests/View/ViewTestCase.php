@@ -64,6 +64,9 @@ abstract class ViewTestCase extends TestCase
         return $this->view->render($this->pagerfanta, $routeGenerator, $options);
     }
 
+    /**
+     * @phpstan-return \Closure(int $page): string
+     */
     protected function createRouteGenerator(): \Closure
     {
         return static fn (int $page) => '|'.$page.'|';

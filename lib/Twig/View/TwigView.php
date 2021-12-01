@@ -4,6 +4,7 @@ namespace Pagerfanta\Twig\View;
 
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorDecorator;
+use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 use Pagerfanta\View\View;
 use Twig\Environment;
 
@@ -28,7 +29,10 @@ final class TwigView extends View
     }
 
     /**
-     * @param PagerfantaInterface<mixed> $pagerfanta
+     * @param PagerfantaInterface<mixed>       $pagerfanta
+     * @param callable|RouteGeneratorInterface $routeGenerator
+     *
+     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
      */
     public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {
@@ -51,6 +55,11 @@ final class TwigView extends View
         );
     }
 
+    /**
+     * @param callable|RouteGeneratorInterface $routeGenerator
+     *
+     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
+     */
     private function decorateRouteGenerator(callable $routeGenerator): RouteGeneratorDecorator
     {
         return new RouteGeneratorDecorator($routeGenerator);
