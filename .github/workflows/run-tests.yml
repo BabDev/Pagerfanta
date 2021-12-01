@@ -9,11 +9,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0, 8.1]
+        php: ['7.4', '8.0', '8.1']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
-          - php: 7.4
+          - php: '7.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
 
@@ -44,11 +44,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0, 8.1]
+        php: ['7.4', '8.0', '8.1']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
-          - php: 7.4
+          - php: '7.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
 
@@ -83,21 +83,21 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0, 8.1]
+        php: ['7.4', '8.0', '8.1']
         dbal: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
-          - php: 7.4
+          - php: '7.4'
             dbal: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: 8.0
-            dbal: ^2.13.1
+          - php: '8.0'
+            dbal: '^2.13.1'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
-          - php: 8.1
-            dbal: ^3.1
+          - php: '8.1'
+            dbal: '^3.1'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
 
@@ -136,12 +136,12 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0, 8.1]
+        php: ['7.4', '8.0', '8.1']
         composer-flags: ['--prefer-stable --prefer-dist']
         extensions: ['curl, iconv, mbstring, mongodb, zip']
         next-php: [false]
         include:
-          - php: 7.4
+          - php: '7.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
 
@@ -176,11 +176,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0, 8.1]
+        php: ['7.4', '8.0', '8.1']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
-          - php: 7.4
+          - php: '7.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
 
@@ -215,11 +215,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0, 8.1]
+        php: ['7.4', '8.0', '8.1']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
-          - php: 7.4
+          - php: '7.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
 
@@ -254,21 +254,21 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0, 8.1]
+        php: ['7.4', '8.0', '8.1']
         elastica: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
-          - php: 7.4
-            elastica: ^6.0
+          - php: '7.4'
+            elastica: '^6.0'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: 7.4
-            elastica: ^6.0
+          - php: '7.4'
+            elastica: '^6.0'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
-          - php: 8.1
-            elastica: ^7.0
+          - php: '8.1'
+            elastica: '^7.0'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
 
@@ -307,21 +307,21 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0, 8.1]
+        php: ['7.4', '8.0', '8.1']
         solarium: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
-          - php: 7.4
-            solarium: ^5.0
+          - php: '7.4'
+            solarium: '^5.0'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: 7.4
-            solarium: ^5.0
+          - php: '7.4'
+            solarium: '^5.0'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
-          - php: 8.1
-            solarium: ^6.0
+          - php: '8.1'
+            solarium: '^6.0'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
 
@@ -360,25 +360,25 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0, 8.1]
+        php: ['7.4', '8.0', '8.1']
         twig: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
-          - php: 7.4
+          - php: '7.4'
             twig: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: 8.0
-            twig: ^1.35
+          - php: '8.0'
+            twig: '^1.35'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
-          - php: 8.1
-            twig: ^2.5
+          - php: '8.1'
+            twig: '^2.5'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
-          - php: 8.1
-            twig: ^3.0
+          - php: '8.1'
+            twig: '^3.0'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
 
