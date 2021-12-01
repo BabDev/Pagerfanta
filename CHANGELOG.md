@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.5.0 (????-??-??)
+## 3.5.0 (2021-11-30)
 
 - Bump `doctrine/dbal` dependencies to `^2.13.1 || ^3.1`
 - Allow v3 of `symfony/deprecation-contracts`
