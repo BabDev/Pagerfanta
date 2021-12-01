@@ -7,7 +7,10 @@ use Twig\TwigFunction;
 
 final class PagerfantaExtension extends AbstractExtension
 {
-    public function getFunctions()
+    /**
+     * @return TwigFunction[]
+     */
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('pagerfanta', [PagerfantaRuntime::class, 'renderPagerfanta'], ['is_safe' => ['html']]),
