@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.5.1 (2021-12-08)
+
+- Fix deprecations from Symfony's debug loader
+
 ## 3.5.0 (2021-11-30)
 
 - Bump `doctrine/dbal` dependencies to `^2.13.1 || ^3.1`
