@@ -9,3 +9,12 @@ The package includes:
 - PHP templates with support for multiple CSS Frameworks
 - Adapters supporting multiple database backends, including ElasticSearch, Solr, and Doctrine (ORM and ODM)
 - [Twig](https://twig.symfony.com/) extension for rendering a pager
+
+## Support Matrix
+
+The below table shows the supported PHP versions for this package, please review the `composer.json` file for each individual package for additional requirements.
+
+| Version | Status                                    | PHP Versions |
+|---------|-------------------------------------------|--------------|
+| 2.x     | Bug & Security Fixes Until March 31, 2022 | 7.2-8.0      |
+| 3.x     | Actively Supported                        | 7.4+         |
