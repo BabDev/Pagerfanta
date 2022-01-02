@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="groups")
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'groups')]
 class Group
 {
     /**
@@ -17,6 +19,9 @@ class Group
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
     public ?int $id = null;
 
     /**
@@ -24,6 +29,7 @@ class Group
      *
      * @ORM\ManyToMany(targetEntity="Pagerfanta\Doctrine\ORM\Tests\Entity\User", mappedBy="groups")
      */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'groups')]
     private Collection $users;
 
     public function __construct()

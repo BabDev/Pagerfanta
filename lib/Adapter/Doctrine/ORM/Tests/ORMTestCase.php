@@ -5,6 +5,7 @@ namespace Pagerfanta\Doctrine\ORM\Tests;
 use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
@@ -31,10 +32,20 @@ abstract class ORMTestCase extends TestCase
             $config->setQueryCacheImpl(DoctrineProvider::wrap(new ArrayAdapter()));
         }
 
-        $config->setResultCacheImpl(DoctrineProvider::wrap(new ArrayAdapter()));
+        if (method_exists($config, 'setResultCache')) {
+            $config->setResultCache(new ArrayAdapter());
+        } else {
+            $config->setResultCacheImpl(DoctrineProvider::wrap(new ArrayAdapter()));
+        }
+
         $config->setProxyDir(__DIR__.'/_files');
         $config->setProxyNamespace(__NAMESPACE__.'\Proxies');
-        $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver([__DIR__.'/Entity'], false));
+
+        if (\PHP_VERSION_ID >= 80000 && class_exists(AttributeDriver::class)) {
+            $config->setMetadataDriverImpl(new AttributeDriver([__DIR__.'/Entity']));
+        } else {
+            $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver([__DIR__.'/Entity'], false));
+        }
 
         $conn = [
             'driver' => 'pdo_sqlite',
