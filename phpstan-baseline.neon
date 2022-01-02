@@ -51,6 +51,11 @@ parameters:
 			path: lib/Adapter/Elastica/ElasticaAdapter.php
 
 		-
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with Elastica\\\\ResultSet&PHPUnit\\\\Framework\\\\MockObject\\\\MockObject and null will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Adapter/Elastica/Tests/ElasticaAdapterTest.php
+
+		-
 			message: "#^Method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\|null\\.$#"
 			count: 1
 			path: lib/Adapter/Solarium/SolariumAdapter.php
@@ -111,6 +116,11 @@ parameters:
 			path: lib/Core/Pagerfanta.php
 
 		-
+			message: "#^Parameter \\#1 \\$adapters of class Pagerfanta\\\\Adapter\\\\ConcatenationAdapter constructor expects array\\<Pagerfanta\\\\Adapter\\\\AdapterInterface\\>, array\\<int, Pagerfanta\\\\Adapter\\\\ArrayAdapter\\|string\\> given\\.$#"
+			count: 1
+			path: lib/Core/Tests/Adapter/ConcatenationAdapterTest.php
+
+		-
 			message: "#^Parameter \\#1 \\$currentPage of method Pagerfanta\\\\Pagerfanta\\<mixed\\>\\:\\:setCurrentPage\\(\\) expects int\\<1, max\\>, int given\\.$#"
 			count: 5
 			path: lib/Core/Tests/PagerfantaTest.php
@@ -162,6 +172,11 @@ parameters:
 
 		-
 			message: "#^Method Pagerfanta\\\\Twig\\\\Tests\\\\Extension\\\\PagerfantaRuntimeTest\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$viewName of method Pagerfanta\\\\Twig\\\\Extension\\\\PagerfantaRuntime\\:\\:renderPagerfanta\\(\\) expects array\\|string\\|null, stdClass given\\.$#"
 			count: 1
 			path: lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
 

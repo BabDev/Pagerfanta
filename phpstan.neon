@@ -4,18 +4,5 @@ parameters:
   level: 8
   paths:
     - %currentWorkingDirectory%/lib
-  ignoreErrors:
-    # Ignore errors for incompatible types, types are checked at runtime and exceptions thrown as appropriate
-    - '/Parameter #1 \$adapters of class Pagerfanta\\Adapter\\ConcatenationAdapter constructor expects array<Pagerfanta\\Adapter\\AdapterInterface>, array<int, Pagerfanta\\Adapter\\ArrayAdapter\|string> given\./'
-
-    # Ignore errors from tests validating runtime type checks
-    -
-      message: '/Call to method PHPUnit\\Framework\\Assert::assertSame\(\) with Elastica\\ResultSet\&PHPUnit\\Framework\\MockObject\\MockObject and null will always evaluate to false\./'
-      path: %currentWorkingDirectory%/lib/Adapter/Elastica/Tests/ElasticaAdapterTest.php
-
-    -
-      message: '/Parameter #2 \$viewName of method Pagerfanta\\Twig\\Extension\\PagerfantaRuntime::renderPagerfanta\(\) expects array\|string\|null, stdClass given\./'
-      path: %currentWorkingDirectory%/lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
-
   checkMissingIterableValueType: false
   treatPhpDocTypesAsCertain: false
