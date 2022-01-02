@@ -70,5 +70,11 @@
             "lib/**/Tests/"
         ]
     },
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "phpstan/extension-installer": true
+        }
+    },
     "minimum-stability": "dev"
 }
