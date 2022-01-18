@@ -14,7 +14,7 @@ final class SingleTableQueryAdapterTest extends DBALTestCase
     private $qb;
 
     /**
-     * @var SingleTableQueryAdapter
+     * @var SingleTableQueryAdapter<mixed>
      */
     private $adapter;
 

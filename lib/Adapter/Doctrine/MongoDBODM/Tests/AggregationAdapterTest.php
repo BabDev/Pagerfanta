@@ -20,7 +20,7 @@ final class AggregationAdapterTest extends TestCase
     private $aggregationBuilder;
 
     /**
-     * @var AggregationAdapter
+     * @var AggregationAdapter<mixed>
      */
     private $adapter;
 

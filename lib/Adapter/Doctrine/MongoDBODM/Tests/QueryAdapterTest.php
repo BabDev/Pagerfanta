@@ -17,7 +17,7 @@ final class QueryAdapterTest extends TestCase
     private $queryBuilder;
 
     /**
-     * @var QueryAdapter
+     * @var QueryAdapter<mixed>
      */
     private $adapter;
 

@@ -4,6 +4,9 @@ namespace Pagerfanta\Adapter;
 
 /**
  * Adapter which calculates pagination from callable functions.
+ *
+ * @template T
+ * @implements AdapterInterface<T>
  */
 class CallbackAdapter implements AdapterInterface
 {
@@ -43,7 +46,7 @@ class CallbackAdapter implements AdapterInterface
      * @phpstan-param int<0, max> $offset
      * @phpstan-param int<0, max> $length
      *
-     * @return iterable<array-key, mixed>
+     * @return iterable<array-key, T>
      */
     public function getSlice(int $offset, int $length): iterable
     {

@@ -16,6 +16,8 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 interface PagerfantaInterface extends \Countable, \IteratorAggregate
 {
     /**
+     * @return AdapterInterface<T>
+     *
      * @deprecated to be removed in 4.0
      */
     public function getAdapter(): AdapterInterface;

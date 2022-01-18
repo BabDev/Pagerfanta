@@ -6,6 +6,9 @@ namespace Pagerfanta\Adapter;
  * Adapter which returns a fixed data set.
  *
  * Best used when you need to do a custom paging solution and don't want to implement a full adapter for a one-off use case.
+ *
+ * @template T
+ * @implements AdapterInterface<T>
  */
 class FixedAdapter implements AdapterInterface
 {
@@ -15,12 +18,12 @@ class FixedAdapter implements AdapterInterface
     private int $nbResults;
 
     /**
-     * @var iterable<array-key, mixed>
+     * @var iterable<array-key, T>
      */
     private iterable $results;
 
     /**
-     * @param iterable<array-key, mixed> $results
+     * @param iterable<array-key, T> $results
      *
      * @phpstan-param int<0, max> $nbResults
      */
@@ -42,7 +45,7 @@ class FixedAdapter implements AdapterInterface
      * @phpstan-param int<0, max> $offset
      * @phpstan-param int<0, max> $length
      *
-     * @return iterable<array-key, mixed>
+     * @return iterable<array-key, T>
      */
     public function getSlice(int $offset, int $length): iterable
     {

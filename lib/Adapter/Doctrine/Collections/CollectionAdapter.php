@@ -10,6 +10,7 @@ use Pagerfanta\Adapter\AdapterInterface;
  *
  * @template TKey of array-key
  * @template T
+ * @implements AdapterInterface<T>
  */
 class CollectionAdapter implements AdapterInterface
 {

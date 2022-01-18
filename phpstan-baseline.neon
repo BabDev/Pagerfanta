@@ -16,6 +16,11 @@ parameters:
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
 
 		-
+			message: "#^Method Pagerfanta\\\\Doctrine\\\\DBAL\\\\QueryAdapter\\:\\:getSlice\\(\\) should return iterable\\<\\(int\\|string\\), T\\> but returns array\\<int, array\\<string, mixed\\>\\>\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
+
+		-
 			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/Tests/QueryAdapterTest.php
@@ -31,7 +36,7 @@ parameters:
 			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getSlice\\(\\) should return iterable\\<\\(int\\|string\\), mixed\\> but returns array\\|int\\|object\\|null\\.$#"
+			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getSlice\\(\\) should return iterable\\<\\(int\\|string\\), T\\> but returns array\\|int\\|object\\|null\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
 
@@ -48,6 +53,16 @@ parameters:
 		-
 			message: "#^Method Pagerfanta\\\\Elastica\\\\ElasticaAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
 			count: 2
+			path: lib/Adapter/Elastica/ElasticaAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Elastica\\\\ElasticaAdapter\\:\\:getSlice\\(\\) should return iterable\\<\\(int\\|string\\), T\\> but returns Elastica\\\\ResultSet\\.$#"
+			count: 1
+			path: lib/Adapter/Elastica/ElasticaAdapter.php
+
+		-
+			message: "#^Parameter \\#2 \\$options of method Elastica\\\\SearchableInterface\\:\\:search\\(\\) expects null, array given\\.$#"
+			count: 1
 			path: lib/Adapter/Elastica/ElasticaAdapter.php
 
 		-
@@ -86,7 +101,7 @@ parameters:
 			path: lib/Core/Adapter/ConcatenationAdapter.php
 
 		-
-			message: "#^Parameter \\#2 \\$length of method Pagerfanta\\\\Adapter\\\\AdapterInterface\\:\\:getSlice\\(\\) expects int\\<0, max\\>, int given\\.$#"
+			message: "#^Parameter \\#2 \\$length of method Pagerfanta\\\\Adapter\\\\AdapterInterface\\<mixed\\>\\:\\:getSlice\\(\\) expects int\\<0, max\\>, int given\\.$#"
 			count: 1
 			path: lib/Core/Adapter/ConcatenationAdapter.php
 
@@ -116,13 +131,13 @@ parameters:
 			path: lib/Core/Pagerfanta.php
 
 		-
-			message: "#^Parameter \\#1 \\$adapters of class Pagerfanta\\\\Adapter\\\\ConcatenationAdapter constructor expects array\\<Pagerfanta\\\\Adapter\\\\AdapterInterface\\>, array\\<int, Pagerfanta\\\\Adapter\\\\ArrayAdapter\\|string\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$adapters of class Pagerfanta\\\\Adapter\\\\ConcatenationAdapter constructor expects array\\<Pagerfanta\\\\Adapter\\\\AdapterInterface\\<mixed\\>\\>, array\\{Pagerfanta\\\\Adapter\\\\ArrayAdapter\\<mixed\\>, 'foo'\\} given\\.$#"
 			count: 1
 			path: lib/Core/Tests/Adapter/ConcatenationAdapterTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$currentPage of method Pagerfanta\\\\Pagerfanta\\<mixed\\>\\:\\:setCurrentPage\\(\\) expects int\\<1, max\\>, int given\\.$#"
-			count: 5
+			count: 1
 			path: lib/Core/Tests/PagerfantaTest.php
 
 		-
@@ -169,6 +184,16 @@ parameters:
 			message: "#^Property Pagerfanta\\\\View\\\\View\\:\\:\\$startPage \\(int\\<1, max\\>\\|null\\) does not accept int\\.$#"
 			count: 1
 			path: lib/Core/View/View.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of method Pagerfanta\\\\Twig\\\\Extension\\\\PagerfantaRuntime\\:\\:createRouteGenerator\\(\\) expects array, array\\|null given\\.$#"
+			count: 1
+			path: lib/Twig/Extension/PagerfantaRuntime.php
+
+		-
+			message: "#^Parameter \\#3 \\$options of method Pagerfanta\\\\View\\\\ViewInterface\\:\\:render\\(\\) expects array\\<string, mixed\\>, array\\|null given\\.$#"
+			count: 1
+			path: lib/Twig/Extension/PagerfantaRuntime.php
 
 		-
 			message: "#^Method Pagerfanta\\\\Twig\\\\Tests\\\\Extension\\\\PagerfantaRuntimeTest\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"

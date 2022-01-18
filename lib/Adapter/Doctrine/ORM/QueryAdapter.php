@@ -11,6 +11,7 @@ use Pagerfanta\Adapter\AdapterInterface;
  * Adapter which calculates pagination from a Doctrine ORM Query or QueryBuilder.
  *
  * @template T
+ * @implements AdapterInterface<T>
  */
 class QueryAdapter implements AdapterInterface
 {

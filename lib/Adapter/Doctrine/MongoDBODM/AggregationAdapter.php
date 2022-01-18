@@ -7,6 +7,9 @@ use Pagerfanta\Adapter\AdapterInterface;
 
 /**
  * Adapter which calculates pagination from a Doctrine MongoDB ODM Aggregation Builder.
+ *
+ * @template T
+ * @implements AdapterInterface<T>
  */
 class AggregationAdapter implements AdapterInterface
 {
@@ -17,6 +20,9 @@ class AggregationAdapter implements AdapterInterface
         $this->aggregationBuilder = $aggregationBuilder;
     }
 
+    /**
+     * @phpstan-return int<0, max>
+     */
     public function getNbResults(): int
     {
         $aggregationBuilder = clone $this->aggregationBuilder;
@@ -29,6 +35,12 @@ class AggregationAdapter implements AdapterInterface
             ->toArray()[0]['numResults'] ?? 0;
     }
 
+    /**
+     * @phpstan-param int<0, max> $offset
+     * @phpstan-param int<0, max> $length
+     *
+     * @return iterable<array-key, T>
+     */
     public function getSlice(int $offset, int $length): iterable
     {
         $aggregationBuilder = clone $this->aggregationBuilder;

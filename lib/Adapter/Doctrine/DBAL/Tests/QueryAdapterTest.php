@@ -76,6 +76,9 @@ final class QueryAdapterTest extends DBALTestCase
         $this->assertSame(50, $adapter->getNbResults());
     }
 
+    /**
+     * @return QueryAdapter<mixed>
+     */
     private function createAdapterToTestGetNbResults(): QueryAdapter
     {
         return new QueryAdapter(

@@ -8,6 +8,9 @@ use Pagerfanta\Adapter\AdapterInterface;
 
 /**
  * Adapter which calculates pagination from a Doctrine PHPCR ODM QueryBuilder.
+ *
+ * @template T
+ * @implements AdapterInterface<T>
  */
 class QueryAdapter implements AdapterInterface
 {
@@ -43,7 +46,7 @@ class QueryAdapter implements AdapterInterface
      * @phpstan-param int<0, max> $offset
      * @phpstan-param int<0, max> $length
      *
-     * @return iterable<array-key, mixed>
+     * @return iterable<array-key, T>
      */
     public function getSlice(int $offset, int $length): iterable
     {

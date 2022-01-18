@@ -32,7 +32,7 @@ final class ElasticaAdapterTest extends TestCase
     private $options;
 
     /**
-     * @var ElasticaAdapter
+     * @var ElasticaAdapter<mixed>
      */
     private $adapter;
 

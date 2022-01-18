@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 final class PagerfantaTest extends TestCase
 {
     /**
-     * @var MockObject&AdapterInterface
+     * @var MockObject&AdapterInterface<mixed>
      */
     private $adapter;
 

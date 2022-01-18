@@ -22,7 +22,7 @@ final class QueryAdapterTest extends TestCase
     private $query;
 
     /**
-     * @var QueryAdapter
+     * @var QueryAdapter<mixed>
      */
     private $adapter;
 

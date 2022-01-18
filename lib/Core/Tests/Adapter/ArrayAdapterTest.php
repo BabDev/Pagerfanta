@@ -9,11 +9,13 @@ final class ArrayAdapterTest extends TestCase
 {
     /**
      * @var int[]
+     * @phpstan-var array<int<1, 100>>
      */
     private $array;
 
     /**
-     * @var ArrayAdapter
+     * @var ArrayAdapter<int>
+     * @phpstan-var ArrayAdapter<int<1, 100>>
      */
     private $adapter;
 

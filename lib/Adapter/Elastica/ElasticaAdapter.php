@@ -8,7 +8,10 @@ use Elastica\SearchableInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
- * Adapter which calculates pagination from a Elastica Query.
+ * Adapter which calculates pagination from an Elastica Query.
+ *
+ * @template T
+ * @implements AdapterInterface<T>
  */
 class ElasticaAdapter implements AdapterInterface
 {
@@ -64,7 +67,7 @@ class ElasticaAdapter implements AdapterInterface
      * @phpstan-param int<0, max> $offset
      * @phpstan-param int<0, max> $length
      *
-     * @return iterable<array-key, mixed>
+     * @return iterable<array-key, T>
      */
     public function getSlice(int $offset, int $length): iterable
     {

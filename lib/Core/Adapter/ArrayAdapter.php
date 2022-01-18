@@ -4,11 +4,20 @@ namespace Pagerfanta\Adapter;
 
 /**
  * Adapter which calculates pagination from an array of items.
+ *
+ * @template T
+ * @implements AdapterInterface<T>
  */
 class ArrayAdapter implements AdapterInterface
 {
+    /**
+     * @var array<T>
+     */
     private array $array;
 
+    /**
+     * @param array<T> $array
+     */
     public function __construct(array $array)
     {
         $this->array = $array;
@@ -16,6 +25,8 @@ class ArrayAdapter implements AdapterInterface
 
     /**
      * Retrieves the array of items.
+     *
+     * @return array<T>
      *
      * @deprecated to be removed in 4.0
      */
@@ -38,7 +49,7 @@ class ArrayAdapter implements AdapterInterface
      * @phpstan-param int<0, max> $offset
      * @phpstan-param int<0, max> $length
      *
-     * @return iterable<array-key, mixed>
+     * @return iterable<array-key, T>
      */
     public function getSlice(int $offset, int $length): iterable
     {

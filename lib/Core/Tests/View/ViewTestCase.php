@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 abstract class ViewTestCase extends TestCase
 {
     /**
-     * @var MockObject&AdapterInterface
+     * @var MockObject&AdapterInterface<mixed>
      */
     private $adapter;
 

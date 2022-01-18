@@ -4,6 +4,9 @@ namespace Pagerfanta\Adapter;
 
 /**
  * Adapter which generates a null item list based on a number of results.
+ *
+ * @template T
+ * @implements AdapterInterface<T>
  */
 class NullAdapter implements AdapterInterface
 {
@@ -37,7 +40,7 @@ class NullAdapter implements AdapterInterface
      * @phpstan-param int<0, max> $offset
      * @phpstan-param int<0, max> $length
      *
-     * @return iterable<array-key, mixed>
+     * @return iterable<array-key, T>
      */
     public function getSlice(int $offset, int $length): iterable
     {

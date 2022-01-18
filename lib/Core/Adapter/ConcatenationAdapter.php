@@ -6,11 +6,14 @@ use Pagerfanta\Exception\InvalidArgumentException;
 
 /**
  * Adapter that concatenates the results of other adapters.
+ *
+ * @template T
+ * @implements AdapterInterface<T>
  */
 class ConcatenationAdapter implements AdapterInterface
 {
     /**
-     * @var array<array-key, AdapterInterface>
+     * @var array<array-key, AdapterInterface<mixed>>
      */
     protected array $adapters;
 
@@ -22,7 +25,7 @@ class ConcatenationAdapter implements AdapterInterface
     protected $adaptersNbResultsCache = null;
 
     /**
-     * @param array<array-key, AdapterInterface> $adapters
+     * @param array<array-key, AdapterInterface<mixed>> $adapters
      *
      * @throws InvalidArgumentException if an adapter is not a `Pagerfanta\Adapter\AdapterInterface` instance
      */
@@ -53,7 +56,7 @@ class ConcatenationAdapter implements AdapterInterface
      * @phpstan-param int<0, max> $offset
      * @phpstan-param int<0, max> $length
      *
-     * @return iterable<array-key, mixed>
+     * @return iterable<array-key, T>
      */
     public function getSlice(int $offset, int $length): iterable
     {

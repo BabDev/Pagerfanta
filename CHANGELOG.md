@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.5.2 (2022-??-??)
+
+- Add generics annotations to `Pagerfanta\Adapter\AdapterInterface` and its implementations
+
 ## 3.5.1 (2021-12-08)
 
 - Fix deprecations from Symfony's debug loader
