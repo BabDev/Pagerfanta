@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.5.2 (2022-??-??)
+## 3.5.2 (2022-01-24)
 
 - Add generics annotations to `Pagerfanta\Adapter\AdapterInterface` and its implementations
 
