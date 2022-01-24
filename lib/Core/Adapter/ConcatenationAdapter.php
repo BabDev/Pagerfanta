@@ -13,7 +13,7 @@ use Pagerfanta\Exception\InvalidArgumentException;
 class ConcatenationAdapter implements AdapterInterface
 {
     /**
-     * @var array<array-key, AdapterInterface<mixed>>
+     * @var array<array-key, AdapterInterface<T>>
      */
     protected array $adapters;
 
@@ -25,7 +25,7 @@ class ConcatenationAdapter implements AdapterInterface
     protected $adaptersNbResultsCache = null;
 
     /**
-     * @param array<array-key, AdapterInterface<mixed>> $adapters
+     * @param array<array-key, AdapterInterface<T>> $adapters
      *
      * @throws InvalidArgumentException if an adapter is not a `Pagerfanta\Adapter\AdapterInterface` instance
      */
