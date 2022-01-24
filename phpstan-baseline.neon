@@ -101,7 +101,7 @@ parameters:
 			path: lib/Core/Adapter/ConcatenationAdapter.php
 
 		-
-			message: "#^Parameter \\#2 \\$length of method Pagerfanta\\\\Adapter\\\\AdapterInterface\\<mixed\\>\\:\\:getSlice\\(\\) expects int\\<0, max\\>, int given\\.$#"
+			message: "#^Parameter \\#2 \\$length of method Pagerfanta\\\\Adapter\\\\AdapterInterface\\<T\\>\\:\\:getSlice\\(\\) expects int\\<0, max\\>, int given\\.$#"
 			count: 1
 			path: lib/Core/Adapter/ConcatenationAdapter.php
 
