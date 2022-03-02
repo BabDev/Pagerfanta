@@ -483,6 +483,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return $this->getNbResults();
@@ -491,6 +492,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * @return \Traversable<array-key, T>
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         $results = $this->getCurrentPageResults();
@@ -513,6 +515,7 @@ class Pagerfanta implements \Countable, \IteratorAggregate, \JsonSerializable, P
     /**
      * @return iterable
      */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         $results = $this->getCurrentPageResults();
