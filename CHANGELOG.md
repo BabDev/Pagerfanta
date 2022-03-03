@@ -1,9 +1,10 @@
 # Changelog
 
-## 2.7.3 (????-??-??)
+## 2.7.3 (2022-03-02)
 
 - Calling `Pagerfanta::setMaxPerPage()` should not reset the number of results
 - Avoid using deprecated `Doctrine\DBAL\Query\QueryBuilder::execute()` when able
+- [#38](https://github.com/BabDev/Pagerfanta/pull/38) Add `#[\ReturnTypeWillChange]` attribute to disable PHP 8.1 deprecation notices
 
 ## 2.7.2 (2021-08-01)
 
