@@ -121,7 +121,7 @@ $query = $connection->createQueryBuilder()
     ->select('p.*')
     ->from('posts', 'p');
 
-$countQueryBuilderModifier = function (QueryBuilder $queryBuilder): void {
+$countQueryBuilderModifier = static function (QueryBuilder $queryBuilder): void {
     $queryBuilder->select('COUNT(DISTINCT p.id) AS total_results')
         ->setMaxResults(1);
 };
@@ -287,8 +287,8 @@ The adapter takes two callables:
 use Pagerfanta\Adapter\CallbackAdapter;
 
 $adapter = new CallbackAdapter(
-    function (): int { return 0; },
-    function (int $offset, int $length): iterable { return []; }
+    static fn (): int => 0,
+    static fn (int $offset, int $length): iterable => []
 );
 ```
 
@@ -334,4 +334,24 @@ The `NullAdapter` generates a list of null values for the number of items specif
 use Pagerfanta\Adapter\NullAdapter;
 
 $adapter = new NullAdapter(5);
+```
+
+### Transforming
+
+The `TransformingAdapter` is an adapter decorator which can be used to standardize the data from the wrapped adapter.
+
+The transformer is a callable which accepts the item to be transformed and the key from the iterable, it should have a signature of `function (mixed $item, int|string $key): mixed {}`
+
+```php
+<?php
+
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Adapter\TransformingAdapter;
+
+$formatter = new \NumberFormatter('en', \NumberFormatter::SPELLOUT);
+
+$adapter = new TransformingAdapter(
+    new ArrayAdapter(range(1, 100)),
+    static fn (int $item, int $key): string => $formatter->format($item)
+);
 ```

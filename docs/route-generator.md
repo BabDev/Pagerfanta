@@ -5,9 +5,7 @@ Pagerfanta uses a route generator as a mechanism for building URLs to different 
 A route generator is any callable which accepts a single `$page` parameter (the page to build the URL for) and returns the URL for the page being requested.
 
 ```php
-$routeGenerator = function (int $page): string {
-    return 'http://localhost/blog?page=' . $page;
-};
+$routeGenerator = static fn (int $page): string => 'http://localhost/blog?page=' . $page;
 ```
 
 ## Generator Interface
