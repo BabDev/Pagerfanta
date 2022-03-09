@@ -23,9 +23,10 @@ final class TransformingAdapterTest extends TestCase
     protected function setUp(): void
     {
         $this->array = range(1, 100);
-        $this->adapter = new TransformingAdapter(new ArrayAdapter($this->array), function (int $item, int $key) {
-            return sprintf('%s => %s', $key, $item);
-        });
+        $this->adapter = new TransformingAdapter(
+            new ArrayAdapter($this->array),
+            static fn (int $item, int $key) => sprintf('%s => %s', $key, $item)
+        );
     }
 
     public function testAdapterReturnsNumberOfItemsInArray(): void
@@ -40,12 +41,15 @@ final class TransformingAdapterTest extends TestCase
 
     public function testCreateFromInvokable(): void
     {
-        $this->adapter = new TransformingAdapter(new ArrayAdapter($this->array), new class {
-            public function __invoke(int $item, int $key): string
-            {
-                return sprintf('%s', $item - 100);
+        $this->adapter = new TransformingAdapter(
+            new ArrayAdapter($this->array),
+            new class() {
+                public function __invoke(int $item, int $key): string
+                {
+                    return sprintf('%s', $item - 100);
+                }
             }
-        });
+        );
 
         $this->assertSame(['-89', '-88', '-87', '-86', '-85'], [...$this->adapter->getSlice(10, 5)]);
     }

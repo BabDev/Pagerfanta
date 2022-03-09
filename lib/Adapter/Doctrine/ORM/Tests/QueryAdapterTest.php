@@ -2,7 +2,6 @@
 
 namespace Pagerfanta\Doctrine\ORM\Tests;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Tools\SchemaTool;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Doctrine\ORM\Tests\Entity\Group;

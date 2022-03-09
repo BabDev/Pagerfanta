@@ -3,10 +3,10 @@
 namespace Pagerfanta\Doctrine\MongoDBODM\Tests;
 
 use Doctrine\ODM\MongoDB\Aggregation\Aggregation;
+use Doctrine\ODM\MongoDB\Aggregation\Builder;
 use Doctrine\ODM\MongoDB\Aggregation\Stage\Count;
 use Doctrine\ODM\MongoDB\Aggregation\Stage\Skip;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Doctrine\ODM\MongoDB\Aggregation\Builder;
 use Doctrine\ODM\MongoDB\Iterator\Iterator;
 use Pagerfanta\Doctrine\MongoDBODM\AggregationAdapter;
 use PHPUnit\Framework\MockObject\MockObject;
