@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.6.0 (2022-03-08)
+
+- [#39](https://github.com/BabDev/Pagerfanta/pull/39) Add `TransformingAdapter`
+
 ## 3.5.2 (2022-01-24)
 
 - Add generics annotations to `Pagerfanta\Adapter\AdapterInterface` and its implementations
