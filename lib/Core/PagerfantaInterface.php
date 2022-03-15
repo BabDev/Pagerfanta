@@ -37,8 +37,6 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function getNormalizeOutOfRangePages(): bool;
 
     /**
-     * @phpstan-param positive-int $maxPerPage
-     *
      * @return $this<T>
      *
      * @throws LessThan1MaxPerPageException if the page is less than 1
@@ -51,8 +49,6 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function getMaxPerPage(): int;
 
     /**
-     * @phpstan-param positive-int $currentPage
-     *
      * @return $this<T>
      *
      * @throws LessThan1CurrentPageException  if the current page is less than 1
@@ -91,8 +87,6 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function getNbPages(): int;
 
     /**
-     * @phpstan-param positive-int $maxNbPages
-     *
      * @return $this<T>
      *
      * @throws LessThan1MaxPagesException if the max number of pages is less than 1

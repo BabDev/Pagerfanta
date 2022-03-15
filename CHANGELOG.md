@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.6.1 (????-??-??)
+
+- Remove `positive-int` typehint from setters where runtime checks are used
+
 ## 3.6.0 (2022-03-08)
 
 - [#39](https://github.com/BabDev/Pagerfanta/pull/39) Add `TransformingAdapter`

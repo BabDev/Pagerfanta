@@ -1,12 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\.$#"
+			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\|string\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
 
 		-
-			message: "#^Cannot call method fetchOne\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\.$#"
+			message: "#^Cannot call method fetchOne\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\|string\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
 
@@ -21,12 +21,12 @@ parameters:
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
 
 		-
-			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\.$#"
+			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\|string\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/Tests/QueryAdapterTest.php
 
 		-
-			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\.$#"
+			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\|string\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/Tests/SingleTableQueryAdapterTest.php
 
@@ -106,12 +106,12 @@ parameters:
 			path: lib/Core/Adapter/NullAdapter.php
 
 		-
-			message: "#^Comparison operation \"\\<\" between int\\<1, max\\> and 1 is always false\\.$#"
-			count: 3
+			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:calculateNbPages\\(\\) should return int\\<0, max\\> but returns int\\.$#"
+			count: 1
 			path: lib/Core/Pagerfanta.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:calculateNbPages\\(\\) should return int\\<0, max\\> but returns int\\.$#"
+			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:filterOutOfRangeCurrentPage\\(\\) should return int\\<1, max\\> but returns int\\.$#"
 			count: 1
 			path: lib/Core/Pagerfanta.php
 
@@ -122,6 +122,11 @@ parameters:
 
 		-
 			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:getPreviousPage\\(\\) should return int\\<1, max\\> but returns int\\<0, max\\>\\.$#"
+			count: 1
+			path: lib/Core/Pagerfanta.php
+
+		-
+			message: "#^Property Pagerfanta\\\\Pagerfanta\\<T\\>\\:\\:\\$maxPerPage \\(int\\<1, max\\>\\) does not accept int\\.$#"
 			count: 1
 			path: lib/Core/Pagerfanta.php
 
@@ -139,21 +144,6 @@ parameters:
 			message: "#^Property Pagerfanta\\\\Tests\\\\Adapter\\\\TransformingAdapterTest\\:\\:\\$adapter \\(Pagerfanta\\\\Adapter\\\\TransformingAdapter\\<int\\<1, 100\\>, string\\>\\) does not accept Pagerfanta\\\\Adapter\\\\TransformingAdapter\\<int, string\\>\\.$#"
 			count: 2
 			path: lib/Core/Tests/Adapter/TransformingAdapterTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$currentPage of method Pagerfanta\\\\Pagerfanta\\<mixed\\>\\:\\:setCurrentPage\\(\\) expects int\\<1, max\\>, int given\\.$#"
-			count: 1
-			path: lib/Core/Tests/PagerfantaTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$maxNbPages of method Pagerfanta\\\\Pagerfanta\\<mixed\\>\\:\\:setMaxNbPages\\(\\) expects int\\<1, max\\>, int given\\.$#"
-			count: 1
-			path: lib/Core/Tests/PagerfantaTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$maxPerPage of method Pagerfanta\\\\Pagerfanta\\<mixed\\>\\:\\:setMaxPerPage\\(\\) expects int\\<1, max\\>, int given\\.$#"
-			count: 1
-			path: lib/Core/Tests/PagerfantaTest.php
 
 		-
 			message: "#^Method Pagerfanta\\\\Tests\\\\View\\\\ViewTestCase\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
