@@ -21,7 +21,7 @@
         "friendsofphp/php-cs-fixer": "3.4.0",
         "jackalope/jackalope-doctrine-dbal": "^1.6",
         "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan": "1.4.8",
+        "phpstan/phpstan": "1.4.10",
         "phpstan/phpstan-phpunit": "1.0.0",
         "phpunit/phpunit": "^9.5",
         "ruflin/elastica": "^6.0 || ^7.0",
