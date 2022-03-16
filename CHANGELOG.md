@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.6.1 (????-??-??)
+## 3.6.1 (2022-03-16)
 
 - Remove `positive-int` typehint from setters where runtime checks are used
 
