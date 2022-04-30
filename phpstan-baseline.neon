@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method Pagerfanta\\\\Doctrine\\\\Collections\\\\CollectionAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/Collections/CollectionAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Doctrine\\\\Collections\\\\SelectableAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/Collections/SelectableAdapter.php
+
+		-
 			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\|string\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
@@ -59,11 +69,6 @@ parameters:
 			message: "#^Method Pagerfanta\\\\Elastica\\\\ElasticaAdapter\\:\\:getSlice\\(\\) should return iterable\\<\\(int\\|string\\), T\\> but returns Elastica\\\\ResultSet\\.$#"
 			count: 1
 			path: lib/Adapter/Elastica/ElasticaAdapter.php
-
-		-
-			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with Elastica\\\\ResultSet&PHPUnit\\\\Framework\\\\MockObject\\\\MockObject and null will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Adapter/Elastica/Tests/ElasticaAdapterTest.php
 
 		-
 			message: "#^Method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\|null\\.$#"
