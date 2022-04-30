@@ -14,7 +14,7 @@ The package includes:
 
 The below table shows the supported PHP versions for this package, please review the `composer.json` file for each individual package for additional requirements.
 
-| Version | Status                                    | PHP Versions |
-|---------|-------------------------------------------|--------------|
-| 2.x     | Bug & Security Fixes Until March 31, 2022 | 7.2-8.0      |
-| 3.x     | Actively Supported                        | 7.4+         |
+| Version | Status                  | PHP Versions |
+|---------|-------------------------|--------------|
+| 2.x     | **No Longer Supported** | 7.2-8.0      |
+| 3.x     | Actively Supported      | 7.4+         |
