@@ -1,0 +1,27 @@
+name: 'Static Analysis'
+
+on: [push, pull_request]
+
+jobs:
+  sa-phpstan:
+    runs-on: ubuntu-latest
+
+    name: PHPStan
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer:v2
+          extensions: curl, iconv, mbstring, mongodb, pdo, pdo_sqlite, sqlite, zip
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update --prefer-stable --prefer-dist
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyze --error-format=github

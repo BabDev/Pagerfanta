@@ -138,7 +138,6 @@ jobs:
       matrix:
         php: ['7.4', '8.0', '8.1']
         composer-flags: ['--prefer-stable --prefer-dist']
-        extensions: ['curl, iconv, mbstring, mongodb, zip']
         next-php: [false]
         include:
           - php: '7.4'
@@ -156,7 +155,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           tools: composer:v2
-          extensions: ${{ matrix.extensions }}
+          extensions: curl, iconv, mbstring, mongodb, zip
           coverage: pcov
 
       - name: Patch Composer manifests
