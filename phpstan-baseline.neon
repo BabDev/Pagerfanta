@@ -41,12 +41,12 @@ parameters:
 			path: lib/Adapter/Doctrine/DBAL/Tests/SingleTableQueryAdapterTest.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns array\\|int\\|object\\|null\\.$#"
+			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns array\\<string, mixed\\>\\|int\\|object\\|null\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getSlice\\(\\) should return iterable\\<\\(int\\|string\\), T\\> but returns array\\|int\\|object\\|null\\.$#"
+			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getSlice\\(\\) should return iterable\\<\\(int\\|string\\), T\\> but returns array\\<string, mixed\\>\\|int\\|object\\|null\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
 
