@@ -11,6 +11,11 @@ parameters:
 			path: lib/Adapter/Doctrine/Collections/SelectableAdapter.php
 
 		-
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/Collections/Tests/CollectionAdapterTest.php
+
+		-
 			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\|string\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
@@ -56,9 +61,19 @@ parameters:
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/AggregationAdapterTest.php
 
 		-
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
+
+		-
 			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
 			count: 2
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
+
+		-
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/PHPCRODM/Tests/QueryAdapterTest.php
 
 		-
 			message: "#^Method Pagerfanta\\\\Elastica\\\\ElasticaAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
@@ -141,6 +156,11 @@ parameters:
 			path: lib/Core/Tests/Adapter/ArrayAdapterTest.php
 
 		-
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), \\*NEVER\\*\\> will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Core/Tests/Adapter/CallbackAdapterTest.php
+
+		-
 			message: "#^Parameter \\#1 \\$adapters of class Pagerfanta\\\\Adapter\\\\ConcatenationAdapter constructor expects array\\<Pagerfanta\\\\Adapter\\\\AdapterInterface\\<\\*NEVER\\*\\>\\>, array\\{Pagerfanta\\\\Adapter\\\\ArrayAdapter\\<\\*NEVER\\*\\>, 'foo'\\} given\\.$#"
 			count: 1
 			path: lib/Core/Tests/Adapter/ConcatenationAdapterTest.php
@@ -149,6 +169,11 @@ parameters:
 			message: "#^Property Pagerfanta\\\\Tests\\\\Adapter\\\\TransformingAdapterTest\\:\\:\\$adapter \\(Pagerfanta\\\\Adapter\\\\TransformingAdapter\\<int\\<1, 100\\>, string\\>\\) does not accept Pagerfanta\\\\Adapter\\\\TransformingAdapter\\<int, string\\>\\.$#"
 			count: 2
 			path: lib/Core/Tests/Adapter/TransformingAdapterTest.php
+
+		-
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
+			count: 2
+			path: lib/Core/Tests/PagerfantaTest.php
 
 		-
 			message: "#^Method Pagerfanta\\\\Tests\\\\View\\\\ViewTestCase\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
@@ -167,11 +192,6 @@ parameters:
 
 		-
 			message: "#^Method Pagerfanta\\\\View\\\\View\\:\\:calculateEndPageForStartPageUnderflow\\(\\) should return int\\<1, max\\> but returns int\\|null\\.$#"
-			count: 1
-			path: lib/Core/View/View.php
-
-		-
-			message: "#^Method Pagerfanta\\\\View\\\\View\\:\\:calculateStartPageForEndPageOverflow\\(\\) should return int\\<1, max\\> but returns int\\.$#"
 			count: 1
 			path: lib/Core/View/View.php
 
