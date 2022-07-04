@@ -18,13 +18,13 @@ class CallbackAdapter implements AdapterInterface
 
     /**
      * @var callable
-     * @phpstan-var callable(int<0, max> $offset, int<0, max> $length): iterable
+     * @phpstan-var callable(int<0, max> $offset, int<0, max> $length): iterable<array-key, T>
      */
     private $sliceCallable;
 
     /**
-     * @phpstan-param callable(): int<0, max>                                      $nbResultsCallable
-     * @phpstan-param callable(int<0, max> $offset, int<0, max> $length): iterable $sliceCallable
+     * @phpstan-param callable(): int<0, max>                                                    $nbResultsCallable
+     * @phpstan-param callable(int<0, max> $offset, int<0, max> $length): iterable<array-key, T> $sliceCallable
      */
     public function __construct(callable $nbResultsCallable, callable $sliceCallable)
     {
