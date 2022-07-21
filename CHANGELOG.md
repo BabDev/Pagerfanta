@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.6.2 (2022-07-21)
+
+- [#42](https://github.com/BabDev/Pagerfanta/pull/42) Add full signature for the `CallbackAdapter` callback
+- [#44](https://github.com/BabDev/Pagerfanta/pull/44) Mark generic interfaces as being covariant
+
 ## 3.6.1 (2022-03-16)
 
 - Remove `positive-int` typehint from setters where runtime checks are used
