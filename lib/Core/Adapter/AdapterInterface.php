@@ -3,7 +3,7 @@
 namespace Pagerfanta\Adapter;
 
 /**
- * @template T
+ * @template-covariant T
  */
 interface AdapterInterface
 {

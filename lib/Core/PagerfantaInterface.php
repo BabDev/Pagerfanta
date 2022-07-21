@@ -10,7 +10,7 @@ use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
 /**
- * @template T
+ * @template-covariant T
  * @extends \IteratorAggregate<T>
  */
 interface PagerfantaInterface extends \Countable, \IteratorAggregate
