@@ -73,13 +73,9 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
 
     /**
      * @return AdapterInterface<T>
-     *
-     * @deprecated to be removed in 4.0
      */
     public function getAdapter(): AdapterInterface
     {
-        trigger_deprecation('pagerfanta/pagerfanta', '3.2', 'Retrieving the %s from "%s" implementations is deprecated and will be removed in 4.0.', AdapterInterface::class, PagerfantaInterface::class);
-
         return $this->adapter;
     }
 
@@ -257,7 +253,7 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
         $offset = $this->calculateOffsetForCurrentPageResults();
         $length = $this->getMaxPerPage();
 
-        return $this->adapter->getSlice($offset, $length);
+        return $this->getAdapter()->getSlice($offset, $length);
     }
 
     /**
@@ -290,7 +286,7 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     public function getNbResults(): int
     {
         if (null === $this->nbResults) {
-            $this->nbResults = $this->adapter->getNbResults();
+            $this->nbResults = $this->getAdapter()->getNbResults();
         }
 
         return $this->nbResults;

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.7.0 (????-??-??)
+
+- Undeprecate `PagerfantaInterface::getAdapter()`
+
 ## 3.6.2 (2022-07-21)
 
 - [#42](https://github.com/BabDev/Pagerfanta/pull/42) Add full signature for the `CallbackAdapter` callback
