@@ -63,9 +63,6 @@ final class PagerfantaTest extends TestCase
         $this->assertSame(5, $pagerfanta->getMaxPerPage());
     }
 
-    /**
-     * @group legacy
-     */
     public function testTheAdapterCanBeRetrieved(): void
     {
         $this->assertSame($this->adapter, $this->pagerfanta->getAdapter());
