@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1']
+        php: ['7.4', '8.0', '8.1', '8.2']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
@@ -44,7 +44,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1']
+        php: ['7.4', '8.0', '8.1', '8.2']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
@@ -83,7 +83,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1']
+        php: ['7.4', '8.0', '8.1', '8.2']
         dbal: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
@@ -96,7 +96,7 @@ jobs:
             dbal: '^2.13.1'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
-          - php: '8.1'
+          - php: '8.2'
             dbal: '^3.1'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
@@ -143,6 +143,9 @@ jobs:
           - php: '7.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
+          - php: '8.2'
+            composer-flags: '--prefer-stable --prefer-dist --ignore-platform-req=php'
+            next-php: true
 
     name: Doctrine MongoDB ODM - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
 
@@ -175,7 +178,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1']
+        php: ['7.4', '8.0', '8.1', '8.2']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
@@ -214,7 +217,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1']
+        php: ['7.4', '8.0', '8.1', '8.2']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
@@ -253,7 +256,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1']
+        php: ['7.4', '8.0', '8.1', '8.2']
         elastica: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
@@ -266,7 +269,7 @@ jobs:
             elastica: '^6.0'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
-          - php: '8.1'
+          - php: '8.2'
             elastica: '^7.0'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
@@ -306,7 +309,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1']
+        php: ['7.4', '8.0', '8.1', '8.2']
         solarium: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
@@ -319,7 +322,7 @@ jobs:
             solarium: '^5.0'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
-          - php: '8.1'
+          - php: '8.2'
             solarium: '^6.0'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
@@ -359,7 +362,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1']
+        php: ['7.4', '8.0', '8.1', '8.2']
         twig: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
@@ -372,11 +375,11 @@ jobs:
             twig: '^1.35'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
-          - php: '8.1'
+          - php: '8.2'
             twig: '^2.5'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
-          - php: '8.1'
+          - php: '8.2'
             twig: '^3.0'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false

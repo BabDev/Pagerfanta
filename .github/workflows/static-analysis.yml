@@ -15,13 +15,13 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.2'
           tools: composer:v2
           extensions: curl, iconv, mbstring, mongodb, pdo, pdo_sqlite, sqlite, zip
           coverage: none
 
       - name: Install dependencies
-        run: composer update --prefer-stable --prefer-dist
+        run: composer update --prefer-stable --prefer-dist --ignore-platform-req=php
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyze --error-format=github
