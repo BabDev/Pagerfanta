@@ -3,6 +3,7 @@
 ## 3.7.0 (????-??-??)
 
 - Undeprecate `PagerfantaInterface::getAdapter()`
+- Add support for `doctrine/collections` 2.x
 - Drop support for `doctrine/dbal` 2.x
 
 ## 3.6.2 (2022-07-21)
