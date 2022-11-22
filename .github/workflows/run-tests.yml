@@ -84,21 +84,13 @@ jobs:
       fail-fast: true
       matrix:
         php: ['7.4', '8.0', '8.1', '8.2']
-        dbal: ['']
+        dbal: ['^3.1']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
           - php: '7.4'
-            dbal: ''
-            composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
-            next-php: false
-          - php: '8.0'
-            dbal: '^2.13.1'
-            composer-flags: '--prefer-stable --prefer-dist'
-            next-php: false
-          - php: '8.2'
             dbal: '^3.1'
-            composer-flags: '--prefer-stable --prefer-dist'
+            composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
 
     name: Doctrine DBAL${{ matrix.dbal != '' && format(' {0}', matrix.dbal) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
