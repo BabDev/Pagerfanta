@@ -16,29 +16,14 @@ parameters:
 			path: lib/Adapter/Doctrine/Collections/Tests/CollectionAdapterTest.php
 
 		-
-			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\|string\\.$#"
-			count: 1
-			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
-
-		-
-			message: "#^Cannot call method fetchOne\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\|string\\.$#"
-			count: 1
-			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
-
-		-
 			message: "#^Method Pagerfanta\\\\Doctrine\\\\DBAL\\\\QueryAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
-			count: 2
+			count: 1
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
 
 		-
 			message: "#^Method Pagerfanta\\\\Doctrine\\\\DBAL\\\\QueryAdapter\\:\\:getSlice\\(\\) should return iterable\\<\\(int\\|string\\), T\\> but returns array\\<int, array\\<string, mixed\\>\\>\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
-
-		-
-			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\|string\\.$#"
-			count: 1
-			path: lib/Adapter/Doctrine/DBAL/Tests/QueryAdapterTest.php
 
 		-
 			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\|string\\.$#"
