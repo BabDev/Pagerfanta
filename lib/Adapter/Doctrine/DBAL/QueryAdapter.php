@@ -4,7 +4,6 @@ namespace Pagerfanta\Doctrine\DBAL;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Pagerfanta\Adapter\AdapterInterface;
-use Pagerfanta\Exception\InvalidArgumentException;
 
 /**
  * Adapter which calculates pagination from a Doctrine DBAL QueryBuilder.
@@ -24,15 +23,9 @@ class QueryAdapter implements AdapterInterface
 
     /**
      * @phpstan-param callable(QueryBuilder): void $countQueryBuilderModifier
-     *
-     * @throws InvalidArgumentException if a non-SELECT query is given
      */
     public function __construct(QueryBuilder $queryBuilder, callable $countQueryBuilderModifier)
     {
-        if (QueryBuilder::SELECT !== $queryBuilder->getType()) {
-            throw new InvalidArgumentException('Only SELECT queries can be paginated.');
-        }
-
         $this->queryBuilder = clone $queryBuilder;
         $this->countQueryBuilderModifier = $countQueryBuilderModifier;
     }

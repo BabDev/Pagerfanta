@@ -4,7 +4,6 @@ namespace Pagerfanta\Doctrine\DBAL\Tests;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Pagerfanta\Doctrine\DBAL\QueryAdapter;
-use Pagerfanta\Exception\InvalidArgumentException;
 
 final class QueryAdapterTest extends DBALTestCase
 {
@@ -19,16 +18,6 @@ final class QueryAdapterTest extends DBALTestCase
 
         $this->qb = new QueryBuilder($this->connection);
         $this->qb->select('p.*')->from('posts', 'p');
-    }
-
-    public function testANonSelectQueryIsRejected(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Only SELECT queries can be paginated.');
-
-        $this->qb->delete('posts');
-
-        new QueryAdapter($this->qb, static function (QueryBuilder $qb): void { });
     }
 
     public function testAdapterReturnsNumberOfResults(): void
