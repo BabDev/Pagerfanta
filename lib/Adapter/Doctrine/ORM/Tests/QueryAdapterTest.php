@@ -69,7 +69,7 @@ final class QueryAdapterTest extends ORMTestCase
         $this->assertSame(2, $adapter->getNbResults());
     }
 
-    public function dataGetSlice(): \Generator
+    public static function dataGetSlice(): \Generator
     {
         yield '0 offset, 1 item' => [0, 1, 1];
         yield '0 offset, 10 items' => [0, 10, 2];

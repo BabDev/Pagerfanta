@@ -14,7 +14,7 @@ final class FixedAdapterTest extends TestCase
         $this->assertSame(5, $adapter->getNbResults());
     }
 
-    public function dataGetSlice(): \Generator
+    public static function dataGetSlice(): \Generator
     {
         yield 'from array' => [['a', 'b']];
         yield 'from iterable object' => [new \ArrayObject()];

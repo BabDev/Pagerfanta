@@ -38,7 +38,7 @@ final class ArrayAdapterTest extends TestCase
         $this->assertSame(\count($this->array), $this->adapter->getNbResults());
     }
 
-    public function dataGetSlice(): \Generator
+    public static function dataGetSlice(): \Generator
     {
         yield [2, 10];
         yield [3, 2];

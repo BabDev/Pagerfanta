@@ -59,7 +59,7 @@ final class TwigViewIntegrationTest extends TestCase
         return new Pagerfanta(new FixedAdapter(100, range(1, 100)));
     }
 
-    public function dataPagerfantaRenderer(): \Generator
+    public static function dataPagerfantaRenderer(): \Generator
     {
         yield 'default template at page 1' => [
             1,

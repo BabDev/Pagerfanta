@@ -30,14 +30,14 @@ final class PagerfantaTest extends TestCase
         $this->pagerfanta = new Pagerfanta($this->adapter);
     }
 
-    public function dataCountsAsIntegers(): \Generator
+    public static function dataCountsAsIntegers(): \Generator
     {
         yield '1 item' => [1];
         yield '10 items' => [10];
         yield '25 items' => [25];
     }
 
-    public function dataCountsAsNonIntegers(): \Generator
+    public static function dataCountsAsNonIntegers(): \Generator
     {
         yield 'float' => [1.1];
         yield 'string float' => ['1.1'];
@@ -45,7 +45,7 @@ final class PagerfantaTest extends TestCase
         yield 'array' => [[1]];
     }
 
-    public function dataLessThan1(): \Generator
+    public static function dataLessThan1(): \Generator
     {
         yield 'zero' => [0];
         yield 'negative number' => [-1];
@@ -290,7 +290,7 @@ final class PagerfantaTest extends TestCase
         });
     }
 
-    public function dataGetCurrentPageResultSizes(): \Generator
+    public static function dataGetCurrentPageResultSizes(): \Generator
     {
         // max per page, current page, offset
         yield '10 items per page on page 1' => [10, 1, 0];
@@ -375,7 +375,7 @@ final class PagerfantaTest extends TestCase
         $this->assertSame(90, $this->pagerfanta->getCurrentPageOffsetEnd());
     }
 
-    public function dataHaveToPaginate(): \Generator
+    public static function dataHaveToPaginate(): \Generator
     {
         yield 'does paginate when number of results is greater than the maximum items per page' => [true, 99, 100];
         yield 'does not paginate when number of results is equal to the maximum items per page' => [false, 100, 100];
@@ -550,7 +550,7 @@ final class PagerfantaTest extends TestCase
         $this->assertJsonStringEqualsJsonString(json_encode($pageResults, \JSON_THROW_ON_ERROR), json_encode($this->pagerfanta, \JSON_THROW_ON_ERROR));
     }
 
-    public function dataGetPageNumberForItemAtPosition(): \Generator
+    public static function dataGetPageNumberForItemAtPosition(): \Generator
     {
         yield 'position 10' => [1, 10];
         yield 'position 11' => [2, 11];
