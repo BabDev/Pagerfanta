@@ -72,7 +72,7 @@ jobs:
           php .github/patch-packages.php
 
       - name: Restrict Collections version
-        if: ${{ matrix.dbal }}
+        if: ${{ matrix.collections }}
         run: (cd lib/Adapter/Doctrine/Collections && composer require --no-update doctrine/collections:${{ matrix.collections }})
 
       - name: Install dependencies
