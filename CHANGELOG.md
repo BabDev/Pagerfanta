@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.7.0 (????-??-??)
+## 3.7.0 (2022-12-02)
 
 - Undeprecate `PagerfantaInterface::getAdapter()`
 - Add support for `doctrine/collections` 2.x
