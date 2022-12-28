@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.8.0 (????-??-??)
+
+- Drop support for Twig versions prior to 2.13
+
 ## 3.7.0 (2022-12-02)
 
 - Undeprecate `PagerfantaInterface::getAdapter()`

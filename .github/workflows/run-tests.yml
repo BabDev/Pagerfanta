@@ -373,12 +373,8 @@ jobs:
             twig: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: '8.0'
-            twig: '^1.35'
-            composer-flags: '--prefer-stable --prefer-dist'
-            next-php: false
           - php: '8.2'
-            twig: '^2.5'
+            twig: '^2.13'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
           - php: '8.2'
