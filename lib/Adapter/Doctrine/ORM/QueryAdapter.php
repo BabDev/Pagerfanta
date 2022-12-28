@@ -63,7 +63,7 @@ class QueryAdapter implements AdapterInterface
      * @phpstan-param int<0, max> $offset
      * @phpstan-param int<0, max> $length
      *
-     * @phpstan-return \ArrayIterator<array-key, T>
+     * @phpstan-return \Traversable<array-key, T>
      */
     public function getSlice(int $offset, int $length): iterable
     {
