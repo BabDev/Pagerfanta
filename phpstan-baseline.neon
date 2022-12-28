@@ -56,6 +56,11 @@ parameters:
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
 
 		-
+			message: "#^Cannot access offset 0 on Traversable\\<\\(int\\|string\\), mixed\\>\\.$#"
+			count: 4
+			path: lib/Adapter/Doctrine/ORM/Tests/QueryAdapterTest.php
+
+		-
 			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/PHPCRODM/Tests/QueryAdapterTest.php
@@ -104,6 +109,11 @@ parameters:
 			message: "#^Parameter \\#2 \\$length of method Pagerfanta\\\\Adapter\\\\AdapterInterface\\<T\\>\\:\\:getSlice\\(\\) expects int\\<0, max\\>, int given\\.$#"
 			count: 1
 			path: lib/Core/Adapter/ConcatenationAdapter.php
+
+		-
+			message: "#^Method Pagerfanta\\\\Adapter\\\\NullAdapter\\:\\:createNullArray\\(\\) should return array\\<int, T\\> but returns array\\<int, null\\>\\.$#"
+			count: 1
+			path: lib/Core/Adapter/NullAdapter.php
 
 		-
 			message: "#^Method Pagerfanta\\\\Adapter\\\\NullAdapter\\:\\:remainCount\\(\\) should return int\\<0, max\\> but returns int\\.$#"
@@ -191,12 +201,12 @@ parameters:
 			path: lib/Core/View/View.php
 
 		-
-			message: "#^Parameter \\#1 \\$options of method Pagerfanta\\\\Twig\\\\Extension\\\\PagerfantaRuntime\\:\\:createRouteGenerator\\(\\) expects array, array\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$options of method Pagerfanta\\\\Twig\\\\Extension\\\\PagerfantaRuntime\\:\\:createRouteGenerator\\(\\) expects array\\<string, mixed\\>, array\\<string, mixed\\>\\|null given\\.$#"
 			count: 1
 			path: lib/Twig/Extension/PagerfantaRuntime.php
 
 		-
-			message: "#^Parameter \\#3 \\$options of method Pagerfanta\\\\View\\\\ViewInterface\\:\\:render\\(\\) expects array\\<string, mixed\\>, array\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$options of method Pagerfanta\\\\View\\\\ViewInterface\\:\\:render\\(\\) expects array\\<string, mixed\\>, array\\<string, mixed\\>\\|null given\\.$#"
 			count: 1
 			path: lib/Twig/Extension/PagerfantaRuntime.php
 
@@ -211,7 +221,7 @@ parameters:
 			path: lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$viewName of method Pagerfanta\\\\Twig\\\\Extension\\\\PagerfantaRuntime\\:\\:renderPagerfanta\\(\\) expects array\\|string\\|null, stdClass given\\.$#"
+			message: "#^Parameter \\#2 \\$viewName of method Pagerfanta\\\\Twig\\\\Extension\\\\PagerfantaRuntime\\:\\:renderPagerfanta\\(\\) expects array\\<string, mixed\\>\\|string\\|null, stdClass given\\.$#"
 			count: 1
 			path: lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
 
