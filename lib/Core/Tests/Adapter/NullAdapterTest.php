@@ -44,6 +44,8 @@ final class NullAdapterTest extends TestCase
 
     /**
      * @phpstan-param int<0, max> $length
+     *
+     * @phpstan-return array<int, null>
      */
     private function createNullArray(int $length): array
     {

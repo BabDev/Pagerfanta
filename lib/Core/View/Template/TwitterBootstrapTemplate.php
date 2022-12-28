@@ -4,6 +4,9 @@ namespace Pagerfanta\View\Template;
 
 class TwitterBootstrapTemplate extends Template
 {
+    /**
+     * @return array<string, string>
+     */
     protected function getDefaultOptions(): array
     {
         return [

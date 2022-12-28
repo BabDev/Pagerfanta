@@ -4,6 +4,9 @@ namespace Pagerfanta\View\Template;
 
 class Foundation6Template extends Template
 {
+    /**
+     * @return array<string, string>
+     */
     protected function getDefaultOptions(): array
     {
         return [

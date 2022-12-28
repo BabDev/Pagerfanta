@@ -4,6 +4,9 @@ namespace Pagerfanta\View\Template;
 
 class SemanticUiTemplate extends Template
 {
+    /**
+     * @return array<string, string>
+     */
     protected function getDefaultOptions(): array
     {
         return [

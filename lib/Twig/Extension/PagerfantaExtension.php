@@ -8,7 +8,7 @@ use Twig\TwigFunction;
 final class PagerfantaExtension extends AbstractExtension
 {
     /**
-     * @return TwigFunction[]
+     * @return list<TwigFunction>
      */
     public function getFunctions(): array
     {
