@@ -43,6 +43,9 @@ abstract class View implements ViewInterface
         $this->nbPages = $pagerfanta->getNbPages();
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     protected function initializeOptions(array $options): void
     {
         $this->proximity = isset($options['proximity']) ? (int) $options['proximity'] : $this->getDefaultProximity();

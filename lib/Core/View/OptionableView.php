@@ -11,8 +11,15 @@ use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 class OptionableView implements ViewInterface
 {
     private ViewInterface $view;
+
+    /**
+     * @var array<string, mixed>
+     */
     private array $defaultOptions;
 
+    /**
+     * @param array<string, mixed> $defaultOptions
+     */
     public function __construct(ViewInterface $view, array $defaultOptions)
     {
         $this->view = $view;
@@ -21,6 +28,8 @@ class OptionableView implements ViewInterface
 
     /**
      * @param callable|RouteGeneratorInterface $routeGenerator
+     * @param array<string, mixed>             $options
+     *
      * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
      */
     public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string

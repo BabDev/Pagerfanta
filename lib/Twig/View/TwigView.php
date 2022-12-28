@@ -31,6 +31,7 @@ final class TwigView extends View
     /**
      * @param PagerfantaInterface<mixed>       $pagerfanta
      * @param callable|RouteGeneratorInterface $routeGenerator
+     * @param array<string, mixed>             $options
      *
      * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
      */
@@ -65,6 +66,9 @@ final class TwigView extends View
         return new RouteGeneratorDecorator($routeGenerator);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     protected function initializeOptions(array $options): void
     {
         if (isset($options['template'])) {

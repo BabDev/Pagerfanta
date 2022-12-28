@@ -57,6 +57,9 @@ abstract class ViewTestCase extends TestCase
         $this->pagerfanta->setCurrentPage($currentPage);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     protected function renderView(array $options): string
     {
         $routeGenerator = $this->createRouteGenerator();

@@ -381,6 +381,8 @@ final class TwigViewIntegrationTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $options
+     *
      * @phpstan-param positive-int $page
      *
      * @dataProvider dataPagerfantaRenderer
@@ -409,11 +411,20 @@ final class TwigViewIntegrationTest extends TestCase
     private function createRouteGeneratorFactory(): RouteGeneratorFactoryInterface
     {
         return new class() implements RouteGeneratorFactoryInterface {
+            /**
+             * @param array<string, mixed> $options
+             */
             public function create(array $options = []): RouteGeneratorInterface
             {
                 return new class($options) implements RouteGeneratorInterface {
+                    /**
+                     * @var array<string, mixed>
+                     */
                     private array $options;
 
+                    /**
+                     * @param array<string, mixed> $options
+                     */
                     public function __construct(array $options)
                     {
                         $this->options = $options;

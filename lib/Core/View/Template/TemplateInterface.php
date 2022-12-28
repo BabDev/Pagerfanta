@@ -16,6 +16,8 @@ interface TemplateInterface
 
     /**
      * Sets the options for the template, overwriting keys that were previously set.
+     *
+     * @param array<string, mixed> $options
      */
     public function setOptions(array $options): void;
 
