@@ -48,17 +48,22 @@ jobs:
         collections: ['^1.8', '^2.0']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
+        patch-packages: [false]
         include:
           - php: '7.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
+          - php: '8.2'
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+            patch-packages: true
         exclude:
           - php: '7.4'
             collections: '^2.0'
           - php: '8.0'
             collections: '^2.0'
 
-    name: Doctrine Collections${{ matrix.collections != '' && format(' {0}', matrix.collections) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+    name: Doctrine Collections${{ matrix.collections != '' && format(' {0}', matrix.collections) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
     steps:
       - name: Checkout code
@@ -73,8 +78,8 @@ jobs:
           coverage: pcov
 
       - name: Patch Composer manifests
-        run: |
-          php .github/patch-packages.php
+        if: ${{ matrix.patch-packages }}
+        run: php .github/patch-packages.php
 
       - name: Restrict Collections version
         if: ${{ matrix.collections }}
@@ -94,16 +99,22 @@ jobs:
       fail-fast: true
       matrix:
         php: ['7.4', '8.0', '8.1', '8.2']
-        dbal: ['^3.1']
+        dbal: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
+        patch-packages: [false]
         include:
           - php: '7.4'
-            dbal: '^3.1'
+            dbal: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
+          - php: '8.2'
+            composer-flags: '--prefer-stable --prefer-dist'
+            dbal: ''
+            next-php: false
+            patch-packages: true
 
-    name: Doctrine DBAL${{ matrix.dbal != '' && format(' {0}', matrix.dbal) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+    name: Doctrine DBAL${{ matrix.dbal != '' && format(' {0}', matrix.dbal) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
     steps:
       - name: Checkout code
@@ -118,8 +129,8 @@ jobs:
           coverage: pcov
 
       - name: Patch Composer manifests
-        run: |
-          php .github/patch-packages.php
+        if: ${{ matrix.patch-packages }}
+        run: php .github/patch-packages.php
 
       - name: Restrict DBAL version
         if: ${{ matrix.dbal }}
@@ -138,18 +149,20 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1']
+        php: ['7.4', '8.0', '8.1', '8.2']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
+        patch-packages: [false]
         include:
           - php: '7.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
           - php: '8.2'
-            composer-flags: '--prefer-stable --prefer-dist --ignore-platform-req=php'
-            next-php: true
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+            patch-packages: true
 
-    name: Doctrine MongoDB ODM - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+    name: Doctrine MongoDB ODM - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
     steps:
       - name: Checkout code
@@ -164,8 +177,8 @@ jobs:
           coverage: pcov
 
       - name: Patch Composer manifests
-        run: |
-          php .github/patch-packages.php
+        if: ${{ matrix.patch-packages }}
+        run: php .github/patch-packages.php
 
       - name: Install dependencies
         run: (cd lib/Adapter/Doctrine/MongoDBODM && composer update ${{ matrix.composer-flags }})
@@ -183,12 +196,17 @@ jobs:
         php: ['7.4', '8.0', '8.1', '8.2']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
+        patch-packages: [false]
         include:
           - php: '7.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
+          - php: '8.2'
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+            patch-packages: true
 
-    name: Doctrine ORM - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+    name: Doctrine ORM - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
     steps:
       - name: Checkout code
@@ -203,8 +221,8 @@ jobs:
           coverage: pcov
 
       - name: Patch Composer manifests
-        run: |
-          php .github/patch-packages.php
+        if: ${{ matrix.patch-packages }}
+        run: php .github/patch-packages.php
 
       - name: Install dependencies
         run: (cd lib/Adapter/Doctrine/ORM && composer update ${{ matrix.composer-flags }})
@@ -222,12 +240,17 @@ jobs:
         php: ['7.4', '8.0', '8.1', '8.2']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
+        patch-packages: [false]
         include:
           - php: '7.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
+          - php: '8.2'
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+            patch-packages: true
 
-    name: Doctrine PHPCR ODM - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+    name: Doctrine PHPCR ODM - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
     steps:
       - name: Checkout code
@@ -242,8 +265,8 @@ jobs:
           coverage: pcov
 
       - name: Patch Composer manifests
-        run: |
-          php .github/patch-packages.php
+        if: ${{ matrix.patch-packages }}
+        run: php .github/patch-packages.php
 
       - name: Install dependencies
         run: (cd lib/Adapter/Doctrine/PHPCRODM && composer update ${{ matrix.composer-flags }})
@@ -262,11 +285,17 @@ jobs:
         elastica: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
+        patch-packages: [false]
         include:
           - php: '7.4'
             elastica: '^6.0'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
+          - php: '8.2'
+            elastica: ''
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+            patch-packages: true
           - php: '7.4'
             elastica: '^6.0'
             composer-flags: '--prefer-stable --prefer-dist'
@@ -276,7 +305,7 @@ jobs:
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
 
-    name: Elastica${{ matrix.elastica != '' && format(' {0}', matrix.elastica) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+    name: Elastica${{ matrix.elastica != '' && format(' {0}', matrix.elastica) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
     steps:
       - name: Checkout code
@@ -291,8 +320,8 @@ jobs:
           coverage: pcov
 
       - name: Patch Composer manifests
-        run: |
-          php .github/patch-packages.php
+        if: ${{ matrix.patch-packages }}
+        run: php .github/patch-packages.php
 
       - name: Restrict Elastica version
         if: ${{ matrix.elastica }}
@@ -315,11 +344,17 @@ jobs:
         solarium: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
+        patch-packages: [false]
         include:
           - php: '7.4'
             solarium: '^5.0'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
+          - php: '8.2'
+            solarium: ''
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+            patch-packages: true
           - php: '7.4'
             solarium: '^5.0'
             composer-flags: '--prefer-stable --prefer-dist'
@@ -329,7 +364,7 @@ jobs:
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
 
-    name: Solarium${{ matrix.solarium != '' && format(' {0}', matrix.solarium) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+    name: Solarium${{ matrix.solarium != '' && format(' {0}', matrix.solarium) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
     steps:
       - name: Checkout code
@@ -344,8 +379,8 @@ jobs:
           coverage: pcov
 
       - name: Patch Composer manifests
-        run: |
-          php .github/patch-packages.php
+        if: ${{ matrix.patch-packages }}
+        run: php .github/patch-packages.php
 
       - name: Restrict Solarium version
         if: ${{ matrix.solarium }}
@@ -368,11 +403,17 @@ jobs:
         twig: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
+        patch-packages: [false]
         include:
           - php: '7.4'
             twig: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
+          - php: '8.2'
+            twig: ''
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+            patch-packages: true
           - php: '8.2'
             twig: '^2.13'
             composer-flags: '--prefer-stable --prefer-dist'
@@ -382,7 +423,7 @@ jobs:
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
 
-    name: Twig${{ matrix.twig != '' && format(' {0}', matrix.twig) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}
+    name: Twig${{ matrix.twig != '' && format(' {0}', matrix.twig) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
     steps:
       - name: Checkout code
@@ -397,8 +438,8 @@ jobs:
           coverage: pcov
 
       - name: Patch Composer manifests
-        run: |
-          php .github/patch-packages.php
+        if: ${{ matrix.patch-packages }}
+        run: php .github/patch-packages.php
 
       - name: Restrict Twig version
         if: ${{ matrix.twig }}
