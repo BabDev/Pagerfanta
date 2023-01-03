@@ -6,19 +6,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table()
- */
 #[ORM\Entity]
 #[ORM\Table]
 class User
 {
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
     #[ORM\Column]
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,13 +17,6 @@ class User
 
     /**
      * @var Collection<array-key, Group>
-     *
-     * @ORM\ManyToMany(targetEntity="Pagerfanta\Doctrine\ORM\Tests\Entity\Group", inversedBy="users")
-     * @ORM\JoinTable(
-     *     name="user_groups",
-     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id", onDelete="CASCADE")}
-     * )
      */
     #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'users')]
     #[ORM\JoinTable(name: 'user_groups')]

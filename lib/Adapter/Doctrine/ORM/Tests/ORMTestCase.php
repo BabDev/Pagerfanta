@@ -2,7 +2,7 @@
 
 namespace Pagerfanta\Doctrine\ORM\Tests;
 
-use Doctrine\Common\Cache\Psr6\DoctrineProvider;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
@@ -16,39 +16,18 @@ abstract class ORMTestCase extends TestCase
     protected function setUp(): void
     {
         $config = new Configuration();
-
-        if (method_exists($config, 'setMetadataCache')) {
-            $config->setMetadataCache(new ArrayAdapter());
-        } else {
-            $config->setMetadataCacheImpl(DoctrineProvider::wrap(new ArrayAdapter()));
-        }
-
-        if (method_exists($config, 'setQueryCache')) {
-            $config->setQueryCache(new ArrayAdapter());
-        } else {
-            $config->setQueryCacheImpl(DoctrineProvider::wrap(new ArrayAdapter()));
-        }
-
-        if (method_exists($config, 'setResultCache')) {
-            $config->setResultCache(new ArrayAdapter());
-        } else {
-            $config->setResultCacheImpl(DoctrineProvider::wrap(new ArrayAdapter()));
-        }
-
+        $config->setMetadataCache(new ArrayAdapter());
+        $config->setQueryCache(new ArrayAdapter());
+        $config->setResultCache(new ArrayAdapter());
         $config->setProxyDir(__DIR__.'/_files');
         $config->setProxyNamespace(__NAMESPACE__.'\Proxies');
-
-        if (\PHP_VERSION_ID >= 80000 && class_exists(AttributeDriver::class)) {
-            $config->setMetadataDriverImpl(new AttributeDriver([__DIR__.'/Entity']));
-        } else {
-            $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver([__DIR__.'/Entity'], false));
-        }
+        $config->setMetadataDriverImpl(new AttributeDriver([__DIR__.'/Entity']));
 
         $conn = [
             'driver' => 'pdo_sqlite',
             'memory' => true,
         ];
 
-        $this->entityManager = EntityManager::create($conn, $config);
+        $this->entityManager = new EntityManager(DriverManager::getConnection($conn, $config), $config);
     }
 }

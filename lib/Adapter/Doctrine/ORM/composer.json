@@ -10,10 +10,8 @@
         "pagerfanta/core": "^3.0"
     },
     "require-dev": {
-        "doctrine/annotations": "^1.11.1",
-        "doctrine/cache": "^1.11 || ^2.0",
         "phpunit/phpunit": "^9.5",
-        "symfony/cache": "^4.4 || ^5.4 || ^6.0",
+        "symfony/cache": "^5.4 || ^6.0",
         "symfony/phpunit-bridge": "^5.4 || ^6.0"
     },
     "autoload": {
