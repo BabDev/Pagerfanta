@@ -11,7 +11,7 @@ parameters:
 			path: lib/Adapter/Doctrine/Collections/SelectableAdapter.php
 
 		-
-			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/Collections/Tests/CollectionAdapterTest.php
 
@@ -26,11 +26,6 @@ parameters:
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
 
 		-
-			message: "#^Cannot call method fetchAllAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\|string\\.$#"
-			count: 1
-			path: lib/Adapter/Doctrine/DBAL/Tests/SingleTableQueryAdapterTest.php
-
-		-
 			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns array\\<string, mixed\\>\\|int\\|object\\|null\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
@@ -41,13 +36,23 @@ parameters:
 			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
 
 		-
+			message: "#^PHPDoc tag @var for variable \\$aggregation contains unresolvable type\\.$#"
+			count: 2
+			path: lib/Adapter/Doctrine/MongoDBODM/Tests/AggregationAdapterTest.php
+
+		-
 			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
 			count: 2
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/AggregationAdapterTest.php
 
 		-
-			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
 			count: 1
+			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$query contains unresolvable type\\.$#"
+			count: 2
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
 
 		-
@@ -61,7 +66,7 @@ parameters:
 			path: lib/Adapter/Doctrine/ORM/Tests/QueryAdapterTest.php
 
 		-
-			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/PHPCRODM/Tests/QueryAdapterTest.php
 
@@ -151,7 +156,7 @@ parameters:
 			path: lib/Core/Tests/Adapter/ArrayAdapterTest.php
 
 		-
-			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), \\*NEVER\\*\\> will always evaluate to false\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), \\*NEVER\\*\\> will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Core/Tests/Adapter/CallbackAdapterTest.php
 
@@ -166,7 +171,7 @@ parameters:
 			path: lib/Core/Tests/Adapter/TransformingAdapterTest.php
 
 		-
-			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
 			count: 2
 			path: lib/Core/Tests/PagerfantaTest.php
 
@@ -199,16 +204,6 @@ parameters:
 			message: "#^Property Pagerfanta\\\\View\\\\View\\:\\:\\$startPage \\(int\\<1, max\\>\\|null\\) does not accept int\\.$#"
 			count: 1
 			path: lib/Core/View/View.php
-
-		-
-			message: "#^Parameter \\#1 \\$options of method Pagerfanta\\\\Twig\\\\Extension\\\\PagerfantaRuntime\\:\\:createRouteGenerator\\(\\) expects array\\<string, mixed\\>, array\\<string, mixed\\>\\|null given\\.$#"
-			count: 1
-			path: lib/Twig/Extension/PagerfantaRuntime.php
-
-		-
-			message: "#^Parameter \\#3 \\$options of method Pagerfanta\\\\View\\\\ViewInterface\\:\\:render\\(\\) expects array\\<string, mixed\\>, array\\<string, mixed\\>\\|null given\\.$#"
-			count: 1
-			path: lib/Twig/Extension/PagerfantaRuntime.php
 
 		-
 			message: "#^Method Pagerfanta\\\\Twig\\\\Tests\\\\Extension\\\\PagerfantaRuntimeTest\\:\\:createPagerfanta\\(\\) should return Pagerfanta\\\\Pagerfanta\\<int\\<1, 100\\>\\> but returns Pagerfanta\\\\Pagerfanta\\<int\\>\\.$#"
