@@ -9,11 +9,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2']
+        php: ['8.1', '8.2']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
-          - php: '7.4'
+          - php: '8.1'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
 
@@ -44,24 +44,19 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2']
+        php: ['8.1', '8.2']
         collections: ['^1.8', '^2.0']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
         include:
-          - php: '7.4'
+          - php: '8.1'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
           - php: '8.2'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
             patch-packages: true
-        exclude:
-          - php: '7.4'
-            collections: '^2.0'
-          - php: '8.0'
-            collections: '^2.0'
 
     name: Doctrine Collections${{ matrix.collections != '' && format(' {0}', matrix.collections) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
@@ -98,13 +93,13 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2']
+        php: ['8.1', '8.2']
         dbal: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
         include:
-          - php: '7.4'
+          - php: '8.1'
             dbal: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
@@ -149,12 +144,12 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2']
+        php: ['8.1', '8.2']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
         include:
-          - php: '7.4'
+          - php: '8.1'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
           - php: '8.2'
@@ -193,12 +188,12 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2']
+        php: ['8.1', '8.2']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
         include:
-          - php: '7.4'
+          - php: '8.1'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
           - php: '8.2'
@@ -237,12 +232,12 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2']
+        php: ['8.1', '8.2']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
         include:
-          - php: '7.4'
+          - php: '8.1'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
           - php: '8.2'
@@ -281,14 +276,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2']
+        php: ['8.1', '8.2']
         elastica: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
         include:
-          - php: '7.4'
-            elastica: '^6.0'
+          - php: '8.1'
+            elastica: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
           - php: '8.2'
@@ -296,14 +291,6 @@ jobs:
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
             patch-packages: true
-          - php: '7.4'
-            elastica: '^6.0'
-            composer-flags: '--prefer-stable --prefer-dist'
-            next-php: false
-          - php: '8.2'
-            elastica: '^7.0'
-            composer-flags: '--prefer-stable --prefer-dist'
-            next-php: false
 
     name: Elastica${{ matrix.elastica != '' && format(' {0}', matrix.elastica) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
@@ -340,14 +327,13 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2']
+        php: ['8.1', '8.2']
         solarium: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
         include:
-          - php: '7.4'
-            solarium: '^5.0'
+          - php: '8.1'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
           - php: '8.2'
@@ -355,14 +341,6 @@ jobs:
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
             patch-packages: true
-          - php: '7.4'
-            solarium: '^5.0'
-            composer-flags: '--prefer-stable --prefer-dist'
-            next-php: false
-          - php: '8.2'
-            solarium: '^6.0'
-            composer-flags: '--prefer-stable --prefer-dist'
-            next-php: false
 
     name: Solarium${{ matrix.solarium != '' && format(' {0}', matrix.solarium) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
@@ -399,13 +377,13 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2']
+        php: ['8.1', '8.2']
         twig: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
         include:
-          - php: '7.4'
+          - php: '8.1'
             twig: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false

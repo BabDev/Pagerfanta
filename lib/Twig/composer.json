@@ -5,9 +5,8 @@
     "keywords": ["pagerfanta"],
     "license": "MIT",
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.1",
         "pagerfanta/core": "^3.0",
-        "symfony/polyfill-php80": "^1.15",
         "twig/twig": "^2.13 || ^3.0"
     },
     "require-dev": {
