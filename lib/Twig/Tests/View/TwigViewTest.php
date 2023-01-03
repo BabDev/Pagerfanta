@@ -28,7 +28,7 @@ final class TwigViewTest extends TestCase
         $options = ['template' => 'test.html.twig'];
 
         $template = $this->createMock(Template::class);
-        $template->expects($this->once())
+        $template->expects(self::once())
             ->method('displayBlock')
             ->willReturnCallback(
                 static function (): void {
@@ -36,16 +36,16 @@ final class TwigViewTest extends TestCase
                 }
             );
 
-        $this->twig->expects($this->once())
+        $this->twig->expects(self::once())
             ->method('load')
             ->with($options['template'])
             ->willReturn(new TemplateWrapper($this->twig, $template));
 
-        $this->twig->expects($this->once())
+        $this->twig->expects(self::once())
             ->method('mergeGlobals')
             ->willReturn([]);
 
-        $this->assertSame(
+        self::assertSame(
             'Twig template',
             (new TwigView($this->twig, 'constructor.html.twig'))->render(
                 $this->createPagerfanta(),
@@ -58,7 +58,7 @@ final class TwigViewTest extends TestCase
     public function testRendersWithATemplateSpecifiedInTheConstructorWhenNotSetInTheOptions(): void
     {
         $template = $this->createMock(Template::class);
-        $template->expects($this->once())
+        $template->expects(self::once())
             ->method('displayBlock')
             ->willReturnCallback(
                 static function (): void {
@@ -66,16 +66,16 @@ final class TwigViewTest extends TestCase
                 }
             );
 
-        $this->twig->expects($this->once())
+        $this->twig->expects(self::once())
             ->method('load')
             ->with('constructor.html.twig')
             ->willReturn(new TemplateWrapper($this->twig, $template));
 
-        $this->twig->expects($this->once())
+        $this->twig->expects(self::once())
             ->method('mergeGlobals')
             ->willReturn([]);
 
-        $this->assertSame(
+        self::assertSame(
             'Twig template',
             (new TwigView($this->twig, 'constructor.html.twig'))->render(
                 $this->createPagerfanta(),
@@ -87,7 +87,7 @@ final class TwigViewTest extends TestCase
     public function testRendersWithTheDefaultTemplateWhenNotSetInConstructorOrOptions(): void
     {
         $template = $this->createMock(Template::class);
-        $template->expects($this->once())
+        $template->expects(self::once())
             ->method('displayBlock')
             ->willReturnCallback(
                 static function (): void {
@@ -95,16 +95,16 @@ final class TwigViewTest extends TestCase
                 }
             );
 
-        $this->twig->expects($this->once())
+        $this->twig->expects(self::once())
             ->method('load')
             ->with(TwigView::DEFAULT_TEMPLATE)
             ->willReturn(new TemplateWrapper($this->twig, $template));
 
-        $this->twig->expects($this->once())
+        $this->twig->expects(self::once())
             ->method('mergeGlobals')
             ->willReturn([]);
 
-        $this->assertSame(
+        self::assertSame(
             'Twig template',
             (new TwigView($this->twig))->render($this->createPagerfanta(), $this->createRouteGenerator())
         );
@@ -112,6 +112,7 @@ final class TwigViewTest extends TestCase
 
     /**
      * @return Pagerfanta<int>
+     *
      * @phpstan-return Pagerfanta<int<1, 100>>
      */
     private function createPagerfanta(): Pagerfanta

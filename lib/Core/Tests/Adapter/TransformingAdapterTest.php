@@ -10,15 +10,17 @@ final class TransformingAdapterTest extends TestCase
 {
     /**
      * @var int[]
+     *
      * @phpstan-var array<int<1, 100>>
      */
-    private $array;
+    private array $array;
 
     /**
      * @var TransformingAdapter<int, string>
+     *
      * @phpstan-var TransformingAdapter<int<1, 100>, string>
      */
-    private $adapter;
+    private TransformingAdapter $adapter;
 
     protected function setUp(): void
     {
@@ -31,12 +33,12 @@ final class TransformingAdapterTest extends TestCase
 
     public function testAdapterReturnsNumberOfItemsInArray(): void
     {
-        $this->assertSame(\count($this->array), $this->adapter->getNbResults());
+        self::assertCount($this->adapter->getNbResults(), $this->array);
     }
 
     public function testGetSlice(): void
     {
-        $this->assertSame(['0 => 4', '1 => 5'], [...$this->adapter->getSlice(3, 2)]);
+        self::assertSame(['0 => 4', '1 => 5'], [...$this->adapter->getSlice(3, 2)]);
     }
 
     public function testCreateFromInvokable(): void
@@ -51,6 +53,6 @@ final class TransformingAdapterTest extends TestCase
             }
         );
 
-        $this->assertSame(['-89', '-88', '-87', '-86', '-85'], [...$this->adapter->getSlice(10, 5)]);
+        self::assertSame(['-89', '-88', '-87', '-86', '-85'], [...$this->adapter->getSlice(10, 5)]);
     }
 }

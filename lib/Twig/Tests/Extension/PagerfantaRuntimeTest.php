@@ -10,25 +10,15 @@ use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 use Pagerfanta\Twig\Extension\PagerfantaRuntime;
 use Pagerfanta\View\DefaultView;
 use Pagerfanta\View\ViewFactory;
-use Pagerfanta\View\ViewFactoryInterface;
 use PHPUnit\Framework\TestCase;
 
 final class PagerfantaRuntimeTest extends TestCase
 {
-    /**
-     * @var ViewFactoryInterface
-     */
-    private $viewFactory;
+    private ViewFactory $viewFactory;
 
-    /**
-     * @var RouteGeneratorFactoryInterface
-     */
-    private $routeGeneratorFactory;
+    private RouteGeneratorFactoryInterface $routeGeneratorFactory;
 
-    /**
-     * @var PagerfantaRuntime
-     */
-    private $extension;
+    private PagerfantaRuntime $extension;
 
     protected function setUp(): void
     {
@@ -83,6 +73,7 @@ final class PagerfantaRuntimeTest extends TestCase
 
     /**
      * @return Pagerfanta<int>
+     *
      * @phpstan-return Pagerfanta<int<1, 100>>
      */
     private function createPagerfanta(): Pagerfanta
@@ -169,7 +160,7 @@ final class PagerfantaRuntimeTest extends TestCase
 
     public function testAPageUrlCanBeGenerated(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '/my-page?page=1',
             $this->extension->getPageUrl($this->createPagerfanta(), 1)
         );
@@ -185,7 +176,7 @@ final class PagerfantaRuntimeTest extends TestCase
 
     private function assertViewOutputMatches(string $view, string $expected): void
     {
-        $this->assertSame($this->removeWhitespacesBetweenTags($expected), $view);
+        self::assertSame($this->removeWhitespacesBetweenTags($expected), $view);
     }
 
     private function removeWhitespacesBetweenTags(string $string): string

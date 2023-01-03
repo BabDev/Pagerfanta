@@ -9,6 +9,7 @@ use Pagerfanta\Adapter\AdapterInterface;
  * Adapter which calculates pagination from a Doctrine DBAL QueryBuilder.
  *
  * @template T
+ *
  * @implements AdapterInterface<T>
  */
 class QueryAdapter implements AdapterInterface
@@ -17,6 +18,7 @@ class QueryAdapter implements AdapterInterface
 
     /**
      * @var callable
+     *
      * @phpstan-var callable(QueryBuilder): void
      */
     private $countQueryBuilderModifier;

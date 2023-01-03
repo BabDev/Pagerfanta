@@ -16,15 +16,12 @@ final class SelectableAdapterTest extends TestCase
      */
     private $selectable;
 
-    /**
-     * @var Criteria
-     */
-    private $criteria;
+    private Criteria $criteria;
 
     /**
      * @var SelectableAdapter<array-key, mixed>
      */
-    private $adapter;
+    private SelectableAdapter $adapter;
 
     protected function setUp(): void
     {
@@ -49,17 +46,17 @@ final class SelectableAdapterTest extends TestCase
         $this->criteria->setFirstResult(null);
         $this->criteria->setMaxResults(null);
 
+        /** @var MockObject&Collection<array-key, mixed> $collection */
         $collection = $this->createMock(Collection::class);
-        $collection->expects($this->any())
-            ->method('count')
+        $collection->method('count')
             ->willReturn(10);
 
-        $this->selectable->expects($this->once())
+        $this->selectable->expects(self::once())
             ->method('matching')
             ->with($this->criteria)
             ->willReturn($collection);
 
-        $this->assertSame(10, $this->adapter->getNbResults());
+        self::assertSame(10, $this->adapter->getNbResults());
     }
 
     public function testGetSlice(): void
@@ -69,11 +66,11 @@ final class SelectableAdapterTest extends TestCase
 
         $slice = [];
 
-        $this->selectable->expects($this->once())
+        $this->selectable->expects(self::once())
             ->method('matching')
             ->with($this->criteria)
             ->willReturn($slice);
 
-        $this->assertSame($slice, $this->adapter->getSlice(10, 20));
+        self::assertSame($slice, $this->adapter->getSlice(10, 20));
     }
 }

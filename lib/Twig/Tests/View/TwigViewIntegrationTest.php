@@ -23,20 +23,9 @@ use Twig\RuntimeLoader\RuntimeLoaderInterface;
  */
 final class TwigViewIntegrationTest extends TestCase
 {
-    /**
-     * @var ViewFactoryInterface
-     */
-    public $viewFactory;
-
-    /**
-     * @var RouteGeneratorFactoryInterface
-     */
-    public $routeGeneratorFactory;
-
-    /**
-     * @var Environment
-     */
-    public $twig;
+    public ViewFactoryInterface $viewFactory;
+    public RouteGeneratorFactoryInterface $routeGeneratorFactory;
+    public Environment $twig;
 
     protected function setUp(): void
     {
@@ -52,6 +41,7 @@ final class TwigViewIntegrationTest extends TestCase
 
     /**
      * @return Pagerfanta<int>
+     *
      * @phpstan-return Pagerfanta<int<1, 100>>
      */
     private function createPagerfanta(): Pagerfanta
@@ -400,7 +390,7 @@ final class TwigViewIntegrationTest extends TestCase
 
     public function testPagerfantaRenderingWithEmptyOptions(): void
     {
-        $this->assertNotEmpty(
+        self::assertNotEmpty(
             (new TwigView($this->twig))->render(
                 $this->createPagerfanta(),
                 $this->createRouteGeneratorFactory()->create()
@@ -482,7 +472,7 @@ final class TwigViewIntegrationTest extends TestCase
 
     private function assertViewOutputMatches(string $view, string $expected): void
     {
-        $this->assertSame($this->removeWhitespacesBetweenTags($expected), $view);
+        self::assertSame($this->removeWhitespacesBetweenTags($expected), $view);
     }
 
     private function removeWhitespacesBetweenTags(string $string): string

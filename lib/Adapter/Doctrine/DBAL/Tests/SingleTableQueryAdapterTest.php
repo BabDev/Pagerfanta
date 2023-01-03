@@ -8,15 +8,12 @@ use Pagerfanta\Exception\InvalidArgumentException;
 
 final class SingleTableQueryAdapterTest extends DBALTestCase
 {
-    /**
-     * @var QueryBuilder
-     */
-    private $qb;
+    private QueryBuilder $qb;
 
     /**
      * @var SingleTableQueryAdapter<mixed>
      */
-    private $adapter;
+    private SingleTableQueryAdapter $adapter;
 
     protected function setUp(): void
     {
@@ -48,14 +45,14 @@ final class SingleTableQueryAdapterTest extends DBALTestCase
 
     public function testAdapterReturnsNumberOfResults(): void
     {
-        $this->assertSame(50, $this->adapter->getNbResults());
+        self::assertSame(50, $this->adapter->getNbResults());
     }
 
     public function testResultCountStaysConsistentAfterSlicing(): void
     {
         $this->adapter->getSlice(1, 10);
 
-        $this->assertSame(50, $this->adapter->getNbResults());
+        self::assertSame(50, $this->adapter->getNbResults());
     }
 
     public function testGetSlice(): void
@@ -67,12 +64,6 @@ final class SingleTableQueryAdapterTest extends DBALTestCase
         $q->setFirstResult($offset)
             ->setMaxResults($length);
 
-        if (method_exists($q, 'executeQuery')) {
-            $stmt = $q->executeQuery();
-        } else {
-            $stmt = $q->execute();
-        }
-
-        $this->assertSame($stmt->fetchAllAssociative(), $this->adapter->getSlice($offset, $length));
+        self::assertSame($q->executeQuery()->fetchAllAssociative(), $this->adapter->getSlice($offset, $length));
     }
 }

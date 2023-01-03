@@ -6,18 +6,21 @@ namespace Pagerfanta\Adapter;
  * Adapter which calculates pagination from callable functions.
  *
  * @template T
+ *
  * @implements AdapterInterface<T>
  */
 class CallbackAdapter implements AdapterInterface
 {
     /**
      * @var callable
+     *
      * @phpstan-var callable(): int<0, max>
      */
     private $nbResultsCallable;
 
     /**
      * @var callable
+     *
      * @phpstan-var callable(int<0, max> $offset, int<0, max> $length): iterable<array-key, T>
      */
     private $sliceCallable;

@@ -17,7 +17,7 @@ final class CollectionAdapterTest extends TestCase
     /**
      * @var CollectionAdapter<array-key, mixed>
      */
-    private $adapter;
+    private CollectionAdapter $adapter;
 
     protected function setUp(): void
     {
@@ -31,33 +31,33 @@ final class CollectionAdapterTest extends TestCase
      */
     public function testGetCollectionShouldReturnTheCollection(): void
     {
-        $this->assertSame($this->collection, $this->adapter->getCollection());
+        self::assertSame($this->collection, $this->adapter->getCollection());
     }
 
     public function testGetNbResultsShouldResultTheCollectionCount(): void
     {
         $this->collection
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('count')
             ->willReturn(120);
 
-        $this->assertSame(120, $this->adapter->getNbResults());
+        self::assertSame(120, $this->adapter->getNbResults());
     }
 
     public function testGetResultsShouldReturnTheCollectionSliceReturnValue(): void
     {
         $results = new \ArrayObject();
 
-        $this->collection->expects($this->once())
+        $this->collection->expects(self::once())
             ->method('slice')
             ->willReturn($results);
 
-        $this->assertSame($results, $this->adapter->getSlice(1, 1));
+        self::assertSame($results, $this->adapter->getSlice(1, 1));
     }
 
     public function testGetResultsShouldPassTheOffsetAndLengthToTheCollectionSlice(): void
     {
-        $this->collection->expects($this->once())
+        $this->collection->expects(self::once())
             ->method('slice')
             ->with(5, 12)
             ->willReturn([]);

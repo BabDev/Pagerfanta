@@ -6,6 +6,7 @@ final class RouteGeneratorDecorator implements RouteGeneratorInterface
 {
     /**
      * @var callable
+     *
      * @phpstan-var callable(int $page): string
      */
     private $decorated;

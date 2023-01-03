@@ -11,6 +11,7 @@ use Pagerfanta\Adapter\AdapterInterface;
  * Adapter which calculates pagination from an Elastica Query.
  *
  * @template T
+ *
  * @implements AdapterInterface<T>
  */
 class ElasticaAdapter implements AdapterInterface
@@ -50,11 +51,7 @@ class ElasticaAdapter implements AdapterInterface
      */
     public function getNbResults(): int
     {
-        if (!$this->resultSet) {
-            $totalHits = $this->searchable->count($this->query);
-        } else {
-            $totalHits = $this->resultSet->getTotalHits();
-        }
+        $totalHits = null === $this->resultSet ? $this->searchable->count($this->query) : $this->resultSet->getTotalHits();
 
         if (null === $this->maxResults) {
             return $totalHits;

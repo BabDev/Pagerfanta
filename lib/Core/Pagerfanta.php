@@ -12,6 +12,7 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 
 /**
  * @template T
+ *
  * @implements PagerfantaInterface<T>
  */
 class Pagerfanta implements PagerfantaInterface, \JsonSerializable
@@ -269,7 +270,7 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
      */
     public function getCurrentPageOffsetStart(): int
     {
-        return $this->getNbResults() ? $this->calculateOffsetForCurrentPageResults() + 1 : 0;
+        return 0 !== $this->getNbResults() ? $this->calculateOffsetForCurrentPageResults() + 1 : 0;
     }
 
     /**

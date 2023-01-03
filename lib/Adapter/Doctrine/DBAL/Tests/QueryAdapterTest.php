@@ -7,10 +7,7 @@ use Pagerfanta\Doctrine\DBAL\QueryAdapter;
 
 final class QueryAdapterTest extends DBALTestCase
 {
-    /**
-     * @var QueryBuilder
-     */
-    private $qb;
+    private QueryBuilder $qb;
 
     protected function setUp(): void
     {
@@ -24,7 +21,7 @@ final class QueryAdapterTest extends DBALTestCase
     {
         $adapter = $this->createAdapterToTestGetNbResults();
 
-        $this->assertSame(50, $adapter->getNbResults());
+        self::assertSame(50, $adapter->getNbResults());
     }
 
     public function testResultCountStaysConsistentAfterSlicing(): void
@@ -33,7 +30,7 @@ final class QueryAdapterTest extends DBALTestCase
 
         $adapter->getSlice(1, 10);
 
-        $this->assertSame(50, $adapter->getNbResults());
+        self::assertSame(50, $adapter->getNbResults());
     }
 
     public function testGetSlice(): void
@@ -46,7 +43,7 @@ final class QueryAdapterTest extends DBALTestCase
         $this->qb->setFirstResult($offset)
             ->setMaxResults($length);
 
-        $this->assertSame($this->qb->executeQuery()->fetchAllAssociative(), $adapter->getSlice($offset, $length));
+        self::assertSame($this->qb->executeQuery()->fetchAllAssociative(), $adapter->getSlice($offset, $length));
     }
 
     public function testTheAdapterUsesAClonedQuery(): void
@@ -56,7 +53,7 @@ final class QueryAdapterTest extends DBALTestCase
         $this->qb->innerJoin('p', 'comments', 'c', 'c.post_id = p.id')
             ->groupBy('c.post_id');
 
-        $this->assertSame(50, $adapter->getNbResults());
+        self::assertSame(50, $adapter->getNbResults());
     }
 
     /**

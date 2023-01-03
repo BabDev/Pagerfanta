@@ -8,6 +8,7 @@ namespace Pagerfanta\Adapter;
  * Best used when you need to do a custom paging solution and don't want to implement a full adapter for a one-off use case.
  *
  * @template T
+ *
  * @implements AdapterInterface<T>
  */
 class FixedAdapter implements AdapterInterface

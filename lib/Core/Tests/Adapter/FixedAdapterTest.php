@@ -11,7 +11,7 @@ final class FixedAdapterTest extends TestCase
     {
         $adapter = new FixedAdapter(5, []);
 
-        $this->assertSame(5, $adapter->getNbResults());
+        self::assertSame(5, $adapter->getNbResults());
     }
 
     public static function dataGetSlice(): \Generator
@@ -27,7 +27,7 @@ final class FixedAdapterTest extends TestCase
     {
         $adapter = new FixedAdapter(5, $results);
 
-        $this->assertSame($results, $adapter->getSlice(0, 10));
-        $this->assertSame($results, $adapter->getSlice(10, 20));
+        self::assertSame($results, $adapter->getSlice(0, 10));
+        self::assertSame($results, $adapter->getSlice(10, 20));
     }
 }

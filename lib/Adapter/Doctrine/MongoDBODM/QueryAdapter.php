@@ -9,6 +9,7 @@ use Pagerfanta\Adapter\AdapterInterface;
  * Adapter which calculates pagination from a Doctrine MongoDB ODM QueryBuilder.
  *
  * @template T
+ *
  * @implements AdapterInterface<T>
  */
 class QueryAdapter implements AdapterInterface

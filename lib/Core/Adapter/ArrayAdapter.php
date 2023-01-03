@@ -6,6 +6,7 @@ namespace Pagerfanta\Adapter;
  * Adapter which calculates pagination from an array of items.
  *
  * @template T
+ *
  * @implements AdapterInterface<T>
  */
 class ArrayAdapter implements AdapterInterface

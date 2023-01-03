@@ -59,14 +59,14 @@ final class QueryAdapterTest extends ORMTestCase
     {
         $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u FROM '.User::class.' u'));
 
-        $this->assertSame(2, $adapter->getNbResults());
+        self::assertSame(2, $adapter->getNbResults());
     }
 
     public function testAdapterReturnsNumberOfResultsForAJoinedCollection(): void
     {
         $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u, g FROM '.User::class.' u INNER JOIN u.groups g'));
 
-        $this->assertSame(2, $adapter->getNbResults());
+        self::assertSame(2, $adapter->getNbResults());
     }
 
     public static function dataGetSlice(): \Generator
@@ -86,7 +86,7 @@ final class QueryAdapterTest extends ORMTestCase
     {
         $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u FROM '.User::class.' u'));
 
-        $this->assertCount($expectedCount, $adapter->getSlice($offset, $length));
+        self::assertCount($expectedCount, $adapter->getSlice($offset, $length));
     }
 
     /**
@@ -99,7 +99,7 @@ final class QueryAdapterTest extends ORMTestCase
     {
         $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u, g FROM '.User::class.' u INNER JOIN u.groups g'));
 
-        $this->assertCount($expectedCount, $adapter->getSlice($offset, $length));
+        self::assertCount($expectedCount, $adapter->getSlice($offset, $length));
     }
 
     public function testResultCountStaysConsistentAfterSlicing(): void
@@ -109,19 +109,19 @@ final class QueryAdapterTest extends ORMTestCase
 
         $adapter->getSlice(0, 1);
 
-        $this->assertSame($results, $adapter->getNbResults());
+        self::assertSame($results, $adapter->getNbResults());
     }
 
     public function testResultSetIsSlicedWhenSelectingEntitiesAndSingleFields(): void
     {
         $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT p, p.name FROM '.Person::class.' p'));
 
-        $this->assertSame(2, $adapter->getNbResults());
+        self::assertSame(2, $adapter->getNbResults());
 
         $items = $adapter->getSlice(0, 10);
 
-        $this->assertCount(2, $items);
-        $this->assertArrayHasKey('name', $items[0]);
+        self::assertCount(2, $items);
+        self::assertArrayHasKey('name', $items[0]);
     }
 
     public function testResultSetIsLoadedWithCaseInSelectStatement(): void
@@ -150,16 +150,16 @@ final class QueryAdapterTest extends ORMTestCase
 
         $adapter = new QueryAdapter($query);
 
-        $this->assertSame(1, $adapter->getNbResults());
+        self::assertSame(1, $adapter->getNbResults());
 
         $items = $adapter->getSlice(0, 10);
 
-        $this->assertSame('Foo', $items[0][0]->name);
+        self::assertSame('Foo', $items[0][0]->name);
 
         if (\PHP_VERSION_ID >= 80100) {
-            $this->assertSame(1, $items[0]['relevance']);
+            self::assertSame(1, $items[0]['relevance']);
         } else {
-            $this->assertSame('1', $items[0]['relevance']);
+            self::assertSame('1', $items[0]['relevance']);
         }
     }
 
@@ -171,7 +171,7 @@ final class QueryAdapterTest extends ORMTestCase
 
         $adapter = new QueryAdapter($queryBuilder);
 
-        $this->assertSame(2, $adapter->getNbResults());
-        $this->assertCount(2, $adapter->getSlice(0, 10));
+        self::assertSame(2, $adapter->getNbResults());
+        self::assertCount(2, $adapter->getSlice(0, 10));
     }
 }

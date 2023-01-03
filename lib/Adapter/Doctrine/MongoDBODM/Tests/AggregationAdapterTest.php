@@ -22,7 +22,7 @@ final class AggregationAdapterTest extends TestCase
     /**
      * @var AggregationAdapter<mixed>
      */
-    private $adapter;
+    private AggregationAdapter $adapter;
 
     public static function setUpBeforeClass(): void
     {
@@ -40,8 +40,13 @@ final class AggregationAdapterTest extends TestCase
 
     public function testGetNbResultsShouldResetHydrationAndAddCountStage(): void
     {
+        /** @var MockObject&Aggregation $aggregation */
         $aggregation = $this->createMock(Aggregation::class);
+
+        /** @var MockObject&Iterator<mixed> $resultIterator */
         $resultIterator = $this->createMock(Iterator::class);
+
+        /** @var MockObject&Count $countStage */
         $countStage = $this->createMock(Count::class);
 
         $countStage->expects(self::once())
@@ -66,16 +71,21 @@ final class AggregationAdapterTest extends TestCase
             ->with('numResults')
             ->willReturn($countStage);
 
-        $this->assertSame(110, $this->adapter->getNbResults());
+        self::assertSame(110, $this->adapter->getNbResults());
     }
 
     public function testGetSlice(): void
     {
         $offset = 10;
         $length = 15;
+
+        /** @var MockObject&Iterator<mixed> $slice */
         $slice = $this->createMock(Iterator::class);
 
+        /** @var MockObject&Aggregation $aggregation */
         $aggregation = $this->createMock(Aggregation::class);
+
+        /** @var MockObject&Skip $skipStage */
         $skipStage = $this->createMock(Skip::class);
 
         $skipStage->expects(self::once())
@@ -96,6 +106,6 @@ final class AggregationAdapterTest extends TestCase
             ->with($offset)
             ->willReturn($skipStage);
 
-        $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
+        self::assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
 }

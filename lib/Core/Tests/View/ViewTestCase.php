@@ -18,12 +18,9 @@ abstract class ViewTestCase extends TestCase
     /**
      * @var Pagerfanta<mixed>
      */
-    private $pagerfanta;
+    private Pagerfanta $pagerfanta;
 
-    /**
-     * @var ViewInterface
-     */
-    private $view;
+    private ViewInterface $view;
 
     protected function setUp(): void
     {
@@ -39,8 +36,7 @@ abstract class ViewTestCase extends TestCase
     {
         $nbResults = $this->calculateNbResults($nbPages);
 
-        $this->adapter->expects($this->any())
-            ->method('getNbResults')
+        $this->adapter->method('getNbResults')
             ->willReturn($nbResults);
     }
 
@@ -77,7 +73,7 @@ abstract class ViewTestCase extends TestCase
 
     protected function assertRenderedView(string $expected, string $result): void
     {
-        $this->assertSame($this->filterExpectedView($expected), $result);
+        self::assertSame($this->filterExpectedView($expected), $result);
     }
 
     protected function filterExpectedView(string $expected): string

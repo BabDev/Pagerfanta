@@ -19,6 +19,7 @@ final class OptionableViewTest extends TestCase
 
     /**
      * @var callable
+     *
      * @phpstan-var \Closure(int $page): string
      */
     private $routeGenerator;
@@ -41,7 +42,7 @@ final class OptionableViewTest extends TestCase
     {
         $defaultOptions = ['foo' => 'bar', 'bar' => 'ups'];
 
-        $this->assertSame(
+        self::assertSame(
             self::RENDERED_VIEW,
             (new OptionableView($this->createViewMock($defaultOptions), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator)
         );
@@ -52,7 +53,7 @@ final class OptionableViewTest extends TestCase
         $defaultOptions = ['foo' => 'bar'];
         $options = ['ups' => 'da'];
 
-        $this->assertSame(
+        self::assertSame(
             self::RENDERED_VIEW,
             (new OptionableView($this->createViewMock(array_merge($defaultOptions, $options)), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator, $options)
         );
@@ -65,8 +66,7 @@ final class OptionableViewTest extends TestCase
     {
         /** @var MockObject&ViewInterface $view */
         $view = $this->createMock(ViewInterface::class);
-
-        $view->expects($this->once())
+        $view->expects(self::once())
             ->method('render')
             ->with($this->pagerfanta, $this->routeGenerator, $expectedOptions)
             ->willReturn(self::RENDERED_VIEW);

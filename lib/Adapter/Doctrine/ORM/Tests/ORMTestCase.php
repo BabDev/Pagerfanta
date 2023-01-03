@@ -11,10 +11,7 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 abstract class ORMTestCase extends TestCase
 {
-    /**
-     * @var EntityManager
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     protected function setUp(): void
     {

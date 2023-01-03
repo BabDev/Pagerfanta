@@ -12,6 +12,7 @@ use Solarium\QueryType\Select\Result\Result;
  * Adapter which calculates pagination from a Solarium Query.
  *
  * @template T
+ *
  * @implements AdapterInterface<T>
  */
 class SolariumAdapter implements AdapterInterface
@@ -75,7 +76,7 @@ class SolariumAdapter implements AdapterInterface
             $this->resultSet = null;
         }
 
-        if (null === $this->resultSet) {
+        if (!$this->resultSet instanceof Result) {
             $this->resultSet = $this->createResultSet();
         }
 

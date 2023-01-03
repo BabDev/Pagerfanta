@@ -9,15 +9,17 @@ final class ArrayAdapterTest extends TestCase
 {
     /**
      * @var int[]
+     *
      * @phpstan-var array<int<1, 100>>
      */
-    private $array;
+    private array $array;
 
     /**
      * @var ArrayAdapter<int>
+     *
      * @phpstan-var ArrayAdapter<int<1, 100>>
      */
-    private $adapter;
+    private ArrayAdapter $adapter;
 
     protected function setUp(): void
     {
@@ -30,12 +32,12 @@ final class ArrayAdapterTest extends TestCase
      */
     public function testResultArrayIsRetrieved(): void
     {
-        $this->assertSame($this->array, $this->adapter->getArray());
+        self::assertSame($this->array, $this->adapter->getArray());
     }
 
     public function testAdapterReturnsNumberOfItemsInArray(): void
     {
-        $this->assertSame(\count($this->array), $this->adapter->getNbResults());
+        self::assertCount($this->adapter->getNbResults(), $this->array);
     }
 
     public static function dataGetSlice(): \Generator
@@ -52,7 +54,7 @@ final class ArrayAdapterTest extends TestCase
      */
     public function testGetSlice(int $offset, int $length): void
     {
-        $this->assertSame(
+        self::assertSame(
             \array_slice($this->array, $offset, $length),
             $this->adapter->getSlice($offset, $length)
         );

@@ -5,14 +5,12 @@ namespace Pagerfanta\Doctrine\DBAL\Tests;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Types\Types;
 use PHPUnit\Framework\TestCase;
 
 abstract class DBALTestCase extends TestCase
 {
-    /**
-     * @var Connection
-     */
-    protected $connection;
+    protected Connection $connection;
 
     protected function setUp(): void
     {
@@ -36,16 +34,16 @@ abstract class DBALTestCase extends TestCase
     {
         $schema = new Schema();
         $posts = $schema->createTable('posts');
-        $posts->addColumn('id', 'integer', ['unsigned' => true, 'autoincrement' => true]);
-        $posts->addColumn('username', 'string', ['length' => 32]);
-        $posts->addColumn('post_content', 'text');
+        $posts->addColumn('id', Types::INTEGER, ['unsigned' => true, 'autoincrement' => true]);
+        $posts->addColumn('username', Types::STRING, ['length' => 32]);
+        $posts->addColumn('post_content', Types::TEXT);
         $posts->setPrimaryKey(['id']);
 
         $comments = $schema->createTable('comments');
-        $comments->addColumn('id', 'integer', ['unsigned' => true, 'autoincrement' => true]);
-        $comments->addColumn('post_id', 'integer', ['unsigned' => true]);
-        $comments->addColumn('username', 'string', ['length' => 32]);
-        $comments->addColumn('content', 'text');
+        $comments->addColumn('id', Types::INTEGER, ['unsigned' => true, 'autoincrement' => true]);
+        $comments->addColumn('post_id', Types::INTEGER, ['unsigned' => true]);
+        $comments->addColumn('username', Types::STRING, ['length' => 32]);
+        $comments->addColumn('content', Types::TEXT);
         $comments->setPrimaryKey(['id']);
 
         $queries = $schema->toSql($this->connection->getDatabasePlatform()); // get queries to create this schema.

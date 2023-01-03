@@ -8,6 +8,7 @@ use Pagerfanta\Exception\InvalidArgumentException;
  * Adapter that concatenates the results of other adapters.
  *
  * @template T
+ *
  * @implements AdapterInterface<T>
  */
 class ConcatenationAdapter implements AdapterInterface
@@ -32,7 +33,7 @@ class ConcatenationAdapter implements AdapterInterface
     public function __construct(array $adapters)
     {
         foreach ($adapters as $adapter) {
-            if (!($adapter instanceof AdapterInterface)) {
+            if (!$adapter instanceof AdapterInterface) {
                 throw new InvalidArgumentException(sprintf('The $adapters argument of the %s constructor expects all items to be an instance of %s.', self::class, AdapterInterface::class));
             }
         }

@@ -32,7 +32,8 @@ final class PagerfantaRuntime implements RuntimeExtensionInterface
     public function renderPagerfanta(PagerfantaInterface $pagerfanta, $viewName = null, array $options = []): string
     {
         if (\is_array($viewName)) {
-            [$viewName, $options] = [null, $viewName];
+            $options = $viewName;
+            $viewName = null;
         } elseif (null !== $viewName && !\is_string($viewName)) {
             throw new \InvalidArgumentException(sprintf('The $viewName argument of %s() must be an array, a string, or a null value; %s given.', __METHOD__, get_debug_type($viewName)));
         }
