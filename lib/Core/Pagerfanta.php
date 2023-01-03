@@ -230,7 +230,7 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     }
 
     /**
-     * @phpstan-return iterable<array-key, T>
+     * @return iterable<array-key, T>
      */
     public function getCurrentPageResults(): iterable
     {

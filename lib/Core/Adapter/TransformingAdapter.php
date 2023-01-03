@@ -20,9 +20,8 @@ class TransformingAdapter implements AdapterInterface
     private $transformer;
 
     /**
-     * @param AdapterInterface<mixed> $adapter
+     * @param AdapterInterface<T> $adapter
      *
-     * @phpstan-param AdapterInterface<T>                 $adapter
      * @phpstan-param callable(T, array-key): Transformed $transformer
      */
     public function __construct(
