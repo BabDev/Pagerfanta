@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "pagerfanta/core": "^3.0 || ^4.0",
+        "pagerfanta/core": "^3.7 || ^4.0",
         "solarium/solarium": "^6.2"
     },
     "require-dev": {
