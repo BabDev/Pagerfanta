@@ -23,6 +23,7 @@
     </listeners>
 
     <php>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[indirect]=2"/>
+        <!-- Ignore deprecations from lowest stable dependencies -->
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=20"/>
     </php>
 </phpunit>
