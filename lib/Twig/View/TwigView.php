@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Twig\View;
 
@@ -12,15 +12,12 @@ final class TwigView extends View
 {
     public const DEFAULT_TEMPLATE = '@Pagerfanta/default.html.twig';
 
-    private Environment $twig;
-    private ?string $defaultTemplate;
-
     private string $template = self::DEFAULT_TEMPLATE;
 
-    public function __construct(Environment $twig, ?string $defaultTemplate = null)
-    {
-        $this->twig = $twig;
-        $this->defaultTemplate = $defaultTemplate;
+    public function __construct(
+        private readonly Environment $twig,
+        private readonly ?string $defaultTemplate = null,
+    ) {
     }
 
     public function getName(): string
@@ -57,11 +54,9 @@ final class TwigView extends View
     }
 
     /**
-     * @param callable|RouteGeneratorInterface $routeGenerator
-     *
      * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
      */
-    private function decorateRouteGenerator(callable $routeGenerator): RouteGeneratorDecorator
+    private function decorateRouteGenerator(callable|RouteGeneratorInterface $routeGenerator): RouteGeneratorDecorator
     {
         return new RouteGeneratorDecorator($routeGenerator);
     }

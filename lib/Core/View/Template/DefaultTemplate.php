@@ -146,10 +146,7 @@ class DefaultTemplate extends Template
         return $this->generateSpan($class, $this->option('dots_message'));
     }
 
-    /**
-     * @param int|string $page
-     */
-    private function generateSpan(string $class, $page): string
+    private function generateSpan(string $class, int|string $page): string
     {
         return str_replace(['%class%', '%text%'], [$class, $page], $this->option('span_template'));
     }

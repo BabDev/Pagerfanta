@@ -13,10 +13,7 @@ use Twig\TemplateWrapper;
 
 final class TwigViewTest extends TestCase
 {
-    /**
-     * @var MockObject&Environment
-     */
-    private $twig;
+    private MockObject&Environment $twig;
 
     protected function setUp(): void
     {

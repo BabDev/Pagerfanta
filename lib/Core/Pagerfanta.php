@@ -17,11 +17,6 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
  */
 class Pagerfanta implements PagerfantaInterface, \JsonSerializable
 {
-    /**
-     * @var AdapterInterface<T>
-     */
-    private AdapterInterface $adapter;
-
     private bool $allowOutOfRangePages = false;
     private bool $normalizeOutOfRangePages = false;
 
@@ -53,9 +48,9 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     /**
      * @param AdapterInterface<T> $adapter
      */
-    public function __construct(AdapterInterface $adapter)
-    {
-        $this->adapter = $adapter;
+    public function __construct(
+        private readonly AdapterInterface $adapter,
+    ) {
     }
 
     /**

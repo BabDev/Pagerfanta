@@ -10,31 +10,23 @@ use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
  */
 class OptionableView implements ViewInterface
 {
-    private ViewInterface $view;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $defaultOptions;
-
     /**
      * @param array<string, mixed> $defaultOptions
      */
-    public function __construct(ViewInterface $view, array $defaultOptions)
-    {
-        $this->view = $view;
-        $this->defaultOptions = $defaultOptions;
+    public function __construct(
+        private readonly ViewInterface $view,
+        private readonly array $defaultOptions,
+    ) {
     }
 
     /**
-     * @param callable|RouteGeneratorInterface $routeGenerator
-     * @param array<string, mixed>             $options
+     * @param array<string, mixed> $options
      *
      * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
      */
     public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {
-        return $this->view->render($pagerfanta, $routeGenerator, array_merge($this->defaultOptions, $options));
+        return $this->view->render($pagerfanta, $routeGenerator, [...$this->defaultOptions, ...$options]);
     }
 
     public function getName(): string

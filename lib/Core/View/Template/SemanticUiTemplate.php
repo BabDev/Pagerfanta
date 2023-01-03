@@ -102,20 +102,14 @@ class SemanticUiTemplate extends Template
         return $this->div($this->option('css_dots_class'), $this->option('dots_message'));
     }
 
-    /**
-     * @param int|string $text
-     */
-    private function link(string $class, string $href, $text, ?string $rel = null): string
+    private function link(string $class, string $href, int|string $text, ?string $rel = null): string
     {
         $rel = $rel ? sprintf(' rel="%s"', $rel) : '';
 
         return sprintf('<a class="%s %s" href="%s"%s>%s</a>', $this->option('css_item_class'), $class, $href, $rel, $text);
     }
 
-    /**
-     * @param int|string $text
-     */
-    private function div(string $class, $text): string
+    private function div(string $class, int|string $text): string
     {
         return sprintf('<div class="%s %s">%s</div>', $this->option('css_item_class'), $class, $text);
     }

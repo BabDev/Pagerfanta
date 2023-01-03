@@ -23,7 +23,7 @@ class ConcatenationAdapter implements AdapterInterface
      *
      * @var array<array-key, int>|null
      */
-    protected $adaptersNbResultsCache = null;
+    protected ?array $adaptersNbResultsCache = null;
 
     /**
      * @param array<array-key, AdapterInterface<T>> $adapters

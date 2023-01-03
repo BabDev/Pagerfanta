@@ -8,15 +8,11 @@ use Pagerfanta\View\Template\TemplateInterface;
 
 abstract class TemplateView extends View
 {
-    private TemplateInterface $template;
+    private readonly TemplateInterface $template;
 
     public function __construct(TemplateInterface $template = null)
     {
-        if (null === $template) {
-            $template = $this->createDefaultTemplate();
-        }
-
-        $this->template = $template;
+        $this->template = $template ?? $this->createDefaultTemplate();
     }
 
     abstract protected function createDefaultTemplate(): TemplateInterface;
@@ -39,12 +35,11 @@ abstract class TemplateView extends View
     }
 
     /**
-     * @param callable|RouteGeneratorInterface $routeGenerator
-     * @param array<string, mixed>             $options
+     * @param array<string, mixed> $options
      *
      * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
      */
-    private function configureTemplate(callable $routeGenerator, array $options): void
+    private function configureTemplate(callable|RouteGeneratorInterface $routeGenerator, array $options): void
     {
         $this->template->setRouteGenerator($routeGenerator);
         $this->template->setOptions($options);

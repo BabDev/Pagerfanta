@@ -14,11 +14,9 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 class AggregationAdapter implements AdapterInterface
 {
-    private Builder $aggregationBuilder;
-
-    public function __construct(Builder $aggregationBuilder)
-    {
-        $this->aggregationBuilder = $aggregationBuilder;
+    public function __construct(
+        private readonly Builder $aggregationBuilder,
+    ) {
     }
 
     /**

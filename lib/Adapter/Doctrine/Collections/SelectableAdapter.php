@@ -17,18 +17,12 @@ use Pagerfanta\Adapter\AdapterInterface;
 class SelectableAdapter implements AdapterInterface
 {
     /**
-     * @var Selectable<TKey, T>
-     */
-    private Selectable $selectable;
-    private Criteria $criteria;
-
-    /**
      * @param Selectable<TKey, T> $selectable
      */
-    public function __construct(Selectable $selectable, Criteria $criteria)
-    {
-        $this->selectable = $selectable;
-        $this->criteria = $criteria;
+    public function __construct(
+        private readonly Selectable $selectable,
+        private readonly Criteria $criteria,
+    ) {
     }
 
     /**

@@ -15,14 +15,12 @@ final class OptionableViewTest extends TestCase
     /**
      * @var MockObject&PagerfantaInterface<mixed>
      */
-    private $pagerfanta;
+    private MockObject&PagerfantaInterface $pagerfanta;
 
     /**
-     * @var callable
-     *
      * @phpstan-var \Closure(int $page): string
      */
-    private $routeGenerator;
+    private \Closure $routeGenerator;
 
     protected function setUp(): void
     {
@@ -55,14 +53,11 @@ final class OptionableViewTest extends TestCase
 
         self::assertSame(
             self::RENDERED_VIEW,
-            (new OptionableView($this->createViewMock(array_merge($defaultOptions, $options)), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator, $options)
+            (new OptionableView($this->createViewMock([...$defaultOptions, ...$options]), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator, $options)
         );
     }
 
-    /**
-     * @return MockObject&ViewInterface
-     */
-    private function createViewMock(array $expectedOptions)
+    private function createViewMock(array $expectedOptions): MockObject&ViewInterface
     {
         /** @var MockObject&ViewInterface $view */
         $view = $this->createMock(ViewInterface::class);

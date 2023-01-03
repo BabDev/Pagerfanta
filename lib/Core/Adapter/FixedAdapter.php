@@ -14,24 +14,14 @@ namespace Pagerfanta\Adapter;
 class FixedAdapter implements AdapterInterface
 {
     /**
-     * @phpstan-var int<0, max>
-     */
-    private int $nbResults;
-
-    /**
-     * @var iterable<array-key, T>
-     */
-    private iterable $results;
-
-    /**
      * @param iterable<array-key, T> $results
      *
      * @phpstan-param int<0, max> $nbResults
      */
-    public function __construct(int $nbResults, iterable $results)
-    {
-        $this->nbResults = $nbResults;
-        $this->results = $results;
+    public function __construct(
+        private readonly int $nbResults,
+        private readonly iterable $results,
+    ) {
     }
 
     /**

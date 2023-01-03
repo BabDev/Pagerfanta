@@ -13,11 +13,6 @@ namespace Pagerfanta\Adapter;
 class TransformingAdapter implements AdapterInterface
 {
     /**
-     * @var AdapterInterface<T>
-     */
-    private AdapterInterface $adapter;
-
-    /**
      * @var callable
      *
      * @phpstan-var callable(T, array-key): Transformed
@@ -25,12 +20,15 @@ class TransformingAdapter implements AdapterInterface
     private $transformer;
 
     /**
+     * @param AdapterInterface<mixed> $adapter
+     *
      * @phpstan-param AdapterInterface<T>                 $adapter
      * @phpstan-param callable(T, array-key): Transformed $transformer
      */
-    public function __construct(AdapterInterface $adapter, callable $transformer)
-    {
-        $this->adapter = $adapter;
+    public function __construct(
+        private readonly AdapterInterface $adapter,
+        callable $transformer,
+    ) {
         $this->transformer = $transformer;
     }
 

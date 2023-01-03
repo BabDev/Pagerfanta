@@ -12,26 +12,17 @@ use Solarium\QueryType\Select\Result\Result;
 
 final class SolariumAdapterTest extends TestCase
 {
-    /**
-     * @return MockObject&ClientInterface
-     */
-    protected function createClientMock()
+    private function createClientMock(): MockObject&ClientInterface
     {
         return $this->createMock(ClientInterface::class);
     }
 
-    /**
-     * @return MockObject&Query
-     */
-    protected function createQueryMock()
+    private function createQueryMock(): MockObject&Query
     {
         return $this->createMock(Query::class);
     }
 
-    /**
-     * @return MockObject&Query
-     */
-    protected function createQueryStub()
+    private function createQueryStub(): MockObject&Query
     {
         $query = $this->createQueryMock();
 
@@ -44,10 +35,7 @@ final class SolariumAdapterTest extends TestCase
         return $query;
     }
 
-    /**
-     * @return MockObject&Result
-     */
-    protected function createResultMock()
+    private function createResultMock(): MockObject&Result
     {
         return $this->createMock(Result::class);
     }
@@ -196,11 +184,7 @@ final class SolariumAdapterTest extends TestCase
         $this->doTestGetResultSet($this->createQueryMock(), 'ups');
     }
 
-    /**
-     * @param MockObject&Query     $query
-     * @param Endpoint|string|null $endpoint
-     */
-    private function doTestGetResultSet($query, $endpoint): void
+    private function doTestGetResultSet(MockObject&Query $query, Endpoint|string|null $endpoint): void
     {
         $client = $this->createClientMock();
         $client->expects(self::atLeastOnce())

@@ -44,16 +44,11 @@ final class PagerfantaRuntimeTest extends TestCase
             {
                 return new class($options) implements RouteGeneratorInterface {
                     /**
-                     * @var array<string, mixed>
-                     */
-                    private array $options;
-
-                    /**
                      * @param array<string, mixed> $options
                      */
-                    public function __construct(array $options)
-                    {
-                        $this->options = $options;
+                    public function __construct(
+                        private readonly array $options,
+                    ) {
                     }
 
                     public function __invoke(int $page): string
@@ -143,19 +138,6 @@ final class PagerfantaRuntimeTest extends TestCase
     <a class="pagination__item pagination__item--next-page" href="/my-page?page=6" rel="next">Next</a>
 </nav>'
         );
-    }
-
-    public function testTheDefaultPagerfantaViewIsNotRenderedWhenAnInvalidTypeIsGivenForTheViewNameArgument(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'The $viewName argument of %s::renderPagerfanta() must be an array, a string, or a null value; stdClass given.',
-                PagerfantaRuntime::class
-            )
-        );
-
-        $this->extension->renderPagerfanta($this->createPagerfanta(), new \stdClass());
     }
 
     public function testAPageUrlCanBeGenerated(): void

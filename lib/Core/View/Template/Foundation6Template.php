@@ -104,20 +104,14 @@ class Foundation6Template extends Template
         return sprintf('<li aria-hidden="true"%s>%s</li>', $liClass, $this->option('dots_message'));
     }
 
-    /**
-     * @param int|string $text
-     */
-    protected function li(string $class, $text): string
+    protected function li(string $class, int|string $text): string
     {
         $liClass = sprintf(' class="%s"', trim($this->option('css_item_class').' '.$class));
 
         return sprintf('<li%s>%s</li>', $liClass, $text);
     }
 
-    /**
-     * @param int|string $text
-     */
-    protected function linkLi(string $class, string $href, $text, ?string $rel = null): string
+    protected function linkLi(string $class, string $href, int|string $text, ?string $rel = null): string
     {
         $class = trim($this->option('css_item_class').' '.$class);
         $liClass = empty($class) ? '' : sprintf(' class="%s"', $class);

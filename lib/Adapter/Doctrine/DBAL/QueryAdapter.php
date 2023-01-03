@@ -14,7 +14,7 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 class QueryAdapter implements AdapterInterface
 {
-    private QueryBuilder $queryBuilder;
+    private readonly QueryBuilder $queryBuilder;
 
     /**
      * @var callable

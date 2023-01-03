@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pagerfanta\Twig\Extension;
 
@@ -11,31 +11,23 @@ use Twig\Extension\RuntimeExtensionInterface;
 
 final class PagerfantaRuntime implements RuntimeExtensionInterface
 {
-    private string $defaultView;
-    private ViewFactoryInterface $viewFactory;
-    private RouteGeneratorFactoryInterface $routeGeneratorFactory;
-
-    public function __construct(string $defaultView, ViewFactoryInterface $viewFactory, RouteGeneratorFactoryInterface $routeGeneratorFactory)
-    {
-        $this->defaultView = $defaultView;
-        $this->viewFactory = $viewFactory;
-        $this->routeGeneratorFactory = $routeGeneratorFactory;
+    public function __construct(
+        private readonly string $defaultView,
+        private readonly ViewFactoryInterface $viewFactory,
+        private readonly RouteGeneratorFactoryInterface $routeGeneratorFactory,
+    ) {
     }
 
     /**
      * @param PagerfantaInterface<mixed>       $pagerfanta
      * @param string|array<string, mixed>|null $viewName   The name of the view to render, or the options array
      * @param array<string, mixed>             $options
-     *
-     * @throws \InvalidArgumentException if the $viewName argument is an invalid type
      */
-    public function renderPagerfanta(PagerfantaInterface $pagerfanta, $viewName = null, array $options = []): string
+    public function renderPagerfanta(PagerfantaInterface $pagerfanta, string|array|null $viewName = null, array $options = []): string
     {
         if (\is_array($viewName)) {
             $options = $viewName;
             $viewName = null;
-        } elseif (null !== $viewName && !\is_string($viewName)) {
-            throw new \InvalidArgumentException(sprintf('The $viewName argument of %s() must be an array, a string, or a null value; %s given.', __METHOD__, get_debug_type($viewName)));
         }
 
         $viewName = $viewName ?: $this->defaultView;

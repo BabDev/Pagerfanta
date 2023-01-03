@@ -16,24 +16,17 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 class ElasticaAdapter implements AdapterInterface
 {
-    private SearchableInterface $searchable;
-    private Query $query;
-    private array $options;
-
-    /**
-     * Used to limit the number of totalHits returned by ElasticSearch.
-     * For more information, see: https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892.
-     */
-    private ?int $maxResults;
-
     private ?ResultSet $resultSet = null;
 
-    public function __construct(SearchableInterface $searchable, Query $query, array $options = [], ?int $maxResults = null)
-    {
-        $this->searchable = $searchable;
-        $this->query = $query;
-        $this->options = $options;
-        $this->maxResults = $maxResults;
+    /**
+     * @param int|null $maxResults Limit the number of totalHits returned by ElasticSearch; see https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892
+     */
+    public function __construct(
+        private readonly SearchableInterface $searchable,
+        private readonly Query $query,
+        private readonly array $options = [],
+        private readonly ?int $maxResults = null
+    ) {
     }
 
     /**

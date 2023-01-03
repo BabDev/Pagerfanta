@@ -12,16 +12,11 @@ namespace Pagerfanta\Adapter;
 class NullAdapter implements AdapterInterface
 {
     /**
-     * @phpstan-var int<0, max>
-     */
-    private int $nbResults;
-
-    /**
      * @phpstan-param int<0, max> $nbResults
      */
-    public function __construct(int $nbResults = 0)
-    {
-        $this->nbResults = $nbResults;
+    public function __construct(
+        private readonly int $nbResults = 0,
+    ) {
     }
 
     /**

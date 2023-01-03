@@ -58,6 +58,6 @@ class SingleTableQueryAdapter extends QueryAdapter
 
     private function countFieldHasNoAlias(string $countField): bool
     {
-        return false === strpos($countField, '.');
+        return !str_contains($countField, '.');
     }
 }

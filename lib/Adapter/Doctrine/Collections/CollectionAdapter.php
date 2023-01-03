@@ -16,16 +16,11 @@ use Pagerfanta\Adapter\AdapterInterface;
 class CollectionAdapter implements AdapterInterface
 {
     /**
-     * @var Collection<TKey, T>
-     */
-    private Collection $collection;
-
-    /**
      * @param Collection<TKey, T> $collection
      */
-    public function __construct(Collection $collection)
-    {
-        $this->collection = $collection;
+    public function __construct(
+        private readonly Collection $collection,
+    ) {
     }
 
     /**

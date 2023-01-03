@@ -14,11 +14,9 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 class QueryAdapter implements AdapterInterface
 {
-    private Builder $queryBuilder;
-
-    public function __construct(Builder $queryBuilder)
-    {
-        $this->queryBuilder = $queryBuilder;
+    public function __construct(
+        private readonly Builder $queryBuilder,
+    ) {
     }
 
     /**

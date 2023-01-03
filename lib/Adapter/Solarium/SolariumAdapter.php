@@ -17,15 +17,9 @@ use Solarium\QueryType\Select\Result\Result;
  */
 class SolariumAdapter implements AdapterInterface
 {
-    private ClientInterface $client;
-    private Query $query;
-
     private ?Result $resultSet = null;
 
-    /**
-     * @var Endpoint|string|null
-     */
-    private $endpoint;
+    private Endpoint|string|null $endpoint = null;
 
     /**
      * @phpstan-var int<0, max>|null
@@ -37,10 +31,10 @@ class SolariumAdapter implements AdapterInterface
      */
     private ?int $resultSetRows = null;
 
-    public function __construct(ClientInterface $client, Query $query)
-    {
-        $this->client = $client;
-        $this->query = $query;
+    public function __construct(
+        private readonly ClientInterface $client,
+        private readonly Query $query,
+    ) {
     }
 
     /**
@@ -121,12 +115,7 @@ class SolariumAdapter implements AdapterInterface
         return $this->client->select($this->query, $this->endpoint);
     }
 
-    /**
-     * @param Endpoint|string|null $endpoint
-     *
-     * @return $this
-     */
-    public function setEndpoint($endpoint)
+    public function setEndpoint(Endpoint|string|null $endpoint): static
     {
         $this->endpoint = $endpoint;
 

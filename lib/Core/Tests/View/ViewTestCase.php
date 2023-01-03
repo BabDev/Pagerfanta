@@ -13,7 +13,7 @@ abstract class ViewTestCase extends TestCase
     /**
      * @var MockObject&AdapterInterface<mixed>
      */
-    private $adapter;
+    private MockObject&AdapterInterface $adapter;
 
     /**
      * @var Pagerfanta<mixed>

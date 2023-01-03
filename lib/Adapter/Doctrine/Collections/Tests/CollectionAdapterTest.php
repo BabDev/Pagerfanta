@@ -12,7 +12,7 @@ final class CollectionAdapterTest extends TestCase
     /**
      * @var MockObject&Collection<array-key, mixed>
      */
-    private $collection;
+    private MockObject&Collection $collection;
 
     /**
      * @var CollectionAdapter<array-key, mixed>

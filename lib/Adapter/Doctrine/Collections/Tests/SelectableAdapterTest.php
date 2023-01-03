@@ -14,7 +14,7 @@ final class SelectableAdapterTest extends TestCase
     /**
      * @var MockObject&Selectable<array-key, mixed>
      */
-    private $selectable;
+    private MockObject&Selectable $selectable;
 
     private Criteria $criteria;
 

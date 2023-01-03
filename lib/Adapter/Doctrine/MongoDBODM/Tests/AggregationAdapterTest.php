@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 final class AggregationAdapterTest extends TestCase
 {
-    /**
-     * @var MockObject&Builder
-     */
-    private $aggregationBuilder;
+    private MockObject&Builder $aggregationBuilder;
 
     /**
      * @var AggregationAdapter<mixed>

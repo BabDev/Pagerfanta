@@ -11,15 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryAdapterTest extends TestCase
 {
-    /**
-     * @var MockObject&QueryBuilder
-     */
-    private $queryBuilder;
+    private MockObject&QueryBuilder $queryBuilder;
 
-    /**
-     * @var MockObject&Query
-     */
-    private $query;
+    private MockObject&Query $query;
 
     /**
      * @var QueryAdapter<mixed>

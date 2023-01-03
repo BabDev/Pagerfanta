@@ -11,20 +11,11 @@ use PHPUnit\Framework\TestCase;
 
 final class ElasticaAdapterTest extends TestCase
 {
-    /**
-     * @var MockObject&Query
-     */
-    private $query;
+    private MockObject&Query $query;
 
-    /**
-     * @var MockObject&ResultSet
-     */
-    private $resultSet;
+    private MockObject&ResultSet $resultSet;
 
-    /**
-     * @var MockObject&SearchableInterface
-     */
-    private $searchable;
+    private MockObject&SearchableInterface $searchable;
 
     /**
      * @var array<string, string>

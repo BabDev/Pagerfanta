@@ -12,16 +12,11 @@ namespace Pagerfanta\Adapter;
 class ArrayAdapter implements AdapterInterface
 {
     /**
-     * @var array<T>
-     */
-    private array $array;
-
-    /**
      * @param array<T> $array
      */
-    public function __construct(array $array)
-    {
-        $this->array = $array;
+    public function __construct(
+        private readonly array $array,
+    ) {
     }
 
     /**

@@ -408,16 +408,11 @@ final class TwigViewIntegrationTest extends TestCase
             {
                 return new class($options) implements RouteGeneratorInterface {
                     /**
-                     * @var array<string, mixed>
-                     */
-                    private array $options;
-
-                    /**
                      * @param array<string, mixed> $options
                      */
-                    public function __construct(array $options)
-                    {
-                        $this->options = $options;
+                    public function __construct(
+                        private readonly array $options,
+                    ) {
                     }
 
                     public function __invoke(int $page): string
@@ -438,11 +433,9 @@ final class TwigViewIntegrationTest extends TestCase
     private function createRuntimeLoader(): RuntimeLoaderInterface
     {
         return new class($this) implements RuntimeLoaderInterface {
-            private TwigViewIntegrationTest $testCase;
-
-            public function __construct(TwigViewIntegrationTest $testCase)
-            {
-                $this->testCase = $testCase;
+            public function __construct(
+                private readonly TwigViewIntegrationTest $testCase,
+            ) {
             }
 
             /**

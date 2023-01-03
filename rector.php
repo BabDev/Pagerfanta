@@ -21,7 +21,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
         DoctrineSetList::DOCTRINE_DBAL_30,
         DoctrineSetList::DOCTRINE_ORM_213,
-        LevelSetList::UP_TO_PHP_74,
+        LevelSetList::UP_TO_PHP_81,
         SetList::CODE_QUALITY,
         PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
         PHPUnitSetList::PHPUNIT_91,
