@@ -62,7 +62,7 @@ parameters:
 
 		-
 			message: "#^Cannot access offset 0 on Traversable\\<\\(int\\|string\\), mixed\\>\\.$#"
-			count: 4
+			count: 3
 			path: lib/Adapter/Doctrine/ORM/Tests/QueryAdapterTest.php
 
 		-
@@ -212,11 +212,6 @@ parameters:
 
 		-
 			message: "#^Method Pagerfanta\\\\Twig\\\\Tests\\\\Extension\\\\PagerfantaRuntimeTest\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$viewName of method Pagerfanta\\\\Twig\\\\Extension\\\\PagerfantaRuntime\\:\\:renderPagerfanta\\(\\) expects array\\<string, mixed\\>\\|string\\|null, stdClass given\\.$#"
 			count: 1
 			path: lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
 
