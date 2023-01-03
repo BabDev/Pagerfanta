@@ -82,7 +82,7 @@ class NullAdapter implements AdapterInterface
     /**
      * @phpstan-param int<0, max> $length
      *
-     * @phpstan-return array<int, T>
+     * @return array<int, T>
      */
     private function createNullArray(int $length): array
     {

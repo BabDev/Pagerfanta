@@ -61,7 +61,7 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function getCurrentPage(): int;
 
     /**
-     * @phpstan-return iterable<array-key, T>
+     * @return iterable<array-key, T>
      */
     public function getCurrentPageResults(): iterable;
 

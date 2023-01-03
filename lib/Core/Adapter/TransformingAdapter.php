@@ -25,7 +25,8 @@ class TransformingAdapter implements AdapterInterface
     private $transformer;
 
     /**
-     * @phpstan-param AdapterInterface<T>                 $adapter
+     * @param AdapterInterface<T> $adapter
+     *
      * @phpstan-param callable(T, array-key): Transformed $transformer
      */
     public function __construct(AdapterInterface $adapter, callable $transformer)
