@@ -35,14 +35,6 @@ final class QueryAdapterTest extends TestCase
         $this->adapter = new QueryAdapter($this->queryBuilder);
     }
 
-    /**
-     * @group legacy
-     */
-    public function testGetQueryBuilder(): void
-    {
-        self::assertSame($this->queryBuilder, $this->adapter->getQueryBuilder());
-    }
-
     public function testGetNbResultsShouldCreateTheQueryAndCount(): void
     {
         /** @var MockObject&Query $query */

@@ -23,16 +23,6 @@ class QueryAdapter implements AdapterInterface
     }
 
     /**
-     * @deprecated to be removed in 4.0
-     */
-    public function getQueryBuilder(): QueryBuilder
-    {
-        trigger_deprecation('pagerfanta/pagerfanta', '3.2', 'Retrieving the %s from "%s" is deprecated and will be removed in 4.0.', QueryBuilder::class, static::class);
-
-        return $this->queryBuilder;
-    }
-
-    /**
      * @phpstan-return int<0, max>
      */
     public function getNbResults(): int

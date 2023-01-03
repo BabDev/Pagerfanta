@@ -29,18 +29,6 @@ class CollectionAdapter implements AdapterInterface
     }
 
     /**
-     * @return Collection<TKey, T>
-     *
-     * @deprecated to be removed in 4.0
-     */
-    public function getCollection(): Collection
-    {
-        trigger_deprecation('pagerfanta/pagerfanta', '3.2', 'Retrieving the %s from "%s" is deprecated and will be removed in 4.0.', Collection::class, static::class);
-
-        return $this->collection;
-    }
-
-    /**
      * @phpstan-return int<0, max>
      */
     public function getNbResults(): int

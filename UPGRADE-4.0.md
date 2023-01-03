@@ -16,3 +16,10 @@ The below guide will assist in upgrading from the 3.x versions to 4.0.
 - Dropped support for versions of Solarium before 6.2
 
 ## Removed Features
+
+- Removed `Pagerfanta\Adapter\ArrayAdapter::getArray()`
+- Removed `Pagerfanta\Doctrine\Collections\CollectionAdapter::getCollection()`
+- Removed `Pagerfanta\Doctrine\MongoDBODM\QueryAdapter::getQueryBuilder()`
+- Removed `Pagerfanta\Doctrine\ORM\QueryAdapter::getFetchJoinCollection()`
+- Removed `Pagerfanta\Doctrine\ORM\QueryAdapter::getQuery()`
+- Removed `Pagerfanta\Doctrine\PHPCRODM\QueryAdapter::getQueryBuilder()`

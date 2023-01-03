@@ -27,14 +27,6 @@ final class ArrayAdapterTest extends TestCase
         $this->adapter = new ArrayAdapter($this->array);
     }
 
-    /**
-     * @group legacy
-     */
-    public function testResultArrayIsRetrieved(): void
-    {
-        self::assertSame($this->array, $this->adapter->getArray());
-    }
-
     public function testAdapterReturnsNumberOfItemsInArray(): void
     {
         self::assertCount($this->adapter->getNbResults(), $this->array);

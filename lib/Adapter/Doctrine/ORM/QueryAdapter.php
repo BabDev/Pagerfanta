@@ -33,26 +33,6 @@ class QueryAdapter implements AdapterInterface
     }
 
     /**
-     * @deprecated to be removed in 4.0
-     */
-    public function getQuery(): Query
-    {
-        trigger_deprecation('pagerfanta/pagerfanta', '3.2', 'Retrieving the %s from "%s" is deprecated and will be removed in 4.0.', Query::class, static::class);
-
-        return $this->paginator->getQuery();
-    }
-
-    /**
-     * @deprecated to be removed in 4.0
-     */
-    public function getFetchJoinCollection(): bool
-    {
-        trigger_deprecation('pagerfanta/pagerfanta', '3.2', 'Retrieving the fetchJoinCollection status from "%s" is deprecated and will be removed in 4.0.', static::class);
-
-        return $this->paginator->getFetchJoinCollection();
-    }
-
-    /**
      * @phpstan-return int<0, max>
      */
     public function getNbResults(): int
