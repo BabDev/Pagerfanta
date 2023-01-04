@@ -32,19 +32,16 @@ use Twig\TwigFunction;
 
 final class PagerfantaExtension extends AbstractExtension
 {
-    private RouteGeneratorFactoryInterface $routeGeneratorFactory;
-    private ViewFactoryInterface $viewFactory;
-
-    public function __construct(RouteGeneratorFactoryInterface $routeGeneratorFactory, ViewFactoryInterface $viewFactory)
-    {
-        $this->routeGeneratorFactory = $routeGeneratorFactory;
-        $this->viewFactory = $viewFactory;
+    public function __construct(
+        private readonly RouteGeneratorFactoryInterface $routeGeneratorFactory,
+        private readonly ViewFactoryInterface $viewFactory,
+    ) {
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('pagerfanta', [$this, 'renderPagerfanta'], ['is_safe' => ['html']]),
+            new TwigFunction('pagerfanta', $this->renderPagerfanta(...), ['is_safe' => ['html']]),
         ];
     }
 

@@ -20,18 +20,22 @@ Below is an example of using the `CollectionAdapter` on a collection from an ent
 <?php
 
 use App\Entity\User;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Pagerfanta\Doctrine\Collections\CollectionAdapter;
 
 $config = new Configuration();
 
-$connection = [
-    'driver' => 'pdo_sqlite',
-    'memory' => true,
-];
+$connection = DriverManager::getConnection(
+    [
+        'driver' => 'pdo_sqlite',
+        'memory' => true,
+    ],
+    $config
+);
 
-$em = EntityManager::create($connection, $config);
+$em = new EntityManager($connection, $config);
 
 $user = $em->find(User::class, 1);
 
@@ -45,18 +49,22 @@ Below is an example of using the `SelectableAdapter` on a class which implements
 
 use App\Entity\User;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Pagerfanta\Doctrine\Collections\SelectableAdapter;
 
 $config = new Configuration();
 
-$connection = [
-    'driver' => 'pdo_sqlite',
-    'memory' => true,
-];
+$connection = DriverManager::getConnection(
+    [
+        'driver' => 'pdo_sqlite',
+        'memory' => true,
+    ],
+    $config
+);
 
-$em = EntityManager::create($connection, $config);
+$em = new EntityManager($connection, $config);
 
 $user = $em->find(User::class, 1);
 
@@ -166,18 +174,22 @@ Below is an example of using the `QueryAdapter`.
 <?php
 
 use App\Entity\User;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 
 $config = new Configuration();
 
-$connection = [
-    'driver' => 'pdo_sqlite',
-    'memory' => true,
-];
+$connection = DriverManager::getConnection(
+    [
+        'driver' => 'pdo_sqlite',
+        'memory' => true,
+    ],
+    $config
+);
 
-$em = EntityManager::create($connection, $config);
+$em = new EntityManager($connection, $config);
 
 $repository = $em->getRepository(User::class);
 
