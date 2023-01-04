@@ -18,3 +18,4 @@ The below table shows the supported PHP versions for this package, please review
 |---------|-------------------------|--------------|
 | 2.x     | **No Longer Supported** | 7.2-8.0      |
 | 3.x     | Actively Supported      | 7.4+         |
+| 4.x     | Under Development       | 8.1+         |
