@@ -2,18 +2,25 @@
 
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
+use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->paths(
-        [
-            __DIR__.'/lib',
-        ],
-    );
+    $rectorConfig->paths([
+        __DIR__.'/lib',
+    ]);
 
+    $rectorConfig->skip([
+        /*
+         * Skip selected rules
+         */
+        AddSeeTestAnnotationRector::class,
+    ]);
+
+    // AddSeeTestAnnotationRector
     $rectorConfig->importNames();
     $rectorConfig->importShortClasses(false);
     $rectorConfig->phpstanConfig(__DIR__.'/phpstan.neon');
