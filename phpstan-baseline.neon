@@ -96,6 +96,11 @@ parameters:
 			path: lib/Adapter/Solarium/SolariumAdapter.php
 
 		-
+			message: "#^Comparison operation \"\\<\" between int\\<0, max\\> and 0 is always false\\.$#"
+			count: 1
+			path: lib/Core/Adapter/CallbackAdapter.php
+
+		-
 			message: "#^Method Pagerfanta\\\\Adapter\\\\ConcatenationAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns float\\|int\\.$#"
 			count: 1
 			path: lib/Core/Adapter/ConcatenationAdapter.php
@@ -157,6 +162,11 @@ parameters:
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), \\*NEVER\\*\\> will always evaluate to false\\.$#"
+			count: 1
+			path: lib/Core/Tests/Adapter/CallbackAdapterTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$nbResultsCallable of class Pagerfanta\\\\Adapter\\\\CallbackAdapter constructor expects callable\\(\\)\\: int\\<0, max\\>, Closure\\(\\)\\: \\-10 given\\.$#"
 			count: 1
 			path: lib/Core/Tests/Adapter/CallbackAdapterTest.php
 
