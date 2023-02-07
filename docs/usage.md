@@ -170,3 +170,18 @@ if ($pagerfanta->hasNextPage()) {
     $pagerfanta->getNextPage(); // Will return 2
 }
 ```
+
+## Retrieving The Adapter
+
+If needed, you can retrieve the underlying adapter using the `getAdapter` method on the `Pagerfanta` instance.
+
+```php
+<?php
+
+use Pagerfanta\Adapter\NullAdapter;
+use Pagerfanta\Pagerfanta;
+
+$pagerfanta = new Pagerfanta(new NullAdapter(30));
+
+$pagerfanta->getAdapter(); // Will return the NullAdapter instance given
+```
