@@ -6,6 +6,7 @@ use Elastica\Query;
 use Elastica\ResultSet;
 use Elastica\SearchableInterface;
 use Pagerfanta\Elastica\ElasticaAdapter;
+use Pagerfanta\Exception\NotValidResultCountException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -36,6 +37,13 @@ final class ElasticaAdapterTest extends TestCase
         $this->options = ['option1' => 'value1', 'option2' => 'value2'];
 
         $this->adapter = new ElasticaAdapter($this->searchable, $this->query, $this->options);
+    }
+
+    public function testConstructorRejectsMaxResultCountLessThanZero(): void
+    {
+        $this->expectException(NotValidResultCountException::class);
+
+        new ElasticaAdapter($this->searchable, $this->query, $this->options, -100);
     }
 
     public function testGetResultSet(): void

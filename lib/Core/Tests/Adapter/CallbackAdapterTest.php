@@ -3,6 +3,7 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\CallbackAdapter;
+use Pagerfanta\Exception\NotValidResultCountException;
 use PHPUnit\Framework\TestCase;
 
 final class CallbackAdapterTest extends TestCase
@@ -17,6 +18,18 @@ final class CallbackAdapterTest extends TestCase
         );
 
         self::assertSame($expected, $adapter->getNbResults());
+    }
+
+    public function testAdapterRaisesAnErrorIfTheNumberOfResultsCallableReturnsANegativeNumber(): void
+    {
+        $this->expectException(NotValidResultCountException::class);
+
+        $adapter = new CallbackAdapter(
+            static fn () => -10,
+            static fn (int $offset, int $length) => []
+        );
+
+        $adapter->getNbResults();
     }
 
     public function testGetSliceShouldReturnTheResultFromTheCallback(): void

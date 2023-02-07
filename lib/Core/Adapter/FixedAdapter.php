@@ -2,6 +2,8 @@
 
 namespace Pagerfanta\Adapter;
 
+use Pagerfanta\Exception\NotValidResultCountException;
+
 /**
  * Adapter which returns a fixed data set.
  *
@@ -14,14 +16,24 @@ namespace Pagerfanta\Adapter;
 class FixedAdapter implements AdapterInterface
 {
     /**
+     * @phpstan-var int<0, max>
+     */
+    private readonly int $nbResults;
+
+    /**
      * @param iterable<array-key, T> $results
      *
-     * @phpstan-param int<0, max> $nbResults
+     * @throws NotValidResultCountException if the number of results is less than zero
      */
     public function __construct(
-        private readonly int $nbResults,
+        int $nbResults,
         private readonly iterable $results,
     ) {
+        if ($nbResults < 0) {
+            throw new NotValidResultCountException(sprintf('The number of results for the "%s" constructor must be at least zero.', static::class));
+        }
+
+        $this->nbResults = $nbResults;
     }
 
     /**

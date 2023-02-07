@@ -2,6 +2,8 @@
 
 namespace Pagerfanta\Adapter;
 
+use Pagerfanta\Exception\NotValidResultCountException;
+
 /**
  * Adapter which calculates pagination from callable functions.
  *
@@ -37,12 +39,20 @@ class CallbackAdapter implements AdapterInterface
 
     /**
      * @phpstan-return int<0, max>
+     *
+     * @throws NotValidResultCountException if the number of results is less than zero
      */
     public function getNbResults(): int
     {
         $callable = $this->nbResultsCallable;
 
-        return $callable();
+        $count = $callable();
+
+        if ($count < 0) {
+            throw new NotValidResultCountException(sprintf('The callable to calculate the number of results in "%s()" must return a number greater than or equal to zero.', __METHOD__));
+        }
+
+        return $count;
     }
 
     /**

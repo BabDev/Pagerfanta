@@ -2,6 +2,8 @@
 
 namespace Pagerfanta\Adapter;
 
+use Pagerfanta\Exception\NotValidResultCountException;
+
 /**
  * @template-covariant T
  */
@@ -11,6 +13,8 @@ interface AdapterInterface
      * Returns the number of results for the list.
      *
      * @phpstan-return int<0, max>
+     *
+     * @throws NotValidResultCountException if the number of results is less than zero.
      */
     public function getNbResults(): int;
 

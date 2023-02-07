@@ -14,6 +14,9 @@ The below guide will assist in upgrading from the 3.x versions to 4.0.
 - Dropped support for versions of Doctrine PHPCR ODM before 1.7
 - Dropped support for versions of Elastica before 7.3
 - Dropped support for versions of Solarium before 6.2
+- `Pagerfanta\Adapter\AdapterInterface::getNbResults()` can now throw a `Pagerfanta\Exception\NotValidResultCountException` if the result count is less than zero
+- The `Pagerfanta\Adapter\FixedAdapter` constructor will now throw a `Pagerfanta\Exception\NotValidResultCountException` if the result count is less than zero
+- The `Pagerfanta\Elastica\ElasticaAdapter` constructor will now throw a `Pagerfanta\Exception\NotValidResultCountException` if the max result count is less than zero
 
 ## Removed Features
 

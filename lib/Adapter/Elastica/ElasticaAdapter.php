@@ -6,6 +6,7 @@ use Elastica\Query;
 use Elastica\ResultSet;
 use Elastica\SearchableInterface;
 use Pagerfanta\Adapter\AdapterInterface;
+use Pagerfanta\Exception\NotValidResultCountException;
 
 /**
  * Adapter which calculates pagination from an Elastica Query.
@@ -16,17 +17,29 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 class ElasticaAdapter implements AdapterInterface
 {
+    /**
+     * @phpstan-var int<0, max>|null
+     */
+    private readonly int|null $maxResults;
+
     private ?ResultSet $resultSet = null;
 
     /**
      * @param int|null $maxResults Limit the number of totalHits returned by ElasticSearch; see https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892
+     *
+     * @throws NotValidResultCountException if the maximum number of results is less than zero.
      */
     public function __construct(
         private readonly SearchableInterface $searchable,
         private readonly Query $query,
         private readonly array $options = [],
-        private readonly ?int $maxResults = null
+        ?int $maxResults = null
     ) {
+        if (null !== $maxResults && $maxResults < 0) {
+            throw new NotValidResultCountException(sprintf('The maximum number of results for the "%s" constructor must be at least zero.', static::class));
+        }
+
+        $this->maxResults = $maxResults;
     }
 
     /**
