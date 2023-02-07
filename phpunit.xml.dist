@@ -3,7 +3,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         colors="true"
         bootstrap="tests/bootstrap.php"
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+        xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
 >
     <testsuites>
         <testsuite name="Pagerfanta Test Suite">
@@ -13,7 +13,7 @@
         </testsuite>
     </testsuites>
 
-    <coverage processUncoveredFiles="true">
+    <coverage>
         <include>
             <directory suffix=".php">./lib</directory>
         </include>
@@ -24,9 +24,9 @@
         </exclude>
     </coverage>
 
-    <listeners>
+    <!-- <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
-    </listeners>
+    </listeners> -->
 
     <php>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[indirect]=3&amp;max[direct]=17"/>
