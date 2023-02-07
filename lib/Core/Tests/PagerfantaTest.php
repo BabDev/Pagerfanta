@@ -9,6 +9,7 @@ use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\Pagerfanta;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -92,18 +93,15 @@ final class PagerfantaTest extends TestCase
 
     /**
      * @phpstan-param positive-int $maxPerPage
-     *
-     * @dataProvider dataCountsAsIntegers
      */
+    #[DataProvider('dataCountsAsIntegers')]
     public function testTheMaximumNumberOfItemsPerPageCanBeSet(int $maxPerPage): void
     {
         self::assertSame($this->pagerfanta, $this->pagerfanta->setMaxPerPage($maxPerPage), 'setMaxPerPage has a fluent interface');
         self::assertSame($maxPerPage, $this->pagerfanta->getMaxPerPage());
     }
 
-    /**
-     * @dataProvider dataLessThan1
-     */
+    #[DataProvider('dataLessThan1')]
     public function testSetMaxPerPageShouldThrowExceptionWhenLessThan1(int $maxPerPage): void
     {
         $this->expectException(LessThan1MaxPerPageException::class);
@@ -223,9 +221,7 @@ final class PagerfantaTest extends TestCase
         self::assertSame($originalPageCount, $this->pagerfanta->getNbPages(), 'When there is no maximum number of pages configured, then the number of pages should be used');
     }
 
-    /**
-     * @dataProvider dataLessThan1
-     */
+    #[DataProvider('dataLessThan1')]
     public function testSetMaxNbPagesShouldThrowExceptionWhenLessThan1(int $maxPages): void
     {
         $this->expectException(LessThan1MaxPagesException::class);
@@ -235,9 +231,8 @@ final class PagerfantaTest extends TestCase
 
     /**
      * @phpstan-param positive-int $currentPage
-     *
-     * @dataProvider dataCountsAsIntegers
      */
+    #[DataProvider('dataCountsAsIntegers')]
     public function testTheCurrentPageNumberCanBeSet(int $currentPage): void
     {
         if ($currentPage > 1) {
@@ -252,9 +247,7 @@ final class PagerfantaTest extends TestCase
         self::assertSame($currentPage, $this->pagerfanta->getCurrentPage());
     }
 
-    /**
-     * @dataProvider dataLessThan1
-     */
+    #[DataProvider('dataLessThan1')]
     public function testSettingTheCurrentPageShouldThrowExceptionWhenLessThan1(int $currentPage): void
     {
         $this->expectException(LessThan1CurrentPageException::class);
@@ -302,9 +295,8 @@ final class PagerfantaTest extends TestCase
      * @phpstan-param positive-int $maxPerPage
      * @phpstan-param positive-int $currentPage
      * @phpstan-param int<0, max>  $offset
-     *
-     * @dataProvider dataGetCurrentPageResultSizes
      */
+    #[DataProvider('dataGetCurrentPageResultSizes')]
     public function testGetCurrentPageResultsShouldReturnASliceFromTheAdapterForTheCurrentPageWithCorrectSizeAndCacheTheResults(int $maxPerPage, int $currentPage, int $offset): void
     {
         if ($currentPage > 1) {
@@ -385,9 +377,8 @@ final class PagerfantaTest extends TestCase
     /**
      * @phpstan-param positive-int $maxPerPage
      * @phpstan-param int<0, max>  $nbResults
-     *
-     * @dataProvider dataHaveToPaginate
      */
+    #[DataProvider('dataHaveToPaginate')]
     public function testHaveToPaginateReportsCorrectly(bool $expected, int $maxPerPage, int $nbResults): void
     {
         $this->adapter->expects(self::once())
@@ -558,9 +549,8 @@ final class PagerfantaTest extends TestCase
 
     /**
      * @phpstan-param positive-int $position
-     *
-     * @dataProvider dataGetPageNumberForItemAtPosition
      */
+    #[DataProvider('dataGetPageNumberForItemAtPosition')]
     public function testGetPageNumberForItemAtPosition(int $page, int $position): void
     {
         $this->adapter->expects(self::atLeastOnce())

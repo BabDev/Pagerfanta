@@ -9,13 +9,12 @@ use Pagerfanta\Adapter\ConcatenationAdapter;
 use Pagerfanta\Adapter\FixedAdapter;
 use Pagerfanta\Adapter\NullAdapter;
 use Pagerfanta\Exception\InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
 
 final class ConcatenationAdapterTest extends TestCase
 {
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testAdapterIsInstantiatedWhenOnlyAdaptersAreProvided(): void
     {
         new ConcatenationAdapter(

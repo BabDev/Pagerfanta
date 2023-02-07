@@ -11,6 +11,7 @@ use Pagerfanta\Twig\Extension\PagerfantaRuntime;
 use Pagerfanta\Twig\View\TwigView;
 use Pagerfanta\View\ViewFactory;
 use Pagerfanta\View\ViewFactoryInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
@@ -374,9 +375,8 @@ final class TwigViewIntegrationTest extends TestCase
      * @param array<string, mixed> $options
      *
      * @phpstan-param positive-int $page
-     *
-     * @dataProvider dataPagerfantaRenderer
      */
+    #[DataProvider('dataPagerfantaRenderer')]
     public function testPagerfantaRendering(int $page, array $options, string $testOutput): void
     {
         $pagerfanta = $this->createPagerfanta();

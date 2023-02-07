@@ -18,6 +18,11 @@ return static function (RectorConfig $rectorConfig): void {
          * Skip selected rules
          */
         AddSeeTestAnnotationRector::class,
+
+        /*
+         * Skip selected files
+         */
+        __DIR__.'/lib/Core/Tests/Adapter/ConcatenationAdapterTest.php', // Rector ends up recursing on this file
     ]);
 
     // AddSeeTestAnnotationRector

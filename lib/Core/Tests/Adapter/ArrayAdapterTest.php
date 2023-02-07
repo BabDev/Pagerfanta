@@ -3,6 +3,7 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\ArrayAdapter;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class ArrayAdapterTest extends TestCase
@@ -41,9 +42,8 @@ final class ArrayAdapterTest extends TestCase
     /**
      * @phpstan-param int<0, max> $offset
      * @phpstan-param int<0, max> $length
-     *
-     * @dataProvider dataGetSlice
      */
+    #[DataProvider('dataGetSlice')]
     public function testGetSlice(int $offset, int $length): void
     {
         self::assertSame(

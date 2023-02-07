@@ -3,6 +3,7 @@
 namespace Pagerfanta\Tests\Adapter;
 
 use Pagerfanta\Adapter\FixedAdapter;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class FixedAdapterTest extends TestCase
@@ -20,9 +21,7 @@ final class FixedAdapterTest extends TestCase
         yield 'from iterable object' => [new \ArrayObject()];
     }
 
-    /**
-     * @dataProvider dataGetSlice
-     */
+    #[DataProvider('dataGetSlice')]
     public function testGetSlice(iterable $results): void
     {
         $adapter = new FixedAdapter(5, $results);

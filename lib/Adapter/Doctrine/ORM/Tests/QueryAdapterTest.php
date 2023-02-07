@@ -7,6 +7,7 @@ use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Doctrine\ORM\Tests\Entity\Group;
 use Pagerfanta\Doctrine\ORM\Tests\Entity\Person;
 use Pagerfanta\Doctrine\ORM\Tests\Entity\User;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 final class QueryAdapterTest extends ORMTestCase
 {
@@ -79,9 +80,8 @@ final class QueryAdapterTest extends ORMTestCase
     /**
      * @phpstan-param int<0, max> $offset
      * @phpstan-param int<0, max> $length
-     *
-     * @dataProvider dataGetSlice
      */
+    #[DataProvider('dataGetSlice')]
     public function testCurrentPageSliceForSingleTableQuery(int $offset, int $length, int $expectedCount): void
     {
         $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u FROM '.User::class.' u'));
@@ -92,9 +92,8 @@ final class QueryAdapterTest extends ORMTestCase
     /**
      * @phpstan-param int<0, max> $offset
      * @phpstan-param int<0, max> $length
-     *
-     * @dataProvider dataGetSlice
      */
+    #[DataProvider('dataGetSlice')]
     public function testCurrentPageSliceForAJoinedCollection(int $offset, int $length, int $expectedCount): void
     {
         $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u, g FROM '.User::class.' u INNER JOIN u.groups g'));

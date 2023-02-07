@@ -6,13 +6,12 @@ return (new PhpCsFixer\Config())
         '@Symfony:risky' => true,
         '@PHP81Migration' => true,
         '@PHP80Migration:risky' => true,
-        '@PHPUnit84Migration:risky' => true,
+        '@PHPUnit100Migration:risky' => true,
         'array_syntax' => ['syntax' => 'short'],
         'blank_line_after_opening_tag' => false,
         'fopen_flags' => false,
         'linebreak_after_opening_tag' => false,
         'no_superfluous_phpdoc_tags' => ['remove_inheritdoc' => true],
-        'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
     ])
     ->setRiskyAllowed(true)
     ->setFinder(
