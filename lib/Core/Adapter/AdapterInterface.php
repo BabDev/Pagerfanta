@@ -14,7 +14,7 @@ interface AdapterInterface
      *
      * @phpstan-return int<0, max>
      *
-     * @throws NotValidResultCountException if the number of results is less than zero.
+     * @throws NotValidResultCountException if the number of results is less than zero
      */
     public function getNbResults(): int;
 

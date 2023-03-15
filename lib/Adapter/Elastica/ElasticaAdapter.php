@@ -27,7 +27,7 @@ class ElasticaAdapter implements AdapterInterface
     /**
      * @param int|null $maxResults Limit the number of totalHits returned by ElasticSearch; see https://github.com/whiteoctober/Pagerfanta/pull/213#issue-87631892
      *
-     * @throws NotValidResultCountException if the maximum number of results is less than zero.
+     * @throws NotValidResultCountException if the maximum number of results is less than zero
      */
     public function __construct(
         private readonly SearchableInterface $searchable,
