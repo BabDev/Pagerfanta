@@ -11,7 +11,7 @@ parameters:
 			path: lib/Adapter/Doctrine/Collections/SelectableAdapter.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/Collections/Tests/CollectionAdapterTest.php
 
@@ -46,7 +46,7 @@ parameters:
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/AggregationAdapterTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
 
@@ -66,7 +66,7 @@ parameters:
 			path: lib/Adapter/Doctrine/ORM/Tests/QueryAdapterTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/PHPCRODM/Tests/QueryAdapterTest.php
 
@@ -94,11 +94,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$start of method Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\:\\:setStart\\(\\) expects int, int\\<0, max\\>\\|null given\\.$#"
 			count: 1
 			path: lib/Adapter/Solarium/SolariumAdapter.php
-
-		-
-			message: "#^Comparison operation \"\\<\" between int\\<0, max\\> and 0 is always false\\.$#"
-			count: 1
-			path: lib/Core/Adapter/CallbackAdapter.php
 
 		-
 			message: "#^Method Pagerfanta\\\\Adapter\\\\ConcatenationAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns float\\|int\\.$#"
@@ -161,7 +156,7 @@ parameters:
 			path: lib/Core/Tests/Adapter/ArrayAdapterTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), \\*NEVER\\*\\> will always evaluate to false\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Core/Tests/Adapter/CallbackAdapterTest.php
 
@@ -181,7 +176,7 @@ parameters:
 			path: lib/Core/Tests/Adapter/TransformingAdapterTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable\\<\\(int\\|string\\), mixed\\> will always evaluate to false\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable will always evaluate to false\\.$#"
 			count: 2
 			path: lib/Core/Tests/PagerfantaTest.php
 
