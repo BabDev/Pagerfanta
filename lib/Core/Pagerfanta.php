@@ -2,6 +2,7 @@
 
 namespace Pagerfanta;
 
+use Generator;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Exception\LessThan1CurrentPageException;
 use Pagerfanta\Exception\LessThan1MaxPagesException;
@@ -448,5 +449,24 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
         }
 
         return (int) ceil($position / $this->getMaxPerPage());
+    }
+
+    /**
+     * Helper to iterate through all pages results step by step without having to load the whole result into memory at once.
+     * Avoid extreme memory consumption when batch processing over all pagination results.
+     */
+    public function autoPagingIterator(): Generator
+    {
+        while (true) {
+            foreach ($this->getCurrentPageResults() as $item) {
+                yield $item;
+            }
+
+            if (!$this->hasNextPage()) {
+                break;
+            }
+
+            $this->setCurrentPage($this->getNextPage());
+        }
     }
 }

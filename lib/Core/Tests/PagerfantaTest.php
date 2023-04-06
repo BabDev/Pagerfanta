@@ -571,6 +571,46 @@ final class PagerfantaTest extends TestCase
         $this->pagerfanta->getPageNumberForItemAtPosition(101);
     }
 
+    public function testAutoPagingIterator(): void
+    {
+        $this->adapter->expects(self::once())
+            ->method('getNbResults')
+            ->willReturn(3);
+
+        $matcher = $this->exactly(2);
+
+        $this->adapter->expects($matcher)
+            ->method('getSlice')
+            ->willReturnCallback(function (int $offset, int $length) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals($offset, 0) && $this->assertEquals($length, 2),
+                    2 => $this->assertEquals($offset, 2) && $this->assertEquals($length, 2),
+                };
+            })
+            ->willReturnOnConsecutiveCalls(
+                [
+                    ['id' => 1],
+                    ['id' => 2]
+                ],
+                [
+                    ['id' => 3]
+                ]
+            );
+
+        $this->pagerfanta->setCurrentPage(1);
+        $this->pagerfanta->setMaxPerPage(2);
+
+        $iterator = $this->pagerfanta->autoPagingIterator();
+        
+        $seen = [];
+
+        foreach ($iterator as $value) {
+            $seen[] = $value['id'];
+        }
+
+        static::assertSame([1, 2, 3], $seen);
+    }
+
     private function resetCurrentPageResults(callable $callback): void
     {
         $this->pagerfanta->setMaxPerPage(10);
