@@ -582,10 +582,17 @@ final class PagerfantaTest extends TestCase
         $this->adapter->expects($matcher)
             ->method('getSlice')
             ->willReturnCallback(function (int $offset, int $length) use ($matcher) {
-                match ($matcher->numberOfInvocations()) {
-                    1 => $this->assertEquals($offset, 0) && $this->assertEquals($length, 2),
-                    2 => $this->assertEquals($offset, 2) && $this->assertEquals($length, 2),
-                };
+                if($matcher->numberOfInvocations() === 1) {
+                    $this->assertEquals($offset, 0);
+                    $this->assertEquals($length, 2);
+                }
+                else if($matcher->numberOfInvocations() === 2) {
+                    $this->assertEquals($offset, 2);
+                    $this->assertEquals($length, 2);
+                }
+                else {
+                    throw new \LogicException();
+                }
             })
             ->willReturnOnConsecutiveCalls(
                 [
