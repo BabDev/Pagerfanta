@@ -183,3 +183,24 @@ $pagerfanta = new Pagerfanta(new NullAdapter(30));
 
 $pagerfanta->getAdapter(); // Will return the NullAdapter instance given
 ```
+
+## Auto-pagination
+
+If you want to iterate through all pages results step by step without having to load the whole result into memory at once (to avoid extreme memory consumption when batch processing for example), you can get an iterator with autoPagingIterator method on the `Pagerfanta` instance.
+
+```php
+<?php
+
+use Pagerfanta\Adapter\QueryAdapter;
+use Pagerfanta\Pagerfanta;
+
+$pagerfanta = new Pagerfanta(new QueryAdapter($queryBuilder, $countQueryBuilderModifier));
+$pagerfanta->setMaxPerPage(10);
+
+$iterator = $pagerfanta->autoPagingIterator();
+
+foreach ($iterator as $item) {
+  // Iterate over all query results without load them into memory, or manually manage getCurrentPageResults(), hasNextPage() and setCurrentPage()
+}
+
+```
