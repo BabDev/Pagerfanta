@@ -449,4 +449,22 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
 
         return (int) ceil($position / $this->getMaxPerPage());
     }
+
+    /**
+     * Generates an iterator to automatically iterate over all pages in a result set.
+     */
+    public function autoPagingIterator(): \Generator
+    {
+        while (true) {
+            foreach ($this->getCurrentPageResults() as $item) {
+                yield $item;
+            }
+
+            if (!$this->hasNextPage()) {
+                break;
+            }
+
+            $this->setCurrentPage($this->getNextPage());
+        }
+    }
 }

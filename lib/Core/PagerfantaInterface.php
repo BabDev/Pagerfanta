@@ -13,6 +13,8 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
  * @template-covariant T
  *
  * @extends \IteratorAggregate<T>
+ *
+ * @method \Generator autoPagingIterator()
  */
 interface PagerfantaInterface extends \Countable, \IteratorAggregate
 {
