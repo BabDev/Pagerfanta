@@ -2,7 +2,6 @@
 
 namespace Pagerfanta;
 
-use Generator;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Exception\LessThan1CurrentPageException;
 use Pagerfanta\Exception\LessThan1MaxPagesException;
@@ -452,10 +451,9 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     }
 
     /**
-     * Helper to iterate through all pages results step by step without having to load the whole result into memory at once.
-     * Avoid extreme memory consumption when batch processing over all pagination results.
+     * Generates an iterator to automatically iterate over all pages in a result set.
      */
-    public function autoPagingIterator(): Generator
+    public function autoPagingIterator(): \Generator
     {
         while (true) {
             foreach ($this->getCurrentPageResults() as $item) {
