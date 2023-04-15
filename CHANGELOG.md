@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.8.0 (????-??-??)
+## 3.8.0 (2023-04-15)
 
 - Drop support for Twig versions prior to 2.13
 
