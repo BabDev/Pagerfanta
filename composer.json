@@ -27,7 +27,6 @@
         "ruflin/elastica": "^6.0 || ^7.0",
         "solarium/solarium": "^5.0 || ^6.0",
         "symfony/cache": "^5.4 || ^6.0",
-        "symfony/phpunit-bridge": "^5.4 || ^6.0",
         "twig/twig": "^2.13 || ^3.0"
     },
     "conflict": {
