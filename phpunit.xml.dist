@@ -13,22 +13,22 @@
         </testsuite>
     </testsuites>
 
-    <coverage>
+    <source>
         <include>
-            <directory suffix=".php">./lib</directory>
+            <directory>./lib</directory>
         </include>
         <exclude>
             <directory>./lib/**/Tests</directory>
             <directory>./lib/Adapter/**/Tests</directory>
             <directory>./lib/Adapter/Doctrine/**/Tests</directory>
         </exclude>
-    </coverage>
+    </source>
 
     <!-- <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
     </listeners> -->
 
-    <php>
+    <!-- <php>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[indirect]=3&amp;max[direct]=17"/>
-    </php>
+    </php> -->
 </phpunit>

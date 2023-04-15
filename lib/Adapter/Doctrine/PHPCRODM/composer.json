@@ -11,8 +11,7 @@
     },
     "require-dev": {
         "jackalope/jackalope-doctrine-dbal": "^1.9",
-        "phpunit/phpunit": "^10.0",
-        "symfony/phpunit-bridge": "^5.4 || ^6.2"
+        "phpunit/phpunit": "^10.1"
     },
     "autoload": {
         "psr-4": {

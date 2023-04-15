@@ -11,12 +11,12 @@
         </testsuite>
     </testsuites>
 
-    <coverage>
+    <source>
         <exclude>
             <directory>./Tests</directory>
             <directory>./vendor</directory>
         </exclude>
-    </coverage>
+    </source>
 
     <!-- <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>

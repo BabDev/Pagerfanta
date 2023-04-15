@@ -11,19 +11,18 @@
         </testsuite>
     </testsuites>
 
-    <coverage>
+    <source>
         <exclude>
             <directory>./Tests</directory>
             <directory>./vendor</directory>
         </exclude>
-    </coverage>
+    </source>
 
     <!-- <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
     </listeners> -->
 
-    <php>
-        <!-- Ignore deprecations from lowest stable dependencies -->
+    <!-- <php>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=20"/>
-    </php>
+    </php> -->
 </phpunit>
