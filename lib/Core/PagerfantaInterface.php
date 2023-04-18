@@ -14,7 +14,7 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
  *
  * @extends \IteratorAggregate<T>
  *
- * @method \Generator autoPagingIterator()
+ * @method \Generator<int, T, mixed, void> autoPagingIterator()
  */
 interface PagerfantaInterface extends \Countable, \IteratorAggregate
 {
