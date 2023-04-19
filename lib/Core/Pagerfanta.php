@@ -452,6 +452,8 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
 
     /**
      * Generates an iterator to automatically iterate over all pages in a result set.
+     *
+     * @return \Generator<int, T, mixed, void>
      */
     public function autoPagingIterator(): \Generator
     {
