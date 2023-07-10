@@ -55,7 +55,20 @@ Below is a list of the views that are available with this package, and the corre
 
 Pagerfanta includes native support for the [Twig](https://twig.symfony.com/) templating engine and allows integrators to build flexible templates for rendering their pagers.
 
-Twig templates are available for all CSS frameworks which have a corresponding `Pagerfanta\View\Template\TemplateInterface` implementation.
+The below table lists the available templates and the CSS framework they correspond to.
+
+| Template Name                              | Framework                                                     |
+|--------------------------------------------|---------------------------------------------------------------|
+| `@Pagerfanta/default.html.twig`            | None (Pagerfanta's default view)                              |
+| `@Pagerfanta/foundation6.html.twig`        | [Foundation](https://get.foundation/index.html) (version 6.x) |
+| `@Pagerfanta/semantic_ui.html.twig`        | [Semantic UI](https://semantic-ui.com) (version 2.x)          |
+| `@Pagerfanta/tailwind.html.twig`           | [Tailwind CSS](https://tailwindcss.com/)                      |
+| `@Pagerfanta/twitter_bootstrap.html.twig`  | [Bootstrap](https://getbootstrap.com) (version 2.x)           |
+| `@Pagerfanta/twitter_bootstrap3.html.twig` | [Bootstrap](https://getbootstrap.com) (version 3.x)           |
+| `@Pagerfanta/twitter_bootstrap4.html.twig` | [Bootstrap](https://getbootstrap.com) (version 4.x)           |
+| `@Pagerfanta/twitter_bootstrap5.html.twig` | [Bootstrap](https://getbootstrap.com) (version 5.x)           |
+
+### Configuring the Twig Integration
 
 In order to use the Twig integration, you will need to register the Twig extension, a runtime loader to resolve the runtime service, and the Pagerfanta template path to your Twig environment.
 
@@ -95,6 +108,32 @@ $environment->addRuntimeLoader(new ContainerRuntimeLoader($container));
 // Add the extension
 $environment->addExtension(new PagerfantaExtension());
 ```
+
+### Creating a Twig View Template
+
+If creating a custom template, you are encouraged to extend the `@Pagerfanta/default.html.twig` template and override only the blocks needed.
+
+Generally, the `pager_widget` block should only be extended if you need to change the wrapping HTML for the paginator. The `pager` block should still be rendered from your extended block.
+
+The `pager` block is designed to hold the structure of the pager and generally should not be extended unless the intent is to change the logic involved in rendering the paginator (such as removing the ellipsis separators or changing to only display previous/next buttons).
+
+When rendering a Twig view, the following options are passed into the template for use. Note that for the most part, only the `pager` block will use these variables.
+
+- `pagerfanta` - The `Pagerfanta\PagerfantaInterface` object
+- `route_generator` - A `Pagerfanta\RouteGenerator\RouteGeneratorDecorator` object which decorates the route generator created by the `pagerfanta()` Twig function
+    - The decorator is required because Twig does not allow direct execution of Closures within templates
+- `options` - The options array passed through the `pagerfanta()` Twig function
+- `start_page` - The calculated start page for the list of items displayed between separators, this is based on the `proximity` option and the total number of pages
+- `end_page` - The calculated end page for the list of items displayed between separators, this is based on the `proximity` option and the total number of pages
+- `current_page` - The current page in the paginated list
+- `nb_pages` - The total number of pages in the paginated list
+
+Additionally, for most page blocks (`previous_page_link`, `page_link`, `current_page_link`, and `next_page_link`), there are two additional variables available:
+
+- `page` - The current page in the pager
+- `path` - The generated URL for the item
+
+If you want to create your own Twig template, the quickest and easiest way to do that is to extend one of the supplied templates (typically the default one). Have a look at `semantic_ui.html.twig` to see the blocks you will likely want to override.
 
 ## Reusable View Configurations
 
