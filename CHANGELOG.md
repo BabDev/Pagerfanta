@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2.0 (2023-07-10)
+
+- [#50](https://github.com/BabDev/Pagerfanta/pull/50) Add `page` variable to Twig blocks where missing
+
 ## 4.1.0 (2023-04-15)
 
 - [#48](https://github.com/BabDev/Pagerfanta/pull/48) Add support for memory efficient auto-pagination
