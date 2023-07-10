@@ -42,7 +42,7 @@ The `TemplateView` class is an extension of the `View` class and provides suppor
 Below is a list of the views that are available with this package, and the corresponding template class.
 
 | View Name            | View Class Name                         | Template Class Name                                  |
-| -------------------- | --------------------------------------- | ---------------------------------------------------- |
+|----------------------|-----------------------------------------|------------------------------------------------------|
 | `default`            | `Pagerfanta\View\DefaultView`           | `Pagerfanta\View\Template\DefaultTemplate`           |
 | `foundation6`        | `Pagerfanta\View\Foundation6View`       | `Pagerfanta\View\Template\Foundation6Template`       |
 | `semantic_ui`        | `Pagerfanta\View\SemanticUiView`        | `Pagerfanta\View\Template\SemanticUiTemplate`        |
@@ -54,6 +54,8 @@ Below is a list of the views that are available with this package, and the corre
 ## Twig View
 
 Pagerfanta includes native support for the [Twig](https://twig.symfony.com/) templating engine and allows integrators to build flexible templates for rendering their pagers.
+
+If you have not already, you will need to install the `pagerfanta/twig` package to use the Twig integration.
 
 The below table lists the available templates and the CSS framework they correspond to.
 
