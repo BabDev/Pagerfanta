@@ -10,7 +10,7 @@ abstract class TemplateView extends View
 {
     private readonly TemplateInterface $template;
 
-    public function __construct(TemplateInterface $template = null)
+    public function __construct(?TemplateInterface $template = null)
     {
         $this->template = $template ?? $this->createDefaultTemplate();
     }
