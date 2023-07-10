@@ -11,7 +11,7 @@
     },
     "require-dev": {
         "dg/bypass-finals": "^1.4.1",
-        "phpunit/phpunit": "^10.1"
+        "phpunit/phpunit": "^10.2"
     },
     "autoload": {
         "psr-4": {

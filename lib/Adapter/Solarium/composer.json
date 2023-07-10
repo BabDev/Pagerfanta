@@ -10,7 +10,7 @@
         "solarium/solarium": "^6.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^10.1"
+        "phpunit/phpunit": "^10.2"
     },
     "autoload": {
         "psr-4": {
