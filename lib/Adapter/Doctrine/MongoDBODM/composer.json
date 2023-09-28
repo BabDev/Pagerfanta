@@ -10,8 +10,8 @@
         "pagerfanta/core": "^3.7 || ^4.0"
     },
     "require-dev": {
-        "dg/bypass-finals": "^1.4.1",
-        "phpunit/phpunit": "^10.2"
+        "dg/bypass-finals": "^1.5.1",
+        "phpunit/phpunit": "^10.3"
     },
     "autoload": {
         "psr-4": {
