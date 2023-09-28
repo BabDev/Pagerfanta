@@ -8,4 +8,4 @@ BypassFinals::setWhitelist([
     '*/Doctrine/ODM/MongoDB/*',
 ]);
 
-BypassFinals::enable();
+BypassFinals::enable(bypassReadOnly: false);
