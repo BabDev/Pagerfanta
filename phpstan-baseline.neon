@@ -96,7 +96,7 @@ parameters:
 			path: lib/Adapter/Solarium/SolariumAdapter.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Adapter\\\\ConcatenationAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns float\\|int\\.$#"
+			message: "#^Method Pagerfanta\\\\Adapter\\\\ConcatenationAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns \\(float\\|int\\)\\.$#"
 			count: 1
 			path: lib/Core/Adapter/ConcatenationAdapter.php
 
