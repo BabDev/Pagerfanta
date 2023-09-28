@@ -16,8 +16,7 @@ class ArrayAdapter implements AdapterInterface
      */
     public function __construct(
         private readonly array $array,
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return int<0, max>

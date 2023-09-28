@@ -22,8 +22,7 @@ class SelectableAdapter implements AdapterInterface
     public function __construct(
         private readonly Selectable $selectable,
         private readonly Criteria $criteria,
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return int<0, max>

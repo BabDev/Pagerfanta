@@ -2,6 +2,4 @@
 
 namespace Pagerfanta\Exception;
 
-class NotValidMaxPerPageException extends InvalidArgumentException
-{
-}
+class NotValidMaxPerPageException extends InvalidArgumentException {}

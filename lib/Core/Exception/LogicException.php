@@ -2,6 +2,4 @@
 
 namespace Pagerfanta\Exception;
 
-class LogicException extends \LogicException implements PagerfantaException
-{
-}
+class LogicException extends \LogicException implements PagerfantaException {}

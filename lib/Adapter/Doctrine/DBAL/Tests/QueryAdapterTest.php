@@ -35,7 +35,7 @@ final class QueryAdapterTest extends DBALTestCase
 
     public function testGetSlice(): void
     {
-        $adapter = new QueryAdapter($this->qb, static function (QueryBuilder $qb): void { });
+        $adapter = new QueryAdapter($this->qb, static function (QueryBuilder $qb): void {});
 
         $offset = 30;
         $length = 10;

@@ -46,9 +46,6 @@ final class ArrayAdapterTest extends TestCase
     #[DataProvider('dataGetSlice')]
     public function testGetSlice(int $offset, int $length): void
     {
-        self::assertSame(
-            \array_slice($this->array, $offset, $length),
-            $this->adapter->getSlice($offset, $length)
-        );
+        self::assertSame(\array_slice($this->array, $offset, $length), $this->adapter->getSlice($offset, $length));
     }
 }

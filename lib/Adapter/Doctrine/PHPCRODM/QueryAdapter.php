@@ -17,8 +17,7 @@ class QueryAdapter implements AdapterInterface
 {
     public function __construct(
         private readonly QueryBuilder $queryBuilder
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return int<0, max>

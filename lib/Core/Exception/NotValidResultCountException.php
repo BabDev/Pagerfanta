@@ -2,6 +2,4 @@
 
 namespace Pagerfanta\Exception;
 
-class NotValidResultCountException extends RuntimeException
-{
-}
+class NotValidResultCountException extends RuntimeException {}

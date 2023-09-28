@@ -34,8 +34,7 @@ class SolariumAdapter implements AdapterInterface
     public function __construct(
         private readonly ClientInterface $client,
         private readonly Query $query,
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return int<0, max>

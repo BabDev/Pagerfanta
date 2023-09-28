@@ -16,8 +16,7 @@ class OptionableView implements ViewInterface
     public function __construct(
         private readonly ViewInterface $view,
         private readonly array $defaultOptions,
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string, mixed> $options

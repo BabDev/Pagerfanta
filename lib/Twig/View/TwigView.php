@@ -17,8 +17,7 @@ final class TwigView extends View
     public function __construct(
         private readonly Environment $twig,
         private readonly ?string $defaultTemplate = null,
-    ) {
-    }
+    ) {}
 
     public function getName(): string
     {

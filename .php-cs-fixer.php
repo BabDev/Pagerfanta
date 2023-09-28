@@ -12,17 +12,16 @@ return (new PhpCsFixer\Config())
         'fopen_flags' => false,
         'linebreak_after_opening_tag' => false,
         'no_superfluous_phpdoc_tags' => ['remove_inheritdoc' => true],
-        'nullable_type_declaration_for_default_null_value' => [
-            'use_nullable_type_declaration' => true,
-        ],
+        'nullable_type_declaration_for_default_null_value' => ['use_nullable_type_declaration' => true],
+        'single_line_empty_body' => true,
     ])
     ->setRiskyAllowed(true)
     ->setFinder(
         (new PhpCsFixer\Finder())
-            ->in(__DIR__ . '/lib')
-            ->in(__DIR__ . '/tests')
+            ->in(__DIR__.'/lib')
+            ->in(__DIR__.'/tests')
             ->append([
-                __DIR__ . '/rector.php',
-                __DIR__ . '/.github/patch-packages.php',
+                __DIR__.'/rector.php',
+                __DIR__.'/.github/patch-packages.php',
             ])
     );

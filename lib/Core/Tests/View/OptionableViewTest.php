@@ -40,10 +40,7 @@ final class OptionableViewTest extends TestCase
     {
         $defaultOptions = ['foo' => 'bar', 'bar' => 'ups'];
 
-        self::assertSame(
-            self::RENDERED_VIEW,
-            (new OptionableView($this->createViewMock($defaultOptions), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator)
-        );
+        self::assertSame(self::RENDERED_VIEW, (new OptionableView($this->createViewMock($defaultOptions), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator));
     }
 
     public function testRenderShouldMergeOptions(): void
@@ -51,10 +48,7 @@ final class OptionableViewTest extends TestCase
         $defaultOptions = ['foo' => 'bar'];
         $options = ['ups' => 'da'];
 
-        self::assertSame(
-            self::RENDERED_VIEW,
-            (new OptionableView($this->createViewMock([...$defaultOptions, ...$options]), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator, $options)
-        );
+        self::assertSame(self::RENDERED_VIEW, (new OptionableView($this->createViewMock([...$defaultOptions, ...$options]), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator, $options));
     }
 
     private function createViewMock(array $expectedOptions): MockObject&ViewInterface

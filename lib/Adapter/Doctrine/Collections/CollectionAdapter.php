@@ -20,8 +20,7 @@ class CollectionAdapter implements AdapterInterface
      */
     public function __construct(
         private readonly Collection $collection,
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return int<0, max>

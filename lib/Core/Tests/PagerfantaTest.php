@@ -583,16 +583,16 @@ final class PagerfantaTest extends TestCase
             ->method('getSlice')
             ->willReturnCallback(function (int $offset, int $length) use ($matcher): array {
                 if (1 === $matcher->numberOfInvocations()) {
-                    $this->assertEquals($offset, 0);
-                    $this->assertEquals($length, 2);
+                    TestCase::assertSame($offset, 0);
+                    TestCase::assertSame($length, 2);
 
                     return [
                         ['id' => 1],
                         ['id' => 2],
                     ];
                 } elseif (2 === $matcher->numberOfInvocations()) {
-                    $this->assertEquals($offset, 2);
-                    $this->assertEquals($length, 2);
+                    TestCase::assertSame($offset, 2);
+                    TestCase::assertSame($length, 2);
 
                     return [
                         ['id' => 3],

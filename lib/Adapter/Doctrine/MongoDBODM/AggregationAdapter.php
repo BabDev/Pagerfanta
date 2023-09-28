@@ -16,8 +16,7 @@ class AggregationAdapter implements AdapterInterface
 {
     public function __construct(
         private readonly Builder $aggregationBuilder,
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return int<0, max>

@@ -2,6 +2,4 @@
 
 namespace Pagerfanta\Exception;
 
-class OutOfRangeCurrentPageException extends NotValidCurrentPageException
-{
-}
+class OutOfRangeCurrentPageException extends NotValidCurrentPageException {}

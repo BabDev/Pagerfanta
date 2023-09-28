@@ -2,6 +2,4 @@
 
 namespace Pagerfanta\Exception;
 
-class OutOfBoundsException extends \OutOfBoundsException implements PagerfantaException
-{
-}
+class OutOfBoundsException extends \OutOfBoundsException implements PagerfantaException {}

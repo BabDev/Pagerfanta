@@ -390,12 +390,10 @@ final class TwigViewIntegrationTest extends TestCase
 
     public function testPagerfantaRenderingWithEmptyOptions(): void
     {
-        self::assertNotEmpty(
-            (new TwigView($this->twig))->render(
-                $this->createPagerfanta(),
-                $this->createRouteGeneratorFactory()->create()
-            )
-        );
+        self::assertNotEmpty((new TwigView($this->twig))->render(
+            $this->createPagerfanta(),
+            $this->createRouteGeneratorFactory()->create()
+        ));
     }
 
     private function createRouteGeneratorFactory(): RouteGeneratorFactoryInterface
@@ -412,8 +410,7 @@ final class TwigViewIntegrationTest extends TestCase
                      */
                     public function __construct(
                         private readonly array $options,
-                    ) {
-                    }
+                    ) {}
 
                     public function __invoke(int $page): string
                     {
@@ -435,8 +432,7 @@ final class TwigViewIntegrationTest extends TestCase
         return new class($this) implements RuntimeLoaderInterface {
             public function __construct(
                 private readonly TwigViewIntegrationTest $testCase,
-            ) {
-            }
+            ) {}
 
             /**
              * @param string $class

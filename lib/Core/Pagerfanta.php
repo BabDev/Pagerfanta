@@ -50,8 +50,7 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
      */
     public function __construct(
         private readonly AdapterInterface $adapter,
-    ) {
-    }
+    ) {}
 
     /**
      * @param AdapterInterface<T> $adapter

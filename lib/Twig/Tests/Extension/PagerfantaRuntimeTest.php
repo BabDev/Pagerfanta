@@ -48,8 +48,7 @@ final class PagerfantaRuntimeTest extends TestCase
                      */
                     public function __construct(
                         private readonly array $options,
-                    ) {
-                    }
+                    ) {}
 
                     public function __invoke(int $page): string
                     {
@@ -142,10 +141,7 @@ final class PagerfantaRuntimeTest extends TestCase
 
     public function testAPageUrlCanBeGenerated(): void
     {
-        self::assertSame(
-            '/my-page?page=1',
-            $this->extension->getPageUrl($this->createPagerfanta(), 1)
-        );
+        self::assertSame('/my-page?page=1', $this->extension->getPageUrl($this->createPagerfanta(), 1));
     }
 
     public function testAPageUrlCannotBeGeneratedIfThePageIsOutOfBounds(): void

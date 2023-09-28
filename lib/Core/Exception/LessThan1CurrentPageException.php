@@ -2,6 +2,4 @@
 
 namespace Pagerfanta\Exception;
 
-class LessThan1CurrentPageException extends NotValidCurrentPageException
-{
-}
+class LessThan1CurrentPageException extends NotValidCurrentPageException {}

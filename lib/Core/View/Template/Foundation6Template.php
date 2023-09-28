@@ -114,7 +114,7 @@ class Foundation6Template extends Template
     protected function linkLi(string $class, string $href, int|string $text, ?string $rel = null): string
     {
         $class = trim($this->option('css_item_class').' '.$class);
-        $liClass = empty($class) ? '' : sprintf(' class="%s"', $class);
+        $liClass = '' === $class ? '' : sprintf(' class="%s"', $class);
         $itemRel = $rel ? sprintf(' rel="%s"', $rel) : '';
 
         return sprintf('<li%s><a href="%s"%s>%s</a></li>', $liClass, $href, $itemRel, $text);

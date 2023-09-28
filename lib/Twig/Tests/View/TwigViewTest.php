@@ -42,14 +42,11 @@ final class TwigViewTest extends TestCase
             ->method('mergeGlobals')
             ->willReturn([]);
 
-        self::assertSame(
-            'Twig template',
-            (new TwigView($this->twig, 'constructor.html.twig'))->render(
-                $this->createPagerfanta(),
-                $this->createRouteGenerator(),
-                $options
-            )
-        );
+        self::assertSame('Twig template', (new TwigView($this->twig, 'constructor.html.twig'))->render(
+            $this->createPagerfanta(),
+            $this->createRouteGenerator(),
+            $options
+        ));
     }
 
     public function testRendersWithATemplateSpecifiedInTheConstructorWhenNotSetInTheOptions(): void
@@ -72,13 +69,10 @@ final class TwigViewTest extends TestCase
             ->method('mergeGlobals')
             ->willReturn([]);
 
-        self::assertSame(
-            'Twig template',
-            (new TwigView($this->twig, 'constructor.html.twig'))->render(
-                $this->createPagerfanta(),
-                $this->createRouteGenerator()
-            )
-        );
+        self::assertSame('Twig template', (new TwigView($this->twig, 'constructor.html.twig'))->render(
+            $this->createPagerfanta(),
+            $this->createRouteGenerator()
+        ));
     }
 
     public function testRendersWithTheDefaultTemplateWhenNotSetInConstructorOrOptions(): void
@@ -101,10 +95,7 @@ final class TwigViewTest extends TestCase
             ->method('mergeGlobals')
             ->willReturn([]);
 
-        self::assertSame(
-            'Twig template',
-            (new TwigView($this->twig))->render($this->createPagerfanta(), $this->createRouteGenerator())
-        );
+        self::assertSame('Twig template', (new TwigView($this->twig))->render($this->createPagerfanta(), $this->createRouteGenerator()));
     }
 
     /**

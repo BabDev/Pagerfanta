@@ -16,8 +16,7 @@ class NullAdapter implements AdapterInterface
      */
     public function __construct(
         private readonly int $nbResults = 0,
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return int<0, max>
