@@ -233,19 +233,26 @@ jobs:
       fail-fast: true
       matrix:
         php: ['8.1', '8.2']
+        odm: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
         include:
           - php: '8.1'
+            odm: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
           - php: '8.2'
+            odm: '^2.0@beta'
+            composer-flags: '--prefer-dist --prefer-lowest'
+            next-php: false
+          - php: '8.2'
+            odm: ''
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
             patch-packages: true
 
-    name: Doctrine PHPCR ODM - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
+    name: Doctrine PHPCR ODM${{ matrix.odm != '' && format(' {0}', matrix.odm) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
     steps:
       - name: Checkout code
@@ -262,6 +269,10 @@ jobs:
       - name: Patch Composer manifests
         if: ${{ matrix.patch-packages }}
         run: php .github/patch-packages.php
+
+      - name: Restrict ODM version
+        if: ${{ matrix.odm }}
+        run: (cd lib/Adapter/Doctrine/PHPCRODM && composer require --no-update doctrine/phpcr-odm:${{ matrix.odm }})
 
       - name: Install dependencies
         run: (cd lib/Adapter/Doctrine/PHPCRODM && composer update ${{ matrix.composer-flags }})

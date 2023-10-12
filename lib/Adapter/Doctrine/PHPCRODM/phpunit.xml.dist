@@ -2,7 +2,7 @@
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         colors="true"
-        bootstrap="vendor/autoload.php"
+        bootstrap="Tests/bootstrap.php"
         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
 >
     <testsuites>
