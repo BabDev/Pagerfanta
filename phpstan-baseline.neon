@@ -66,6 +66,16 @@ parameters:
 			path: lib/Adapter/Doctrine/ORM/Tests/QueryAdapterTest.php
 
 		-
+			message: "#^Call to an undefined method Doctrine\\\\Common\\\\Collections\\\\Collection\\|PHPCR\\\\Query\\\\QueryResultInterface\\:\\:getRows\\(\\)\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/PHPCRODM/QueryAdapter.php
+
+		-
+			message: "#^Call to an undefined method Iterator\\<mixed, PHPCR\\\\Query\\\\RowInterface\\>\\:\\:count\\(\\)\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/PHPCRODM/QueryAdapter.php
+
+		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/PHPCRODM/Tests/QueryAdapterTest.php
