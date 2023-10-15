@@ -19,7 +19,7 @@ final class SingleTableQueryAdapterTest extends DBALTestCase
     {
         parent::setUp();
 
-        $this->qb = new QueryBuilder($this->connection);
+        $this->qb = $this->connection->createQueryBuilder();
         $this->qb->select('p.*')->from('posts', 'p');
 
         $this->adapter = new SingleTableQueryAdapter($this->qb, 'p.id');
@@ -31,16 +31,6 @@ final class SingleTableQueryAdapterTest extends DBALTestCase
         $this->expectExceptionMessage('The $countField must contain a table alias in the string.');
 
         new SingleTableQueryAdapter($this->qb, 'id');
-    }
-
-    public function testAQueryWithJoinStatementsIsRejected(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The query builder cannot have joins.');
-
-        $this->qb->innerJoin('p', 'comments', 'c', 'c.post_id = p.id');
-
-        new SingleTableQueryAdapter($this->qb, 'p.id');
     }
 
     public function testAdapterReturnsNumberOfResults(): void

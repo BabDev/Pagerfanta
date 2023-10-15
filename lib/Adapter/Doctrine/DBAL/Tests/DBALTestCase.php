@@ -22,17 +22,16 @@ abstract class DBALTestCase extends TestCase
 
     private function createConnection(): Connection
     {
-        return DriverManager::getConnection(
-            [
-                'driver' => 'pdo_sqlite',
-                'memory' => true,
-            ]
-        );
+        return DriverManager::getConnection([
+            'driver' => 'pdo_sqlite',
+            'memory' => true,
+        ]);
     }
 
     private function createSchema(): void
     {
         $schema = new Schema();
+
         $posts = $schema->createTable('posts');
         $posts->addColumn('id', Types::INTEGER, ['unsigned' => true, 'autoincrement' => true]);
         $posts->addColumn('username', Types::STRING, ['length' => 32]);
@@ -46,9 +45,7 @@ abstract class DBALTestCase extends TestCase
         $comments->addColumn('content', Types::TEXT);
         $comments->setPrimaryKey(['id']);
 
-        $queries = $schema->toSql($this->connection->getDatabasePlatform()); // get queries to create this schema.
-
-        foreach ($queries as $sql) {
+        foreach ($schema->toSql($this->connection->getDatabasePlatform()) as $sql) {
             $this->connection->executeQuery($sql);
         }
     }

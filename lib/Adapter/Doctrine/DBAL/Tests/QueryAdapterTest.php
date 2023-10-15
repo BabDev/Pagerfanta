@@ -13,7 +13,7 @@ final class QueryAdapterTest extends DBALTestCase
     {
         parent::setUp();
 
-        $this->qb = new QueryBuilder($this->connection);
+        $this->qb = $this->connection->createQueryBuilder();
         $this->qb->select('p.*')->from('posts', 'p');
     }
 
