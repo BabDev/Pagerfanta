@@ -5,6 +5,7 @@ namespace Pagerfanta\Doctrine\MongoDBODM\Tests;
 use Doctrine\ODM\MongoDB\Aggregation\Aggregation;
 use Doctrine\ODM\MongoDB\Aggregation\Builder;
 use Doctrine\ODM\MongoDB\Aggregation\Stage\Count;
+use Doctrine\ODM\MongoDB\Aggregation\Stage\Limit;
 use Doctrine\ODM\MongoDB\Aggregation\Stage\Skip;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Iterator\Iterator;
@@ -85,12 +86,15 @@ final class AggregationAdapterTest extends TestCase
         /** @var MockObject&Skip $skipStage */
         $skipStage = $this->createMock(Skip::class);
 
+        /** @var MockObject&Limit $limitStage */
+        $limitStage = $this->createMock(Limit::class);
+
         $skipStage->expects(self::once())
             ->method('limit')
             ->with($length)
-            ->willReturn($this->aggregationBuilder);
+            ->willReturn($limitStage);
 
-        $this->aggregationBuilder->expects(self::once())
+        $limitStage->expects(self::once())
             ->method('getAggregation')
             ->willReturn($aggregation);
 
