@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.3.0 (2024-01-27)
+
+- Add support for `doctrine/dbal` 4.x
+- Add support for `doctrine/orm` 3.x
+
 ## 4.2.0 (2023-07-10)
 
 - [#50](https://github.com/BabDev/Pagerfanta/pull/50) Add `page` variable to Twig blocks where missing
