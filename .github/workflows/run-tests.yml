@@ -193,19 +193,26 @@ jobs:
       fail-fast: true
       matrix:
         php: ['8.1', '8.2', '8.3']
+        orm: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
         include:
           - php: '8.1'
+            orm: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
           - php: '8.3'
+            orm: '^3.0@beta'
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+          - php: '8.3'
+            orm: ''
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
             patch-packages: true
 
-    name: Doctrine ORM - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
+    name: Doctrine ORM${{ matrix.orm != '' && format(' {0}', matrix.orm) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
     steps:
       - name: Checkout code
@@ -222,6 +229,10 @@ jobs:
       - name: Patch Composer manifests
         if: ${{ matrix.patch-packages }}
         run: php .github/patch-packages.php
+
+      - name: Restrict ORM version
+        if: ${{ matrix.orm }}
+        run: (cd lib/Adapter/Doctrine/ORM && composer require --no-update doctrine/orm:${{ matrix.orm }})
 
       - name: Install dependencies
         run: (cd lib/Adapter/Doctrine/ORM && composer update ${{ matrix.composer-flags }})
