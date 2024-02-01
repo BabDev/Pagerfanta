@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.3.1 (2024-01-31)
+
+- [#53](https://github.com/BabDev/Pagerfanta/pull/53) Fix Doctrine's `Criteria::setFirstResult()` method usage deprecation
+
 ## 4.3.0 (2024-01-27)
 
 - Add support for `doctrine/dbal` 4.x
