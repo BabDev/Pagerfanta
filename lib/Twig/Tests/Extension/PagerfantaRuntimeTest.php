@@ -159,6 +159,6 @@ final class PagerfantaRuntimeTest extends TestCase
 
     private function removeWhitespacesBetweenTags(string $string): string
     {
-        return preg_replace('/>\s+</', '><', $string);
+        return preg_replace('/>\s+</', '><', $string) ?? '';
     }
 }

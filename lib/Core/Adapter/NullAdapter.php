@@ -5,9 +5,7 @@ namespace Pagerfanta\Adapter;
 /**
  * Adapter which generates a null item list based on a number of results.
  *
- * @template T
- *
- * @implements AdapterInterface<T>
+ * @implements AdapterInterface<null>
  */
 class NullAdapter implements AdapterInterface
 {
@@ -35,7 +33,7 @@ class NullAdapter implements AdapterInterface
      * @phpstan-param int<0, max> $offset
      * @phpstan-param int<0, max> $length
      *
-     * @return iterable<array-key, T>
+     * @return iterable<array-key, null>
      */
     public function getSlice(int $offset, int $length): iterable
     {
@@ -70,13 +68,13 @@ class NullAdapter implements AdapterInterface
      */
     private function remainCount(int $offset): int
     {
-        return $this->nbResults - $offset;
+        return max(0, $this->nbResults - $offset);
     }
 
     /**
      * @phpstan-param int<0, max> $length
      *
-     * @return array<int, T>
+     * @return array<int, null>
      */
     private function createNullArray(int $length): array
     {

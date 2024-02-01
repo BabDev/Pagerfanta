@@ -14,19 +14,19 @@ use Pagerfanta\Exception\InvalidArgumentException;
 class ConcatenationAdapter implements AdapterInterface
 {
     /**
-     * @var array<array-key, AdapterInterface<T>>
+     * @var list<AdapterInterface<T>>
      */
     protected array $adapters;
 
     /**
      * Cache of the numbers of results of the adapters. The indexes correspond the indexes of the $adapters property.
      *
-     * @var array<array-key, int>|null
+     * @var list<int<0, max>>|null
      */
     protected ?array $adaptersNbResultsCache = null;
 
     /**
-     * @param array<array-key, AdapterInterface<T>> $adapters
+     * @param list<AdapterInterface<T>> $adapters
      *
      * @throws InvalidArgumentException if an adapter is not a `Pagerfanta\Adapter\AdapterInterface` instance
      */
@@ -50,6 +50,8 @@ class ConcatenationAdapter implements AdapterInterface
             $this->refreshAdaptersNbResults();
         }
 
+        \assert(null !== $this->adaptersNbResultsCache);
+
         return array_sum($this->adaptersNbResultsCache);
     }
 
@@ -64,6 +66,8 @@ class ConcatenationAdapter implements AdapterInterface
         if (null === $this->adaptersNbResultsCache) {
             $this->refreshAdaptersNbResults();
         }
+
+        \assert(null !== $this->adaptersNbResultsCache);
 
         $slice = [];
         $previousAdaptersNbResultsSum = 0;

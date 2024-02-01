@@ -83,6 +83,6 @@ abstract class ViewTestCase extends TestCase
 
     protected function removeWhitespacesBetweenTags(string $string): string
     {
-        return preg_replace('/>\s+</', '><', $string);
+        return preg_replace('/>\s+</', '><', $string) ?? '';
     }
 }

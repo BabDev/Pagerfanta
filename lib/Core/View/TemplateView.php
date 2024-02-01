@@ -108,6 +108,9 @@ abstract class TemplateView extends View
 
     private function pages(): string
     {
+        \assert(null !== $this->startPage);
+        \assert(null !== $this->endPage);
+
         $pages = '';
 
         foreach (range($this->startPage, $this->endPage) as $page) {

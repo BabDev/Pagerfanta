@@ -79,6 +79,9 @@ class SolariumAdapter implements AdapterInterface
     /**
      * @phpstan-param int<0, max>|null $start
      * @phpstan-param int<0, max>|null $rows
+     *
+     * @phpstan-assert-if-true int<0, max> $start
+     * @phpstan-assert-if-true int<0, max> $rows
      */
     private function resultSetStartAndRowsAreNotNullAndChange(?int $start, ?int $rows): bool
     {
@@ -88,6 +91,9 @@ class SolariumAdapter implements AdapterInterface
     /**
      * @phpstan-param int<0, max>|null $start
      * @phpstan-param int<0, max>|null $rows
+     *
+     * @phpstan-assert-if-true int<0, max> $start
+     * @phpstan-assert-if-true int<0, max> $rows
      */
     private function resultSetStartAndRowsAreNotNull(?int $start, ?int $rows): bool
     {
@@ -95,16 +101,19 @@ class SolariumAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max>|null $start
-     * @phpstan-param int<0, max>|null $rows
+     * @phpstan-param int<0, max> $start
+     * @phpstan-param int<0, max> $rows
      */
-    private function resultSetStartAndRowsChange(?int $start, ?int $rows): bool
+    private function resultSetStartAndRowsChange(int $start, int $rows): bool
     {
         return $start !== $this->resultSetStart || $rows !== $this->resultSetRows;
     }
 
     private function modifyQuery(): void
     {
+        \assert(null !== $this->resultSetStart);
+        \assert(null !== $this->resultSetRows);
+
         $this->query->setStart($this->resultSetStart)
             ->setRows($this->resultSetRows);
     }

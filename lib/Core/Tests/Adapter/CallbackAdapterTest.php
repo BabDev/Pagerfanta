@@ -25,7 +25,7 @@ final class CallbackAdapterTest extends TestCase
         $this->expectException(NotValidResultCountException::class);
 
         $adapter = new CallbackAdapter(
-            static fn () => -10,
+            static fn () => -10, /** @phpstan-ignore-line */
             static fn (int $offset, int $length) => []
         );
 

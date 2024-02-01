@@ -58,6 +58,9 @@ abstract class View implements ViewInterface
 
     protected function calculateStartAndEndPage(): void
     {
+        \assert(null !== $this->currentPage);
+        \assert(null !== $this->proximity);
+
         $startPage = $this->currentPage - $this->proximity;
         $endPage = $this->currentPage + $this->proximity;
 
@@ -70,6 +73,9 @@ abstract class View implements ViewInterface
             $startPage = $this->calculateStartPageForEndPageOverflow($startPage, $endPage);
             $endPage = $this->nbPages;
         }
+
+        \assert($startPage >= 1);
+        \assert($endPage >= 1);
 
         $this->startPage = $startPage;
         $this->endPage = $endPage;
@@ -90,6 +96,8 @@ abstract class View implements ViewInterface
      */
     protected function calculateEndPageForStartPageUnderflow(int $startPage, int $endPage): int
     {
+        \assert(null !== $this->nbPages);
+
         return min($endPage + (1 - $startPage), $this->nbPages);
     }
 

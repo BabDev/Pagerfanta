@@ -11,7 +11,7 @@ parameters:
 			path: lib/Adapter/Doctrine/Collections/SelectableAdapter.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable will always evaluate to false\\.$#"
+			message: "#^Parameter \\#1 \\$array of function array_values expects array, iterable\\<\\(int\\|string\\), int\\> given\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/Collections/Tests/CollectionAdapterTest.php
 
@@ -86,44 +86,9 @@ parameters:
 			path: lib/Adapter/Solarium/SolariumAdapter.php
 
 		-
-			message: "#^Parameter \\#1 \\$rows of method Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\:\\:setRows\\(\\) expects int, int\\<0, max\\>\\|null given\\.$#"
-			count: 1
-			path: lib/Adapter/Solarium/SolariumAdapter.php
-
-		-
-			message: "#^Parameter \\#1 \\$start of method Solarium\\\\QueryType\\\\Select\\\\Query\\\\Query\\:\\:setStart\\(\\) expects int, int\\<0, max\\>\\|null given\\.$#"
-			count: 1
-			path: lib/Adapter/Solarium/SolariumAdapter.php
-
-		-
-			message: "#^Method Pagerfanta\\\\Adapter\\\\ConcatenationAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns \\(float\\|int\\)\\.$#"
-			count: 1
-			path: lib/Core/Adapter/ConcatenationAdapter.php
-
-		-
-			message: "#^Offset \\(int\\|string\\) does not exist on array\\<int\\>\\|null\\.$#"
-			count: 1
-			path: lib/Core/Adapter/ConcatenationAdapter.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_sum expects array, array\\<int\\>\\|null given\\.$#"
-			count: 1
-			path: lib/Core/Adapter/ConcatenationAdapter.php
-
-		-
 			message: "#^Parameter \\#2 \\$length of method Pagerfanta\\\\Adapter\\\\AdapterInterface\\<T\\>\\:\\:getSlice\\(\\) expects int\\<0, max\\>, int given\\.$#"
 			count: 1
 			path: lib/Core/Adapter/ConcatenationAdapter.php
-
-		-
-			message: "#^Method Pagerfanta\\\\Adapter\\\\NullAdapter\\:\\:createNullArray\\(\\) should return array\\<int, T\\> but returns array\\<int, null\\>\\.$#"
-			count: 1
-			path: lib/Core/Adapter/NullAdapter.php
-
-		-
-			message: "#^Method Pagerfanta\\\\Adapter\\\\NullAdapter\\:\\:remainCount\\(\\) should return int\\<0, max\\> but returns int\\.$#"
-			count: 1
-			path: lib/Core/Adapter/NullAdapter.php
 
 		-
 			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:calculateNbPages\\(\\) should return int\\<0, max\\> but returns int\\.$#"
@@ -131,22 +96,7 @@ parameters:
 			path: lib/Core/Pagerfanta.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:filterOutOfRangeCurrentPage\\(\\) should return int\\<1, max\\> but returns int\\.$#"
-			count: 1
-			path: lib/Core/Pagerfanta.php
-
-		-
 			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:getPageNumberForItemAtPosition\\(\\) should return int\\<1, max\\> but returns int\\.$#"
-			count: 1
-			path: lib/Core/Pagerfanta.php
-
-		-
-			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:getPreviousPage\\(\\) should return int\\<1, max\\> but returns int\\<0, max\\>\\.$#"
-			count: 1
-			path: lib/Core/Pagerfanta.php
-
-		-
-			message: "#^Property Pagerfanta\\\\Pagerfanta\\<T\\>\\:\\:\\$maxPerPage \\(int\\<1, max\\>\\) does not accept int\\.$#"
 			count: 1
 			path: lib/Core/Pagerfanta.php
 
@@ -161,16 +111,6 @@ parameters:
 			path: lib/Core/Tests/Adapter/CallbackAdapterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$nbResultsCallable of class Pagerfanta\\\\Adapter\\\\CallbackAdapter constructor expects callable\\(\\)\\: int\\<0, max\\>, Closure\\(\\)\\: \\-10 given\\.$#"
-			count: 1
-			path: lib/Core/Tests/Adapter/CallbackAdapterTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$adapters of class Pagerfanta\\\\Adapter\\\\ConcatenationAdapter constructor expects array\\<Pagerfanta\\\\Adapter\\\\AdapterInterface\\<\\*NEVER\\*\\>\\>, array\\{Pagerfanta\\\\Adapter\\\\ArrayAdapter\\<\\*NEVER\\*\\>, 'foo'\\} given\\.$#"
-			count: 1
-			path: lib/Core/Tests/Adapter/ConcatenationAdapterTest.php
-
-		-
 			message: "#^Property Pagerfanta\\\\Tests\\\\Adapter\\\\TransformingAdapterTest\\:\\:\\$adapter \\(Pagerfanta\\\\Adapter\\\\TransformingAdapter\\<int\\<1, 100\\>, string\\>\\) does not accept Pagerfanta\\\\Adapter\\\\TransformingAdapter\\<int, string\\>\\.$#"
 			count: 2
 			path: lib/Core/Tests/Adapter/TransformingAdapterTest.php
@@ -181,32 +121,7 @@ parameters:
 			path: lib/Core/Tests/PagerfantaTest.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Tests\\\\View\\\\ViewTestCase\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: lib/Core/Tests/View/ViewTestCase.php
-
-		-
-			message: "#^Parameter \\#1 \\$start of function range expects float\\|int\\|string, int\\<1, max\\>\\|null given\\.$#"
-			count: 1
-			path: lib/Core/View/TemplateView.php
-
-		-
-			message: "#^Parameter \\#2 \\$end of function range expects float\\|int\\|string, int\\<1, max\\>\\|null given\\.$#"
-			count: 1
-			path: lib/Core/View/TemplateView.php
-
-		-
-			message: "#^Method Pagerfanta\\\\View\\\\View\\:\\:calculateEndPageForStartPageUnderflow\\(\\) should return int\\<1, max\\> but returns int\\|null\\.$#"
-			count: 1
-			path: lib/Core/View/View.php
-
-		-
-			message: "#^Property Pagerfanta\\\\View\\\\View\\:\\:\\$endPage \\(int\\<1, max\\>\\|null\\) does not accept int\\|null\\.$#"
-			count: 1
-			path: lib/Core/View/View.php
-
-		-
-			message: "#^Property Pagerfanta\\\\View\\\\View\\:\\:\\$startPage \\(int\\<1, max\\>\\|null\\) does not accept int\\.$#"
+			message: "#^Method Pagerfanta\\\\View\\\\View\\:\\:calculateEndPageForStartPageUnderflow\\(\\) should return int\\<1, max\\> but returns int\\.$#"
 			count: 1
 			path: lib/Core/View/View.php
 
@@ -216,17 +131,7 @@ parameters:
 			path: lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Twig\\\\Tests\\\\Extension\\\\PagerfantaRuntimeTest\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
-
-		-
 			message: "#^Method Pagerfanta\\\\Twig\\\\Tests\\\\View\\\\TwigViewIntegrationTest\\:\\:createPagerfanta\\(\\) should return Pagerfanta\\\\Pagerfanta\\<int\\<1, 100\\>\\> but returns Pagerfanta\\\\Pagerfanta\\<int\\>\\.$#"
-			count: 1
-			path: lib/Twig/Tests/View/TwigViewIntegrationTest.php
-
-		-
-			message: "#^Method Pagerfanta\\\\Twig\\\\Tests\\\\View\\\\TwigViewIntegrationTest\\:\\:removeWhitespacesBetweenTags\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: lib/Twig/Tests/View/TwigViewIntegrationTest.php
 

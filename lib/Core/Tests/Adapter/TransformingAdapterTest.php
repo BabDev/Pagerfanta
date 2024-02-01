@@ -9,9 +9,9 @@ use PHPUnit\Framework\TestCase;
 final class TransformingAdapterTest extends TestCase
 {
     /**
-     * @var int[]
+     * @var list<int>
      *
-     * @phpstan-var array<int<1, 100>>
+     * @phpstan-var list<int<1, 100>>
      */
     private array $array;
 

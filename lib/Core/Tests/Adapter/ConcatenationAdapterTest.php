@@ -32,6 +32,7 @@ final class ConcatenationAdapterTest extends TestCase
         $this->expectExceptionMessage(sprintf('The $adapters argument of the %s constructor expects all items to be an instance of %s.', ConcatenationAdapter::class, AdapterInterface::class));
 
         new ConcatenationAdapter(
+            /** @phpstan-ignore-next-line */
             [
                 new ArrayAdapter([]),
                 'foo',
