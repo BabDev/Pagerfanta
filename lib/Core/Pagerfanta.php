@@ -53,7 +53,7 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     ) {}
 
     /**
-     * @param AdapterInterface<T> $adapter
+     * @param AdapterInterface $adapter
      *
      * @return self<T>
      */
