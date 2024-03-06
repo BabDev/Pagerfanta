@@ -20,7 +20,7 @@ class ElasticaAdapter implements AdapterInterface
     /**
      * @phpstan-var int<0, max>|null
      */
-    private readonly int|null $maxResults;
+    private readonly ?int $maxResults;
 
     private ?ResultSet $resultSet = null;
 
