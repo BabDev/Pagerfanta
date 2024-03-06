@@ -54,6 +54,7 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
 
     /**
      * @param AdapterInterface<T> $adapter
+     * @psalm-param AdapterInterface<mixed> $adapter
      *
      * @return self<T>
      */
