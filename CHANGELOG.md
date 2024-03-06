@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.3.2 (2024-03-06)
+
+- [#54](https://github.com/BabDev/Pagerfanta/pull/54) Add Psalm annotations to the `Pagerfanta::createForCurrentPageWithMaxPerPage()` static constructor
+
 ## 4.3.1 (2024-01-31)
 
 - [#53](https://github.com/BabDev/Pagerfanta/pull/53) Fix Doctrine's `Criteria::setFirstResult()` method usage deprecation
