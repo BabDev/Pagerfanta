@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.0 (2024-03-24)
+
+- [#55](https://github.com/BabDev/Pagerfanta/pull/55) Add an EmptyAdapter
+
 ## 4.3.2 (2024-03-06)
 
 - [#54](https://github.com/BabDev/Pagerfanta/pull/54) Add Psalm annotations to the `Pagerfanta::createForCurrentPageWithMaxPerPage()` static constructor
