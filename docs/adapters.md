@@ -322,6 +322,45 @@ $adapter = new ConcatenationAdapter(
 );
 ```
 
+### Empty
+
+<div class="docs-note docs-note--new-feature">The empty adapter was introduced in Pagerfanta 4.3.</div>
+
+The `EmptyAdapter` provides an always empty result set, optimal for scenarios such as conditional returns to skip database queries where the application knows the parameters cannot produce a result set.
+
+```php
+<?php
+
+use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Query\QueryBuilder;
+use Pagerfanta\Adapter\EmptyAdapter;
+use Pagerfanta\Doctrine\DBAL\QueryAdapter;
+
+/*
+ * Complex logic to set up parameters for a query, $shouldQuery is a pseudo-result of this step
+ */
+
+if (!$shouldQuery) {
+    $adapter = new EmptyAdapter();
+} else {
+    $connection = DriverManager::getConnection([
+        'driver' => 'pdo_sqlite',
+        'memory' => true,
+    ]);
+
+    $query = $connection->createQueryBuilder()
+        ->select('p.*')
+        ->from('posts', 'p');
+
+    $countQueryBuilderModifier = static function (QueryBuilder $queryBuilder): void {
+        $queryBuilder->select('COUNT(DISTINCT p.id) AS total_results')
+            ->setMaxResults(1);
+    };
+
+    $adapter = new QueryAdapter($query, $countQueryBuilderModifier);
+}
+```
+
 ### Fixed Size
 
 The `FixedAdapter` takes a fixed data set and returns it no matter the request.
