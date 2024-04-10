@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.5.0 (2024-04-10)
+
+- Add support for `doctrine/phpcr-odm` 2.x
+
 ## 4.4.0 (2024-03-24)
 
 - [#55](https://github.com/BabDev/Pagerfanta/pull/55) Add an EmptyAdapter
