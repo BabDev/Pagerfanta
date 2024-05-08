@@ -24,14 +24,23 @@ final class TwigViewTest extends TestCase
     {
         $options = ['template' => 'test.html.twig'];
 
+        /** @var MockObject&Template $template */
         $template = $this->createMock(Template::class);
-        $template->expects(self::once())
-            ->method('displayBlock')
-            ->willReturnCallback(
-                static function (): void {
-                    echo 'Twig template';
-                }
-            );
+
+        // As of Twig 3.9, the internal wrapper implementation changed to accommodate the new yield strategy
+        if (method_exists(Template::class, 'yieldBlock')) {
+            $template->expects(self::once())
+                ->method('renderBlock')
+                ->willReturn('Twig template');
+        } else {
+            $template->expects(self::once())
+                ->method('displayBlock')
+                ->willReturnCallback(
+                    static function (): void {
+                        echo 'Twig template';
+                    }
+                );
+        }
 
         $this->twig->expects(self::once())
             ->method('load')
@@ -51,14 +60,23 @@ final class TwigViewTest extends TestCase
 
     public function testRendersWithATemplateSpecifiedInTheConstructorWhenNotSetInTheOptions(): void
     {
+        /** @var MockObject&Template $template */
         $template = $this->createMock(Template::class);
-        $template->expects(self::once())
-            ->method('displayBlock')
-            ->willReturnCallback(
-                static function (): void {
-                    echo 'Twig template';
-                }
-            );
+
+        // As of Twig 3.9, the internal wrapper implementation changed to accommodate the new yield strategy
+        if (method_exists(Template::class, 'yieldBlock')) {
+            $template->expects(self::once())
+                ->method('renderBlock')
+                ->willReturn('Twig template');
+        } else {
+            $template->expects(self::once())
+                ->method('displayBlock')
+                ->willReturnCallback(
+                    static function (): void {
+                        echo 'Twig template';
+                    }
+                );
+        }
 
         $this->twig->expects(self::once())
             ->method('load')
@@ -77,14 +95,23 @@ final class TwigViewTest extends TestCase
 
     public function testRendersWithTheDefaultTemplateWhenNotSetInConstructorOrOptions(): void
     {
+        /** @var MockObject&Template $template */
         $template = $this->createMock(Template::class);
-        $template->expects(self::once())
-            ->method('displayBlock')
-            ->willReturnCallback(
-                static function (): void {
-                    echo 'Twig template';
-                }
-            );
+
+        // As of Twig 3.9, the internal wrapper implementation changed to accommodate the new yield strategy
+        if (method_exists(Template::class, 'yieldBlock')) {
+            $template->expects(self::once())
+                ->method('renderBlock')
+                ->willReturn('Twig template');
+        } else {
+            $template->expects(self::once())
+                ->method('displayBlock')
+                ->willReturnCallback(
+                    static function (): void {
+                        echo 'Twig template';
+                    }
+                );
+        }
 
         $this->twig->expects(self::once())
             ->method('load')
