@@ -4,6 +4,7 @@ namespace Pagerfanta\Doctrine\DBAL\Tests;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Pagerfanta\Doctrine\DBAL\QueryAdapter;
+use PHPUnit\Framework\Attributes\Group;
 
 final class QueryAdapterTest extends DBALTestCase
 {
@@ -15,6 +16,20 @@ final class QueryAdapterTest extends DBALTestCase
 
         $this->qb = $this->connection->createQueryBuilder();
         $this->qb->select('p.*')->from('posts', 'p');
+    }
+
+    #[Group('legacy')]
+    public function testAdapterReturnsNumberOfResultsWhenCallbackUsesDeprecatedNoReturnSignature(): void
+    {
+        $adapter = new QueryAdapter(
+            $this->qb,
+            static function (QueryBuilder $qb): void {
+                $qb->select('COUNT(DISTINCT p.id) AS total_results')
+                    ->setMaxResults(1);
+            }
+        );
+
+        self::assertSame(50, $adapter->getNbResults());
     }
 
     public function testAdapterReturnsNumberOfResults(): void
@@ -35,7 +50,7 @@ final class QueryAdapterTest extends DBALTestCase
 
     public function testGetSlice(): void
     {
-        $adapter = new QueryAdapter($this->qb, static function (QueryBuilder $qb): void {});
+        $adapter = new QueryAdapter($this->qb, static fn (QueryBuilder $qb): QueryBuilder => $qb);
 
         $offset = 30;
         $length = 10;
@@ -63,10 +78,7 @@ final class QueryAdapterTest extends DBALTestCase
     {
         return new QueryAdapter(
             $this->qb,
-            static function (QueryBuilder $qb): void {
-                $qb->select('COUNT(DISTINCT p.id) AS total_results')
-                    ->setMaxResults(1);
-            }
+            static fn (QueryBuilder $qb): QueryBuilder => $qb->select('COUNT(DISTINCT p.id) AS total_results')->setMaxResults(1),
         );
     }
 }

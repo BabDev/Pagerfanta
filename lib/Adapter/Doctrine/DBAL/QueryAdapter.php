@@ -19,12 +19,12 @@ class QueryAdapter implements AdapterInterface
     /**
      * @var callable
      *
-     * @phpstan-var callable(QueryBuilder): void
+     * @phpstan-var callable(QueryBuilder): (QueryBuilder|void)
      */
     private $countQueryBuilderModifier;
 
     /**
-     * @phpstan-param callable(QueryBuilder): void $countQueryBuilderModifier
+     * @phpstan-param callable(QueryBuilder): (QueryBuilder|void) $countQueryBuilderModifier
      */
     public function __construct(QueryBuilder $queryBuilder, callable $countQueryBuilderModifier)
     {
@@ -63,7 +63,13 @@ class QueryAdapter implements AdapterInterface
         $qb = clone $this->queryBuilder;
         $callable = $this->countQueryBuilderModifier;
 
-        $callable($qb);
+        $newQb = $callable($qb);
+
+        if ($newQb instanceof QueryBuilder) {
+            return $newQb;
+        }
+
+        trigger_deprecation('pagerfanta/doctrine-dbal-adapter', '4.6', 'Not returning a "%s" from the query builder modifier in "%s" is deprecated. In 5.0, returning a query builder object will be required.');
 
         return $qb;
     }

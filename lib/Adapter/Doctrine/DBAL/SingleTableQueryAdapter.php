@@ -28,7 +28,7 @@ class SingleTableQueryAdapter extends QueryAdapter
     {
         $select = $this->createSelectForCountField($countField);
 
-        return static function (QueryBuilder $queryBuilder) use ($select): void {
+        return static function (QueryBuilder $queryBuilder) use ($select): QueryBuilder {
             $queryBuilder->select($select);
 
             if (method_exists($queryBuilder, 'resetOrderBy')) {
@@ -38,6 +38,8 @@ class SingleTableQueryAdapter extends QueryAdapter
             }
 
             $queryBuilder->setMaxResults(1);
+
+            return $queryBuilder;
         };
     }
 

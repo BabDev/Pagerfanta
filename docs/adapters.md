@@ -107,7 +107,9 @@ $adapter = new SingleTableQueryAdapter($query, 'p.id');
 
 The `QueryAdapter` is the main adapter for use with the DBAL package, you should use this on queries that have join statements.
 
-The class constructor requires a `Doctrine\DBAL\Query\QueryBuilder` and a callable which can be used to modify a clone of the `QueryBuilder` for a COUNT query. The callable should have a signature of `function (QueryBuilder $queryBuilder): void {}`.
+The class constructor requires a `Doctrine\DBAL\Query\QueryBuilder` and a callable which can be used to modify a clone of the query builder for a COUNT query. The callable should have a signature of `function (QueryBuilder $queryBuilder): QueryBuilder {}`.
+
+<div class="docs-note docs-note--deprecated-feature">Before Pagerfanta 4.6, a return from the callable was ignored and the query builder passed to the callable was returned. This approach is deprecated in favor of the callable returning a query builder object, be it the provided builder or a new instance. In Pagerfanta 5.0, this return will be required.</div>
 
 Below is an example of using the `QueryAdapter`.
 
@@ -129,9 +131,11 @@ $query = $connection->createQueryBuilder()
     ->select('p.*')
     ->from('posts', 'p');
 
-$countQueryBuilderModifier = static function (QueryBuilder $queryBuilder): void {
+$countQueryBuilderModifier = static function (QueryBuilder $queryBuilder): QueryBuilder {
     $queryBuilder->select('COUNT(DISTINCT p.id) AS total_results')
         ->setMaxResults(1);
+
+    return $queryBuilder;
 };
 
 $adapter = new QueryAdapter($query, $countQueryBuilderModifier);
