@@ -11,7 +11,7 @@
     },
     "require-dev": {
         "dg/bypass-finals": "^1.5.1",
-        "jackalope/jackalope-doctrine-dbal": "^1.9",
+        "jackalope/jackalope-doctrine-dbal": "^1.9 || ^2.0",
         "phpunit/phpunit": "^10.5"
     },
     "autoload": {
