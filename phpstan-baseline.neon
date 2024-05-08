@@ -26,6 +26,11 @@ parameters:
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
 
 		-
+			message: "#^Call to an undefined method Doctrine\\\\DBAL\\\\Query\\\\QueryBuilder\\:\\:resetQueryPart\\(\\)\\.$#"
+			count: 1
+			path: lib/Adapter/Doctrine/DBAL/SingleTableQueryAdapter.php
+
+		-
 			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns array\\<string, mixed\\>\\|int\\|object\\|null\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
