@@ -4,5 +4,7 @@ parameters:
   level: 8
   paths:
     - %currentWorkingDirectory%/lib
-  checkMissingIterableValueType: false
   treatPhpDocTypesAsCertain: false
+  ignoreErrors:
+      -
+          identifier: missingType.iterableValue

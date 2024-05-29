@@ -17,13 +17,11 @@ final class ConcatenationAdapterTest extends TestCase
     #[DoesNotPerformAssertions]
     public function testAdapterIsInstantiatedWhenOnlyAdaptersAreProvided(): void
     {
-        new ConcatenationAdapter(
-            [
-                new ArrayAdapter([]),
-                new NullAdapter(),
-                new FixedAdapter(0, []),
-            ]
-        );
+        new ConcatenationAdapter([
+            new ArrayAdapter([]),
+            new NullAdapter(),
+            new FixedAdapter(0, []),
+        ]);
     }
 
     public function testAdapterIsNotInstantiatedWhenANonAdapterIsProvided(): void
@@ -31,35 +29,30 @@ final class ConcatenationAdapterTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('The $adapters argument of the %s constructor expects all items to be an instance of %s.', ConcatenationAdapter::class, AdapterInterface::class));
 
-        new ConcatenationAdapter(
-            /** @phpstan-ignore-next-line */
-            [
-                new ArrayAdapter([]),
-                'foo',
-            ]
-        );
+        /** @phpstan-ignore-next-line argument.type */
+        new ConcatenationAdapter([
+            new ArrayAdapter([]),
+            'foo',
+        ]);
     }
 
     public function testGetNbResultsFromSingleAdapter(): void
     {
-        $adapter = new ConcatenationAdapter(
-            [
-                new ArrayAdapter(['foo', 'bar', 'baz']),
-            ]
-        );
+        $adapter = new ConcatenationAdapter([
+            new ArrayAdapter(['foo', 'bar', 'baz']),
+        ]);
 
         self::assertSame(3, $adapter->getNbResults());
     }
 
     public function testGetNbResultsFromMultipleAdapters(): void
     {
-        $adapter = new ConcatenationAdapter(
-            [
-                new ArrayAdapter(array_fill(0, 4, 'foo')),
-                new ArrayAdapter(array_fill(0, 6, 'bar')),
-                new ArrayAdapter(['baq']),
-            ]
-        );
+        $adapter = new ConcatenationAdapter([
+            new ArrayAdapter(array_fill(0, 4, 'foo')),
+            new ArrayAdapter(array_fill(0, 6, 'bar')),
+            new ArrayAdapter(['baq']),
+        ]);
+
         self::assertSame(11, $adapter->getNbResults());
     }
 
@@ -84,18 +77,16 @@ final class ConcatenationAdapterTest extends TestCase
 
     public function testGetResultsWithTraversableAdapter(): void
     {
-        $adapter = new ConcatenationAdapter(
-            [
-                new CallbackAdapter(
-                    static fn () => 5,
-                    static fn (int $offset, int $length) => new \ArrayIterator(\array_slice([1, 2, 3, 4, 5], $offset, $length))
-                ),
-                new CallbackAdapter(
-                    static fn () => 3,
-                    static fn (int $offset, int $length) => new \ArrayIterator(\array_slice([6, 7, 8], $offset, $length))
-                ),
-            ]
-        );
+        $adapter = new ConcatenationAdapter([
+            new CallbackAdapter(
+                static fn () => 5,
+                static fn (int $offset, int $length) => new \ArrayIterator(\array_slice([1, 2, 3, 4, 5], $offset, $length))
+            ),
+            new CallbackAdapter(
+                static fn () => 3,
+                static fn (int $offset, int $length) => new \ArrayIterator(\array_slice([6, 7, 8], $offset, $length))
+            ),
+        ]);
 
         self::assertSame([2, 3], $adapter->getSlice(1, 2));
         self::assertSame([4, 5, 6], $adapter->getSlice(3, 3));
