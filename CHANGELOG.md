@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.6.0 (2024-??-??)
+## 4.6.0 (2024-05-29)
 
 - Add support for `ruflin/elastica` 8.x
 - Deprecate not returning a query builder from the modifier callback in `Pagerfanta\Doctrine\DBAL\QueryAdapter`
