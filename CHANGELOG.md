@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.6.0 (2024-??-??)
+
+- Add support for `ruflin/elastica` 8.x
+
 ## 4.5.0 (2024-04-10)
 
 - Add support for `doctrine/phpcr-odm` 2.x
