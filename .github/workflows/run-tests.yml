@@ -104,7 +104,7 @@ jobs:
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
           - php: '8.3'
-            dbal: '^4.0@rc'
+            dbal: '^4.0'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
           - php: '8.3'
