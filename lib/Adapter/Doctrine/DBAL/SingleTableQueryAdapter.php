@@ -52,7 +52,7 @@ class SingleTableQueryAdapter extends QueryAdapter
             throw new InvalidArgumentException('The $countField must contain a table alias in the string.');
         }
 
-        return sprintf('COUNT(DISTINCT %s) AS total_results', $countField);
+        return \sprintf('COUNT(DISTINCT %s) AS total_results', $countField);
     }
 
     private function countFieldHasNoAlias(string $countField): bool

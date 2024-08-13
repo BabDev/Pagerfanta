@@ -27,7 +27,7 @@ final class ConcatenationAdapterTest extends TestCase
     public function testAdapterIsNotInstantiatedWhenANonAdapterIsProvided(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('The $adapters argument of the %s constructor expects all items to be an instance of %s.', ConcatenationAdapter::class, AdapterInterface::class));
+        $this->expectExceptionMessage(\sprintf('The $adapters argument of the %s constructor expects all items to be an instance of %s.', ConcatenationAdapter::class, AdapterInterface::class));
 
         /** @phpstan-ignore-next-line argument.type */
         new ConcatenationAdapter([

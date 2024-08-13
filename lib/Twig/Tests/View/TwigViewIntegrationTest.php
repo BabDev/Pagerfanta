@@ -398,7 +398,7 @@ final class TwigViewIntegrationTest extends TestCase
 
     private function createRouteGeneratorFactory(): RouteGeneratorFactoryInterface
     {
-        return new class() implements RouteGeneratorFactoryInterface {
+        return new class implements RouteGeneratorFactoryInterface {
             /**
              * @param array<string, mixed> $options
              */

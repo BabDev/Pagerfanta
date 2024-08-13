@@ -2,18 +2,11 @@
 
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
-use Rector\PHPUnit\CodeQuality\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 
 return RectorConfig::configure()
     ->withPaths([
         __DIR__.'/lib',
-    ])
-    ->withSkip([
-        /*
-         * Skip selected rules
-         */
-        AddSeeTestAnnotationRector::class,
     ])
     ->withImportNames(importShortClasses: false)
     ->withPHPStanConfigs([__DIR__.'/phpstan.neon'])

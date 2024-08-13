@@ -29,7 +29,7 @@ class Foundation6Template extends Template
 
     public function container(): string
     {
-        return sprintf(
+        return \sprintf(
             $this->option('container_template'),
             $this->option('css_container_class')
         );
@@ -99,24 +99,24 @@ class Foundation6Template extends Template
 
     public function separator(): string
     {
-        $liClass = sprintf(' class="%s"', trim($this->option('css_item_class').' '.$this->option('css_dots_class')));
+        $liClass = \sprintf(' class="%s"', trim($this->option('css_item_class').' '.$this->option('css_dots_class')));
 
-        return sprintf('<li aria-hidden="true"%s>%s</li>', $liClass, $this->option('dots_message'));
+        return \sprintf('<li aria-hidden="true"%s>%s</li>', $liClass, $this->option('dots_message'));
     }
 
     protected function li(string $class, int|string $text): string
     {
-        $liClass = sprintf(' class="%s"', trim($this->option('css_item_class').' '.$class));
+        $liClass = \sprintf(' class="%s"', trim($this->option('css_item_class').' '.$class));
 
-        return sprintf('<li%s>%s</li>', $liClass, $text);
+        return \sprintf('<li%s>%s</li>', $liClass, $text);
     }
 
     protected function linkLi(string $class, string $href, int|string $text, ?string $rel = null): string
     {
         $class = trim($this->option('css_item_class').' '.$class);
-        $liClass = '' === $class ? '' : sprintf(' class="%s"', $class);
-        $itemRel = $rel ? sprintf(' rel="%s"', $rel) : '';
+        $liClass = '' === $class ? '' : \sprintf(' class="%s"', $class);
+        $itemRel = $rel ? \sprintf(' rel="%s"', $rel) : '';
 
-        return sprintf('<li%s><a href="%s"%s>%s</a></li>', $liClass, $href, $itemRel, $text);
+        return \sprintf('<li%s><a href="%s"%s>%s</a></li>', $liClass, $href, $itemRel, $text);
     }
 }

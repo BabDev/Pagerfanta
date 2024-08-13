@@ -31,7 +31,7 @@ class DefaultTemplate extends Template
 
     public function container(): string
     {
-        return sprintf(
+        return \sprintf(
             $this->option('container_template'),
             $this->option('css_container_class')
         );
@@ -57,7 +57,7 @@ class DefaultTemplate extends Template
             $text,
         ];
 
-        $replace[] = $rel ? sprintf(' rel="%s"', $rel) : '';
+        $replace[] = $rel ? \sprintf(' rel="%s"', $rel) : '';
 
         return str_replace(['%class%', '%href%', '%text%', '%rel%'], $replace, $this->option('page_template'));
     }

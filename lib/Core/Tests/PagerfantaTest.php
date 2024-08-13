@@ -599,7 +599,7 @@ final class PagerfantaTest extends TestCase
                     ];
                 }
 
-                $this->fail(sprintf('The "getSlice" method was not expected to be called "%d" times.', $matcher->numberOfInvocations()));
+                $this->fail(\sprintf('The "getSlice" method was not expected to be called "%d" times.', $matcher->numberOfInvocations()));
             });
 
         $this->pagerfanta->setCurrentPage(1);

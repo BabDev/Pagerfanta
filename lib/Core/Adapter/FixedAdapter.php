@@ -30,7 +30,7 @@ class FixedAdapter implements AdapterInterface
         private readonly iterable $results,
     ) {
         if ($nbResults < 0) {
-            throw new NotValidResultCountException(sprintf('The number of results for the "%s" constructor must be at least zero.', static::class));
+            throw new NotValidResultCountException(\sprintf('The number of results for the "%s" constructor must be at least zero.', static::class));
         }
 
         $this->nbResults = $nbResults;

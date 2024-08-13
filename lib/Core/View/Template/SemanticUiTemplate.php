@@ -29,7 +29,7 @@ class SemanticUiTemplate extends Template
 
     public function container(): string
     {
-        return sprintf(
+        return \sprintf(
             $this->option('container_template'),
             $this->option('css_container_class')
         );
@@ -104,13 +104,13 @@ class SemanticUiTemplate extends Template
 
     private function link(string $class, string $href, int|string $text, ?string $rel = null): string
     {
-        $rel = $rel ? sprintf(' rel="%s"', $rel) : '';
+        $rel = $rel ? \sprintf(' rel="%s"', $rel) : '';
 
-        return sprintf('<a class="%s %s" href="%s"%s>%s</a>', $this->option('css_item_class'), $class, $href, $rel, $text);
+        return \sprintf('<a class="%s %s" href="%s"%s>%s</a>', $this->option('css_item_class'), $class, $href, $rel, $text);
     }
 
     private function div(string $class, int|string $text): string
     {
-        return sprintf('<div class="%s %s">%s</div>', $this->option('css_item_class'), $class, $text);
+        return \sprintf('<div class="%s %s">%s</div>', $this->option('css_item_class'), $class, $text);
     }
 }

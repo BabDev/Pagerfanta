@@ -29,7 +29,7 @@ class TwitterBootstrapTemplate extends Template
 
     public function container(): string
     {
-        return sprintf(
+        return \sprintf(
             $this->option('container_template'),
             $this->option('css_container_class')
         );
@@ -107,10 +107,10 @@ class TwitterBootstrapTemplate extends Template
      */
     protected function linkLi(string $class, string $href, $text, ?string $rel = null): string
     {
-        $liClass = sprintf(' class="%s"', trim($this->option('css_item_class').' '.$class));
-        $itemRel = $rel ? sprintf(' rel="%s"', $rel) : '';
+        $liClass = \sprintf(' class="%s"', trim($this->option('css_item_class').' '.$class));
+        $itemRel = $rel ? \sprintf(' rel="%s"', $rel) : '';
 
-        return sprintf('<li%s><a href="%s"%s>%s</a></li>', $liClass, $href, $itemRel, $text);
+        return \sprintf('<li%s><a href="%s"%s>%s</a></li>', $liClass, $href, $itemRel, $text);
     }
 
     /**
@@ -118,8 +118,8 @@ class TwitterBootstrapTemplate extends Template
      */
     protected function spanLi(string $class, $text): string
     {
-        $liClass = sprintf(' class="%s"', trim($this->option('css_item_class').' '.$class));
+        $liClass = \sprintf(' class="%s"', trim($this->option('css_item_class').' '.$class));
 
-        return sprintf('<li%s><span>%s</span></li>', $liClass, $text);
+        return \sprintf('<li%s><span>%s</span></li>', $liClass, $text);
     }
 }

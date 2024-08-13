@@ -36,7 +36,7 @@ class ElasticaAdapter implements AdapterInterface
         ?int $maxResults = null
     ) {
         if (null !== $maxResults && $maxResults < 0) {
-            throw new NotValidResultCountException(sprintf('The maximum number of results for the "%s" constructor must be at least zero.', static::class));
+            throw new NotValidResultCountException(\sprintf('The maximum number of results for the "%s" constructor must be at least zero.', static::class));
         }
 
         $this->maxResults = $maxResults;

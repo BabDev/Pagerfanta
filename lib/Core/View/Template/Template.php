@@ -73,7 +73,7 @@ abstract class Template implements TemplateInterface
     private function getRouteGenerator(): callable
     {
         if (!$this->routeGenerator) {
-            throw new RuntimeException(sprintf('The route generator was not set to the template, ensure you call %s::setRouteGenerator().', static::class));
+            throw new RuntimeException(\sprintf('The route generator was not set to the template, ensure you call %s::setRouteGenerator().', static::class));
         }
 
         return $this->routeGenerator;
@@ -87,7 +87,7 @@ abstract class Template implements TemplateInterface
     protected function option(string $name)
     {
         if (!isset($this->options[$name])) {
-            throw new InvalidArgumentException(sprintf('The option "%s" does not exist.', $name));
+            throw new InvalidArgumentException(\sprintf('The option "%s" does not exist.', $name));
         }
 
         return $this->options[$name];

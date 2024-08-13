@@ -27,7 +27,7 @@ final class TransformingAdapterTest extends TestCase
         $this->array = range(1, 100);
         $this->adapter = new TransformingAdapter(
             new ArrayAdapter($this->array),
-            static fn (int $item, int $key) => sprintf('%s => %s', $key, $item)
+            static fn (int $item, int $key) => \sprintf('%s => %s', $key, $item)
         );
     }
 
@@ -45,10 +45,10 @@ final class TransformingAdapterTest extends TestCase
     {
         $this->adapter = new TransformingAdapter(
             new ArrayAdapter($this->array),
-            new class() {
+            new class {
                 public function __invoke(int $item, int $key): string
                 {
-                    return sprintf('%s', $item - 100);
+                    return \sprintf('%s', $item - 100);
                 }
             }
         );

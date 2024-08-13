@@ -49,7 +49,7 @@ class CallbackAdapter implements AdapterInterface
         $count = $callable();
 
         if ($count < 0) {
-            throw new NotValidResultCountException(sprintf('The callable to calculate the number of results in "%s()" must return a number greater than or equal to zero.', __METHOD__));
+            throw new NotValidResultCountException(\sprintf('The callable to calculate the number of results in "%s()" must return a number greater than or equal to zero.', __METHOD__));
         }
 
         return $count;

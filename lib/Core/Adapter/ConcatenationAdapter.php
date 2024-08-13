@@ -34,7 +34,7 @@ class ConcatenationAdapter implements AdapterInterface
     {
         foreach ($adapters as $adapter) {
             if (!$adapter instanceof AdapterInterface) {
-                throw new InvalidArgumentException(sprintf('The $adapters argument of the %s constructor expects all items to be an instance of %s.', self::class, AdapterInterface::class));
+                throw new InvalidArgumentException(\sprintf('The $adapters argument of the %s constructor expects all items to be an instance of %s.', self::class, AdapterInterface::class));
             }
         }
 
