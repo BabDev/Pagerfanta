@@ -51,11 +51,6 @@ parameters:
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/AggregationAdapterTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
-
-		-
 			message: "#^PHPDoc tag @var for variable \\$query contains unresolvable type\\.$#"
 			count: 2
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
@@ -79,11 +74,6 @@ parameters:
 			message: "#^Call to an undefined method Iterator\\<mixed, PHPCR\\\\Query\\\\RowInterface\\>\\:\\:count\\(\\)\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/PHPCRODM/QueryAdapter.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayIterator\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Adapter/Doctrine/PHPCRODM/Tests/QueryAdapterTest.php
 
 		-
 			message: "#^Method Pagerfanta\\\\Elastica\\\\ElasticaAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
@@ -121,19 +111,9 @@ parameters:
 			path: lib/Core/Tests/Adapter/ArrayAdapterTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Core/Tests/Adapter/CallbackAdapterTest.php
-
-		-
 			message: "#^Property Pagerfanta\\\\Tests\\\\Adapter\\\\TransformingAdapterTest\\:\\:\\$adapter \\(Pagerfanta\\\\Adapter\\\\TransformingAdapter\\<int\\<1, 100\\>, string\\>\\) does not accept Pagerfanta\\\\Adapter\\\\TransformingAdapter\\<int, string\\>\\.$#"
 			count: 2
 			path: lib/Core/Tests/Adapter/TransformingAdapterTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> and iterable will always evaluate to false\\.$#"
-			count: 2
-			path: lib/Core/Tests/PagerfantaTest.php
 
 		-
 			message: "#^Method Pagerfanta\\\\View\\\\View\\:\\:calculateEndPageForStartPageUnderflow\\(\\) should return int\\<1, max\\> but returns int\\.$#"

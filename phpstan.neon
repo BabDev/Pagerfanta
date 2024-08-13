@@ -6,5 +6,5 @@ parameters:
     - %currentWorkingDirectory%/lib
   treatPhpDocTypesAsCertain: false
   ignoreErrors:
-      -
-          identifier: missingType.iterableValue
+    -
+      identifier: missingType.iterableValue
