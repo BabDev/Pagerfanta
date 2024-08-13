@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.7.0 (2024-??-??)
+
+- [#56](https://github.com/BabDev/Pagerfanta/issues/56) Add support for `Doctrine\Common\Collections\ReadableCollection` in `Pagerfanta\Doctrine\Collections\CollectionAdapter`
+
 ## 4.6.0 (2024-05-29)
 
 - Add support for `ruflin/elastica` 8.x

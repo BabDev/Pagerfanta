@@ -2,7 +2,7 @@
 
 namespace Pagerfanta\Doctrine\Collections;
 
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ReadableCollection;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
@@ -16,10 +16,10 @@ use Pagerfanta\Adapter\AdapterInterface;
 class CollectionAdapter implements AdapterInterface
 {
     /**
-     * @param Collection<TKey, T> $collection
+     * @param ReadableCollection<TKey, T> $collection
      */
     public function __construct(
-        private readonly Collection $collection,
+        private readonly ReadableCollection $collection,
     ) {}
 
     /**
