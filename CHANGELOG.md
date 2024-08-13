@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.7.0 (2024-??-??)
+## 4.7.0 (2024-08-13)
 
 - [#56](https://github.com/BabDev/Pagerfanta/issues/56) Add support for `Doctrine\Common\Collections\ReadableCollection` in `Pagerfanta\Doctrine\Collections\CollectionAdapter`
 
