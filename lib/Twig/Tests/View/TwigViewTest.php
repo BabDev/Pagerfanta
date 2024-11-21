@@ -47,9 +47,12 @@ final class TwigViewTest extends TestCase
             ->with($options['template'])
             ->willReturn(new TemplateWrapper($this->twig, $template));
 
-        $this->twig->expects(self::once())
-            ->method('mergeGlobals')
-            ->willReturn([]);
+        // As of Twig 3.14, mergeGlobals is deprecated and not called when rendering
+        if (!method_exists(Environment::class, 'resetGlobals')) {
+            $this->twig->expects(self::once())
+                ->method('mergeGlobals')
+                ->willReturn([]);
+        }
 
         self::assertSame('Twig template', (new TwigView($this->twig, 'constructor.html.twig'))->render(
             $this->createPagerfanta(),
@@ -83,9 +86,12 @@ final class TwigViewTest extends TestCase
             ->with('constructor.html.twig')
             ->willReturn(new TemplateWrapper($this->twig, $template));
 
-        $this->twig->expects(self::once())
-            ->method('mergeGlobals')
-            ->willReturn([]);
+        // As of Twig 3.14, mergeGlobals is deprecated and not called when rendering
+        if (!method_exists(Environment::class, 'resetGlobals')) {
+            $this->twig->expects(self::once())
+                ->method('mergeGlobals')
+                ->willReturn([]);
+        }
 
         self::assertSame('Twig template', (new TwigView($this->twig, 'constructor.html.twig'))->render(
             $this->createPagerfanta(),
@@ -118,9 +124,12 @@ final class TwigViewTest extends TestCase
             ->with(TwigView::DEFAULT_TEMPLATE)
             ->willReturn(new TemplateWrapper($this->twig, $template));
 
-        $this->twig->expects(self::once())
-            ->method('mergeGlobals')
-            ->willReturn([]);
+        // As of Twig 3.14, mergeGlobals is deprecated and not called when rendering
+        if (!method_exists(Environment::class, 'resetGlobals')) {
+            $this->twig->expects(self::once())
+                ->method('mergeGlobals')
+                ->willReturn([]);
+        }
 
         self::assertSame('Twig template', (new TwigView($this->twig))->render($this->createPagerfanta(), $this->createRouteGenerator()));
     }
