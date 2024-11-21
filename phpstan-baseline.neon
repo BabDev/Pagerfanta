@@ -11,7 +11,7 @@ parameters:
 			path: lib/Adapter/Doctrine/Collections/SelectableAdapter.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_values expects array, iterable\\<\\(int\\|string\\), int\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$array of function array_values expects array\\<T\\>, iterable\\<\\(int\\|string\\), int\\> given\\.$#"
 			count: 1
 			path: lib/Adapter/Doctrine/Collections/Tests/CollectionAdapterTest.php
 
