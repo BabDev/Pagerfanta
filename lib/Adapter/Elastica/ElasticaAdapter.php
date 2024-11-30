@@ -18,7 +18,7 @@ use Pagerfanta\Exception\NotValidResultCountException;
 class ElasticaAdapter implements AdapterInterface
 {
     /**
-     * @phpstan-var int<0, max>|null
+     * @var int<0, max>|null
      */
     private readonly ?int $maxResults;
 
@@ -53,7 +53,7 @@ class ElasticaAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getNbResults(): int
     {
@@ -67,8 +67,8 @@ class ElasticaAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
      * @return iterable<array-key, T>
      */

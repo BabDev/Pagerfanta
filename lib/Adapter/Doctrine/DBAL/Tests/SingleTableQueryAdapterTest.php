@@ -35,14 +35,14 @@ final class SingleTableQueryAdapterTest extends DBALTestCase
 
     public function testAdapterReturnsNumberOfResults(): void
     {
-        self::assertSame(50, $this->adapter->getNbResults());
+        $this->assertSame(50, $this->adapter->getNbResults());
     }
 
     public function testResultCountStaysConsistentAfterSlicing(): void
     {
         $this->adapter->getSlice(1, 10);
 
-        self::assertSame(50, $this->adapter->getNbResults());
+        $this->assertSame(50, $this->adapter->getNbResults());
     }
 
     public function testGetSlice(): void
@@ -54,6 +54,6 @@ final class SingleTableQueryAdapterTest extends DBALTestCase
         $q->setFirstResult($offset)
             ->setMaxResults($length);
 
-        self::assertSame($q->executeQuery()->fetchAllAssociative(), $this->adapter->getSlice($offset, $length));
+        $this->assertSame($q->executeQuery()->fetchAllAssociative(), $this->adapter->getSlice($offset, $length));
     }
 }

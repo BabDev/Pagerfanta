@@ -46,7 +46,7 @@ abstract class ViewTestCase extends TestCase
     }
 
     /**
-     * @phpstan-param positive-int $currentPage
+     * @param positive-int $currentPage
      */
     protected function setCurrentPage(int $currentPage): void
     {
@@ -64,7 +64,7 @@ abstract class ViewTestCase extends TestCase
     }
 
     /**
-     * @phpstan-return \Closure(int $page): string
+     * @return \Closure(int $page): string
      */
     protected function createRouteGenerator(): \Closure
     {
@@ -73,7 +73,7 @@ abstract class ViewTestCase extends TestCase
 
     protected function assertRenderedView(string $expected, string $result): void
     {
-        self::assertSame($this->filterExpectedView($expected), $result);
+        $this->assertSame($this->filterExpectedView($expected), $result);
     }
 
     protected function filterExpectedView(string $expected): string

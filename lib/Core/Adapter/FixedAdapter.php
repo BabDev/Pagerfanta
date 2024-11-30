@@ -16,7 +16,7 @@ use Pagerfanta\Exception\NotValidResultCountException;
 class FixedAdapter implements AdapterInterface
 {
     /**
-     * @phpstan-var int<0, max>
+     * @var int<0, max>
      */
     private readonly int $nbResults;
 
@@ -37,7 +37,7 @@ class FixedAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getNbResults(): int
     {
@@ -45,8 +45,8 @@ class FixedAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
      * @return iterable<array-key, T>
      */

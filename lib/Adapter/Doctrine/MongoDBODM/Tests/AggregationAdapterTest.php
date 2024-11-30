@@ -47,29 +47,29 @@ final class AggregationAdapterTest extends TestCase
         /** @var MockObject&Count $countStage */
         $countStage = $this->createMock(Count::class);
 
-        $countStage->expects(self::once())
+        $countStage->expects($this->once())
             ->method('getAggregation')
             ->willReturn($aggregation);
 
-        $resultIterator->expects(self::once())
+        $resultIterator->expects($this->once())
             ->method('toArray')
             ->willReturn([['numResults' => 110]]);
 
-        $aggregation->expects(self::once())
+        $aggregation->expects($this->once())
             ->method('getIterator')
             ->willReturn($resultIterator);
 
-        $this->aggregationBuilder->expects(self::once())
+        $this->aggregationBuilder->expects($this->once())
             ->method('hydrate')
             ->with(null)
             ->willReturnSelf();
 
-        $this->aggregationBuilder->expects(self::once())
+        $this->aggregationBuilder->expects($this->once())
             ->method('count')
             ->with('numResults')
             ->willReturn($countStage);
 
-        self::assertSame(110, $this->adapter->getNbResults());
+        $this->assertSame(110, $this->adapter->getNbResults());
     }
 
     public function testGetSlice(): void
@@ -89,24 +89,24 @@ final class AggregationAdapterTest extends TestCase
         /** @var MockObject&Limit $limitStage */
         $limitStage = $this->createMock(Limit::class);
 
-        $skipStage->expects(self::once())
+        $skipStage->expects($this->once())
             ->method('limit')
             ->with($length)
             ->willReturn($limitStage);
 
-        $limitStage->expects(self::once())
+        $limitStage->expects($this->once())
             ->method('getAggregation')
             ->willReturn($aggregation);
 
-        $aggregation->expects(self::once())
+        $aggregation->expects($this->once())
             ->method('getIterator')
             ->willReturn($slice);
 
-        $this->aggregationBuilder->expects(self::once())
+        $this->aggregationBuilder->expects($this->once())
             ->method('skip')
             ->with($offset)
             ->willReturn($skipStage);
 
-        self::assertSame($slice, $this->adapter->getSlice($offset, $length));
+        $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
 }

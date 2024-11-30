@@ -6,23 +6,20 @@ namespace Pagerfanta\Adapter;
  * Adapter which transforms the result of other adapter.
  *
  * @template T
- * @template Transformed
+ * @template-covariant Transformed
  *
  * @implements AdapterInterface<Transformed>
  */
 class TransformingAdapter implements AdapterInterface
 {
     /**
-     * @var callable
-     *
-     * @phpstan-var callable(T, array-key): Transformed
+     * @var callable(T, array-key): Transformed
      */
     private $transformer;
 
     /**
      * @param AdapterInterface<T> $adapter
-     *
-     * @phpstan-param callable(T, array-key): Transformed $transformer
+     * @param callable(T, array-key): Transformed $transformer
      */
     public function __construct(
         private readonly AdapterInterface $adapter,
@@ -32,7 +29,7 @@ class TransformingAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getNbResults(): int
     {
@@ -40,8 +37,8 @@ class TransformingAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
      * @return iterable<array-key, Transformed>
      */

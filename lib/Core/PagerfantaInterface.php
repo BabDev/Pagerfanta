@@ -24,33 +24,41 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function getAdapter(): AdapterInterface;
 
     /**
-     * @return $this<T>
+     * @return $this
+     *
+     * @phpstan-self-out self<T>
      */
     public function setAllowOutOfRangePages(bool $allowOutOfRangePages): self;
 
     public function getAllowOutOfRangePages(): bool;
 
     /**
-     * @return $this<T>
+     * @return $this
+     *
+     * @phpstan-self-out self<T>
      */
     public function setNormalizeOutOfRangePages(bool $normalizeOutOfRangePages): self;
 
     public function getNormalizeOutOfRangePages(): bool;
 
     /**
-     * @return $this<T>
+     * @return $this
+     *
+     * @phpstan-self-out self<T>
      *
      * @throws LessThan1MaxPerPageException if the page is less than 1
      */
     public function setMaxPerPage(int $maxPerPage): self;
 
     /**
-     * @phpstan-return positive-int
+     * @return positive-int
      */
     public function getMaxPerPage(): int;
 
     /**
-     * @return $this<T>
+     * @return $this
+     *
+     * @phpstan-self-out self<T>
      *
      * @throws LessThan1CurrentPageException  if the current page is less than 1
      * @throws OutOfRangeCurrentPageException if It is not allowed out of range pages and they are not normalized
@@ -58,7 +66,7 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function setCurrentPage(int $currentPage): self;
 
     /**
-     * @phpstan-return positive-int
+     * @return positive-int
      */
     public function getCurrentPage(): int;
 
@@ -68,34 +76,38 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function getCurrentPageResults(): iterable;
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getCurrentPageOffsetStart(): int;
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getCurrentPageOffsetEnd(): int;
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getNbResults(): int;
 
     /**
-     * @phpstan-return positive-int
+     * @return positive-int
      */
     public function getNbPages(): int;
 
     /**
-     * @return $this<T>
+     * @return $this
+     *
+     * @phpstan-self-out self<T>
      *
      * @throws LessThan1MaxPagesException if the max number of pages is less than 1
      */
     public function setMaxNbPages(int $maxNbPages): self;
 
     /**
-     * @return $this<T>
+     * @return $this
+     *
+     * @phpstan-self-out self<T>
      */
     public function resetMaxNbPages(): self;
 
@@ -104,7 +116,7 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function hasPreviousPage(): bool;
 
     /**
-     * @phpstan-return positive-int
+     * @return positive-int
      *
      * @throws LogicException if there is no previous page
      */
@@ -113,7 +125,7 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     public function hasNextPage(): bool;
 
     /**
-     * @phpstan-return positive-int
+     * @return positive-int
      *
      * @throws LogicException if there is no next page
      */
@@ -122,9 +134,9 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     /**
      * Get page number of the item at specified position (1-based index).
      *
-     * @phpstan-param positive-int $position
+     * @param positive-int $position
      *
-     * @phpstan-return positive-int
+     * @return positive-int
      */
     public function getPageNumberForItemAtPosition(int $position): int;
 }

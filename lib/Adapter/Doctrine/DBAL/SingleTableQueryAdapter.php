@@ -31,6 +31,7 @@ class SingleTableQueryAdapter extends QueryAdapter
         return static function (QueryBuilder $queryBuilder) use ($select): QueryBuilder {
             $queryBuilder->select($select);
 
+            /** @phpstan-ignore-next-line function.alreadyNarrowedType */
             if (method_exists($queryBuilder, 'resetOrderBy')) {
                 $queryBuilder->resetOrderBy();
             } else {

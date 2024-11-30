@@ -29,14 +29,14 @@ final class QueryAdapterTest extends DBALTestCase
             }
         );
 
-        self::assertSame(50, $adapter->getNbResults());
+        $this->assertSame(50, $adapter->getNbResults());
     }
 
     public function testAdapterReturnsNumberOfResults(): void
     {
         $adapter = $this->createAdapterToTestGetNbResults();
 
-        self::assertSame(50, $adapter->getNbResults());
+        $this->assertSame(50, $adapter->getNbResults());
     }
 
     public function testResultCountStaysConsistentAfterSlicing(): void
@@ -45,7 +45,7 @@ final class QueryAdapterTest extends DBALTestCase
 
         $adapter->getSlice(1, 10);
 
-        self::assertSame(50, $adapter->getNbResults());
+        $this->assertSame(50, $adapter->getNbResults());
     }
 
     public function testGetSlice(): void
@@ -58,7 +58,7 @@ final class QueryAdapterTest extends DBALTestCase
         $this->qb->setFirstResult($offset)
             ->setMaxResults($length);
 
-        self::assertSame($this->qb->executeQuery()->fetchAllAssociative(), $adapter->getSlice($offset, $length));
+        $this->assertSame($this->qb->executeQuery()->fetchAllAssociative(), $adapter->getSlice($offset, $length));
     }
 
     public function testTheAdapterUsesAClonedQuery(): void
@@ -68,7 +68,7 @@ final class QueryAdapterTest extends DBALTestCase
         $this->qb->innerJoin('p', 'comments', 'c', 'c.post_id = p.id')
             ->groupBy('c.post_id');
 
-        self::assertSame(50, $adapter->getNbResults());
+        $this->assertSame(50, $adapter->getNbResults());
     }
 
     /**

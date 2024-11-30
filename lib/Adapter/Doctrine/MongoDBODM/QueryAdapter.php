@@ -19,7 +19,7 @@ class QueryAdapter implements AdapterInterface
     ) {}
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getNbResults(): int
     {
@@ -33,8 +33,8 @@ class QueryAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
      * @return iterable<array-key, T>
      */

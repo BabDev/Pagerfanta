@@ -51,12 +51,12 @@ final class SelectableAdapterTest extends TestCase
         $collection->method('count')
             ->willReturn(10);
 
-        $this->selectable->expects(self::once())
+        $this->selectable->expects($this->once())
             ->method('matching')
             ->with($this->criteria)
             ->willReturn($collection);
 
-        self::assertSame(10, $this->adapter->getNbResults());
+        $this->assertSame(10, $this->adapter->getNbResults());
     }
 
     public function testGetSlice(): void
@@ -66,11 +66,11 @@ final class SelectableAdapterTest extends TestCase
 
         $slice = [];
 
-        $this->selectable->expects(self::once())
+        $this->selectable->expects($this->once())
             ->method('matching')
             ->with($this->criteria)
             ->willReturn($slice);
 
-        self::assertSame($slice, $this->adapter->getSlice(10, 20));
+        $this->assertSame($slice, $this->adapter->getSlice(10, 20));
     }
 }

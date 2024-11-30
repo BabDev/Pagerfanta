@@ -30,21 +30,21 @@ final class QueryAdapterTest extends TestCase
 
     public function testGetNbResultsShouldCreateTheQueryAndCount(): void
     {
-        $this->queryBuilder->expects(self::once())
+        $this->queryBuilder->expects($this->once())
             ->method('getQuery')
             ->willReturn($this->query);
 
         /** @var MockObject&QueryResultInterface $queryResult */
         $queryResult = $this->createMock(QueryResultInterface::class);
-        $queryResult->expects(self::once())
+        $queryResult->expects($this->once())
             ->method('getRows')
             ->willReturn(new \ArrayIterator([1, 2, 3, 4, 5, 6]));
 
-        $this->query->expects(self::once())
+        $this->query->expects($this->once())
             ->method('execute')
             ->willReturn($queryResult);
 
-        self::assertSame(6, $this->adapter->getNbResults());
+        $this->assertSame(6, $this->adapter->getNbResults());
     }
 
     public function testGetSlice(): void
@@ -53,24 +53,24 @@ final class QueryAdapterTest extends TestCase
         $length = 15;
         $slice = new \ArrayIterator();
 
-        $this->query->expects(self::once())
+        $this->query->expects($this->once())
             ->method('setMaxResults')
             ->with($length)
             ->willReturn($this->query);
 
-        $this->query->expects(self::once())
+        $this->query->expects($this->once())
             ->method('setFirstResult')
             ->with($offset)
             ->willReturn($this->query);
 
-        $this->queryBuilder->expects(self::once())
+        $this->queryBuilder->expects($this->once())
             ->method('getQuery')
             ->willReturn($this->query);
 
-        $this->query->expects(self::once())
+        $this->query->expects($this->once())
             ->method('execute')
             ->willReturn($slice);
 
-        self::assertSame($slice, $this->adapter->getSlice($offset, $length));
+        $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
 }

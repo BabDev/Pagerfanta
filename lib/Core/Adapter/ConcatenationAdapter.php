@@ -28,7 +28,7 @@ class ConcatenationAdapter implements AdapterInterface
     /**
      * @param list<AdapterInterface<T>> $adapters
      *
-     * @throws InvalidArgumentException if an adapter is not a `Pagerfanta\Adapter\AdapterInterface` instance
+     * @throws InvalidArgumentException if an adapter is not a {@see AdapterInterface} instance
      */
     public function __construct(array $adapters)
     {
@@ -42,7 +42,7 @@ class ConcatenationAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getNbResults(): int
     {
@@ -56,8 +56,8 @@ class ConcatenationAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
      * @return iterable<array-key, T>
      */

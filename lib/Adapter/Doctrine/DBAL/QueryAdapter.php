@@ -17,14 +17,12 @@ class QueryAdapter implements AdapterInterface
     private readonly QueryBuilder $queryBuilder;
 
     /**
-     * @var callable
-     *
-     * @phpstan-var callable(QueryBuilder): (QueryBuilder|void)
+     * @var callable(QueryBuilder): (QueryBuilder|void)
      */
     private $countQueryBuilderModifier;
 
     /**
-     * @phpstan-param callable(QueryBuilder): (QueryBuilder|void) $countQueryBuilderModifier
+     * @param callable(QueryBuilder): (QueryBuilder|void) $countQueryBuilderModifier
      */
     public function __construct(QueryBuilder $queryBuilder, callable $countQueryBuilderModifier)
     {
@@ -33,7 +31,7 @@ class QueryAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getNbResults(): int
     {
@@ -43,8 +41,8 @@ class QueryAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
      * @return iterable<array-key, T>
      */

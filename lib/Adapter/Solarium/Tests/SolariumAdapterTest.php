@@ -45,19 +45,19 @@ final class SolariumAdapterTest extends TestCase
         $query = $this->createQueryMock();
 
         $result = $this->createResultMock();
-        $result->expects(self::once())
+        $result->expects($this->once())
             ->method('getNumFound')
             ->willReturn(100);
 
         $client = $this->createClientMock();
-        $client->expects(self::once())
+        $client->expects($this->once())
             ->method('select')
             ->with($query)
             ->willReturn($result);
 
         $adapter = new SolariumAdapter($client, $query);
 
-        self::assertSame(100, $adapter->getNbResults());
+        $this->assertSame(100, $adapter->getNbResults());
     }
 
     public function testGetNbResultsCanUseACachedTheResultSet(): void
@@ -65,12 +65,12 @@ final class SolariumAdapterTest extends TestCase
         $query = $this->createQueryStub();
 
         $result = $this->createResultMock();
-        $result->expects(self::atLeastOnce())
+        $result->expects($this->atLeastOnce())
             ->method('getNumFound')
             ->willReturn(200);
 
         $client = $this->createClientMock();
-        $client->expects(self::once())
+        $client->expects($this->once())
             ->method('select')
             ->willReturn($result);
 
@@ -94,14 +94,14 @@ final class SolariumAdapterTest extends TestCase
         $result = $this->createResultMock();
 
         $client = $this->createClientMock();
-        $client->expects(self::once())
+        $client->expects($this->once())
             ->method('select')
             ->with($query)
             ->willReturn($result);
 
         $adapter = new SolariumAdapter($client, $query);
 
-        self::assertSame($result, $adapter->getSlice(1, 200));
+        $this->assertSame($result, $adapter->getSlice(1, 200));
     }
 
     public function testGetSliceCannotUseACachedResultSet(): void
@@ -109,7 +109,7 @@ final class SolariumAdapterTest extends TestCase
         $query = $this->createQueryStub();
 
         $result = $this->createResultMock();
-        $result->expects(self::atLeastOnce())
+        $result->expects($this->atLeastOnce())
             ->method('getNumFound')
             ->willReturn(200);
 
@@ -129,7 +129,7 @@ final class SolariumAdapterTest extends TestCase
         $query = $this->createQueryStub();
 
         $result = $this->createResultMock();
-        $result->expects(self::atLeastOnce())
+        $result->expects($this->atLeastOnce())
             ->method('getNumFound')
             ->willReturn(200);
 
@@ -187,7 +187,7 @@ final class SolariumAdapterTest extends TestCase
     private function doTestGetResultSet(MockObject&Query $query, Endpoint|string|null $endpoint): void
     {
         $client = $this->createClientMock();
-        $client->expects(self::atLeastOnce())
+        $client->expects($this->atLeastOnce())
             ->method('select')
             ->with($query, $endpoint)
             ->willReturn($this->createResultMock());
@@ -198,6 +198,6 @@ final class SolariumAdapterTest extends TestCase
             $adapter->setEndpoint($endpoint);
         }
 
-        self::assertInstanceOf(Result::class, $adapter->getResultSet());
+        $adapter->getResultSet();
     }
 }

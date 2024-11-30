@@ -53,7 +53,7 @@ final class TwigView extends View
     }
 
     /**
-     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
+     * @param (callable(int $page): string)|RouteGeneratorInterface $routeGenerator
      */
     private function decorateRouteGenerator(callable|RouteGeneratorInterface $routeGenerator): RouteGeneratorDecorator
     {

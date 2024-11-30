@@ -29,7 +29,7 @@ final class OptionableViewTest extends TestCase
     }
 
     /**
-     * @phpstan-return \Closure(int $page): string
+     * @return \Closure(int $page): string
      */
     private function createRouteGenerator(): \Closure
     {
@@ -40,7 +40,7 @@ final class OptionableViewTest extends TestCase
     {
         $defaultOptions = ['foo' => 'bar', 'bar' => 'ups'];
 
-        self::assertSame(self::RENDERED_VIEW, (new OptionableView($this->createViewMock($defaultOptions), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator));
+        $this->assertSame(self::RENDERED_VIEW, (new OptionableView($this->createViewMock($defaultOptions), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator));
     }
 
     public function testRenderShouldMergeOptions(): void
@@ -48,14 +48,14 @@ final class OptionableViewTest extends TestCase
         $defaultOptions = ['foo' => 'bar'];
         $options = ['ups' => 'da'];
 
-        self::assertSame(self::RENDERED_VIEW, (new OptionableView($this->createViewMock([...$defaultOptions, ...$options]), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator, $options));
+        $this->assertSame(self::RENDERED_VIEW, (new OptionableView($this->createViewMock([...$defaultOptions, ...$options]), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator, $options));
     }
 
     private function createViewMock(array $expectedOptions): MockObject&ViewInterface
     {
         /** @var MockObject&ViewInterface $view */
         $view = $this->createMock(ViewInterface::class);
-        $view->expects(self::once())
+        $view->expects($this->once())
             ->method('render')
             ->with($this->pagerfanta, $this->routeGenerator, $expectedOptions)
             ->willReturn(self::RENDERED_VIEW);

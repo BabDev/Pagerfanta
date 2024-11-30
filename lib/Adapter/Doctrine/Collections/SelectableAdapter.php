@@ -25,7 +25,7 @@ class SelectableAdapter implements AdapterInterface
     ) {}
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getNbResults(): int
     {
@@ -33,8 +33,8 @@ class SelectableAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
      * @return iterable<array-key, T>
      */
@@ -44,8 +44,8 @@ class SelectableAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $firstResult
-     * @phpstan-param int<0, max>|null $maxResult
+     * @param int<0, max>      $firstResult
+     * @param int<0, max>|null $maxResult
      */
     private function createCriteria(int $firstResult, ?int $maxResult): Criteria
     {

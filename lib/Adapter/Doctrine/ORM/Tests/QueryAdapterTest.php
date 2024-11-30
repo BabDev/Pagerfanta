@@ -60,16 +60,19 @@ final class QueryAdapterTest extends ORMTestCase
     {
         $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u FROM '.User::class.' u'));
 
-        self::assertSame(2, $adapter->getNbResults());
+        $this->assertSame(2, $adapter->getNbResults());
     }
 
     public function testAdapterReturnsNumberOfResultsForAJoinedCollection(): void
     {
         $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u, g FROM '.User::class.' u INNER JOIN u.groups g'));
 
-        self::assertSame(2, $adapter->getNbResults());
+        $this->assertSame(2, $adapter->getNbResults());
     }
 
+    /**
+     * @return \Generator<string, array{0: int<0, max>, 1: int<0, max>, 2: int<0, max>}>
+     */
     public static function dataGetSlice(): \Generator
     {
         yield '0 offset, 1 item' => [0, 1, 1];
@@ -78,27 +81,29 @@ final class QueryAdapterTest extends ORMTestCase
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
+     * @param int<0, max> $expectedCount
      */
     #[DataProvider('dataGetSlice')]
     public function testCurrentPageSliceForSingleTableQuery(int $offset, int $length, int $expectedCount): void
     {
         $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u FROM '.User::class.' u'));
 
-        self::assertCount($expectedCount, $adapter->getSlice($offset, $length));
+        $this->assertCount($expectedCount, $adapter->getSlice($offset, $length));
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
+     * @param int<0, max> $expectedCount
      */
     #[DataProvider('dataGetSlice')]
     public function testCurrentPageSliceForAJoinedCollection(int $offset, int $length, int $expectedCount): void
     {
         $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT u, g FROM '.User::class.' u INNER JOIN u.groups g'));
 
-        self::assertCount($expectedCount, $adapter->getSlice($offset, $length));
+        $this->assertCount($expectedCount, $adapter->getSlice($offset, $length));
     }
 
     public function testResultCountStaysConsistentAfterSlicing(): void
@@ -108,19 +113,19 @@ final class QueryAdapterTest extends ORMTestCase
 
         $adapter->getSlice(0, 1);
 
-        self::assertSame($results, $adapter->getNbResults());
+        $this->assertSame($results, $adapter->getNbResults());
     }
 
     public function testResultSetIsSlicedWhenSelectingEntitiesAndSingleFields(): void
     {
         $adapter = new QueryAdapter($this->entityManager->createQuery('SELECT p, p.name FROM '.Person::class.' p'));
 
-        self::assertSame(2, $adapter->getNbResults());
+        $this->assertSame(2, $adapter->getNbResults());
 
         $items = $adapter->getSlice(0, 10);
 
-        self::assertCount(2, $items);
-        self::assertArrayHasKey('name', $items[0]);
+        $this->assertCount(2, $items);
+        $this->assertArrayHasKey('name', $items[0]);
     }
 
     public function testResultSetIsLoadedWithCaseInSelectStatement(): void
@@ -149,12 +154,12 @@ final class QueryAdapterTest extends ORMTestCase
 
         $adapter = new QueryAdapter($query);
 
-        self::assertSame(1, $adapter->getNbResults());
+        $this->assertSame(1, $adapter->getNbResults());
 
         $items = $adapter->getSlice(0, 10);
 
-        self::assertSame('Foo', $items[0][0]->name);
-        self::assertSame(1, $items[0]['relevance']);
+        $this->assertSame('Foo', $items[0][0]->name);
+        $this->assertSame(1, $items[0]['relevance']);
     }
 
     public function testAQueryBuilderIsAccepted(): void
@@ -165,7 +170,7 @@ final class QueryAdapterTest extends ORMTestCase
 
         $adapter = new QueryAdapter($queryBuilder);
 
-        self::assertSame(2, $adapter->getNbResults());
-        self::assertCount(2, $adapter->getSlice(0, 10));
+        $this->assertSame(2, $adapter->getNbResults());
+        $this->assertCount(2, $adapter->getSlice(0, 10));
     }
 }

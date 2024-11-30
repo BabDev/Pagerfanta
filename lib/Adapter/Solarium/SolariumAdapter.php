@@ -22,12 +22,12 @@ class SolariumAdapter implements AdapterInterface
     private Endpoint|string|null $endpoint = null;
 
     /**
-     * @phpstan-var int<0, max>|null
+     * @var int<0, max>|null
      */
     private ?int $resultSetStart = null;
 
     /**
-     * @phpstan-var int<0, max>|null
+     * @var int<0, max>|null
      */
     private ?int $resultSetRows = null;
 
@@ -37,7 +37,7 @@ class SolariumAdapter implements AdapterInterface
     ) {}
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getNbResults(): int
     {
@@ -45,8 +45,8 @@ class SolariumAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
      * @return iterable<array-key, T>
      */
@@ -56,8 +56,8 @@ class SolariumAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max>|null $start
-     * @phpstan-param int<0, max>|null $rows
+     * @param int<0, max>|null $start
+     * @param int<0, max>|null $rows
      */
     public function getResultSet(?int $start = null, ?int $rows = null): Result
     {
@@ -77,8 +77,8 @@ class SolariumAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max>|null $start
-     * @phpstan-param int<0, max>|null $rows
+     * @param int<0, max>|null $start
+     * @param int<0, max>|null $rows
      *
      * @phpstan-assert-if-true int<0, max> $start
      * @phpstan-assert-if-true int<0, max> $rows
@@ -89,8 +89,8 @@ class SolariumAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max>|null $start
-     * @phpstan-param int<0, max>|null $rows
+     * @param int<0, max>|null $start
+     * @param int<0, max>|null $rows
      *
      * @phpstan-assert-if-true int<0, max> $start
      * @phpstan-assert-if-true int<0, max> $rows
@@ -101,8 +101,8 @@ class SolariumAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $start
-     * @phpstan-param int<0, max> $rows
+     * @param int<0, max> $start
+     * @param int<0, max> $rows
      */
     private function resultSetStartAndRowsChange(int $start, int $rows): bool
     {

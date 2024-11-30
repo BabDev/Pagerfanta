@@ -12,23 +12,23 @@ abstract class View implements ViewInterface
     protected PagerfantaInterface $pagerfanta;
 
     /**
-     * @phpstan-var positive-int|null
+     * @var positive-int|null
      */
     protected ?int $currentPage = null;
 
     /**
-     * @phpstan-var positive-int|null
+     * @var positive-int|null
      */
     protected ?int $nbPages = null;
     protected ?int $proximity = null;
 
     /**
-     * @phpstan-var positive-int|null
+     * @var positive-int|null
      */
     protected ?int $startPage = null;
 
     /**
-     * @phpstan-var positive-int|null
+     * @var positive-int|null
      */
     protected ?int $endPage = null;
 

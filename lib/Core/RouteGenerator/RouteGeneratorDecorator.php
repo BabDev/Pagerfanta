@@ -5,14 +5,12 @@ namespace Pagerfanta\RouteGenerator;
 final class RouteGeneratorDecorator implements RouteGeneratorInterface
 {
     /**
-     * @var callable
-     *
-     * @phpstan-var callable(int $page): string
+     * @var callable(int $page): string
      */
     private $decorated;
 
     /**
-     * @phpstan-param callable(int $page): string $decorated
+     * @param callable(int $page): string $decorated
      */
     public function __construct(callable $decorated)
     {

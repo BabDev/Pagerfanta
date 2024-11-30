@@ -37,27 +37,27 @@ final class QueryAdapterTest extends TestCase
         /** @var MockObject&Query $query */
         $query = $this->createMock(Query::class);
 
-        $query->expects(self::once())
+        $query->expects($this->once())
             ->method('execute')
             ->willReturn(110);
 
-        $this->queryBuilder->expects(self::once())
+        $this->queryBuilder->expects($this->once())
             ->method('limit')
             ->willReturnSelf();
 
-        $this->queryBuilder->expects(self::once())
+        $this->queryBuilder->expects($this->once())
             ->method('skip')
             ->willReturnSelf();
 
-        $this->queryBuilder->expects(self::once())
+        $this->queryBuilder->expects($this->once())
             ->method('count')
             ->willReturnSelf();
 
-        $this->queryBuilder->expects(self::once())
+        $this->queryBuilder->expects($this->once())
             ->method('getQuery')
             ->willReturn($query);
 
-        self::assertSame(110, $this->adapter->getNbResults());
+        $this->assertSame(110, $this->adapter->getNbResults());
     }
 
     public function testGetSlice(): void
@@ -68,24 +68,24 @@ final class QueryAdapterTest extends TestCase
 
         /** @var MockObject&Query $query */
         $query = $this->createMock(Query::class);
-        $query->expects(self::once())
+        $query->expects($this->once())
             ->method('execute')
             ->willReturn($slice);
 
-        $this->queryBuilder->expects(self::once())
+        $this->queryBuilder->expects($this->once())
             ->method('limit')
             ->with($length)
             ->willReturnSelf();
 
-        $this->queryBuilder->expects(self::once())
+        $this->queryBuilder->expects($this->once())
             ->method('skip')
             ->with($offset)
             ->willReturnSelf();
 
-        $this->queryBuilder->expects(self::once())
+        $this->queryBuilder->expects($this->once())
             ->method('getQuery')
             ->willReturn($query);
 
-        self::assertSame($slice, $this->adapter->getSlice($offset, $length));
+        $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
 }

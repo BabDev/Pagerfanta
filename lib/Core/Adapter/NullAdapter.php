@@ -10,14 +10,14 @@ namespace Pagerfanta\Adapter;
 class NullAdapter implements AdapterInterface
 {
     /**
-     * @phpstan-param int<0, max> $nbResults
+     * @param int<0, max> $nbResults
      */
     public function __construct(
         private readonly int $nbResults = 0,
     ) {}
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     public function getNbResults(): int
     {
@@ -30,8 +30,8 @@ class NullAdapter implements AdapterInterface
      *
      * Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
      *
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
      * @return iterable<array-key, null>
      */
@@ -45,10 +45,10 @@ class NullAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     private function calculateNullArrayLength(int $offset, int $length): int
     {
@@ -62,9 +62,9 @@ class NullAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
+     * @param int<0, max> $offset
      *
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      */
     private function remainCount(int $offset): int
     {
@@ -72,7 +72,7 @@ class NullAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $length
      *
      * @return array<int, null>
      */

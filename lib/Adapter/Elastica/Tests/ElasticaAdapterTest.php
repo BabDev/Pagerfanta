@@ -48,7 +48,7 @@ final class ElasticaAdapterTest extends TestCase
 
     public function testGetResultSet(): void
     {
-        self::assertNull($this->adapter->getResultSet());
+        $this->assertNull($this->adapter->getResultSet());
 
         $this->searchable->method('search')
             ->with($this->query, ['from' => 0, 'size' => 1, 'option1' => 'value1', 'option2' => 'value2'])
@@ -56,7 +56,7 @@ final class ElasticaAdapterTest extends TestCase
 
         $this->adapter->getSlice(0, 1);
 
-        self::assertSame($this->resultSet, $this->adapter->getResultSet());
+        $this->assertSame($this->resultSet, $this->adapter->getResultSet());
     }
 
     public function testGetSlice(): void
@@ -67,8 +67,8 @@ final class ElasticaAdapterTest extends TestCase
 
         $resultSet = $this->adapter->getSlice(10, 30);
 
-        self::assertSame($this->resultSet, $resultSet);
-        self::assertSame($this->resultSet, $this->adapter->getResultSet());
+        $this->assertSame($this->resultSet, $resultSet);
+        $this->assertSame($this->resultSet, $this->adapter->getResultSet());
     }
 
     /**
@@ -76,12 +76,12 @@ final class ElasticaAdapterTest extends TestCase
      */
     public function testGetNbResultsBeforeSearch(): void
     {
-        $this->searchable->expects(self::once())
+        $this->searchable->expects($this->once())
             ->method('count')
             ->with($this->query)
             ->willReturn(100);
 
-        self::assertSame(100, $this->adapter->getNbResults());
+        $this->assertSame(100, $this->adapter->getNbResults());
     }
 
     /**
@@ -91,29 +91,29 @@ final class ElasticaAdapterTest extends TestCase
     {
         $adapter = new ElasticaAdapter($this->searchable, $this->query, [], 30);
 
-        $this->searchable->expects(self::once())
+        $this->searchable->expects($this->once())
             ->method('search')
             ->with($this->query, ['from' => 10, 'size' => 30])
             ->willReturn($this->resultSet);
 
-        $this->resultSet->expects(self::once())
+        $this->resultSet->expects($this->once())
             ->method('getTotalHits')
             ->willReturn(100);
 
         $adapter->getSlice(10, 30);
 
-        self::assertSame(30, $adapter->getNbResults());
+        $this->assertSame(30, $adapter->getNbResults());
     }
 
     public function testGetNbResultsWithMaxResultsSet(): void
     {
         $adapter = new ElasticaAdapter($this->searchable, $this->query, [], 10);
 
-        $this->searchable->expects(self::once())
+        $this->searchable->expects($this->once())
             ->method('count')
             ->with($this->query)
             ->willReturn(100);
 
-        self::assertSame(10, $adapter->getNbResults());
+        $this->assertSame(10, $adapter->getNbResults());
     }
 }

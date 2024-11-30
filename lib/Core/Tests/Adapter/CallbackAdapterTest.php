@@ -17,7 +17,7 @@ final class CallbackAdapterTest extends TestCase
             static fn (int $offset, int $length) => []
         );
 
-        self::assertSame($expected, $adapter->getNbResults());
+        $this->assertSame($expected, $adapter->getNbResults());
     }
 
     public function testAdapterRaisesAnErrorIfTheNumberOfResultsCallableReturnsANegativeNumber(): void
@@ -41,7 +41,7 @@ final class CallbackAdapterTest extends TestCase
             static fn (int $offset, int $length) => $expected
         );
 
-        self::assertSame($expected, $adapter->getSlice(1, 1));
+        $this->assertSame($expected, $adapter->getSlice(1, 1));
     }
 
     public function testGetSliceShouldPassTheOffsetAndLengthToTheGetSliceCallback(): void

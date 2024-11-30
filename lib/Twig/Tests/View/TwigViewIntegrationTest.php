@@ -41,15 +41,16 @@ final class TwigViewIntegrationTest extends TestCase
     }
 
     /**
-     * @return Pagerfanta<int>
-     *
-     * @phpstan-return Pagerfanta<int<1, 100>>
+     * @return Pagerfanta<int<1, 100>>
      */
     private function createPagerfanta(): Pagerfanta
     {
         return new Pagerfanta(new FixedAdapter(100, range(1, 100)));
     }
 
+    /**
+     * @return \Generator<string, array{0: positive-int, 1: array<string, mixed>, 2: non-empty-string}>
+     */
     public static function dataPagerfantaRenderer(): \Generator
     {
         yield 'default template at page 1' => [
@@ -372,25 +373,25 @@ final class TwigViewIntegrationTest extends TestCase
     }
 
     /**
+     * @param positive-int         $page
      * @param array<string, mixed> $options
-     *
-     * @phpstan-param positive-int $page
+     * @param non-empty-string     $expectedOutput
      */
     #[DataProvider('dataPagerfantaRenderer')]
-    public function testPagerfantaRendering(int $page, array $options, string $testOutput): void
+    public function testPagerfantaRendering(int $page, array $options, string $expectedOutput): void
     {
         $pagerfanta = $this->createPagerfanta();
         $pagerfanta->setCurrentPage($page);
 
         $this->assertViewOutputMatches(
             $this->twig->render('integration.html.twig', ['pager' => $pagerfanta, 'options' => $options]),
-            $testOutput
+            $expectedOutput
         );
     }
 
     public function testPagerfantaRenderingWithEmptyOptions(): void
     {
-        self::assertNotEmpty((new TwigView($this->twig))->render(
+        $this->assertNotEmpty((new TwigView($this->twig))->render(
             $this->createPagerfanta(),
             $this->createRouteGeneratorFactory()->create()
         ));
@@ -461,7 +462,7 @@ final class TwigViewIntegrationTest extends TestCase
 
     private function assertViewOutputMatches(string $view, string $expected): void
     {
-        self::assertSame($this->removeWhitespacesBetweenTags($expected), $view);
+        $this->assertSame($this->removeWhitespacesBetweenTags($expected), $view);
     }
 
     private function removeWhitespacesBetweenTags(string $string): string

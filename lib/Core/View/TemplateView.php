@@ -35,9 +35,8 @@ abstract class TemplateView extends View
     }
 
     /**
-     * @param array<string, mixed> $options
-     *
-     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
+     * @param callable(int $page): string|RouteGeneratorInterface $routeGenerator
+     * @param array<string, mixed>                                $options
      */
     private function configureTemplate(callable|RouteGeneratorInterface $routeGenerator, array $options): void
     {

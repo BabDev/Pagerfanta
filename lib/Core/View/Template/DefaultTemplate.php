@@ -148,6 +148,6 @@ class DefaultTemplate extends Template
 
     private function generateSpan(string $class, int|string $page): string
     {
-        return str_replace(['%class%', '%text%'], [$class, $page], $this->option('span_template'));
+        return str_replace(['%class%', '%text%'], [$class, (string) $page], $this->option('span_template'));
     }
 }

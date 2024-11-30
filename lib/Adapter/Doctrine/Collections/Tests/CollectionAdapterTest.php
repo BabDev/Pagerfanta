@@ -9,12 +9,12 @@ use PHPUnit\Framework\TestCase;
 final class CollectionAdapterTest extends TestCase
 {
     /**
-     * @var ArrayCollection<array-key, int>
+     * @var ArrayCollection<int, int<1, 150>>
      */
     private ArrayCollection $collection;
 
     /**
-     * @var CollectionAdapter<array-key, int>
+     * @var CollectionAdapter<int, int<1, 150>>
      */
     private CollectionAdapter $adapter;
 
@@ -27,11 +27,15 @@ final class CollectionAdapterTest extends TestCase
 
     public function testGetNbResultsShouldResultTheCollectionCount(): void
     {
-        self::assertSame($this->collection->count(), $this->adapter->getNbResults());
+        $this->assertSame($this->collection->count(), $this->adapter->getNbResults());
     }
 
     public function testGetResultsShouldReturnTheCollectionSliceReturnValue(): void
     {
-        self::assertSame(array_values(range(6, 17)), array_values($this->adapter->getSlice(5, 12)));
+        $slice = $this->adapter->getSlice(5, 12);
+
+        \assert(\is_array($slice));
+
+        $this->assertSame(array_values(range(6, 17)), array_values($slice));
     }
 }

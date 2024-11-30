@@ -11,13 +11,13 @@ final class EmptyAdapterTest extends TestCase
     {
         $adapter = new EmptyAdapter();
 
-        self::assertSame(0, $adapter->getNbResults());
+        $this->assertSame(0, $adapter->getNbResults());
     }
 
     public function testGetSliceShouldReturnAnEmptyArray(): void
     {
         $adapter = new EmptyAdapter();
 
-        self::assertSame([], $adapter->getSlice(10, 5));
+        $this->assertSame([], $adapter->getSlice(10, 5));
     }
 }

@@ -14,23 +14,19 @@ use PHPUnit\Framework\TestCase;
 
 final class PagerfantaRuntimeTest extends TestCase
 {
-    private ViewFactory $viewFactory;
-
-    private RouteGeneratorFactoryInterface $routeGeneratorFactory;
-
     private PagerfantaRuntime $extension;
 
     protected function setUp(): void
     {
-        $this->viewFactory = new ViewFactory();
-        $this->viewFactory->set('default', new DefaultView());
+        $viewFactory = new ViewFactory();
+        $viewFactory->set('default', new DefaultView());
 
-        $this->routeGeneratorFactory = $this->createRouteGeneratorFactory();
+        $routeGeneratorFactory = $this->createRouteGeneratorFactory();
 
         $this->extension = new PagerfantaRuntime(
             'default',
-            $this->viewFactory,
-            $this->routeGeneratorFactory
+            $viewFactory,
+            $routeGeneratorFactory
         );
     }
 
@@ -66,9 +62,7 @@ final class PagerfantaRuntimeTest extends TestCase
     }
 
     /**
-     * @return Pagerfanta<int>
-     *
-     * @phpstan-return Pagerfanta<int<1, 100>>
+     * @return Pagerfanta<int<1, 100>>
      */
     private function createPagerfanta(): Pagerfanta
     {
@@ -141,7 +135,7 @@ final class PagerfantaRuntimeTest extends TestCase
 
     public function testAPageUrlCanBeGenerated(): void
     {
-        self::assertSame('/my-page?page=1', $this->extension->getPageUrl($this->createPagerfanta(), 1));
+        $this->assertSame('/my-page?page=1', $this->extension->getPageUrl($this->createPagerfanta(), 1));
     }
 
     public function testAPageUrlCannotBeGeneratedIfThePageIsOutOfBounds(): void
@@ -154,7 +148,7 @@ final class PagerfantaRuntimeTest extends TestCase
 
     private function assertViewOutputMatches(string $view, string $expected): void
     {
-        self::assertSame($this->removeWhitespacesBetweenTags($expected), $view);
+        $this->assertSame($this->removeWhitespacesBetweenTags($expected), $view);
     }
 
     private function removeWhitespacesBetweenTags(string $string): string

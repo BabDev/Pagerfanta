@@ -28,12 +28,13 @@ final class TwigViewTest extends TestCase
         $template = $this->createMock(Template::class);
 
         // As of Twig 3.9, the internal wrapper implementation changed to accommodate the new yield strategy
+        /** @phpstan-ignore-next-line function.alreadyNarrowedType */
         if (method_exists(Template::class, 'yieldBlock')) {
-            $template->expects(self::once())
+            $template->expects($this->once())
                 ->method('renderBlock')
                 ->willReturn('Twig template');
         } else {
-            $template->expects(self::once())
+            $template->expects($this->once())
                 ->method('displayBlock')
                 ->willReturnCallback(
                     static function (): void {
@@ -42,19 +43,20 @@ final class TwigViewTest extends TestCase
                 );
         }
 
-        $this->twig->expects(self::once())
+        $this->twig->expects($this->once())
             ->method('load')
             ->with($options['template'])
             ->willReturn(new TemplateWrapper($this->twig, $template));
 
         // As of Twig 3.14, mergeGlobals is deprecated and not called when rendering
+        /** @phpstan-ignore-next-line function.alreadyNarrowedType */
         if (!method_exists(Environment::class, 'resetGlobals')) {
-            $this->twig->expects(self::once())
+            $this->twig->expects($this->once())
                 ->method('mergeGlobals')
                 ->willReturn([]);
         }
 
-        self::assertSame('Twig template', (new TwigView($this->twig, 'constructor.html.twig'))->render(
+        $this->assertSame('Twig template', (new TwigView($this->twig, 'constructor.html.twig'))->render(
             $this->createPagerfanta(),
             $this->createRouteGenerator(),
             $options
@@ -67,12 +69,13 @@ final class TwigViewTest extends TestCase
         $template = $this->createMock(Template::class);
 
         // As of Twig 3.9, the internal wrapper implementation changed to accommodate the new yield strategy
+        /** @phpstan-ignore-next-line function.alreadyNarrowedType */
         if (method_exists(Template::class, 'yieldBlock')) {
-            $template->expects(self::once())
+            $template->expects($this->once())
                 ->method('renderBlock')
                 ->willReturn('Twig template');
         } else {
-            $template->expects(self::once())
+            $template->expects($this->once())
                 ->method('displayBlock')
                 ->willReturnCallback(
                     static function (): void {
@@ -81,19 +84,20 @@ final class TwigViewTest extends TestCase
                 );
         }
 
-        $this->twig->expects(self::once())
+        $this->twig->expects($this->once())
             ->method('load')
             ->with('constructor.html.twig')
             ->willReturn(new TemplateWrapper($this->twig, $template));
 
         // As of Twig 3.14, mergeGlobals is deprecated and not called when rendering
+        /** @phpstan-ignore-next-line function.alreadyNarrowedType */
         if (!method_exists(Environment::class, 'resetGlobals')) {
-            $this->twig->expects(self::once())
+            $this->twig->expects($this->once())
                 ->method('mergeGlobals')
                 ->willReturn([]);
         }
 
-        self::assertSame('Twig template', (new TwigView($this->twig, 'constructor.html.twig'))->render(
+        $this->assertSame('Twig template', (new TwigView($this->twig, 'constructor.html.twig'))->render(
             $this->createPagerfanta(),
             $this->createRouteGenerator()
         ));
@@ -105,12 +109,13 @@ final class TwigViewTest extends TestCase
         $template = $this->createMock(Template::class);
 
         // As of Twig 3.9, the internal wrapper implementation changed to accommodate the new yield strategy
+        /** @phpstan-ignore-next-line function.alreadyNarrowedType */
         if (method_exists(Template::class, 'yieldBlock')) {
-            $template->expects(self::once())
+            $template->expects($this->once())
                 ->method('renderBlock')
                 ->willReturn('Twig template');
         } else {
-            $template->expects(self::once())
+            $template->expects($this->once())
                 ->method('displayBlock')
                 ->willReturnCallback(
                     static function (): void {
@@ -119,25 +124,24 @@ final class TwigViewTest extends TestCase
                 );
         }
 
-        $this->twig->expects(self::once())
+        $this->twig->expects($this->once())
             ->method('load')
             ->with(TwigView::DEFAULT_TEMPLATE)
             ->willReturn(new TemplateWrapper($this->twig, $template));
 
         // As of Twig 3.14, mergeGlobals is deprecated and not called when rendering
+        /** @phpstan-ignore-next-line function.alreadyNarrowedType */
         if (!method_exists(Environment::class, 'resetGlobals')) {
-            $this->twig->expects(self::once())
+            $this->twig->expects($this->once())
                 ->method('mergeGlobals')
                 ->willReturn([]);
         }
 
-        self::assertSame('Twig template', (new TwigView($this->twig))->render($this->createPagerfanta(), $this->createRouteGenerator()));
+        $this->assertSame('Twig template', (new TwigView($this->twig))->render($this->createPagerfanta(), $this->createRouteGenerator()));
     }
 
     /**
-     * @return Pagerfanta<int>
-     *
-     * @phpstan-return Pagerfanta<int<1, 100>>
+     * @return Pagerfanta<int<1, 100>>
      */
     private function createPagerfanta(): Pagerfanta
     {

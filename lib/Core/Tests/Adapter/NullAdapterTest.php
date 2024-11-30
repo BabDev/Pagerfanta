@@ -11,41 +11,41 @@ final class NullAdapterTest extends TestCase
     {
         $adapter = new NullAdapter(33);
 
-        self::assertSame(33, $adapter->getNbResults());
+        $this->assertSame(33, $adapter->getNbResults());
     }
 
     public function testGetSliceShouldReturnAnEmptyArrayIfTheOffsetIsEqualThanTheNbResults(): void
     {
         $adapter = new NullAdapter(10);
 
-        self::assertSame([], $adapter->getSlice(10, 5));
+        $this->assertSame([], $adapter->getSlice(10, 5));
     }
 
     public function testGetSliceShouldReturnAnEmptyArrayIfTheOffsetIsGreaterThanTheNbResults(): void
     {
         $adapter = new NullAdapter(10);
 
-        self::assertSame([], $adapter->getSlice(11, 5));
+        $this->assertSame([], $adapter->getSlice(11, 5));
     }
 
     public function testGetSliceShouldReturnANullArrayWithTheLengthPassed(): void
     {
         $adapter = new NullAdapter(100);
 
-        self::assertSame($this->createNullArray(10), $adapter->getSlice(20, 10));
+        $this->assertSame($this->createNullArray(10), $adapter->getSlice(20, 10));
     }
 
     public function testGetSliceShouldReturnANullArrayWithTheRemainCountWhenLengthIsGreaterThanTheRemain(): void
     {
         $adapter = new NullAdapter(33);
 
-        self::assertSame($this->createNullArray(3), $adapter->getSlice(30, 10));
+        $this->assertSame($this->createNullArray(3), $adapter->getSlice(30, 10));
     }
 
     /**
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $length
      *
-     * @phpstan-return array<int, null>
+     * @return array<int, null>
      */
     private function createNullArray(int $length): array
     {

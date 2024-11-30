@@ -12,7 +12,7 @@ interface AdapterInterface
     /**
      * Returns the number of results for the list.
      *
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      *
      * @throws NotValidResultCountException if the number of results is less than zero
      */
@@ -21,8 +21,8 @@ interface AdapterInterface
     /**
      * Returns a slice of the results representing the current page of items in the list.
      *
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
      * @return iterable<array-key, T>
      */

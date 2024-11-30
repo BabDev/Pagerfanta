@@ -1,137 +1,122 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method Pagerfanta\\\\Doctrine\\\\Collections\\\\CollectionAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
-			count: 1
-			path: lib/Adapter/Doctrine/Collections/CollectionAdapter.php
-
-		-
-			message: "#^Method Pagerfanta\\\\Doctrine\\\\Collections\\\\SelectableAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
-			count: 1
-			path: lib/Adapter/Doctrine/Collections/SelectableAdapter.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_values expects array\\<T\\>, iterable\\<\\(int\\|string\\), int\\> given\\.$#"
-			count: 1
-			path: lib/Adapter/Doctrine/Collections/Tests/CollectionAdapterTest.php
-
-		-
-			message: "#^Method Pagerfanta\\\\Doctrine\\\\DBAL\\\\QueryAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
+			message: '#^Method Pagerfanta\\Doctrine\\DBAL\\QueryAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns int\.$#'
+			identifier: return.type
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Doctrine\\\\DBAL\\\\QueryAdapter\\:\\:getSlice\\(\\) should return iterable\\<\\(int\\|string\\), T\\> but returns array\\<int, array\\<string, mixed\\>\\>\\.$#"
+			message: '#^Method Pagerfanta\\Doctrine\\DBAL\\QueryAdapter\:\:getSlice\(\) should return iterable\<\(int\|string\), T\> but returns list\<array\<string, mixed\>\>\.$#'
+			identifier: return.type
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/QueryAdapter.php
 
 		-
-			message: "#^Call to an undefined method Doctrine\\\\DBAL\\\\Query\\\\QueryBuilder\\:\\:resetQueryPart\\(\\)\\.$#"
+			message: '#^Call to an undefined method Doctrine\\DBAL\\Query\\QueryBuilder\:\:resetQueryPart\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: lib/Adapter/Doctrine/DBAL/SingleTableQueryAdapter.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns array\\<string, mixed\\>\\|int\\|object\\|null\\.$#"
+			message: '#^Method Pagerfanta\\Doctrine\\MongoDBODM\\QueryAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns array\<string, mixed\>\|int\|object\|null\.$#'
+			identifier: return.type
 			count: 1
 			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Doctrine\\\\MongoDBODM\\\\QueryAdapter\\:\\:getSlice\\(\\) should return iterable\\<\\(int\\|string\\), T\\> but returns array\\<string, mixed\\>\\|int\\|object\\|null\\.$#"
+			message: '#^Method Pagerfanta\\Doctrine\\MongoDBODM\\QueryAdapter\:\:getSlice\(\) should return iterable\<\(int\|string\), T\> but returns array\<string, mixed\>\|int\|object\|null\.$#'
+			identifier: return.type
 			count: 1
 			path: lib/Adapter/Doctrine/MongoDBODM/QueryAdapter.php
 
 		-
-			message: "#^PHPDoc tag @var for variable \\$aggregation contains unresolvable type\\.$#"
+			message: '#^PHPDoc tag @var for variable \$aggregation contains unresolvable type\.$#'
+			identifier: varTag.unresolvableType
 			count: 2
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/AggregationAdapterTest.php
 
 		-
-			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			message: '#^Return type of call to method PHPUnit\\Framework\\TestCase\:\:createMock\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
 			count: 2
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/AggregationAdapterTest.php
 
 		-
-			message: "#^PHPDoc tag @var for variable \\$query contains unresolvable type\\.$#"
+			message: '#^PHPDoc tag @var for variable \$query contains unresolvable type\.$#'
+			identifier: varTag.unresolvableType
 			count: 2
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
 
 		-
-			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			message: '#^Return type of call to method PHPUnit\\Framework\\TestCase\:\:createMock\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
 			count: 2
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
 
 		-
-			message: "#^Cannot access offset 0 on Traversable\\<\\(int\\|string\\), mixed\\>\\.$#"
+			message: '#^Cannot access offset 0 on Traversable\<\(int\|string\), mixed\>\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
 			count: 3
 			path: lib/Adapter/Doctrine/ORM/Tests/QueryAdapterTest.php
 
 		-
-			message: "#^Call to an undefined method Doctrine\\\\Common\\\\Collections\\\\Collection\\|PHPCR\\\\Query\\\\QueryResultInterface\\:\\:getRows\\(\\)\\.$#"
+			message: '#^Call to an undefined method Doctrine\\Common\\Collections\\Collection\|PHPCR\\Query\\QueryResultInterface\:\:getRows\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: lib/Adapter/Doctrine/PHPCRODM/QueryAdapter.php
 
 		-
-			message: "#^Call to an undefined method Iterator\\<mixed, PHPCR\\\\Query\\\\RowInterface\\>\\:\\:count\\(\\)\\.$#"
+			message: '#^Call to an undefined method Iterator\<mixed, PHPCR\\Query\\RowInterface\>\:\:count\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: lib/Adapter/Doctrine/PHPCRODM/QueryAdapter.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Elastica\\\\ElasticaAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\.$#"
+			message: '#^Method Pagerfanta\\Elastica\\ElasticaAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns int\.$#'
+			identifier: return.type
 			count: 2
 			path: lib/Adapter/Elastica/ElasticaAdapter.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Elastica\\\\ElasticaAdapter\\:\\:getSlice\\(\\) should return iterable\\<\\(int\\|string\\), T\\> but returns Elastica\\\\ResultSet\\.$#"
+			message: '#^Method Pagerfanta\\Elastica\\ElasticaAdapter\:\:getSlice\(\) should return iterable\<\(int\|string\), T\> but returns Elastica\\ResultSet\.$#'
+			identifier: return.type
 			count: 1
 			path: lib/Adapter/Elastica/ElasticaAdapter.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Solarium\\\\SolariumAdapter\\:\\:getNbResults\\(\\) should return int\\<0, max\\> but returns int\\|null\\.$#"
+			message: '#^Method Pagerfanta\\Solarium\\SolariumAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns int\|null\.$#'
+			identifier: return.type
 			count: 1
 			path: lib/Adapter/Solarium/SolariumAdapter.php
 
 		-
-			message: "#^Parameter \\#2 \\$length of method Pagerfanta\\\\Adapter\\\\AdapterInterface\\<T\\>\\:\\:getSlice\\(\\) expects int\\<0, max\\>, int given\\.$#"
+			message: '#^Parameter \#2 \$length of method Pagerfanta\\Adapter\\AdapterInterface\<T\>\:\:getSlice\(\) expects int\<0, max\>, int given\.$#'
+			identifier: argument.type
 			count: 1
 			path: lib/Core/Adapter/ConcatenationAdapter.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:calculateNbPages\\(\\) should return int\\<0, max\\> but returns int\\.$#"
+			message: '#^Property Pagerfanta\\Adapter\\ConcatenationAdapter\<T\>\:\:\$adaptersNbResultsCache \(list\<int\<0, max\>\>\|null\) does not accept non\-empty\-array\<int\<0, max\>, int\<0, max\>\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: lib/Core/Adapter/ConcatenationAdapter.php
+
+		-
+			message: '#^Method Pagerfanta\\Pagerfanta\:\:calculateNbPages\(\) should return int\<0, max\> but returns int\.$#'
+			identifier: return.type
 			count: 1
 			path: lib/Core/Pagerfanta.php
 
 		-
-			message: "#^Method Pagerfanta\\\\Pagerfanta\\:\\:getPageNumberForItemAtPosition\\(\\) should return int\\<1, max\\> but returns int\\.$#"
+			message: '#^Method Pagerfanta\\Pagerfanta\:\:getPageNumberForItemAtPosition\(\) should return int\<1, max\> but returns int\.$#'
+			identifier: return.type
 			count: 1
 			path: lib/Core/Pagerfanta.php
 
 		-
-			message: "#^Property Pagerfanta\\\\Tests\\\\Adapter\\\\ArrayAdapterTest\\:\\:\\$adapter \\(Pagerfanta\\\\Adapter\\\\ArrayAdapter\\<int\\<1, 100\\>\\>\\) does not accept Pagerfanta\\\\Adapter\\\\ArrayAdapter\\<int\\>\\.$#"
-			count: 1
-			path: lib/Core/Tests/Adapter/ArrayAdapterTest.php
-
-		-
-			message: "#^Property Pagerfanta\\\\Tests\\\\Adapter\\\\TransformingAdapterTest\\:\\:\\$adapter \\(Pagerfanta\\\\Adapter\\\\TransformingAdapter\\<int\\<1, 100\\>, string\\>\\) does not accept Pagerfanta\\\\Adapter\\\\TransformingAdapter\\<int, string\\>\\.$#"
-			count: 2
-			path: lib/Core/Tests/Adapter/TransformingAdapterTest.php
-
-		-
-			message: "#^Method Pagerfanta\\\\View\\\\View\\:\\:calculateEndPageForStartPageUnderflow\\(\\) should return int\\<1, max\\> but returns int\\.$#"
+			message: '#^Method Pagerfanta\\View\\View\:\:calculateEndPageForStartPageUnderflow\(\) should return int\<1, max\> but returns int\.$#'
+			identifier: return.type
 			count: 1
 			path: lib/Core/View/View.php
-
-		-
-			message: "#^Method Pagerfanta\\\\Twig\\\\Tests\\\\Extension\\\\PagerfantaRuntimeTest\\:\\:createPagerfanta\\(\\) should return Pagerfanta\\\\Pagerfanta\\<int\\<1, 100\\>\\> but returns Pagerfanta\\\\Pagerfanta\\<int\\>\\.$#"
-			count: 1
-			path: lib/Twig/Tests/Extension/PagerfantaRuntimeTest.php
-
-		-
-			message: "#^Method Pagerfanta\\\\Twig\\\\Tests\\\\View\\\\TwigViewIntegrationTest\\:\\:createPagerfanta\\(\\) should return Pagerfanta\\\\Pagerfanta\\<int\\<1, 100\\>\\> but returns Pagerfanta\\\\Pagerfanta\\<int\\>\\.$#"
-			count: 1
-			path: lib/Twig/Tests/View/TwigViewIntegrationTest.php
-
-		-
-			message: "#^Method Pagerfanta\\\\Twig\\\\Tests\\\\View\\\\TwigViewTest\\:\\:createPagerfanta\\(\\) should return Pagerfanta\\\\Pagerfanta\\<int\\<1, 100\\>\\> but returns Pagerfanta\\\\Pagerfanta\\<int\\>\\.$#"
-			count: 1
-			path: lib/Twig/Tests/View/TwigViewTest.php
 

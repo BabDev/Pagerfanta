@@ -9,16 +9,12 @@ use PHPUnit\Framework\TestCase;
 final class ArrayAdapterTest extends TestCase
 {
     /**
-     * @var list<int>
-     *
-     * @phpstan-var list<int<1, 100>>
+     * @var list<int<1, 100>>
      */
     private array $array;
 
     /**
-     * @var ArrayAdapter<int>
-     *
-     * @phpstan-var ArrayAdapter<int<1, 100>>
+     * @var ArrayAdapter<int<1, 100>>
      */
     private ArrayAdapter $adapter;
 
@@ -30,9 +26,12 @@ final class ArrayAdapterTest extends TestCase
 
     public function testAdapterReturnsNumberOfItemsInArray(): void
     {
-        self::assertCount($this->adapter->getNbResults(), $this->array);
+        $this->assertCount($this->adapter->getNbResults(), $this->array);
     }
 
+    /**
+     * @return \Generator<array{0: int<0, max>, 1: int<0, max>}>
+     */
     public static function dataGetSlice(): \Generator
     {
         yield [2, 10];
@@ -40,12 +39,12 @@ final class ArrayAdapterTest extends TestCase
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      */
     #[DataProvider('dataGetSlice')]
     public function testGetSlice(int $offset, int $length): void
     {
-        self::assertSame(\array_slice($this->array, $offset, $length), $this->adapter->getSlice($offset, $length));
+        $this->assertSame(\array_slice($this->array, $offset, $length), $this->adapter->getSlice($offset, $length));
     }
 }

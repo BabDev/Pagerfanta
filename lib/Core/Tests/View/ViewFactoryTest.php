@@ -29,31 +29,31 @@ final class ViewFactoryTest extends TestCase
         $factory->set('foo', $view1);
         $factory->set('bar', $view2);
 
-        self::assertSame(['foo' => $view1, 'bar' => $view2], $factory->all());
+        $this->assertSame(['foo' => $view1, 'bar' => $view2], $factory->all());
 
-        self::assertSame($view1, $factory->get('foo'));
-        self::assertSame($view2, $factory->get('bar'));
+        $this->assertSame($view1, $factory->get('foo'));
+        $this->assertSame($view2, $factory->get('bar'));
 
         try {
             $factory->get('foobar');
             self::fail('The view factory should raise an exception if an unknown view is requested');
         } catch (\Exception $e) {
-            self::assertInstanceOf(InvalidArgumentException::class, $e);
+            $this->assertInstanceOf(InvalidArgumentException::class, $e);
         }
 
-        self::assertTrue($factory->has('foo'));
-        self::assertTrue($factory->has('bar'));
-        self::assertFalse($factory->has('foobar'));
+        $this->assertTrue($factory->has('foo'));
+        $this->assertTrue($factory->has('bar'));
+        $this->assertFalse($factory->has('foobar'));
 
         $factory->add([
             'ups' => $view3,
             'man' => $view4,
         ]);
-        self::assertSame($view3, $factory->get('ups'));
-        self::assertSame($view4, $factory->get('man'));
-        self::assertTrue($factory->has('ups'));
-        self::assertTrue($factory->has('man'));
-        self::assertSame([
+        $this->assertSame($view3, $factory->get('ups'));
+        $this->assertSame($view4, $factory->get('man'));
+        $this->assertTrue($factory->has('ups'));
+        $this->assertTrue($factory->has('man'));
+        $this->assertSame([
             'foo' => $view1,
             'bar' => $view2,
             'ups' => $view3,
@@ -61,17 +61,17 @@ final class ViewFactoryTest extends TestCase
         ], $factory->all());
 
         $factory->remove('bar');
-        self::assertFalse($factory->has('bar'));
-        self::assertTrue($factory->has('foo'));
-        self::assertTrue($factory->has('ups'));
-        self::assertTrue($factory->has('man'));
-        self::assertSame([
+        $this->assertFalse($factory->has('bar'));
+        $this->assertTrue($factory->has('foo'));
+        $this->assertTrue($factory->has('ups'));
+        $this->assertTrue($factory->has('man'));
+        $this->assertSame([
             'foo' => $view1,
             'ups' => $view3,
             'man' => $view4,
         ], $factory->all());
 
         $factory->clear();
-        self::assertSame([], $factory->all());
+        $this->assertSame([], $factory->all());
     }
 }

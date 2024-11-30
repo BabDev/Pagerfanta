@@ -14,22 +14,18 @@ use Pagerfanta\Exception\NotValidResultCountException;
 class CallbackAdapter implements AdapterInterface
 {
     /**
-     * @var callable
-     *
-     * @phpstan-var callable(): int<0, max>
+     * @var callable(): int<0, max>
      */
     private $nbResultsCallable;
 
     /**
-     * @var callable
-     *
-     * @phpstan-var callable(int<0, max> $offset, int<0, max> $length): iterable<array-key, T>
+     * @var callable(int<0, max> $offset, int<0, max> $length): iterable<array-key, T>
      */
     private $sliceCallable;
 
     /**
-     * @phpstan-param callable(): int<0, max>                                                    $nbResultsCallable
-     * @phpstan-param callable(int<0, max> $offset, int<0, max> $length): iterable<array-key, T> $sliceCallable
+     * @param callable(): int<0, max>                                                    $nbResultsCallable
+     * @param callable(int<0, max> $offset, int<0, max> $length): iterable<array-key, T> $sliceCallable
      */
     public function __construct(callable $nbResultsCallable, callable $sliceCallable)
     {
@@ -38,7 +34,7 @@ class CallbackAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-return int<0, max>
+     * @return int<0, max>
      *
      * @throws NotValidResultCountException if the number of results is less than zero
      */
@@ -56,8 +52,8 @@ class CallbackAdapter implements AdapterInterface
     }
 
     /**
-     * @phpstan-param int<0, max> $offset
-     * @phpstan-param int<0, max> $length
+     * @param int<0, max> $offset
+     * @param int<0, max> $length
      *
      * @return iterable<array-key, T>
      */

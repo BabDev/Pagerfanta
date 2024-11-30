@@ -42,7 +42,7 @@ final class ConcatenationAdapterTest extends TestCase
             new ArrayAdapter(['foo', 'bar', 'baz']),
         ]);
 
-        self::assertSame(3, $adapter->getNbResults());
+        $this->assertSame(3, $adapter->getNbResults());
     }
 
     public function testGetNbResultsFromMultipleAdapters(): void
@@ -53,13 +53,13 @@ final class ConcatenationAdapterTest extends TestCase
             new ArrayAdapter(['baq']),
         ]);
 
-        self::assertSame(11, $adapter->getNbResults());
+        $this->assertSame(11, $adapter->getNbResults());
     }
 
     public function testGetNbResultsWithNoAdapters(): void
     {
         $adapter = new ConcatenationAdapter([]);
-        self::assertSame(0, $adapter->getNbResults());
+        $this->assertSame(0, $adapter->getNbResults());
     }
 
     public function testGetResults(): void
@@ -69,10 +69,10 @@ final class ConcatenationAdapterTest extends TestCase
             new ArrayAdapter([7, 8, 9, 10, 11, 12, 13, 14]),
             new ArrayAdapter([15, 16, 17]),
         ]);
-        self::assertSame([8, 9, 10], $adapter->getSlice(7, 3));
-        self::assertSame([5, 6, 7, 8], $adapter->getSlice(4, 4));
-        self::assertSame([6, 7, 8, 9, 10, 11, 12, 13, 14, 15], $adapter->getSlice(5, 10));
-        self::assertSame([16, 17], $adapter->getSlice(15, 5));
+        $this->assertSame([8, 9, 10], $adapter->getSlice(7, 3));
+        $this->assertSame([5, 6, 7, 8], $adapter->getSlice(4, 4));
+        $this->assertSame([6, 7, 8, 9, 10, 11, 12, 13, 14, 15], $adapter->getSlice(5, 10));
+        $this->assertSame([16, 17], $adapter->getSlice(15, 5));
     }
 
     public function testGetResultsWithTraversableAdapter(): void
@@ -88,7 +88,7 @@ final class ConcatenationAdapterTest extends TestCase
             ),
         ]);
 
-        self::assertSame([2, 3], $adapter->getSlice(1, 2));
-        self::assertSame([4, 5, 6], $adapter->getSlice(3, 3));
+        $this->assertSame([2, 3], $adapter->getSlice(1, 2));
+        $this->assertSame([4, 5, 6], $adapter->getSlice(3, 3));
     }
 }
