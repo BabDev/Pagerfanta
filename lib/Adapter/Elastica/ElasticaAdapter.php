@@ -3,6 +3,7 @@
 namespace Pagerfanta\Elastica;
 
 use Elastica\Query;
+use Elastica\Result;
 use Elastica\ResultSet;
 use Elastica\SearchableInterface;
 use Pagerfanta\Adapter\AdapterInterface;
@@ -11,9 +12,7 @@ use Pagerfanta\Exception\NotValidResultCountException;
 /**
  * Adapter which calculates pagination from an Elastica Query.
  *
- * @template T
- *
- * @implements AdapterInterface<T>
+ * @implements AdapterInterface<Result>
  */
 class ElasticaAdapter implements AdapterInterface
 {
@@ -70,7 +69,7 @@ class ElasticaAdapter implements AdapterInterface
      * @param int<0, max> $offset
      * @param int<0, max> $length
      *
-     * @return iterable<array-key, T>
+     * @return iterable<int, Result>
      */
     public function getSlice(int $offset, int $length): iterable
     {
