@@ -23,9 +23,6 @@ final class ElasticaAdapterTest extends TestCase
      */
     private array $options;
 
-    /**
-     * @var ElasticaAdapter<mixed>
-     */
     private ElasticaAdapter $adapter;
 
     protected function setUp(): void

@@ -79,12 +79,6 @@ parameters:
 			path: lib/Adapter/Elastica/ElasticaAdapter.php
 
 		-
-			message: '#^Method Pagerfanta\\Elastica\\ElasticaAdapter\:\:getSlice\(\) should return iterable\<\(int\|string\), T\> but returns Elastica\\ResultSet\.$#'
-			identifier: return.type
-			count: 1
-			path: lib/Adapter/Elastica/ElasticaAdapter.php
-
-		-
 			message: '#^Method Pagerfanta\\Solarium\\SolariumAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns int\|null\.$#'
 			identifier: return.type
 			count: 1
