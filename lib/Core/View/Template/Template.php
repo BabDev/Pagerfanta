@@ -14,7 +14,7 @@ abstract class Template implements TemplateInterface
     private array $options;
 
     /**
-     * @var (callable(int $page): string)|RouteGeneratorInterface|null
+     * @var (callable(int): string)|RouteGeneratorInterface|null
      */
     private $routeGenerator;
 

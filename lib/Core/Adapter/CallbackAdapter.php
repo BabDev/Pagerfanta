@@ -19,7 +19,7 @@ class CallbackAdapter implements AdapterInterface
     private $nbResultsCallable;
 
     /**
-     * @var callable(int<0, max> $offset, int<0, max> $length): iterable<array-key, T>
+     * @var callable(int<0, max>, int<0, max>): iterable<array-key, T>
      */
     private $sliceCallable;
 

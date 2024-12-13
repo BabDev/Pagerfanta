@@ -5,7 +5,7 @@ namespace Pagerfanta\RouteGenerator;
 final class RouteGeneratorDecorator implements RouteGeneratorInterface
 {
     /**
-     * @var callable(int $page): string
+     * @var callable(int): string
      */
     private $decorated;
 

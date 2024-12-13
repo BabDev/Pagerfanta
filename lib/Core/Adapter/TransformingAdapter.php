@@ -6,6 +6,7 @@ namespace Pagerfanta\Adapter;
  * Adapter which transforms the result of other adapter.
  *
  * @template T
+ *
  * @template-covariant Transformed
  *
  * @implements AdapterInterface<Transformed>
@@ -18,7 +19,7 @@ class TransformingAdapter implements AdapterInterface
     private $transformer;
 
     /**
-     * @param AdapterInterface<T> $adapter
+     * @param AdapterInterface<T>                 $adapter
      * @param callable(T, array-key): Transformed $transformer
      */
     public function __construct(
