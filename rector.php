@@ -1,20 +1,23 @@
 <?php declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Doctrine\Set\DoctrineSetList;
-use Rector\PHPUnit\Set\PHPUnitSetList;
+use Rector\PHPUnit\CodeQuality\Rector\Class_\NarrowUnusedSetUpDefinedPropertyRector;
 
+// NarrowUnusedSetUpDefinedPropertyRector
 return RectorConfig::configure()
     ->withPaths([
         __DIR__.'/lib',
     ])
+    ->withSkip([
+        /*
+         * Skip selected rules in selected files
+         */
+
+        NarrowUnusedSetUpDefinedPropertyRector::class => [
+            __DIR__.'/lib/Twig/Tests/View/TwigViewIntegrationTest.php', // Tries to inline the route generator factory which is used in the mocked runtime loader
+        ]
+    ])
     ->withImportNames(importShortClasses: false)
     ->withPHPStanConfigs([__DIR__.'/phpstan.neon'])
-    ->withPreparedSets(codeQuality: true)
-    ->withSets([
-        DoctrineSetList::DOCTRINE_DBAL_30,
-        DoctrineSetList::DOCTRINE_ORM_214,
-        PHPUnitSetList::PHPUNIT_100,
-        PHPUnitSetList::PHPUNIT_CODE_QUALITY,
-    ])
+    ->withPreparedSets(codeQuality: true, phpunitCodeQuality: true)
 ;

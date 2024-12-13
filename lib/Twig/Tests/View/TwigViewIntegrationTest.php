@@ -10,7 +10,6 @@ use Pagerfanta\Twig\Extension\PagerfantaExtension;
 use Pagerfanta\Twig\Extension\PagerfantaRuntime;
 use Pagerfanta\Twig\View\TwigView;
 use Pagerfanta\View\ViewFactory;
-use Pagerfanta\View\ViewFactoryInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
@@ -24,7 +23,6 @@ use Twig\RuntimeLoader\RuntimeLoaderInterface;
  */
 final class TwigViewIntegrationTest extends TestCase
 {
-    public ViewFactoryInterface $viewFactory;
     public RouteGeneratorFactoryInterface $routeGeneratorFactory;
     public Environment $twig;
 
