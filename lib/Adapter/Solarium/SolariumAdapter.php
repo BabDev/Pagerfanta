@@ -5,15 +5,14 @@ namespace Pagerfanta\Solarium;
 use Pagerfanta\Adapter\AdapterInterface;
 use Solarium\Core\Client\ClientInterface;
 use Solarium\Core\Client\Endpoint;
+use Solarium\Core\Query\DocumentInterface;
 use Solarium\QueryType\Select\Query\Query;
 use Solarium\QueryType\Select\Result\Result;
 
 /**
  * Adapter which calculates pagination from a Solarium Query.
  *
- * @template T
- *
- * @implements AdapterInterface<T>
+ * @implements AdapterInterface<DocumentInterface>
  */
 class SolariumAdapter implements AdapterInterface
 {
@@ -44,12 +43,6 @@ class SolariumAdapter implements AdapterInterface
         return $this->getResultSet()->getNumFound();
     }
 
-    /**
-     * @param int<0, max> $offset
-     * @param int<0, max> $length
-     *
-     * @return iterable<array-key, T>
-     */
     public function getSlice(int $offset, int $length): iterable
     {
         return $this->getResultSet($offset, $length);
