@@ -441,6 +441,9 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
         throw new InvalidArgumentException(\sprintf('Cannot create iterator with page results of type "%s".', get_debug_type($results)));
     }
 
+    /**
+     * @return T[]
+     */
     public function jsonSerialize(): array
     {
         $results = $this->getCurrentPageResults();

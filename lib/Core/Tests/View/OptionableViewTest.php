@@ -51,6 +51,9 @@ final class OptionableViewTest extends TestCase
         $this->assertSame(self::RENDERED_VIEW, (new OptionableView($this->createViewMock([...$defaultOptions, ...$options]), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator, $options));
     }
 
+    /**
+     * @param array<string, mixed> $expectedOptions
+     */
     private function createViewMock(array $expectedOptions): MockObject&ViewInterface
     {
         /** @var MockObject&ViewInterface $view */

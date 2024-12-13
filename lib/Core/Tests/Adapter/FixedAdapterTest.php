@@ -29,6 +29,9 @@ final class FixedAdapterTest extends TestCase
         yield 'from iterable object' => [new \ArrayObject()];
     }
 
+    /**
+     * @param iterable<mixed> $results
+     */
     #[DataProvider('dataGetSlice')]
     public function testGetSlice(iterable $results): void
     {
