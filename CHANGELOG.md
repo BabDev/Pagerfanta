@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.7.1 (2024-12-13)
+
+- Misc. type updates (internally, the library has also updated to PHPStan 2.0)
+
 ## 4.7.0 (2024-08-13)
 
 - [#56](https://github.com/BabDev/Pagerfanta/issues/56) Add support for `Doctrine\Common\Collections\ReadableCollection` in `Pagerfanta\Doctrine\Collections\CollectionAdapter`
