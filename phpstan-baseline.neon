@@ -67,12 +67,6 @@ parameters:
 			path: lib/Adapter/Doctrine/PHPCRODM/QueryAdapter.php
 
 		-
-			message: '#^Call to an undefined method Iterator\<mixed, PHPCR\\Query\\RowInterface\>\:\:count\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: lib/Adapter/Doctrine/PHPCRODM/QueryAdapter.php
-
-		-
 			message: '#^Method Pagerfanta\\Elastica\\ElasticaAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns int\.$#'
 			identifier: return.type
 			count: 2
