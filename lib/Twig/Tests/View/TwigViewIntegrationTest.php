@@ -23,6 +23,22 @@ use Twig\RuntimeLoader\RuntimeLoaderInterface;
  */
 final class TwigViewIntegrationTest extends TestCase
 {
+    private const CONSTRUCTOR_TEMPLATE = <<<TWIG
+        {%- extends '@Pagerfanta/default.html.twig' -%}
+
+        {%- block pager_widget -%}
+            Twig template from constructor
+        {%- endblock pager_widget -%}
+        TWIG;
+
+    private const OPTIONS_TEMPLATE = <<<TWIG
+        {%- extends '@Pagerfanta/default.html.twig' -%}
+
+        {%- block pager_widget -%}
+            Twig template from options
+        {%- endblock pager_widget -%}
+        TWIG;
+
     public RouteGeneratorFactoryInterface $routeGeneratorFactory;
     public Environment $twig;
 
@@ -31,7 +47,16 @@ final class TwigViewIntegrationTest extends TestCase
         $filesystemLoader = new FilesystemLoader();
         $filesystemLoader->addPath(__DIR__.'/../../templates', 'Pagerfanta');
 
-        $this->twig = new Environment(new ChainLoader([new ArrayLoader(['integration.html.twig' => '{{ pagerfanta(pager, options) }}']), $filesystemLoader]));
+        $this->twig = new Environment(
+            new ChainLoader([
+                new ArrayLoader([
+                    'integration.html.twig' => '{{ pagerfanta(pager, options) }}',
+                    'options.html.twig' => self::OPTIONS_TEMPLATE,
+                    'constructor.html.twig' => self::CONSTRUCTOR_TEMPLATE,
+                ]),
+                $filesystemLoader,
+            ])
+        );
         $this->twig->addExtension(new PagerfantaExtension());
         $this->twig->addRuntimeLoader($this->createRuntimeLoader());
 
@@ -393,6 +418,29 @@ final class TwigViewIntegrationTest extends TestCase
             $this->createPagerfanta(),
             $this->createRouteGeneratorFactory()->create()
         ));
+    }
+
+    public function testRendersWithATemplateSpecifiedInTheOptions(): void
+    {
+        $this->assertSame(
+            'Twig template from options',
+            (new TwigView($this->twig, 'constructor.html.twig'))->render(
+                $this->createPagerfanta(),
+                $this->createRouteGeneratorFactory()->create(),
+                ['template' => 'options.html.twig']
+            )
+        );
+    }
+
+    public function testRendersWithATemplateSpecifiedInTheConstructorWhenNotSetInTheOptions(): void
+    {
+        $this->assertSame(
+            'Twig template from constructor',
+            (new TwigView($this->twig, 'constructor.html.twig'))->render(
+                $this->createPagerfanta(),
+                $this->createRouteGeneratorFactory()->create()
+            )
+        );
     }
 
     private function createRouteGeneratorFactory(): RouteGeneratorFactoryInterface
