@@ -45,7 +45,7 @@ final class ElasticaAdapterTest extends TestCase
 
     public function testGetResultSet(): void
     {
-        $this->assertNull($this->adapter->getResultSet());
+        $this->assertNotInstanceOf(ResultSet::class, $this->adapter->getResultSet());
 
         $this->searchable->method('search')
             ->with($this->query, ['from' => 0, 'size' => 1, 'option1' => 'value1', 'option2' => 'value2'])
