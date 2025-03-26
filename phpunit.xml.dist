@@ -7,9 +7,8 @@
 >
     <testsuites>
         <testsuite name="Pagerfanta Test Suite">
-            <directory>./lib/**/Tests</directory>
             <directory>./lib/Adapter/**/Tests</directory>
-            <directory>./lib/Adapter/Doctrine/**/Tests</directory>
+            <directory>./lib/Core/Tests</directory>
         </testsuite>
     </testsuites>
 
@@ -18,17 +17,8 @@
             <directory>./lib</directory>
         </include>
         <exclude>
-            <directory>./lib/**/Tests</directory>
             <directory>./lib/Adapter/**/Tests</directory>
-            <directory>./lib/Adapter/Doctrine/**/Tests</directory>
+            <directory>./lib/Core/Tests</directory>
         </exclude>
     </source>
-
-    <!-- <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
-    </listeners> -->
-
-    <!-- <php>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[indirect]=3&amp;max[direct]=17"/>
-    </php> -->
 </phpunit>

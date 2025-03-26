@@ -17,12 +17,4 @@
             <directory>./vendor</directory>
         </exclude>
     </source>
-
-    <!-- <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
-    </listeners> -->
-
-    <!-- <php>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=17"/>
-    </php> -->
 </phpunit>
