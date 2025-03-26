@@ -4,7 +4,7 @@ use DG\BypassFinals;
 
 require __DIR__.'/../vendor/autoload.php';
 
-BypassFinals::setWhitelist([
+BypassFinals::allowPaths([
     '*/Doctrine/ODM/MongoDB/*',
 ]);
 
