@@ -5,9 +5,9 @@
     "keywords": ["pagerfanta", "doctrine", "mongodb", "odm"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
-        "doctrine/mongodb-odm": "^2.4",
-        "pagerfanta/core": "^3.7 || ^4.0"
+        "php": "^8.2",
+        "doctrine/mongodb-odm": "^2.10",
+        "pagerfanta/core": "^4.7 || ^5.0"
     },
     "require-dev": {
         "dg/bypass-finals": "^1.5.1",
