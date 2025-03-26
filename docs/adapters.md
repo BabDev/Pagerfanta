@@ -1,6 +1,6 @@
 # Available Adapters
 
-The Pagerfanta package provides out-of-the-box support for a number of storage backends. Please review the [installation guide](/open-source/packages/pagerfanta/docs/4.x/intro) for details on how to install optional packages.
+The Pagerfanta package provides out-of-the-box support for a number of storage backends. Please review the [installation guide](/open-source/packages/pagerfanta/docs/5.x/intro) for details on how to install optional packages.
 
 ## Third Party
 
@@ -108,8 +108,6 @@ $adapter = new SingleTableQueryAdapter($query, 'p.id');
 The `QueryAdapter` is the main adapter for use with the DBAL package, you should use this on queries that have join statements.
 
 The class constructor requires a `Doctrine\DBAL\Query\QueryBuilder` and a callable which can be used to modify a clone of the query builder for a COUNT query. The callable should have a signature of `function (QueryBuilder $queryBuilder): QueryBuilder {}`.
-
-<div class="docs-note docs-note--deprecated-feature">Before Pagerfanta 4.6, a return from the callable was ignored and the query builder passed to the callable was returned. This approach is deprecated in favor of the callable returning a query builder object, be it the provided builder or a new instance. In Pagerfanta 5.0, this return will be required.</div>
 
 Below is an example of using the `QueryAdapter`.
 
@@ -327,8 +325,6 @@ $adapter = new ConcatenationAdapter(
 ```
 
 ### Empty
-
-<div class="docs-note docs-note--new-feature">The empty adapter was introduced in Pagerfanta 4.3.</div>
 
 The `EmptyAdapter` provides an always empty result set, optimal for scenarios such as conditional returns to skip database queries where the application knows the parameters cannot produce a result set.
 

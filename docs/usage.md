@@ -186,8 +186,6 @@ $pagerfanta->getAdapter(); // Will return the NullAdapter instance given
 
 ## Auto-Pagination
 
-<div class="docs-note docs-note--new-feature">The auto-pagination feature was introduced in Pagerfanta 4.1.</div>
-
 If you want to iterate through all pages results step by step without having to load the whole result into memory at once (to avoid extreme memory consumption when batch processing for example), you can do so using the `autoPagingIterator` method on the `Pagerfanta` instance.
 
 ```php
