@@ -10,7 +10,7 @@ final class RouteGeneratorDecorator implements RouteGeneratorInterface
     private $decorated;
 
     /**
-     * @param callable(int $page): string $decorated
+     * @param callable(int): string $decorated
      */
     public function __construct(callable $decorated)
     {

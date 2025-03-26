@@ -39,11 +39,7 @@ final class ViewFactory implements ViewFactoryInterface
      */
     public function get(string $name): ViewInterface
     {
-        if (!$this->has($name)) {
-            throw new InvalidArgumentException(\sprintf('The view "%s" does not exist.', $name));
-        }
-
-        return $this->views[$name];
+        return $this->views[$name] ?? throw new InvalidArgumentException(\sprintf('The view "%s" does not exist.', $name));
     }
 
     public function has(string $name): bool

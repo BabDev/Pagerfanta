@@ -26,9 +26,7 @@ abstract class Template implements TemplateInterface
     /**
      * Sets the route generator used while rendering the template.
      *
-     * @param callable|RouteGeneratorInterface $routeGenerator
-     *
-     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
+     * @param (callable(int): string)|RouteGeneratorInterface $routeGenerator
      */
     public function setRouteGenerator(callable $routeGenerator): void
     {
@@ -64,17 +62,13 @@ abstract class Template implements TemplateInterface
     }
 
     /**
-     * @return (callable(int $page): string)|RouteGeneratorInterface
+     * @return (callable(int): string)|RouteGeneratorInterface
      *
      * @throws RuntimeException if the route generator has not been set
      */
     private function getRouteGenerator(): callable
     {
-        if (!$this->routeGenerator) {
-            throw new RuntimeException(\sprintf('The route generator was not set to the template, ensure you call %s::setRouteGenerator().', static::class));
-        }
-
-        return $this->routeGenerator;
+        return $this->routeGenerator ?? throw new RuntimeException(\sprintf('The route generator was not set to the template, ensure you call %s::setRouteGenerator().', static::class));
     }
 
     /**
@@ -84,10 +78,6 @@ abstract class Template implements TemplateInterface
      */
     protected function option(string $name)
     {
-        if (!isset($this->options[$name])) {
-            throw new InvalidArgumentException(\sprintf('The option "%s" does not exist.', $name));
-        }
-
-        return $this->options[$name];
+        return $this->options[$name] ?? throw new InvalidArgumentException(\sprintf('The option "%s" does not exist.', $name));
     }
 }

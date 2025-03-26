@@ -9,9 +9,7 @@ interface TemplateInterface
     /**
      * Sets the route generator used while rendering the template.
      *
-     * @param callable|RouteGeneratorInterface $routeGenerator
-     *
-     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
+     * @param (callable(int): string)|RouteGeneratorInterface $routeGenerator
      */
     public function setRouteGenerator(callable $routeGenerator): void;
 

@@ -19,9 +19,8 @@ class OptionableView implements ViewInterface
     ) {}
 
     /**
-     * @param array<string, mixed> $options
-     *
-     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
+     * @param (callable(int): string|RouteGeneratorInterface) $routeGenerator
+     * @param array<string, mixed>                            $options
      */
     public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {

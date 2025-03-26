@@ -18,11 +18,9 @@ abstract class TemplateView extends View
     abstract protected function createDefaultTemplate(): TemplateInterface;
 
     /**
-     * @param PagerfantaInterface<mixed>       $pagerfanta
-     * @param callable|RouteGeneratorInterface $routeGenerator
-     * @param array<string, mixed>             $options
-     *
-     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
+     * @param PagerfantaInterface<mixed>                    $pagerfanta
+     * @param callable(int): string|RouteGeneratorInterface $routeGenerator
+     * @param array<string, mixed>                          $options
      */
     public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {
@@ -35,8 +33,8 @@ abstract class TemplateView extends View
     }
 
     /**
-     * @param callable(int $page): string|RouteGeneratorInterface $routeGenerator
-     * @param array<string, mixed>                                $options
+     * @param callable(int): string|RouteGeneratorInterface $routeGenerator
+     * @param array<string, mixed>                          $options
      */
     private function configureTemplate(callable|RouteGeneratorInterface $routeGenerator, array $options): void
     {
