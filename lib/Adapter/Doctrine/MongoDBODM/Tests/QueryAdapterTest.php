@@ -3,8 +3,8 @@
 namespace Pagerfanta\Doctrine\MongoDBODM\Tests;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\Iterator\IterableResult;
 use Doctrine\ODM\MongoDB\Query\Builder;
-use Doctrine\ODM\MongoDB\Query\Query;
 use Pagerfanta\Doctrine\MongoDBODM\QueryAdapter;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -34,10 +34,10 @@ final class QueryAdapterTest extends TestCase
 
     public function testGetNbResultsShouldCreateTheQueryAndCount(): void
     {
-        /** @var MockObject&Query $query */
-        $query = $this->createMock(Query::class);
+        /** @var MockObject&IterableResult $iterableResult */
+        $iterableResult = $this->createMock(IterableResult::class);
 
-        $query->expects($this->once())
+        $iterableResult->expects($this->once())
             ->method('execute')
             ->willReturn(110);
 
@@ -55,7 +55,7 @@ final class QueryAdapterTest extends TestCase
 
         $this->queryBuilder->expects($this->once())
             ->method('getQuery')
-            ->willReturn($query);
+            ->willReturn($iterableResult);
 
         $this->assertSame(110, $this->adapter->getNbResults());
     }
@@ -66,9 +66,10 @@ final class QueryAdapterTest extends TestCase
         $length = 15;
         $slice = new \ArrayIterator();
 
-        /** @var MockObject&Query $query */
-        $query = $this->createMock(Query::class);
-        $query->expects($this->once())
+        /** @var MockObject&IterableResult $iterableResult */
+        $iterableResult = $this->createMock(IterableResult::class);
+
+        $iterableResult->expects($this->once())
             ->method('execute')
             ->willReturn($slice);
 
@@ -84,7 +85,7 @@ final class QueryAdapterTest extends TestCase
 
         $this->queryBuilder->expects($this->once())
             ->method('getQuery')
-            ->willReturn($query);
+            ->willReturn($iterableResult);
 
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
