@@ -14,7 +14,7 @@
         "doctrine/mongodb-odm": "^2.10",
         "doctrine/orm": "^2.20 || ^3.3",
         "doctrine/phpcr-odm": "^2.0",
-        "dg/bypass-finals": "^1.5.1",
+        "dg/bypass-finals": "^1.9",
         "jackalope/jackalope-doctrine-dbal": "^2.0",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "2.1.11",

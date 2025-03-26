@@ -10,7 +10,7 @@
         "pagerfanta/core": "^4.7 || ^5.0"
     },
     "require-dev": {
-        "dg/bypass-finals": "^1.5.1",
+        "dg/bypass-finals": "^1.9",
         "jackalope/jackalope-doctrine-dbal": "^2.0",
         "phpunit/phpunit": "^11.5"
     },
