@@ -13,8 +13,6 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
  * @template-covariant T
  *
  * @extends \IteratorAggregate<T>
- *
- * @method \Generator<int, T, mixed, void> autoPagingIterator()
  */
 interface PagerfantaInterface extends \Countable, \IteratorAggregate
 {
@@ -139,4 +137,11 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
      * @return positive-int
      */
     public function getPageNumberForItemAtPosition(int $position): int;
+
+    /**
+     * Generates an iterator to automatically iterate over all pages in a result set.
+     *
+     * @return \Generator<int, T, mixed, void>
+     */
+    public function autoPagingIterator(): \Generator;
 }
