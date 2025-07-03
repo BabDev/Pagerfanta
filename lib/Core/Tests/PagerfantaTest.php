@@ -641,7 +641,7 @@ final class PagerfantaTest extends TestCase
         $currentPageResults0 = new \ArrayObject();
         $currentPageResults1 = new \ArrayObject();
 
-        $this->adapter->expects(self::exactly(2))
+        $this->adapter->expects($this->exactly(2))
             ->method('getSlice')
             ->willReturnOnConsecutiveCalls(
                 $currentPageResults0,

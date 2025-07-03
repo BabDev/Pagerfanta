@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 return (new PhpCsFixer\Config())
+    ->setUnsupportedPhpVersionAllowed(true)
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
