@@ -23,8 +23,6 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
 
     /**
      * @return $this
-     *
-     * @phpstan-self-out self<T>
      */
     public function setAllowOutOfRangePages(bool $allowOutOfRangePages): self;
 
@@ -32,8 +30,6 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
 
     /**
      * @return $this
-     *
-     * @phpstan-self-out self<T>
      */
     public function setNormalizeOutOfRangePages(bool $normalizeOutOfRangePages): self;
 
@@ -41,8 +37,6 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
 
     /**
      * @return $this
-     *
-     * @phpstan-self-out self<T>
      *
      * @throws LessThan1MaxPerPageException if the page is less than 1
      */
@@ -55,8 +49,6 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
 
     /**
      * @return $this
-     *
-     * @phpstan-self-out self<T>
      *
      * @throws LessThan1CurrentPageException  if the current page is less than 1
      * @throws OutOfRangeCurrentPageException if It is not allowed out of range pages and they are not normalized
@@ -96,16 +88,12 @@ interface PagerfantaInterface extends \Countable, \IteratorAggregate
     /**
      * @return $this
      *
-     * @phpstan-self-out self<T>
-     *
      * @throws LessThan1MaxPagesException if the max number of pages is less than 1
      */
     public function setMaxNbPages(int $maxNbPages): self;
 
     /**
      * @return $this
-     *
-     * @phpstan-self-out self<T>
      */
     public function resetMaxNbPages(): self;
 
