@@ -5,7 +5,7 @@
     "keywords": ["pagerfanta", "solarium"],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.4",
         "pagerfanta/core": "^4.7 || ^5.0",
         "solarium/solarium": "^6.2"
     },
