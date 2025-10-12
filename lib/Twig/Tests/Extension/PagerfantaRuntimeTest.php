@@ -38,12 +38,12 @@ final class PagerfantaRuntimeTest extends TestCase
              */
             public function create(array $options = []): RouteGeneratorInterface
             {
-                return new class($options) implements RouteGeneratorInterface {
+                return new readonly class($options) implements RouteGeneratorInterface {
                     /**
                      * @param array<string, mixed> $options
                      */
                     public function __construct(
-                        private readonly array $options,
+                        private array $options,
                     ) {}
 
                     public function __invoke(int $page): string

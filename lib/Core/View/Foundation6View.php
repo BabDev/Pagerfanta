@@ -12,6 +12,7 @@ class Foundation6View extends TemplateView
         return new Foundation6Template();
     }
 
+    #[\Override]
     protected function getDefaultProximity(): int
     {
         return 3;

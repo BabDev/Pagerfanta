@@ -9,12 +9,12 @@ use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 use Pagerfanta\View\ViewFactoryInterface;
 use Twig\Extension\RuntimeExtensionInterface;
 
-final class PagerfantaRuntime implements RuntimeExtensionInterface
+final readonly class PagerfantaRuntime implements RuntimeExtensionInterface
 {
     public function __construct(
-        private readonly string $defaultView,
-        private readonly ViewFactoryInterface $viewFactory,
-        private readonly RouteGeneratorFactoryInterface $routeGeneratorFactory,
+        private string $defaultView,
+        private ViewFactoryInterface $viewFactory,
+        private RouteGeneratorFactoryInterface $routeGeneratorFactory,
     ) {}
 
     /**

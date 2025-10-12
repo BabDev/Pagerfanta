@@ -10,7 +10,7 @@ use Twig\Environment;
 
 final class TwigView extends View
 {
-    public const DEFAULT_TEMPLATE = '@Pagerfanta/default.html.twig';
+    public const string DEFAULT_TEMPLATE = '@Pagerfanta/default.html.twig';
 
     private string $template = self::DEFAULT_TEMPLATE;
 
@@ -61,6 +61,7 @@ final class TwigView extends View
     /**
      * @param array<string, mixed> $options
      */
+    #[\Override]
     protected function initializeOptions(array $options): void
     {
         if (isset($options['template'])) {

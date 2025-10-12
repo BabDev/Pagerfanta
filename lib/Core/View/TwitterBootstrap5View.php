@@ -7,11 +7,13 @@ use Pagerfanta\View\Template\TwitterBootstrap5Template;
 
 class TwitterBootstrap5View extends TwitterBootstrapView
 {
+    #[\Override]
     protected function createDefaultTemplate(): TemplateInterface
     {
         return new TwitterBootstrap5Template();
     }
 
+    #[\Override]
     public function getName(): string
     {
         return 'twitter_bootstrap5';

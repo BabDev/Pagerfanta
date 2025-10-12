@@ -281,6 +281,7 @@ final class DefaultViewTest extends ViewTestCase
             HTML, $this->renderView($options));
     }
 
+    #[\Override]
     protected function filterExpectedView(string $expected): string
     {
         return $this->removeWhitespacesBetweenTags($expected);

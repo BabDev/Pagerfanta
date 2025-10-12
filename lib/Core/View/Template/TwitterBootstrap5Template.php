@@ -7,6 +7,7 @@ class TwitterBootstrap5Template extends TwitterBootstrap4Template
     /**
      * @return array<string, string>
      */
+    #[\Override]
     protected function getDefaultOptions(): array
     {
         return [

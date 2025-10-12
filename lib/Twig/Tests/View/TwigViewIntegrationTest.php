@@ -23,7 +23,7 @@ use Twig\RuntimeLoader\RuntimeLoaderInterface;
  */
 final class TwigViewIntegrationTest extends TestCase
 {
-    private const CONSTRUCTOR_TEMPLATE = <<<TWIG
+    private const string CONSTRUCTOR_TEMPLATE = <<<TWIG
         {%- extends '@Pagerfanta/default.html.twig' -%}
 
         {%- block pager_widget -%}
@@ -31,7 +31,7 @@ final class TwigViewIntegrationTest extends TestCase
         {%- endblock pager_widget -%}
         TWIG;
 
-    private const OPTIONS_TEMPLATE = <<<TWIG
+    private const string OPTIONS_TEMPLATE = <<<TWIG
         {%- extends '@Pagerfanta/default.html.twig' -%}
 
         {%- block pager_widget -%}
@@ -414,7 +414,7 @@ final class TwigViewIntegrationTest extends TestCase
 
     public function testPagerfantaRenderingWithEmptyOptions(): void
     {
-        $this->assertNotEmpty((new TwigView($this->twig))->render(
+        $this->assertNotEmpty(new TwigView($this->twig)->render(
             $this->createPagerfanta(),
             $this->createRouteGeneratorFactory()->create()
         ));
@@ -424,7 +424,7 @@ final class TwigViewIntegrationTest extends TestCase
     {
         $this->assertSame(
             'Twig template from options',
-            (new TwigView($this->twig, 'constructor.html.twig'))->render(
+            new TwigView($this->twig, 'constructor.html.twig')->render(
                 $this->createPagerfanta(),
                 $this->createRouteGeneratorFactory()->create(),
                 ['template' => 'options.html.twig']
@@ -436,7 +436,7 @@ final class TwigViewIntegrationTest extends TestCase
     {
         $this->assertSame(
             'Twig template from constructor',
-            (new TwigView($this->twig, 'constructor.html.twig'))->render(
+            new TwigView($this->twig, 'constructor.html.twig')->render(
                 $this->createPagerfanta(),
                 $this->createRouteGeneratorFactory()->create()
             )
@@ -451,12 +451,12 @@ final class TwigViewIntegrationTest extends TestCase
              */
             public function create(array $options = []): RouteGeneratorInterface
             {
-                return new class($options) implements RouteGeneratorInterface {
+                return new readonly class($options) implements RouteGeneratorInterface {
                     /**
                      * @param array<string, mixed> $options
                      */
                     public function __construct(
-                        private readonly array $options,
+                        private array $options,
                     ) {}
 
                     public function __invoke(int $page): string
@@ -476,9 +476,9 @@ final class TwigViewIntegrationTest extends TestCase
 
     private function createRuntimeLoader(): RuntimeLoaderInterface
     {
-        return new class($this) implements RuntimeLoaderInterface {
+        return new readonly class($this) implements RuntimeLoaderInterface {
             public function __construct(
-                private readonly TwigViewIntegrationTest $testCase,
+                private TwigViewIntegrationTest $testCase,
             ) {}
 
             /**

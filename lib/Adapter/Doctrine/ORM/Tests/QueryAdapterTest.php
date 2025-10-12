@@ -11,6 +11,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 final class QueryAdapterTest extends ORMTestCase
 {
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();

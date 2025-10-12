@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class OptionableViewTest extends TestCase
 {
-    private const RENDERED_VIEW = 'rendered';
+    private const string RENDERED_VIEW = 'rendered';
 
     /**
      * @var MockObject&PagerfantaInterface<mixed>
@@ -40,7 +40,7 @@ final class OptionableViewTest extends TestCase
     {
         $defaultOptions = ['foo' => 'bar', 'bar' => 'ups'];
 
-        $this->assertSame(self::RENDERED_VIEW, (new OptionableView($this->createViewMock($defaultOptions), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator));
+        $this->assertSame(self::RENDERED_VIEW, new OptionableView($this->createViewMock($defaultOptions), $defaultOptions)->render($this->pagerfanta, $this->routeGenerator));
     }
 
     public function testRenderShouldMergeOptions(): void
@@ -48,7 +48,7 @@ final class OptionableViewTest extends TestCase
         $defaultOptions = ['foo' => 'bar'];
         $options = ['ups' => 'da'];
 
-        $this->assertSame(self::RENDERED_VIEW, (new OptionableView($this->createViewMock([...$defaultOptions, ...$options]), $defaultOptions))->render($this->pagerfanta, $this->routeGenerator, $options));
+        $this->assertSame(self::RENDERED_VIEW, new OptionableView($this->createViewMock([...$defaultOptions, ...$options]), $defaultOptions)->render($this->pagerfanta, $this->routeGenerator, $options));
     }
 
     /**

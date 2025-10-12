@@ -7,6 +7,7 @@ class Foundation6Template extends Template
     /**
      * @return array<string, string>
      */
+    #[\Override]
     protected function getDefaultOptions(): array
     {
         return [

@@ -7,6 +7,7 @@ class TwitterBootstrap4Template extends TwitterBootstrap3Template
     /**
      * @param int|string $text
      */
+    #[\Override]
     protected function linkLi(string $class, string $href, $text, ?string $rel = null): string
     {
         $liClass = implode(' ', array_filter(['page-item', $class]));
@@ -18,6 +19,7 @@ class TwitterBootstrap4Template extends TwitterBootstrap3Template
     /**
      * @param int|string $text
      */
+    #[\Override]
     protected function spanLi(string $class, $text): string
     {
         $liClass = implode(' ', array_filter(['page-item', $class]));

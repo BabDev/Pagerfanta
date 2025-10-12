@@ -10,6 +10,7 @@ final class PagerfantaExtension extends AbstractExtension
     /**
      * @return list<TwigFunction>
      */
+    #[\Override]
     public function getFunctions(): array
     {
         return [

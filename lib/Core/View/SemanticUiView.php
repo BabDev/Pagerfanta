@@ -12,6 +12,7 @@ class SemanticUiView extends TemplateView
         return new SemanticUiTemplate();
     }
 
+    #[\Override]
     protected function getDefaultProximity(): int
     {
         return 3;

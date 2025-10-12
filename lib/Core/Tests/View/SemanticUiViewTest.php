@@ -268,6 +268,7 @@ final class SemanticUiViewTest extends ViewTestCase
             HTML, $this->renderView($options));
     }
 
+    #[\Override]
     protected function filterExpectedView(string $expected): string
     {
         return $this->removeWhitespacesBetweenTags($expected);

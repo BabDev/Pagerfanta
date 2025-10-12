@@ -12,6 +12,7 @@ class TwitterBootstrapView extends TemplateView
         return new TwitterBootstrapTemplate();
     }
 
+    #[\Override]
     protected function getDefaultProximity(): int
     {
         return 3;

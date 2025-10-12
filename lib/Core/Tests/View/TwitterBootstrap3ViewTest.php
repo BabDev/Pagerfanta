@@ -7,11 +7,13 @@ use Pagerfanta\View\ViewInterface;
 
 final class TwitterBootstrap3ViewTest extends TwitterBootstrapViewTest
 {
+    #[\Override]
     protected function createView(): ViewInterface
     {
         return new TwitterBootstrap3View();
     }
 
+    #[\Override]
     public function testRenderNormal(): void
     {
         $this->setNbPages(100);
@@ -38,6 +40,7 @@ final class TwitterBootstrap3ViewTest extends TwitterBootstrapViewTest
             HTML, $this->renderView($options));
     }
 
+    #[\Override]
     public function testRenderFirstPage(): void
     {
         $this->setNbPages(100);
@@ -62,6 +65,7 @@ final class TwitterBootstrap3ViewTest extends TwitterBootstrapViewTest
             HTML, $this->renderView($options));
     }
 
+    #[\Override]
     public function testRenderLastPage(): void
     {
         $this->setNbPages(100);
@@ -86,6 +90,7 @@ final class TwitterBootstrap3ViewTest extends TwitterBootstrapViewTest
             HTML, $this->renderView($options));
     }
 
+    #[\Override]
     public function testRenderWhenStartProximityIs2(): void
     {
         $this->setNbPages(100);
@@ -110,6 +115,7 @@ final class TwitterBootstrap3ViewTest extends TwitterBootstrapViewTest
             HTML, $this->renderView($options));
     }
 
+    #[\Override]
     public function testRenderWhenStartProximityIs3(): void
     {
         $this->setNbPages(100);
@@ -135,6 +141,7 @@ final class TwitterBootstrap3ViewTest extends TwitterBootstrapViewTest
             HTML, $this->renderView($options));
     }
 
+    #[\Override]
     public function testRenderWhenEndProximityIs2FromLast(): void
     {
         $this->setNbPages(100);
@@ -159,6 +166,7 @@ final class TwitterBootstrap3ViewTest extends TwitterBootstrapViewTest
             HTML, $this->renderView($options));
     }
 
+    #[\Override]
     public function testRenderWhenEndProximityIs3FromLast(): void
     {
         $this->setNbPages(100);
@@ -184,6 +192,7 @@ final class TwitterBootstrap3ViewTest extends TwitterBootstrapViewTest
             HTML, $this->renderView($options));
     }
 
+    #[\Override]
     public function testRenderModifyingProximity(): void
     {
         $this->setNbPages(100);
@@ -208,6 +217,7 @@ final class TwitterBootstrap3ViewTest extends TwitterBootstrapViewTest
             HTML, $this->renderView($options));
     }
 
+    #[\Override]
     public function testRenderModifyingPreviousAndNextMessages(): void
     {
         $this->setNbPages(100);
@@ -237,6 +247,7 @@ final class TwitterBootstrap3ViewTest extends TwitterBootstrapViewTest
             HTML, $this->renderView($options));
     }
 
+    #[\Override]
     public function testRenderModifyingCssClasses(): void
     {
         $this->setNbPages(100);
