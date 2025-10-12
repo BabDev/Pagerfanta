@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.7.2 (2025-10-12)
+
+- [#62](https://github.com/BabDev/Pagerfanta/issues/62) Remove some PHPStan annotations from `Pagerfanta\PagerfantaInterface` and `Pagerfanta\Pagerfanta` to resolve downstream compatibility issues
+
 ## 4.7.1 (2024-12-13)
 
 - Misc. type updates (internally, the library has also updated to PHPStan 2.0)
