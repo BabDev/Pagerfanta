@@ -19,6 +19,6 @@ The below table shows the supported PHP versions for this package, please review
 | 2.x     | **No Longer Supported** | 7.2-8.0      |
 | 3.x     | Actively Supported      | 7.4-8.2      |
 | 4.x     | Actively Supported      | 8.1+         |
-| 5.x     | In Development          | 8.2+         |
+| 5.x     | In Development          | 8.4+         |
 
 <div class="docs-note">When a maximum PHP version is listed, that is the highest version that is tested for support. The library may work on newer PHP versions, but support is not guaranteed.</div>
