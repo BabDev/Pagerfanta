@@ -10,9 +10,9 @@
     },
     "require-dev": {
         "doctrine/collections": "^1.8 || ^2.0",
-        "doctrine/dbal": "^3.9 || ^4.0",
-        "doctrine/mongodb-odm": "^2.10",
-        "doctrine/orm": "^2.20 || ^3.3",
+        "doctrine/dbal": "^3.10 || ^4.0",
+        "doctrine/mongodb-odm": "^2.11",
+        "doctrine/orm": "^2.20 || ^3.5",
         "doctrine/phpcr-odm": "^2.0",
         "dg/bypass-finals": "^1.9",
         "jackalope/jackalope-doctrine-dbal": "^2.0",
@@ -23,18 +23,18 @@
         "rector/rector": "2.2.3",
         "ruflin/elastica": "^7.3 || ^8.0",
         "solarium/solarium": "^6.2",
-        "symfony/cache": "^6.4 || ^7.2",
-        "twig/twig": "^3.12"
+        "symfony/cache": "^6.4 || ^7.3",
+        "twig/twig": "^3.21"
     },
     "conflict": {
         "doctrine/collections": "<1.8",
-        "doctrine/dbal": "<3.5",
-        "doctrine/mongodb-odm": "<2.4",
-        "doctrine/orm": "<2.20 || >=3.0,<3.3",
+        "doctrine/dbal": "<3.10",
+        "doctrine/mongodb-odm": "<2.11",
+        "doctrine/orm": "<2.20 || >=3.0,<3.5",
         "doctrine/phpcr-odm": "<1.7",
         "ruflin/elastica": "<7.3",
         "solarium/solarium": "<6.2",
-        "twig/twig": "<3.12"
+        "twig/twig": "<3.21"
     },
     "suggest": {
         "twig/twig": "To integrate Pagerfanta with Twig"

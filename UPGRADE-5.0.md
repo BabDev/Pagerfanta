@@ -8,11 +8,11 @@ The below guide will assist in upgrading from the 4.x versions to 5.0.
 
 ## General Changes
 
-- Dropped support for versions of Doctrine DBAL before 3.9
-- Dropped support for versions of Doctrine MongoDB ODM before 2.10
-- Dropped support for versions of Doctrine ORM before 2.20 and 3.0 through 3.2
+- Dropped support for versions of Doctrine DBAL before 3.10
+- Dropped support for versions of Doctrine MongoDB ODM before 2.11
+- Dropped support for versions of Doctrine ORM before 2.20 and 3.0 through 3.4
 - Dropped support for versions of Doctrine PHPCR ODM before 2.0
-- Dropped support for versions of Twig before 3.12
+- Dropped support for versions of Twig before 3.21
 - `Pagerfanta\PagerfantaInterface` now requires the `autoPagingIterator` method to be implemented
 - The Doctrine DBAL query adapter requires the COUNT query builder modifier now to return a `Doctrine\DBAL\Query\QueryBuilder`
 

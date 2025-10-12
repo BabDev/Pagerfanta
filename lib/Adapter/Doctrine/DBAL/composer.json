@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
-        "doctrine/dbal": "^3.9 || ^4.0",
+        "doctrine/dbal": "^3.10 || ^4.0",
         "pagerfanta/core": "^4.7 || ^5.0"
     },
     "require-dev": {

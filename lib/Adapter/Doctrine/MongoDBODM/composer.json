@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
-        "doctrine/mongodb-odm": "^2.10",
+        "doctrine/mongodb-odm": "^2.11",
         "pagerfanta/core": "^4.7 || ^5.0"
     },
     "require-dev": {
