@@ -5,7 +5,7 @@ use DG\BypassFinals;
 require __DIR__.'/../vendor/autoload.php';
 
 BypassFinals::allowPaths([
-    '*/Doctrine/ODM/PHPCR/*',
+    '*/vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/*',
 ]);
 
 BypassFinals::enable(bypassReadOnly: false);

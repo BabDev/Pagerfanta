@@ -24,7 +24,7 @@
         "rector/rector": "2.2.3",
         "ruflin/elastica": "^7.3 || ^8.0",
         "solarium/solarium": "^6.2",
-        "symfony/cache": "^5.4 || ^6.3 || ^7.0",
+        "symfony/cache": "^5.4 || ^6.4 || ^7.3 || ^8.0",
         "twig/twig": "^2.13 || ^3.0"
     },
     "conflict": {
