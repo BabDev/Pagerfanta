@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.4']
+        php: ['8.4', '8.5']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         include:
@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -44,8 +44,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.4']
-        collections: ['^1.8', '^2.0']
+        php: ['8.4', '8.5']
+        collections: ['^1.8', '^2.0', '^3.0']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
@@ -53,7 +53,7 @@ jobs:
           - php: '8.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: '8.4'
+          - php: '8.5'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
             patch-packages: true
@@ -62,7 +62,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -93,8 +93,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.4']
-        dbal: ['']
+        php: ['8.4', '8.5']
+        dbal: ['^3.10', '^4.0']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
@@ -103,7 +103,7 @@ jobs:
             dbal: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: '8.4'
+          - php: '8.5'
             dbal: ''
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
@@ -113,7 +113,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -144,7 +144,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.4']
+        php: ['8.4', '8.5']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]
@@ -152,7 +152,7 @@ jobs:
           - php: '8.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: '8.4'
+          - php: '8.5'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
             patch-packages: true
@@ -161,7 +161,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -188,7 +188,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.4']
+        php: ['8.4', '8.5']
         orm: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
@@ -198,7 +198,7 @@ jobs:
             orm: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: '8.4'
+          - php: '8.5'
             orm: ''
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
@@ -208,7 +208,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -239,7 +239,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.4']
+        php: ['8.4', '8.5']
         odm: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
@@ -249,7 +249,7 @@ jobs:
             odm: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: '8.4'
+          - php: '8.5'
             odm: ''
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
@@ -259,7 +259,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -290,7 +290,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.4']
+        php: ['8.4', '8.5']
         elastica: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
@@ -300,7 +300,7 @@ jobs:
             elastica: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: '8.4'
+          - php: '8.5'
             elastica: ''
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
@@ -310,7 +310,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -341,7 +341,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.4']
+        php: ['8.4', '8.5']
         solarium: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
@@ -350,7 +350,7 @@ jobs:
           - php: '8.4'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: '8.4'
+          - php: '8.5'
             solarium: ''
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
@@ -360,7 +360,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -391,7 +391,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.4']
+        php: ['8.4', '8.5']
         twig: ['']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
@@ -401,7 +401,7 @@ jobs:
             twig: ''
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
-          - php: '8.4'
+          - php: '8.5'
             twig: ''
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
@@ -411,7 +411,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2

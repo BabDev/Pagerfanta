@@ -9,7 +9,7 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "doctrine/collections": "^1.8 || ^2.0",
+        "doctrine/collections": "^1.8 || ^2.0 || ^3.0",
         "doctrine/dbal": "^3.10 || ^4.0",
         "doctrine/mongodb-odm": "^2.11",
         "doctrine/orm": "^2.20 || ^3.5",
@@ -17,13 +17,13 @@
         "dg/bypass-finals": "^1.9",
         "jackalope/jackalope-doctrine-dbal": "^2.0",
         "phpstan/extension-installer": "^1.4",
-        "phpstan/phpstan": "2.1.31",
-        "phpstan/phpstan-phpunit": "2.0.7",
+        "phpstan/phpstan": "2.1.36",
+        "phpstan/phpstan-phpunit": "2.0.11",
         "phpunit/phpunit": "12.4.1",
-        "rector/rector": "2.2.3",
+        "rector/rector": "2.3.4",
         "ruflin/elastica": "^7.3 || ^8.0",
         "solarium/solarium": "^6.2",
-        "symfony/cache": "^6.4 || ^7.3",
+        "symfony/cache": "^6.4 || ^7.3 || ^8.0",
         "twig/twig": "^3.21"
     },
     "conflict": {
