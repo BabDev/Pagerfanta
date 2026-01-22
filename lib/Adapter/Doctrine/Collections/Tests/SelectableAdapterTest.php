@@ -4,6 +4,8 @@ namespace Pagerfanta\Doctrine\Collections\Tests;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
+use Doctrine\Common\Collections\ReadableCollection;
 use Doctrine\Common\Collections\Selectable;
 use Pagerfanta\Doctrine\Collections\SelectableAdapter;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -33,8 +35,8 @@ final class SelectableAdapterTest extends TestCase
 
     private function createCriteria(): Criteria
     {
-        $criteria = new Criteria();
-        $criteria->orderBy(['username' => 'ASC']);
+        $criteria = Criteria::create(true);
+        $criteria->orderBy(['username' => enum_exists(Order::class) ? Order::Ascending : Criteria::ASC]);
         $criteria->setFirstResult(2);
         $criteria->setMaxResults(3);
 
@@ -43,7 +45,7 @@ final class SelectableAdapterTest extends TestCase
 
     public function testGetNbResults(): void
     {
-        $this->criteria->setFirstResult(null);
+        $this->criteria->setFirstResult(0);
         $this->criteria->setMaxResults(null);
 
         /** @var MockObject&Collection<array-key, mixed> $collection */
@@ -64,7 +66,8 @@ final class SelectableAdapterTest extends TestCase
         $this->criteria->setFirstResult(10);
         $this->criteria->setMaxResults(20);
 
-        $slice = [];
+        /** @var MockObject&ReadableCollection<array-key, mixed> $slice */
+        $slice = $this->createMock(ReadableCollection::class);
 
         $this->selectable->expects($this->once())
             ->method('matching')
