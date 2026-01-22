@@ -11,6 +11,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Iterator\Iterator;
 use Pagerfanta\Doctrine\MongoDBODM\AggregationAdapter;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 final class AggregationAdapterTest extends TestCase
@@ -77,8 +78,8 @@ final class AggregationAdapterTest extends TestCase
         $offset = 10;
         $length = 15;
 
-        /** @var MockObject&Iterator<mixed> $slice */
-        $slice = $this->createMock(Iterator::class);
+        /** @var Stub&Iterator<mixed> $slice */
+        $slice = $this->createStub(Iterator::class);
 
         /** @var MockObject&Aggregation $aggregation */
         $aggregation = $this->createMock(Aggregation::class);

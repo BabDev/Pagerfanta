@@ -9,8 +9,10 @@ use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\Pagerfanta;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 final class PagerfantaTest extends TestCase
@@ -73,28 +75,33 @@ final class PagerfantaTest extends TestCase
         $this->assertSame(5, $pagerfanta->getMaxPerPage());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testTheAdapterCanBeRetrieved(): void
     {
         $this->assertSame($this->adapter, $this->pagerfanta->getAdapter());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testThePagerCanAllowOutOfRangePages(): void
     {
         $this->assertSame($this->pagerfanta, $this->pagerfanta->setAllowOutOfRangePages(true), 'setAllowOutOfRangePages has a fluent interface');
         $this->assertTrue($this->pagerfanta->getAllowOutOfRangePages());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testOutOfRangePagesIsDisallowedByDefault(): void
     {
         $this->assertFalse($this->pagerfanta->getAllowOutOfRangePages());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testThePagerCanNormalizeOutOfRangePages(): void
     {
         $this->assertSame($this->pagerfanta, $this->pagerfanta->setNormalizeOutOfRangePages(true), 'setNormalizeOutOfRangePages has a fluent interface');
         $this->assertTrue($this->pagerfanta->getNormalizeOutOfRangePages());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testNormalizingOutOfRangePagesIsDisallowedByDefault(): void
     {
         $this->assertFalse($this->pagerfanta->getNormalizeOutOfRangePages());
@@ -104,6 +111,7 @@ final class PagerfantaTest extends TestCase
      * @param positive-int $maxPerPage
      */
     #[DataProvider('dataCountsAsIntegers')]
+    #[AllowMockObjectsWithoutExpectations]
     public function testTheMaximumNumberOfItemsPerPageCanBeSet(int $maxPerPage): void
     {
         $this->assertSame($this->pagerfanta, $this->pagerfanta->setMaxPerPage($maxPerPage), 'setMaxPerPage has a fluent interface');
@@ -111,6 +119,7 @@ final class PagerfantaTest extends TestCase
     }
 
     #[DataProvider('dataLessThan1')]
+    #[AllowMockObjectsWithoutExpectations]
     public function testSetMaxPerPageShouldThrowExceptionWhenLessThan1(int $maxPerPage): void
     {
         $this->expectException(LessThan1MaxPerPageException::class);
@@ -118,6 +127,7 @@ final class PagerfantaTest extends TestCase
         $this->pagerfanta->setMaxPerPage($maxPerPage);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testSetMaxPerPageAfterCurrentPageShouldThrowExceptionOutOfRange(): void
     {
         $this->expectException(OutOfRangeCurrentPageException::class);
@@ -231,6 +241,7 @@ final class PagerfantaTest extends TestCase
     }
 
     #[DataProvider('dataLessThan1')]
+    #[AllowMockObjectsWithoutExpectations]
     public function testSetMaxNbPagesShouldThrowExceptionWhenLessThan1(int $maxPages): void
     {
         $this->expectException(LessThan1MaxPagesException::class);
@@ -242,6 +253,7 @@ final class PagerfantaTest extends TestCase
      * @param positive-int $currentPage
      */
     #[DataProvider('dataCountsAsIntegers')]
+    #[AllowMockObjectsWithoutExpectations]
     public function testTheCurrentPageNumberCanBeSet(int $currentPage): void
     {
         if ($currentPage > 1) {
@@ -257,6 +269,7 @@ final class PagerfantaTest extends TestCase
     }
 
     #[DataProvider('dataLessThan1')]
+    #[AllowMockObjectsWithoutExpectations]
     public function testSettingTheCurrentPageShouldThrowExceptionWhenLessThan1(int $currentPage): void
     {
         $this->expectException(LessThan1CurrentPageException::class);
@@ -276,6 +289,7 @@ final class PagerfantaTest extends TestCase
         $this->pagerfanta->setCurrentPage(11);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testSetCurrentPageShouldNotThrowExceptionWhenOutOfRangePagesAreAllowed(): void
     {
         $this->pagerfanta->setMaxPerPage(10);
@@ -432,6 +446,7 @@ final class PagerfantaTest extends TestCase
         }
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetPreviousPageShouldThrowALogicExceptionIfThereIsNoPreviousPage(): void
     {
         $this->expectException(LogicException::class);
@@ -490,8 +505,8 @@ final class PagerfantaTest extends TestCase
 
     public function testThePagerCanBeIteratedWithTheCurrentPageResultsWhenTheAdapterReturnsAnIterator(): void
     {
-        /** @var MockObject&\Iterator $currentPageResults */
-        $currentPageResults = $this->createMock(\Iterator::class);
+        /** @var Stub&\Iterator $currentPageResults */
+        $currentPageResults = $this->createStub(\Iterator::class);
 
         $this->adapter->expects($this->once())
             ->method('getSlice')

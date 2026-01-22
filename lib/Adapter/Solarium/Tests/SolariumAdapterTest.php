@@ -3,6 +3,7 @@
 namespace Pagerfanta\Solarium\Tests;
 
 use Pagerfanta\Solarium\SolariumAdapter;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Solarium\Core\Client\ClientInterface;
@@ -40,6 +41,7 @@ final class SolariumAdapterTest extends TestCase
         return $this->createMock(Result::class);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetNbResults(): void
     {
         $query = $this->createQueryMock();
@@ -60,6 +62,7 @@ final class SolariumAdapterTest extends TestCase
         $this->assertSame(100, $adapter->getNbResults());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetNbResultsCanUseACachedTheResultSet(): void
     {
         $query = $this->createQueryStub();
@@ -80,6 +83,7 @@ final class SolariumAdapterTest extends TestCase
         $adapter->getNbResults();
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetSlice(): void
     {
         $query = $this->createQueryMock();
@@ -104,6 +108,7 @@ final class SolariumAdapterTest extends TestCase
         $this->assertSame($result, $adapter->getSlice(1, 200));
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetSliceCannotUseACachedResultSet(): void
     {
         $query = $this->createQueryStub();
@@ -124,6 +129,7 @@ final class SolariumAdapterTest extends TestCase
         $adapter->getSlice(1, 200);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetNbResultCanUseAGetSliceCachedResultSet(): void
     {
         $query = $this->createQueryStub();
@@ -144,6 +150,7 @@ final class SolariumAdapterTest extends TestCase
         $adapter->getNbResults();
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testSameGetSliceUseACachedResultSet(): void
     {
         $query = $this->createQueryStub();
@@ -159,6 +166,7 @@ final class SolariumAdapterTest extends TestCase
         $adapter->getSlice(1, 200);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testDifferentGetSliceCannotUseACachedResultSet(): void
     {
         $query = $this->createQueryStub();
@@ -174,11 +182,13 @@ final class SolariumAdapterTest extends TestCase
         $adapter->getSlice(2, 200);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetResultSet(): void
     {
         $this->doTestGetResultSet($this->createQueryMock(), null);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetResultSetCanUseAnEndPoint(): void
     {
         $this->doTestGetResultSet($this->createQueryMock(), 'ups');

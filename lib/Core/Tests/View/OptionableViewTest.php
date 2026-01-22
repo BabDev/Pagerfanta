@@ -6,6 +6,7 @@ use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\OptionableView;
 use Pagerfanta\View\ViewInterface;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 final class OptionableViewTest extends TestCase
@@ -13,9 +14,9 @@ final class OptionableViewTest extends TestCase
     private const string RENDERED_VIEW = 'rendered';
 
     /**
-     * @var MockObject&PagerfantaInterface<mixed>
+     * @var Stub&PagerfantaInterface<mixed>
      */
-    private MockObject&PagerfantaInterface $pagerfanta;
+    private Stub&PagerfantaInterface $pagerfanta;
 
     /**
      * @phpstan-var \Closure(int $page): string
@@ -24,7 +25,7 @@ final class OptionableViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->pagerfanta = $this->createMock(PagerfantaInterface::class);
+        $this->pagerfanta = $this->createStub(PagerfantaInterface::class);
         $this->routeGenerator = $this->createRouteGenerator();
     }
 

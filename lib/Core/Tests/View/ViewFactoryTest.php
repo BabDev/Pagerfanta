@@ -6,23 +6,24 @@ use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\View\ViewFactory;
 use Pagerfanta\View\ViewInterface;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 final class ViewFactoryTest extends TestCase
 {
     public function testFactory(): void
     {
-        /** @var MockObject&ViewInterface $view1 */
-        $view1 = $this->createMock(ViewInterface::class);
+        /** @var Stub&ViewInterface $view1 */
+        $view1 = $this->createStub(ViewInterface::class);
 
-        /** @var MockObject&ViewInterface $view2 */
-        $view2 = $this->createMock(ViewInterface::class);
+        /** @var Stub&ViewInterface $view2 */
+        $view2 = $this->createStub(ViewInterface::class);
 
-        /** @var MockObject&ViewInterface $view3 */
-        $view3 = $this->createMock(ViewInterface::class);
+        /** @var Stub&ViewInterface $view3 */
+        $view3 = $this->createStub(ViewInterface::class);
 
-        /** @var MockObject&ViewInterface $view4 */
-        $view4 = $this->createMock(ViewInterface::class);
+        /** @var Stub&ViewInterface $view4 */
+        $view4 = $this->createStub(ViewInterface::class);
 
         $factory = new ViewFactory();
 

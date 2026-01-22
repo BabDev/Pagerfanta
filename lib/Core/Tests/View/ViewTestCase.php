@@ -5,15 +5,15 @@ namespace Pagerfanta\Tests\View;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\ViewInterface;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 abstract class ViewTestCase extends TestCase
 {
     /**
-     * @var MockObject&AdapterInterface<mixed>
+     * @var Stub&AdapterInterface<mixed>
      */
-    private MockObject&AdapterInterface $adapter;
+    private Stub&AdapterInterface $adapter;
 
     /**
      * @var Pagerfanta<mixed>
@@ -24,7 +24,7 @@ abstract class ViewTestCase extends TestCase
 
     protected function setUp(): void
     {
-        $this->adapter = $this->createMock(AdapterInterface::class);
+        $this->adapter = $this->createStub(AdapterInterface::class);
         $this->pagerfanta = new Pagerfanta($this->adapter);
 
         $this->view = $this->createView();

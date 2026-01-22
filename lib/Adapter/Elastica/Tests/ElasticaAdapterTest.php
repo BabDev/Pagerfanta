@@ -7,6 +7,7 @@ use Elastica\ResultSet;
 use Elastica\SearchableInterface;
 use Pagerfanta\Elastica\ElasticaAdapter;
 use Pagerfanta\Exception\NotValidResultCountException;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -36,6 +37,7 @@ final class ElasticaAdapterTest extends TestCase
         $this->adapter = new ElasticaAdapter($this->searchable, $this->query, $this->options);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testConstructorRejectsMaxResultCountLessThanZero(): void
     {
         $this->expectException(NotValidResultCountException::class);
@@ -43,6 +45,7 @@ final class ElasticaAdapterTest extends TestCase
         new ElasticaAdapter($this->searchable, $this->query, $this->options, -100);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetResultSet(): void
     {
         $this->assertNotInstanceOf(ResultSet::class, $this->adapter->getResultSet());
@@ -56,6 +59,7 @@ final class ElasticaAdapterTest extends TestCase
         $this->assertSame($this->resultSet, $this->adapter->getResultSet());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetSlice(): void
     {
         $this->searchable->method('search')
@@ -71,6 +75,7 @@ final class ElasticaAdapterTest extends TestCase
     /**
      * Returns the number of results before search, use count() method if resultSet is empty.
      */
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetNbResultsBeforeSearch(): void
     {
         $this->searchable->expects($this->once())
@@ -84,6 +89,7 @@ final class ElasticaAdapterTest extends TestCase
     /**
      * Returns the number of results after search, use getTotalHits() method if resultSet is not empty.
      */
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetNbResultsAfterSearch(): void
     {
         $adapter = new ElasticaAdapter($this->searchable, $this->query, [], 30);
@@ -102,6 +108,7 @@ final class ElasticaAdapterTest extends TestCase
         $this->assertSame(30, $adapter->getNbResults());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetNbResultsWithMaxResultsSet(): void
     {
         $adapter = new ElasticaAdapter($this->searchable, $this->query, [], 10);

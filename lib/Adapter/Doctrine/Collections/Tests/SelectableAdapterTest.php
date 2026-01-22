@@ -2,13 +2,13 @@
 
 namespace Pagerfanta\Doctrine\Collections\Tests;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
 use Doctrine\Common\Collections\ReadableCollection;
 use Doctrine\Common\Collections\Selectable;
 use Pagerfanta\Doctrine\Collections\SelectableAdapter;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 final class SelectableAdapterTest extends TestCase
@@ -48,8 +48,8 @@ final class SelectableAdapterTest extends TestCase
         $this->criteria->setFirstResult(0);
         $this->criteria->setMaxResults(null);
 
-        /** @var MockObject&Collection<array-key, mixed> $collection */
-        $collection = $this->createMock(Collection::class);
+        /** @var Stub&ReadableCollection<array-key, mixed> $collection */
+        $collection = $this->createStub(ReadableCollection::class);
         $collection->method('count')
             ->willReturn(10);
 
@@ -66,8 +66,8 @@ final class SelectableAdapterTest extends TestCase
         $this->criteria->setFirstResult(10);
         $this->criteria->setMaxResults(20);
 
-        /** @var MockObject&ReadableCollection<array-key, mixed> $slice */
-        $slice = $this->createMock(ReadableCollection::class);
+        /** @var Stub&ReadableCollection<array-key, mixed> $slice */
+        $slice = $this->createStub(ReadableCollection::class);
 
         $this->selectable->expects($this->once())
             ->method('matching')
