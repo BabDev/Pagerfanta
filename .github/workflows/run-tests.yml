@@ -45,7 +45,7 @@ jobs:
       fail-fast: true
       matrix:
         php: ['8.4', '8.5']
-        collections: ['^1.8', '^2.0', '^3.0']
+        collections: ['^2.0', '^3.0']
         composer-flags: ['--prefer-stable --prefer-dist']
         next-php: [false]
         patch-packages: [false]

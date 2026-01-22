@@ -9,7 +9,7 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "doctrine/collections": "^1.8 || ^2.0 || ^3.0",
+        "doctrine/collections": "^2.0 || ^3.0",
         "doctrine/dbal": "^3.10 || ^4.0",
         "doctrine/mongodb-odm": "^2.11",
         "doctrine/orm": "^2.20 || ^3.5",
@@ -27,7 +27,7 @@
         "twig/twig": "^3.21"
     },
     "conflict": {
-        "doctrine/collections": "<1.8",
+        "doctrine/collections": "<2.0",
         "doctrine/dbal": "<3.10",
         "doctrine/mongodb-odm": "<2.11",
         "doctrine/orm": "<2.20 || >=3.0,<3.5",

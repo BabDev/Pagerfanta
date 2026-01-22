@@ -8,6 +8,7 @@ The below guide will assist in upgrading from the 4.x versions to 5.0.
 
 ## General Changes
 
+- Dropped support for versions of Doctrine Collections before 2.0
 - Dropped support for versions of Doctrine DBAL before 3.10
 - Dropped support for versions of Doctrine MongoDB ODM before 2.11
 - Dropped support for versions of Doctrine ORM before 2.20 and 3.0 through 3.4
