@@ -12,7 +12,7 @@
     "require-dev": {
         "dg/bypass-finals": "^1.9",
         "jackalope/jackalope-doctrine-dbal": "^2.0",
-        "phpunit/phpunit": "^12.4"
+        "phpunit/phpunit": "^12.5"
     },
     "autoload": {
         "psr-4": {
