@@ -3,7 +3,6 @@
 use Rector\Config\RectorConfig;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\NarrowUnusedSetUpDefinedPropertyRector;
 
-// NarrowUnusedSetUpDefinedPropertyRector
 return RectorConfig::configure()
     ->withPaths([
         __DIR__.'/lib',
