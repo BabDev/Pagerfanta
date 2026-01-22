@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.8.0 (2026-01-22)
+
+- Add support for `doctrine/collections` 3.x
+
 ## 4.7.2 (2025-10-12)
 
 - [#62](https://github.com/BabDev/Pagerfanta/issues/62) Remove some PHPStan annotations from `Pagerfanta\PagerfantaInterface` and `Pagerfanta\Pagerfanta` to resolve downstream compatibility issues

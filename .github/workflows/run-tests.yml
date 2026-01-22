@@ -53,6 +53,16 @@ jobs:
           - php: '8.1'
             composer-flags: '--prefer-stable --prefer-dist --prefer-lowest'
             next-php: false
+          - php: '8.4'
+            collections: '^3.0'
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+            patch-packages: false
+          - php: '8.5'
+            collections: '^3.0'
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
+            patch-packages: false
           - php: '8.5'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
