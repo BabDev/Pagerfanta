@@ -20,7 +20,7 @@
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "2.1.36",
         "phpstan/phpstan-phpunit": "2.0.11",
-        "phpunit/phpunit": "10.5.60",
+        "phpunit/phpunit": "10.5.64",
         "rector/rector": "2.3.4",
         "ruflin/elastica": "^7.3 || ^8.0",
         "solarium/solarium": "^6.2",
