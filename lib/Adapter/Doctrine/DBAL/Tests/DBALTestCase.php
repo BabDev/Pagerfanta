@@ -4,6 +4,7 @@ namespace Pagerfanta\Doctrine\DBAL\Tests;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Schema\PrimaryKeyConstraint;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\Types;
 use PHPUnit\Framework\TestCase;
@@ -36,14 +37,26 @@ abstract class DBALTestCase extends TestCase
         $posts->addColumn('id', Types::INTEGER, ['unsigned' => true, 'autoincrement' => true]);
         $posts->addColumn('username', Types::STRING, ['length' => 32]);
         $posts->addColumn('post_content', Types::TEXT);
-        $posts->setPrimaryKey(['id']);
+
+        // @phpstan-ignore-next-line function.alreadyNarrowedType
+        if (method_exists($posts, 'addPrimaryKeyConstraint')) {
+            $posts->addPrimaryKeyConstraint(PrimaryKeyConstraint::editor()->setUnquotedColumnNames('id')->create());
+        } else {
+            $posts->setPrimaryKey(['id']);
+        }
 
         $comments = $schema->createTable('comments');
         $comments->addColumn('id', Types::INTEGER, ['unsigned' => true, 'autoincrement' => true]);
         $comments->addColumn('post_id', Types::INTEGER, ['unsigned' => true]);
         $comments->addColumn('username', Types::STRING, ['length' => 32]);
         $comments->addColumn('content', Types::TEXT);
-        $comments->setPrimaryKey(['id']);
+
+        // @phpstan-ignore-next-line function.alreadyNarrowedType
+        if (method_exists($comments, 'addPrimaryKeyConstraint')) {
+            $comments->addPrimaryKeyConstraint(PrimaryKeyConstraint::editor()->setUnquotedColumnNames('id')->create());
+        } else {
+            $comments->setPrimaryKey(['id']);
+        }
 
         foreach ($schema->toSql($this->connection->getDatabasePlatform()) as $sql) {
             $this->connection->executeQuery($sql);

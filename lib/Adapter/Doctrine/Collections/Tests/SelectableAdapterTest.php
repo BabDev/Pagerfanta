@@ -36,7 +36,23 @@ final class SelectableAdapterTest extends TestCase
     private function createCriteria(): Criteria
     {
         $criteria = Criteria::create(true);
-        $criteria->orderBy(['username' => enum_exists(Order::class) ? Order::Ascending : Criteria::ASC]);
+
+        // Deliberately uses the string literal "ASC" instead of the deprecated Criteria::ASC constant
+        $legacyOrderingValue = static fn () => enum_exists(Order::class) ? Order::Ascending : 'ASC';
+
+        // @phpstan-ignore-next-line function.alreadyNarrowedType
+        if (method_exists($criteria, 'getOrderings')) {
+            // getOrderings() is deprecated in a 2.x release, removed in 3.0, and restored in 3.1 with the SortDirection native enum supported
+            if ((new \ReflectionClass($criteria))->getMethod('getOrderings')->hasReturnType()) {
+                // @phpstan-ignore-next-line argument.type
+                $criteria->orderBy(['username' => enum_exists(\SortDirection::class) ? \SortDirection::Ascending : $legacyOrderingValue()]);
+            } else {
+                $criteria->orderBy(['username' => $legacyOrderingValue()]);
+            }
+        } else {
+            $criteria->orderBy(['username' => $legacyOrderingValue()]);
+        }
+
         $criteria->setFirstResult(2);
         $criteria->setMaxResults(3);
 
