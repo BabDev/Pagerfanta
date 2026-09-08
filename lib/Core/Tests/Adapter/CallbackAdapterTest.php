@@ -46,7 +46,7 @@ final class CallbackAdapterTest extends TestCase
 
     public function testGetSliceShouldPassTheOffsetAndLengthToTheGetSliceCallback(): void
     {
-        $sliceCallable = function (int $offset, int $length): iterable {
+        $sliceCallable = static function (int $offset, int $length): iterable {
             TestCase::assertSame(10, $offset);
             TestCase::assertSame(18, $length);
 
