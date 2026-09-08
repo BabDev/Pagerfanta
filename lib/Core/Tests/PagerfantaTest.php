@@ -623,7 +623,9 @@ final class PagerfantaTest extends TestCase
                         ['id' => 1],
                         ['id' => 2],
                     ];
-                } elseif (2 === $matcher->numberOfInvocations()) {
+                }
+
+                if (2 === $matcher->numberOfInvocations()) {
                     TestCase::assertSame(2, $offset);
                     TestCase::assertSame(2, $length);
 
