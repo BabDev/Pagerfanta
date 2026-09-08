@@ -9,11 +9,12 @@ use Pagerfanta\Elastica\ElasticaAdapter;
 use Pagerfanta\Exception\NotValidResultCountException;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 final class ElasticaAdapterTest extends TestCase
 {
-    private MockObject&Query $query;
+    private Stub&Query $query;
 
     private MockObject&ResultSet $resultSet;
 
@@ -28,7 +29,7 @@ final class ElasticaAdapterTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->query = $this->createMock(Query::class);
+        $this->query = $this->createStub(Query::class);
         $this->resultSet = $this->createMock(ResultSet::class);
         $this->searchable = $this->createMock(SearchableInterface::class);
 

@@ -15,7 +15,6 @@ final class SingleTableQueryAdapterTest extends DBALTestCase
      */
     private SingleTableQueryAdapter $adapter;
 
-    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();

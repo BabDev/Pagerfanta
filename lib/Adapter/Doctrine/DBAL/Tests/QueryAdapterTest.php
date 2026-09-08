@@ -9,7 +9,6 @@ final class QueryAdapterTest extends DBALTestCase
 {
     private QueryBuilder $qb;
 
-    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();

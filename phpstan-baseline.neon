@@ -43,18 +43,6 @@ parameters:
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/AggregationAdapterTest.php
 
 		-
-			message: '#^PHPDoc tag @var for variable \$query contains unresolvable type\.$#'
-			identifier: varTag.unresolvableType
-			count: 2
-			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
-
-		-
-			message: '#^Return type of call to method PHPUnit\\Framework\\TestCase\:\:createMock\(\) contains unresolvable type\.$#'
-			identifier: method.unresolvableReturnType
-			count: 2
-			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
-
-		-
 			message: '#^Method Pagerfanta\\Doctrine\\ORM\\QueryAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns int\.$#'
 			identifier: return.type
 			count: 1

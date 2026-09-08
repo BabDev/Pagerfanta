@@ -5,7 +5,6 @@ namespace Pagerfanta\Tests\View;
 use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\View\ViewFactory;
 use Pagerfanta\View\ViewInterface;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
