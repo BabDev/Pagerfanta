@@ -55,6 +55,12 @@ parameters:
 			path: lib/Adapter/Doctrine/MongoDBODM/Tests/QueryAdapterTest.php
 
 		-
+			message: '#^Method Pagerfanta\\Doctrine\\ORM\\QueryAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns int\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Adapter/Doctrine/ORM/QueryAdapter.php
+
+		-
 			message: '#^Cannot access offset 0 on Traversable\<\(int\|string\), mixed\>\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 3
