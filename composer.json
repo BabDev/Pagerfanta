@@ -18,13 +18,13 @@
         "dg/bypass-finals": "^1.9",
         "jackalope/jackalope-doctrine-dbal": "^1.9 || ^2.0",
         "phpstan/extension-installer": "^1.4",
-        "phpstan/phpstan": "2.1.36",
-        "phpstan/phpstan-phpunit": "2.0.11",
+        "phpstan/phpstan": "2.2.13",
+        "phpstan/phpstan-phpunit": "2.0.18",
         "phpunit/phpunit": "10.5.64",
-        "rector/rector": "2.3.4",
+        "rector/rector": "2.6.6",
         "ruflin/elastica": "^7.3 || ^8.0",
         "solarium/solarium": "^6.2",
-        "symfony/cache": "^5.4 || ^6.4 || ^7.3 || ^8.0",
+        "symfony/cache": "^5.4 || ^6.4 || ^7.4 || ^8.1",
         "twig/twig": "^2.13 || ^3.0"
     },
     "conflict": {
