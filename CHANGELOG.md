@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.9.0 (2026-09-08)
+
+- [#63](https://github.com/BabDev/Pagerfanta/issues/63) Add support for the new pagination API from `doctrine/orm` 3.7
+
 ## 4.8.0 (2026-01-22)
 
 - Add support for `doctrine/collections` 3.x
