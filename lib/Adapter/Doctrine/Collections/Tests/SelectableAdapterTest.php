@@ -43,7 +43,7 @@ final class SelectableAdapterTest extends TestCase
         // @phpstan-ignore-next-line function.alreadyNarrowedType
         if (method_exists($criteria, 'getOrderings')) {
             // getOrderings() is deprecated in a 2.x release, removed in 3.0, and restored in 3.1 with the SortDirection native enum supported
-            if ((new \ReflectionClass($criteria))->getMethod('getOrderings')->hasReturnType()) {
+            if (new \ReflectionClass($criteria)->getMethod('getOrderings')->hasReturnType()) {
                 // @phpstan-ignore-next-line argument.type
                 $criteria->orderBy(['username' => enum_exists(\SortDirection::class) ? \SortDirection::Ascending : $legacyOrderingValue()]);
             } else {
