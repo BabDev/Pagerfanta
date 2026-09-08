@@ -5,7 +5,6 @@ namespace Pagerfanta\Doctrine\ORM;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\OffsetPaginator;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\ORM\Tools\Pagination\Window;
 use Doctrine\ORM\Tools\Pagination\WindowPage;
 use Pagerfanta\Adapter\AdapterInterface;
@@ -20,9 +19,9 @@ use Pagerfanta\Adapter\AdapterInterface;
 class QueryAdapter implements AdapterInterface
 {
     /**
-     * @var OffsetPaginator<T>|Paginator<T>
+     * @var OffsetPaginator<T>
      */
-    private readonly OffsetPaginator|Paginator $paginator;
+    private readonly OffsetPaginator $paginator;
 
     /**
      * @var WindowPage<T>|null
@@ -38,12 +37,7 @@ class QueryAdapter implements AdapterInterface
         bool $fetchJoinCollection = true,
         ?bool $useOutputWalkers = null,
     ) {
-        if (class_exists(OffsetPaginator::class)) {
-            $this->paginator = new OffsetPaginator($fetchJoinCollection, $useOutputWalkers);
-        } else {
-            $this->paginator = new Paginator($query, $fetchJoinCollection);
-            $this->paginator->setUseOutputWalkers($useOutputWalkers);
-        }
+        $this->paginator = new OffsetPaginator($fetchJoinCollection, $useOutputWalkers);
     }
 
     /**
@@ -51,18 +45,14 @@ class QueryAdapter implements AdapterInterface
      */
     public function getNbResults(): int
     {
-        if ($this->paginator instanceof OffsetPaginator) {
-            /*
-             * A slice may not have been fetched yet, so there isn't always a window to reuse.
-             * In those cases, we probe with a minimum-sized window to get the total count,
-             * with the page later replaced by getSlice().
-             */
-            $this->page ??= $this->paginator->paginate($this->query, new Window(0, 1));
+        /*
+         * A slice may not have been fetched yet, so there isn't always a window to reuse.
+         * In those cases, we probe with a minimum-sized window to get the total count,
+         * with the page later replaced by getSlice().
+         */
+        $this->page ??= $this->paginator->paginate($this->query, new Window(0, 1));
 
-            return $this->page->getTotalCount();
-        }
-
-        return \count($this->paginator);
+        return $this->page->getTotalCount();
     }
 
     /**
@@ -73,16 +63,8 @@ class QueryAdapter implements AdapterInterface
      */
     public function getSlice(int $offset, int $length): iterable
     {
-        if ($this->paginator instanceof OffsetPaginator) {
-            $this->page = $this->paginator->paginate($this->query, new Window($offset, $length));
+        $this->page = $this->paginator->paginate($this->query, new Window($offset, $length));
 
-            return $this->page->getIterator();
-        }
-
-        $this->paginator->getQuery()
-            ->setFirstResult($offset)
-            ->setMaxResults($length);
-
-        return $this->paginator->getIterator();
+        return $this->page->getIterator();
     }
 }

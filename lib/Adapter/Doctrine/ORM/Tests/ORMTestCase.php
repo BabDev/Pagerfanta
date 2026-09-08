@@ -20,14 +20,7 @@ abstract class ORMTestCase extends TestCase
         $config->setQueryCache(new ArrayAdapter());
         $config->setResultCache(new ArrayAdapter());
         $config->setMetadataDriverImpl(new AttributeDriver([__DIR__.'/Entity']));
-
-        // @phpstan-ignore-next-line function.alreadyNarrowedType
-        if (\PHP_VERSION_ID >= 80400 && method_exists($config, 'enableNativeLazyObjects')) {
-            $config->enableNativeLazyObjects(true);
-        } else {
-            $config->setProxyDir(__DIR__.'/_files');
-            $config->setProxyNamespace(__NAMESPACE__.'\Proxies');
-        }
+        $config->enableNativeLazyObjects(true);
 
         $conn = [
             'driver' => 'pdo_sqlite',
