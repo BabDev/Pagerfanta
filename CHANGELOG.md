@@ -5,6 +5,9 @@
 - Allow a list of templates to be used with the Twig view, their blocks are composed using `Twig\BlockChain` (requires `twig/twig` 3.29 or later)
 - Fix the Twig view reusing the template from a previous render's options when no default template is configured
 - Fix the template views reusing the options from a previous render
+- Add cursor pagination support
+- Add support for rendering sequential pagination views (previous/next links only)
+- Deprecate the page number based route generator and view APIs
 
 ## 4.9.0 (2026-09-08)
 
