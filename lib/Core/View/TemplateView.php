@@ -8,11 +8,20 @@ use Pagerfanta\View\Template\TemplateInterface;
 
 abstract class TemplateView extends View
 {
-    private readonly TemplateInterface $template;
+    /**
+     * The template given to the view, which is cloned for each render so the options and route generator of a render are not
+     * reused by the next one.
+     */
+    private readonly TemplateInterface $baseTemplate;
+
+    /**
+     * The template for the current render.
+     */
+    private TemplateInterface $template;
 
     public function __construct(?TemplateInterface $template = null)
     {
-        $this->template = $template ?? $this->createDefaultTemplate();
+        $this->template = $this->baseTemplate = $template ?? $this->createDefaultTemplate();
     }
 
     abstract protected function createDefaultTemplate(): TemplateInterface;
@@ -26,6 +35,8 @@ abstract class TemplateView extends View
      */
     public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {
+        $this->template = clone $this->baseTemplate;
+
         $this->initializePagerfanta($pagerfanta);
         $this->initializeOptions($options);
 
