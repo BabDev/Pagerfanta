@@ -2,6 +2,7 @@
 
 namespace Pagerfanta\Cursor;
 
+use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Exception\InvalidCursorException;
 
 /**
@@ -9,6 +10,9 @@ use Pagerfanta\Exception\InvalidCursorException;
  */
 interface CursorEncoderInterface
 {
+    /**
+     * @throws InvalidArgumentException if the cursor cannot be encoded
+     */
     public function encode(Cursor $cursor): string;
 
     /**
