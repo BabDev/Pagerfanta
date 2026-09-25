@@ -51,6 +51,47 @@ Below is a list of the views that are available with this package, and the corre
 | `twitter_bootstrap4` | `Pagerfanta\View\TwitterBootstrap4View` | `Pagerfanta\View\Template\TwitterBootstrap4Template` |
 | `twitter_bootstrap5` | `Pagerfanta\View\TwitterBootstrap5View` | `Pagerfanta\View\Template\TwitterBootstrap5Template` |
 
+## Sequential Views
+
+<div class="docs-note docs-note--new-feature">Sequential views were introduced in Pagerfanta 4.10.</div>
+
+The views above render numbered page links, which requires the total number of pages and is only possible with offset pagers. Sequential views only render links to the previous and next pages, so they can render any pager, including [cursor pagers](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination).
+
+Views which can render any pager implement `Pagerfanta\View\PagerViewInterface`, which extends `ViewInterface` with a `render` method accepting any pager and a `supports` method to check whether the view can render a pager.
+
+```php
+<?php
+
+namespace Pagerfanta\View;
+
+use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\PagerInterface;
+
+interface PagerViewInterface extends ViewInterface
+{
+    public function render(PagerfantaInterface|PagerInterface $pager, callable $routeGenerator, array $options = []): string;
+
+    public function supports(PagerfantaInterface|PagerInterface $pager): bool;
+}
+```
+
+The `Pagerfanta\View\SequentialView` renders the previous and next links using any template implementing `Pagerfanta\View\Template\SequentialTemplateInterface`, which all of the templates listed above do. The view name defaults to `sequential` and can be changed with the second argument.
+
+```php
+<?php
+
+use Pagerfanta\View\SequentialView;
+use Pagerfanta\View\Template\TwitterBootstrap5Template;
+
+$view = new SequentialView(new TwitterBootstrap5Template(), 'twitter_bootstrap5_sequential');
+
+echo $view->render($pager, $routeGenerator, ['prev_message' => 'Newer', 'next_message' => 'Older']);
+```
+
+The previous link is disabled when there is no previous page, and omitted entirely for cursor pagers which do not support backward navigation.
+
+<div class="docs-note">To render a cursor pager, the route generator must be a position route generator, see the <a href="/open-source/packages/pagerfanta/docs/4.x/route-generator#position-route-generators">route generator documentation</a>. A plain callable is treated as a page number based route generator, which can only render offset pagers.</div>
+
 ## Twig View
 
 Pagerfanta includes native support for the [Twig](https://twig.symfony.com/) templating engine and allows integrators to build flexible templates for rendering their pagers.
@@ -111,6 +152,28 @@ $environment->addRuntimeLoader(new ContainerRuntimeLoader($container));
 $environment->addExtension(new PagerfantaExtension());
 ```
 
+### Rendering Cursor Pagers
+
+<div class="docs-note docs-note--new-feature">Rendering cursor pagers with the Twig view was introduced in Pagerfanta 4.10.</div>
+
+The Twig view implements `Pagerfanta\View\PagerViewInterface`. Offset pagers are rendered with numbered page links, and all other pagers (such as cursor pagers) are rendered with previous and next links using the same templates. To render an offset pager with only previous and next links, set the `sequential` option.
+
+```twig
+{{ pagerfanta(pager, 'twig', {'sequential': true}) }}
+```
+
+When the view given to the `pagerfanta()` function (or the default view) cannot render a pager, such as a cursor pager with a numbered view, an exception is thrown. To render these pagers with another view instead, give the name of a default sequential view as the fourth argument of the `Pagerfanta\Twig\Extension\PagerfantaRuntime` constructor. A view explicitly named in the `pagerfanta()` function never falls back to the default sequential view.
+
+The `pagerfanta_position_url()` function generates the URL for a position, such as the next page of a pager.
+
+```twig
+{% if pager.hasNextPage() %}
+    <a href="{{ pagerfanta_position_url(pager.nextPosition) }}">Load more</a>
+{% endif %}
+```
+
+When the route generator factory given to the runtime implements `Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface`, it is used to create the route generators for views implementing `PagerViewInterface` and for the `pagerfanta_position_url()` function. Otherwise, the page number based route generators are adapted, which only support offset pagers.
+
 ### Creating a Twig View Template
 
 If creating a custom template, you are encouraged to extend the `@Pagerfanta/default.html.twig` template and override only the blocks needed.
@@ -129,6 +192,16 @@ When rendering a Twig view, the following options are passed into the template f
 - `end_page` - The calculated end page for the list of items displayed between separators, this is based on the `proximity` option and the total number of pages
 - `current_page` - The current page in the paginated list
 - `nb_pages` - The total number of pages in the paginated list
+- `sequential` - Whether the pager is rendered with only previous and next links
+
+When rendering with only previous and next links, the `sequential_pager` block is rendered instead of the numbered page links, and the page number variables are not available. Instead, the following variables are passed into the template:
+
+- `route_generator` - A `Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator` object, whose `route()` method generates the URL for a position
+- `supports_backward_navigation` - Whether the pager supports backward navigation, the previous link is omitted when it does not
+- `previous_position` - The position of the previous page, or null if there is no previous page
+- `next_position` - The position of the next page, or null if there is no next page
+
+<div class="docs-note">The dispatch to the <code>sequential_pager</code> block is part of the <code>pager</code> block. If your template overrides the <code>pager</code> block, render the <code>sequential_pager</code> block from it when the <code>sequential</code> variable is true to support cursor pagers. Templates which only override the markup blocks (such as <code>pager_widget</code>, <code>previous_page_link</code>, and <code>next_page_link</code>) support cursor pagers without any changes.</div>
 
 Additionally, for most page blocks (`previous_page_link`, `page_link`, `current_page_link`, and `next_page_link`), there are two additional variables available:
 
