@@ -2,7 +2,9 @@
 
 namespace Pagerfanta\View\Template;
 
-class TwitterBootstrapTemplate extends Template
+use Pagerfanta\Position\Position;
+
+class TwitterBootstrapTemplate extends Template implements SequentialTemplateInterface
 {
     /**
      * @return array<string, string>
@@ -65,6 +67,11 @@ class TwitterBootstrapTemplate extends Template
         return $this->pageWithTextAndClass($page, $this->option('prev_message'), $this->option('css_prev_class'), $this->option('rel_previous'));
     }
 
+    public function previousEnabledForPosition(Position $position): string
+    {
+        return $this->linkLi($this->option('css_prev_class'), $this->generateRouteForPosition($position), $this->option('prev_message'), $this->option('rel_previous'));
+    }
+
     public function nextDisabled(): string
     {
         return $this->spanLi($this->nextDisabledClass(), $this->option('next_message'));
@@ -78,6 +85,11 @@ class TwitterBootstrapTemplate extends Template
     public function nextEnabled(int $page): string
     {
         return $this->pageWithTextAndClass($page, $this->option('next_message'), $this->option('css_next_class'), $this->option('rel_next'));
+    }
+
+    public function nextEnabledForPosition(Position $position): string
+    {
+        return $this->linkLi($this->option('css_next_class'), $this->generateRouteForPosition($position), $this->option('next_message'), $this->option('rel_next'));
     }
 
     public function first(): string

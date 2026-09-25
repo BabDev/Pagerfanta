@@ -4,6 +4,8 @@ namespace Pagerfanta\View\Template;
 
 use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Exception\RuntimeException;
+use Pagerfanta\Position\Position;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 
 abstract class Template implements TemplateInterface
@@ -17,6 +19,8 @@ abstract class Template implements TemplateInterface
      * @var (callable(int): string)|RouteGeneratorInterface|null
      */
     private $routeGenerator;
+
+    private ?PositionRouteGeneratorInterface $positionRouteGenerator = null;
 
     public function __construct()
     {
@@ -33,6 +37,16 @@ abstract class Template implements TemplateInterface
     public function setRouteGenerator(callable $routeGenerator): void
     {
         $this->routeGenerator = $routeGenerator;
+    }
+
+    /**
+     * Sets the position based route generator used while rendering the template.
+     *
+     * This is used by templates which implement {@see SequentialTemplateInterface}.
+     */
+    public function setPositionRouteGenerator(PositionRouteGeneratorInterface $routeGenerator): void
+    {
+        $this->positionRouteGenerator = $routeGenerator;
     }
 
     /**
@@ -53,6 +67,20 @@ abstract class Template implements TemplateInterface
         $generator = $this->getRouteGenerator();
 
         return $generator($page);
+    }
+
+    /**
+     * Generate the route (URL) for the given position.
+     *
+     * @throws RuntimeException if the position route generator has not been set
+     */
+    protected function generateRouteForPosition(Position $position): string
+    {
+        if (!$this->positionRouteGenerator instanceof PositionRouteGeneratorInterface) {
+            throw new RuntimeException(\sprintf('The position route generator was not set to the template, ensure you call %s::setPositionRouteGenerator().', static::class));
+        }
+
+        return ($this->positionRouteGenerator)($position);
     }
 
     /**
