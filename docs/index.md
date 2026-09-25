@@ -3,6 +3,7 @@
 - [Usage](/open-source/packages/pagerfanta/docs/4.x/usage)
 - [Pagination Adapter](/open-source/packages/pagerfanta/docs/4.x/adapter)
 - [Available Adapters](/open-source/packages/pagerfanta/docs/4.x/adapters)
+- [Cursor Pagination](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination)
 - [Views](/open-source/packages/pagerfanta/docs/4.x/views)
 - [Templates](/open-source/packages/pagerfanta/docs/4.x/templates)
 - [Route Generator](/open-source/packages/pagerfanta/docs/4.x/route-generator)

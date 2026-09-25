@@ -97,3 +97,47 @@ interface TemplateInterface
     public function separator(): string;
 }
 ```
+
+## Sequential Templates
+
+<div class="docs-note docs-note--new-feature">Sequential templates were introduced in Pagerfanta 4.10.</div>
+
+Pagerfanta defines `Pagerfanta\View\Template\SequentialTemplateInterface` which is used by the [sequential view](/open-source/packages/pagerfanta/docs/4.x/views#sequential-views) to render the previous and next links of any pager, using positions instead of page numbers.
+
+The interface requires several methods to be implemented:
+
+- `setPositionRouteGenerator`: Injects the position route generator to use while rendering the template
+- `setOptions`: Sets options for the template
+- `container`: Generates the wrapping container for the pagination list
+- `previousDisabled`: Generates the markup for the previous page button in the disabled state
+- `previousEnabledForPosition`: Generates the markup for the previous page button in the enabled state, linking to the given position
+- `nextDisabled`: Generates the markup for the next page button in the disabled state
+- `nextEnabledForPosition`: Generates the markup for the next page button in the enabled state, linking to the given position
+
+All of the templates provided by Pagerfanta implement both the `TemplateInterface` and the `SequentialTemplateInterface`, so they can be used with both the numbered and the sequential views. The `Pagerfanta\View\Template\Template` base class provides the `setPositionRouteGenerator()` method and a `generateRouteForPosition()` helper, so a custom template extending it only needs to declare the `SequentialTemplateInterface` and implement the `previousEnabledForPosition()` and `nextEnabledForPosition()` methods to support the sequential view.
+
+```php
+<?php
+
+namespace Pagerfanta\View\Template;
+
+use Pagerfanta\Position\Position;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
+
+interface SequentialTemplateInterface
+{
+    public function setPositionRouteGenerator(PositionRouteGeneratorInterface $routeGenerator): void;
+
+    public function setOptions(array $options): void;
+
+    public function container(): string;
+
+    public function previousDisabled(): string;
+
+    public function previousEnabledForPosition(Position $position): string;
+
+    public function nextDisabled(): string;
+
+    public function nextEnabledForPosition(Position $position): string;
+}
+```
