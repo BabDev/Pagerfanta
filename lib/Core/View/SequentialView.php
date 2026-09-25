@@ -44,6 +44,10 @@ final class SequentialView implements PagerViewInterface
      */
     public function render(PagerfantaInterface|PagerInterface $pager, callable $routeGenerator, array $options = []): string
     {
+        if (!$routeGenerator instanceof PositionRouteGeneratorInterface) {
+            trigger_deprecation('pagerfanta/core', '4.10', 'Passing a page number based route generator to "%s::render()" is deprecated, pass an instance of "%s" instead.', self::class, PositionRouteGeneratorInterface::class);
+        }
+
         // Render from a copy of the template so the options and route generator of this render are not reused by the next one
         $template = clone $this->template;
         $template->setPositionRouteGenerator(PageRouteGeneratorWrapper::wrap($routeGenerator));

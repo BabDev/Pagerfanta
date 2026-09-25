@@ -10,6 +10,8 @@ use Pagerfanta\Position\Position;
  * Adapts a page number based route generator to the position based API.
  *
  * Only {@see PagePosition} positions are supported.
+ *
+ * @internal
  */
 final class PageRouteGeneratorWrapper implements PositionRouteGeneratorInterface
 {

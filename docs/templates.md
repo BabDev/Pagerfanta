@@ -18,6 +18,8 @@ The interface requires several methods to be implemented:
 - `current`: Generates the markup for the current page button 
 - `separator`: Generates the markup for a separator button, used to represent a break in a list of pages (i.e. 1, 2, ..., 6, 7) 
 
+<div class="docs-note docs-note--deprecated-feature">In Pagerfanta 5.0, the <code>TemplateInterface</code> will extend the <a href="#sequential-templates"><code>SequentialTemplateInterface</code></a>, which adds the <code>setPositionRouteGenerator</code>, <code>previousEnabledForPosition</code>, and <code>nextEnabledForPosition</code> methods.</div>
+
 ```php
 <?php
 

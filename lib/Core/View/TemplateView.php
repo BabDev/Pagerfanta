@@ -3,6 +3,8 @@
 namespace Pagerfanta\View;
 
 use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\RouteGenerator\PageNumberRouteGenerator;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 use Pagerfanta\View\Template\TemplateInterface;
 
@@ -27,14 +29,19 @@ abstract class TemplateView extends View
     abstract protected function createDefaultTemplate(): TemplateInterface;
 
     /**
-     * @param PagerfantaInterface<mixed>       $pagerfanta
-     * @param callable|RouteGeneratorInterface $routeGenerator
-     * @param array<string, mixed>             $options
-     *
-     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
+     * @param PagerfantaInterface<mixed>                                                    $pagerfanta
+     * @param PositionRouteGeneratorInterface|RouteGeneratorInterface|callable(int): string $routeGenerator
+     * @param array<string, mixed>                                                          $options
      */
     public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {
+        if ($routeGenerator instanceof PositionRouteGeneratorInterface) {
+            // The numbered templates link to pages by their number
+            $routeGenerator = new PageNumberRouteGenerator($routeGenerator);
+        } else {
+            trigger_deprecation('pagerfanta/core', '4.10', 'Passing a page number based route generator to "%s::render()" is deprecated, pass an instance of "%s" instead.', static::class, PositionRouteGeneratorInterface::class);
+        }
+
         $this->template = clone $this->baseTemplate;
 
         $this->initializePagerfanta($pagerfanta);
@@ -46,10 +53,10 @@ abstract class TemplateView extends View
     }
 
     /**
-     * @param callable(int $page): string|RouteGeneratorInterface $routeGenerator
-     * @param array<string, mixed>                                $options
+     * @param callable(int $page): string $routeGenerator
+     * @param array<string, mixed>        $options
      */
-    private function configureTemplate(callable|RouteGeneratorInterface $routeGenerator, array $options): void
+    private function configureTemplate(callable $routeGenerator, array $options): void
     {
         $this->template->setRouteGenerator($routeGenerator);
         $this->template->setOptions($options);

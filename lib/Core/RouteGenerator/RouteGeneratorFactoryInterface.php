@@ -4,6 +4,9 @@ namespace Pagerfanta\RouteGenerator;
 
 use Pagerfanta\Exception\RuntimeException;
 
+/**
+ * @deprecated since Pagerfanta 4.10, implement {@see PositionRouteGeneratorFactoryInterface} instead
+ */
 interface RouteGeneratorFactoryInterface
 {
     /**

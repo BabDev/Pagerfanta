@@ -16,6 +16,7 @@ use Pagerfanta\Position\CursorPosition;
 use Pagerfanta\Position\PagePosition;
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;
+use Pagerfanta\Tests\CapturesDeprecations;
 use Pagerfanta\View\DefaultView;
 use Pagerfanta\View\SequentialView;
 use Pagerfanta\View\Template\DefaultTemplate;
@@ -27,10 +28,13 @@ use Pagerfanta\View\Template\TwitterBootstrap4Template;
 use Pagerfanta\View\Template\TwitterBootstrap5Template;
 use Pagerfanta\View\Template\TwitterBootstrapTemplate;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 final class SequentialViewTest extends TestCase
 {
+    use CapturesDeprecations;
+
     /**
      * The markup of each theme, as sprintf formats: the container (with the links), the enabled previous and next links (with the URL), and the disabled previous and next links.
      *
@@ -289,5 +293,18 @@ final class SequentialViewTest extends TestCase
 
         $this->assertStringContainsString('rel="prev">Newer</a>', $second);
         $this->assertStringContainsString('rel="next">Next</a>', $second);
+    }
+
+    #[Group('legacy')]
+    public function testAPageNumberRouteGeneratorIsDeprecated(): void
+    {
+        $deprecations = $this->captureDeprecations(fn () => (new SequentialView(new DefaultTemplate()))->render($this->createOffsetPager(30, 2), static fn (int $page): string => '|'.$page.'|'));
+
+        $this->assertSame(['Since pagerfanta/core 4.10: Passing a page number based route generator to "Pagerfanta\\View\\SequentialView::render()" is deprecated, pass an instance of "Pagerfanta\\RouteGenerator\\PositionRouteGeneratorInterface" instead.'], $deprecations);
+    }
+
+    public function testAPositionRouteGeneratorIsNotDeprecated(): void
+    {
+        $this->assertSame([], $this->captureDeprecations(fn () => (new SequentialView(new DefaultTemplate()))->render($this->createCursorPager(true), $this->createPositionRouteGenerator())));
     }
 }

@@ -17,13 +17,15 @@ use Pagerfanta\PagerfantaInterface;
 interface ViewInterface
 {
     /**
-     * @param callable $routeGenerator callable with a signature of `function (int $page): string {}`
+     * @param callable $routeGenerator callable with a signature of `function (int $page): string {}`, or a `Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface`
      */
     public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string;
 
     public function getName(): string;
 }
 ```
+
+<div class="docs-note docs-note--deprecated-feature">Passing a page number based route generator to a view is deprecated since Pagerfanta 4.10, all of the views provided by Pagerfanta accept a <a href="/open-source/packages/pagerfanta/docs/4.x/route-generator#position-route-generators">position route generator</a>. In Pagerfanta 5.0, the <code>render</code> method will accept any pager and a position route generator, and a <code>supports</code> method will be added to check whether a view can render a pager. Implement the <code>Pagerfanta\View\PagerViewInterface</code> to prepare for this change.</div>
 
 ## Base Classes
 
@@ -172,7 +174,9 @@ The `pagerfanta_position_url()` function generates the URL for a position, such 
 {% endif %}
 ```
 
-When the route generator factory given to the runtime implements `Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface`, it is used to create the route generators for views implementing `PagerViewInterface` and for the `pagerfanta_position_url()` function. Otherwise, the page number based route generators are adapted, which only support offset pagers.
+When the route generator factory given to the runtime implements `Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface`, it is used to create the route generators for the views and for the `pagerfanta_position_url()` function. Views which only accept page number based route generators are given one adapted from the position route generator.
+
+<div class="docs-note docs-note--deprecated-feature">Giving the runtime a route generator factory which does not implement the <code>PositionRouteGeneratorFactoryInterface</code> is deprecated since Pagerfanta 4.10. Until then, its page number based route generators are adapted, which only support offset pagers.</div>
 
 ### Creating a Twig View Template
 
