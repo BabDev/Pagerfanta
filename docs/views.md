@@ -137,6 +137,18 @@ Additionally, for most page blocks (`previous_page_link`, `page_link`, `current_
 
 If you want to create your own Twig template, the quickest and easiest way to do that is to extend one of the supplied templates (typically the default one). Have a look at `semantic_ui.html.twig` to see the blocks you will likely want to override.
 
+### Composing Templates
+
+When using Twig 3.29 or later, the `template` option (and the default template given to the `Pagerfanta\Twig\View\TwigView` constructor) also accepts a list of template names, ordered from highest to lowest precedence. The blocks of these templates are composed together, so a template only needs to define the blocks it overrides and does not need to extend another template. This allows a set of overrides to be reused across any of the supplied templates.
+
+For example, a `pager_messages.html.twig` template containing only the `previous_page_message` and `next_page_message` blocks can be combined with the Bootstrap 5 template:
+
+```twig
+{{ pagerfanta(pager, 'twig', {'template': ['pager_messages.html.twig', '@Pagerfanta/twitter_bootstrap5.html.twig']}) }}
+```
+
+The default template given to the `Pagerfanta\Twig\View\TwigView` constructor and the `@Pagerfanta/default.html.twig` template are always appended to the list, so any block not defined by the listed templates falls back to them. If a template appears more than once, only its highest precedence position is used.
+
 ## Reusable View Configurations
 
 Sometimes you want to reuse options for a view in your project and you don't want to repeat those options each time you render a view, or you have different configurations for a view and you want to save those configurations to be able to change them easily.

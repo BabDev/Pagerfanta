@@ -39,6 +39,16 @@ final class TwigViewIntegrationTest extends TestCase
         {%- endblock pager_widget -%}
         TWIG;
 
+    private const MESSAGES_TEMPLATE = <<<TWIG
+        {%- block previous_page_message -%}
+            Back
+        {%- endblock previous_page_message -%}
+
+        {%- block next_page_message -%}
+            Forward
+        {%- endblock next_page_message -%}
+        TWIG;
+
     public RouteGeneratorFactoryInterface $routeGeneratorFactory;
     public Environment $twig;
 
@@ -53,6 +63,7 @@ final class TwigViewIntegrationTest extends TestCase
                     'integration.html.twig' => '{{ pagerfanta(pager, options) }}',
                     'options.html.twig' => self::OPTIONS_TEMPLATE,
                     'constructor.html.twig' => self::CONSTRUCTOR_TEMPLATE,
+                    'messages.html.twig' => self::MESSAGES_TEMPLATE,
                 ]),
                 $filesystemLoader,
             ])
@@ -458,6 +469,80 @@ final class TwigViewIntegrationTest extends TestCase
             $view->render(
                 $this->createPagerfanta(),
                 $this->createRouteGeneratorFactory()->create()
+            )
+        );
+    }
+
+    public function testRendersWithAChainOfTemplatesSpecifiedInTheOptions(): void
+    {
+        $pagerfanta = $this->createPagerfanta();
+        $pagerfanta->setCurrentPage(5);
+
+        $this->assertViewOutputMatches(
+            $this->twig->render('integration.html.twig', ['pager' => $pagerfanta, 'options' => ['omitFirstPage' => true, 'template' => ['messages.html.twig', '@Pagerfanta/twitter_bootstrap5.html.twig']]]),
+            '<ul class="pagination">
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=4" rel="prev">Back</a></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view">1</a></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=2">2</a></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=3">3</a></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=4">4</a></li>
+    <li class="page-item active" aria-current="page"><span class="page-link">5</span></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=6">6</a></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=7">7</a></li>
+    <li class="page-item disabled"><span class="page-link">&hellip;</span></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=10">10</a></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=6" rel="next">Forward</a></li>
+</ul>'
+        );
+    }
+
+    public function testRendersWithAChainOfTemplatesSpecifiedInTheConstructor(): void
+    {
+        $pagerfanta = $this->createPagerfanta();
+        $pagerfanta->setCurrentPage(5);
+
+        $this->assertViewOutputMatches(
+            (new TwigView($this->twig, ['messages.html.twig']))->render(
+                $pagerfanta,
+                $this->createRouteGeneratorFactory()->create(['omitFirstPage' => true]),
+                ['omitFirstPage' => true]
+            ),
+            '<nav class="pagination">
+    <a class="pagination__item pagination__item--previous-page" href="/pagerfanta-view?page=4" rel="prev">Back</a>
+    <a class="pagination__item" href="/pagerfanta-view">1</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=2">2</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=3">3</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=4">4</a>
+    <span class="pagination__item pagination__item--current-page" aria-current="page">5</span>
+    <a class="pagination__item" href="/pagerfanta-view?page=6">6</a>
+    <a class="pagination__item" href="/pagerfanta-view?page=7">7</a>
+    <span class="pagination__item pagination__item--separator">&hellip;</span>
+    <a class="pagination__item" href="/pagerfanta-view?page=10">10</a>
+    <a class="pagination__item pagination__item--next-page" href="/pagerfanta-view?page=6" rel="next">Forward</a>
+</nav>'
+        );
+    }
+
+    public function testRendersWithAChainOfTemplatesFromTheOptionsFallingBackToTheTemplateFromTheConstructor(): void
+    {
+        $this->assertSame(
+            'Twig template from constructor',
+            (new TwigView($this->twig, 'constructor.html.twig'))->render(
+                $this->createPagerfanta(),
+                $this->createRouteGeneratorFactory()->create(),
+                ['template' => ['messages.html.twig']]
+            )
+        );
+    }
+
+    public function testRendersWithAChainOfTemplatesContainingDuplicates(): void
+    {
+        $this->assertSame(
+            'Twig template from options',
+            (new TwigView($this->twig, ['constructor.html.twig', '@Pagerfanta/default.html.twig']))->render(
+                $this->createPagerfanta(),
+                $this->createRouteGeneratorFactory()->create(),
+                ['template' => ['options.html.twig', 'messages.html.twig', 'options.html.twig', '@Pagerfanta/default.html.twig']]
             )
         );
     }
