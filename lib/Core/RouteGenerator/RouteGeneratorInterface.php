@@ -2,6 +2,9 @@
 
 namespace Pagerfanta\RouteGenerator;
 
+/**
+ * @deprecated since Pagerfanta 4.10, implement {@see PositionRouteGeneratorInterface} instead
+ */
 interface RouteGeneratorInterface
 {
     /**

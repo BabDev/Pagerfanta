@@ -15,14 +15,15 @@ use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
-use Pagerfanta\RouteGenerator\RouteGeneratorDecorator;
 use Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 use Pagerfanta\Twig\Extension\PagerfantaExtension;
 use Pagerfanta\Twig\Extension\PagerfantaRuntime;
+use Pagerfanta\Twig\Tests\CapturesDeprecations;
 use Pagerfanta\Twig\View\TwigView;
 use Pagerfanta\View\ViewFactory;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use Twig\BlockChain;
 use Twig\Environment;
@@ -36,6 +37,8 @@ use Twig\RuntimeLoader\FactoryRuntimeLoader;
  */
 final class TwigViewSequentialIntegrationTest extends TestCase
 {
+    use CapturesDeprecations;
+
     private const MESSAGES_TEMPLATE = <<<TWIG
         {%- block previous_page_message -%}
             Back
@@ -125,7 +128,12 @@ final class TwigViewSequentialIntegrationTest extends TestCase
              */
             public function create(array $options = []): RouteGeneratorInterface
             {
-                return new RouteGeneratorDecorator(static fn (int $page): string => '/posts?page='.$page);
+                return new class implements RouteGeneratorInterface {
+                    public function __invoke(int $page): string
+                    {
+                        return '/posts?page='.$page;
+                    }
+                };
             }
 
             /**
@@ -252,5 +260,28 @@ final class TwigViewSequentialIntegrationTest extends TestCase
     private function assertViewOutputMatches(string $expected, string $view): void
     {
         $this->assertSame($expected, preg_replace('/>\s+</', '><', $view));
+    }
+
+    #[Group('legacy')]
+    public function testAPageNumberRouteGeneratorIsDeprecated(): void
+    {
+        $deprecations = $this->captureDeprecations(fn () => (new TwigView($this->twig))->render($this->createOffsetPager(), static fn (int $page): string => '/posts?page='.$page));
+
+        $this->assertSame(['Since pagerfanta/twig 4.10: Passing a page number based route generator to "Pagerfanta\\Twig\\View\\TwigView::render()" is deprecated, pass an instance of "Pagerfanta\\RouteGenerator\\PositionRouteGeneratorInterface" instead.'], $deprecations);
+    }
+
+    public function testAPositionRouteGeneratorIsNotDeprecated(): void
+    {
+        $view = new TwigView($this->twig);
+
+        $this->assertSame([], $this->captureDeprecations(function () use ($view): void {
+            $view->render($this->createOffsetPager(), $this->createPositionRouteGenerator());
+            $view->render($this->createCursorPager(), $this->createPositionRouteGenerator());
+        }));
+    }
+
+    public function testAPositionRouteGeneratorFactoryIsNotDeprecated(): void
+    {
+        $this->assertSame([], $this->captureDeprecations(fn () => $this->twig->render('integration.html.twig', ['pager' => $this->createOffsetPager(), 'options' => []])));
     }
 }

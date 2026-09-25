@@ -3,15 +3,14 @@
 namespace Pagerfanta\Twig\View;
 
 use Pagerfanta\CursorPagerInterface;
-use Pagerfanta\Exception\LessThan1CurrentPageException;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\PagerInterface;
 use Pagerfanta\Position\PagePosition;
 use Pagerfanta\Position\Position;
+use Pagerfanta\RouteGenerator\PageNumberRouteGenerator;
 use Pagerfanta\RouteGenerator\PageRouteGeneratorWrapper;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
-use Pagerfanta\RouteGenerator\RouteGeneratorDecorator;
 use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 use Pagerfanta\View\PagerViewInterface;
 use Pagerfanta\View\View;
@@ -66,6 +65,10 @@ final class TwigView extends View implements PagerViewInterface
      */
     public function render(PagerfantaInterface|PagerInterface $pager, callable $routeGenerator, array $options = []): string
     {
+        if (!$routeGenerator instanceof PositionRouteGeneratorInterface) {
+            trigger_deprecation('pagerfanta/twig', '4.10', 'Passing a page number based route generator to "%s::render()" is deprecated, pass an instance of "%s" instead.', self::class, PositionRouteGeneratorInterface::class);
+        }
+
         if (!$pager instanceof PagerfantaInterface || true === ($options['sequential'] ?? false)) {
             return $this->renderSequential($pager, $routeGenerator, $options);
         }
@@ -79,7 +82,7 @@ final class TwigView extends View implements PagerViewInterface
             'pager_widget',
             [
                 'pagerfanta' => $pager,
-                'route_generator' => $this->decorateRouteGenerator($routeGenerator),
+                'route_generator' => new PageNumberRouteGenerator($routeGenerator),
                 'options' => $options,
                 'sequential' => false,
                 'start_page' => $this->startPage,
@@ -124,26 +127,6 @@ final class TwigView extends View implements PagerViewInterface
                 'next_position' => $nextPosition,
             ]
         );
-    }
-
-    /**
-     * @param PositionRouteGeneratorInterface|RouteGeneratorInterface|callable(int): string $routeGenerator
-     */
-    private function decorateRouteGenerator(callable $routeGenerator): RouteGeneratorDecorator
-    {
-        // Numbered pages are linked with page numbers, so a position route generator is given page positions
-        if ($routeGenerator instanceof PositionRouteGeneratorInterface) {
-            return new RouteGeneratorDecorator(static function (int $page) use ($routeGenerator): string {
-                // A template may link to any page number, which must still be a valid page
-                if ($page < 1) {
-                    throw new LessThan1CurrentPageException();
-                }
-
-                return $routeGenerator(new PagePosition($page));
-            });
-        }
-
-        return new RouteGeneratorDecorator($routeGenerator);
     }
 
     /**

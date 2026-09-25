@@ -7,11 +7,12 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\PagerInterface;
 use Pagerfanta\Position\Position;
+use Pagerfanta\RouteGenerator\PageNumberRouteGenerator;
 use Pagerfanta\RouteGenerator\PageRouteGeneratorWrapper;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface;
-use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
+use Pagerfanta\View\OptionableView;
 use Pagerfanta\View\PagerViewInterface;
 use Pagerfanta\View\ViewFactoryInterface;
 use Pagerfanta\View\ViewInterface;
@@ -25,9 +26,13 @@ final class PagerfantaRuntime implements RuntimeExtensionInterface
     public function __construct(
         private readonly string $defaultView,
         private readonly ViewFactoryInterface $viewFactory,
-        private readonly RouteGeneratorFactoryInterface $routeGeneratorFactory,
+        private readonly RouteGeneratorFactoryInterface|PositionRouteGeneratorFactoryInterface $routeGeneratorFactory,
         private readonly ?string $defaultSequentialView = null,
-    ) {}
+    ) {
+        if (!$routeGeneratorFactory instanceof PositionRouteGeneratorFactoryInterface) {
+            trigger_deprecation('pagerfanta/twig', '4.10', 'Using a route generator factory which does not implement "%s" with "%s" is deprecated.', PositionRouteGeneratorFactoryInterface::class, self::class);
+        }
+    }
 
     /**
      * @param PagerfantaInterface<mixed>|PagerInterface<mixed, Position> $pagerfanta
@@ -51,7 +56,10 @@ final class PagerfantaRuntime implements RuntimeExtensionInterface
 
         \assert($pagerfanta instanceof PagerfantaInterface);
 
-        return $view->render($pagerfanta, $this->createRouteGenerator($options), $options);
+        // Before 5.0, views are only required to accept page number based route generators
+        $routeGenerator = OptionableView::acceptsPositionRouteGenerators($view) ? $this->createPositionRouteGenerator($options) : $this->createRouteGenerator($options);
+
+        return $view->render($pagerfanta, $routeGenerator, $options);
     }
 
     /**
@@ -122,11 +130,19 @@ final class PagerfantaRuntime implements RuntimeExtensionInterface
     }
 
     /**
+     * Creates a page number based route generator, adapting a position route generator when the factory does not support page numbers.
+     *
      * @param array<string, mixed> $options
+     *
+     * @return callable(int): string
      */
-    private function createRouteGenerator(array $options = []): RouteGeneratorInterface
+    private function createRouteGenerator(array $options = []): callable
     {
-        return $this->routeGeneratorFactory->create($options);
+        if ($this->routeGeneratorFactory instanceof RouteGeneratorFactoryInterface) {
+            return $this->routeGeneratorFactory->create($options);
+        }
+
+        return new PageNumberRouteGenerator($this->routeGeneratorFactory->createPositionRouteGenerator($options));
     }
 
     /**
