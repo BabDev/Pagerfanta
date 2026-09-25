@@ -15,6 +15,7 @@ final class PagerfantaExtension extends AbstractExtension
         return [
             new TwigFunction('pagerfanta', [PagerfantaRuntime::class, 'renderPagerfanta'], ['is_safe' => ['html']]),
             new TwigFunction('pagerfanta_page_url', [PagerfantaRuntime::class, 'getPageUrl']),
+            new TwigFunction('pagerfanta_position_url', [PagerfantaRuntime::class, 'getPositionUrl']),
         ];
     }
 }

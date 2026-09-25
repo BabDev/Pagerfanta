@@ -2,13 +2,27 @@
 
 namespace Pagerfanta\Twig\Tests\Extension;
 
+use Pagerfanta\Adapter\CallbackCursorAdapter;
+use Pagerfanta\Adapter\CursorSlice;
 use Pagerfanta\Adapter\FixedAdapter;
+use Pagerfanta\Cursor\Cursor;
+use Pagerfanta\CursorPagerfanta;
+use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\Pagerfanta;
+use Pagerfanta\Position\CursorPosition;
+use Pagerfanta\Position\PagePosition;
+use Pagerfanta\Position\Position;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
+use Pagerfanta\RouteGenerator\RouteGeneratorDecorator;
 use Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 use Pagerfanta\Twig\Extension\PagerfantaRuntime;
 use Pagerfanta\View\DefaultView;
+use Pagerfanta\View\SequentialView;
+use Pagerfanta\View\Template\DefaultTemplate;
 use Pagerfanta\View\ViewFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -154,5 +168,111 @@ final class PagerfantaRuntimeTest extends TestCase
     private function removeWhitespacesBetweenTags(string $string): string
     {
         return preg_replace('/>\s+</', '><', $string) ?? '';
+    }
+
+    /**
+     * @return CursorPagerfanta<int>
+     */
+    private function createCursorPager(): CursorPagerfanta
+    {
+        return new CursorPagerfanta(new CallbackCursorAdapter(static fn (?Cursor $cursor, int $limit): CursorSlice => new CursorSlice([1], null, new Cursor(['id' => 1]))));
+    }
+
+    private function createPositionRouteGeneratorFactory(): RouteGeneratorFactoryInterface&PositionRouteGeneratorFactoryInterface
+    {
+        return new class implements RouteGeneratorFactoryInterface, PositionRouteGeneratorFactoryInterface {
+            /**
+             * @param array<string, mixed> $options
+             */
+            public function create(array $options = []): RouteGeneratorInterface
+            {
+                return new RouteGeneratorDecorator(static fn (int $page): string => '/my-page?page='.$page);
+            }
+
+            /**
+             * @param array<string, mixed> $options
+             */
+            public function createPositionRouteGenerator(array $options = []): PositionRouteGeneratorInterface
+            {
+                return new PositionRouteGeneratorDecorator(static fn (Position $position): string => $position instanceof CursorPosition ? '/my-page?after='.$position->cursor->fields['id'] : '/my-page?page='.($position instanceof PagePosition ? $position->page : 1));
+            }
+        };
+    }
+
+    private function createViewFactory(): ViewFactory
+    {
+        $viewFactory = new ViewFactory();
+        $viewFactory->set('default', new DefaultView());
+        $viewFactory->set('sequential', new SequentialView(new DefaultTemplate()));
+
+        return $viewFactory;
+    }
+
+    public function testAPagerWhichTheDefaultViewCannotRenderIsRejectedWithoutADefaultSequentialView(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('configure a default sequential view');
+
+        (new PagerfantaRuntime('default', $this->createViewFactory(), $this->createPositionRouteGeneratorFactory()))->renderPagerfanta($this->createCursorPager());
+    }
+
+    public function testAPagerWhichTheDefaultViewCannotRenderIsRenderedWithTheDefaultSequentialView(): void
+    {
+        // The callback adapter is forward-only by default, so there is no previous link
+        $this->assertSame(
+            '<nav class="pagination"><a class="pagination__item pagination__item--next-page" href="/my-page?after=1" rel="next">Next</a></nav>',
+            (new PagerfantaRuntime('default', $this->createViewFactory(), $this->createPositionRouteGeneratorFactory(), 'sequential'))->renderPagerfanta($this->createCursorPager()),
+        );
+    }
+
+    public function testTheDefaultViewIsUsedForAPagerItCanRenderWhenADefaultSequentialViewIsSet(): void
+    {
+        $this->assertStringContainsString(
+            '<span class="pagination__item pagination__item--current-page">1</span>',
+            (new PagerfantaRuntime('default', $this->createViewFactory(), $this->createPositionRouteGeneratorFactory(), 'sequential'))->renderPagerfanta($this->createPagerfanta()),
+        );
+    }
+
+    public function testANamedViewWhichCannotRenderThePagerIsRejected(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        (new PagerfantaRuntime('sequential', $this->createViewFactory(), $this->createPositionRouteGeneratorFactory(), 'sequential'))->renderPagerfanta($this->createCursorPager(), 'default');
+    }
+
+    public function testAPagerViewIsGivenAPositionRouteGenerator(): void
+    {
+        $this->assertSame(
+            '<nav class="pagination"><span class="pagination__item pagination__item--previous-page pagination__item--disabled">Previous</span><a class="pagination__item pagination__item--next-page" href="/my-page?page=2" rel="next">Next</a></nav>',
+            (new PagerfantaRuntime('sequential', $this->createViewFactory(), $this->createPositionRouteGeneratorFactory()))->renderPagerfanta($this->createPagerfanta()),
+        );
+    }
+
+    public function testAPagerViewIsGivenAnAdaptedPageRouteGeneratorWhenTheFactoryDoesNotSupportPositions(): void
+    {
+        $this->assertSame(
+            '<nav class="pagination"><span class="pagination__item pagination__item--previous-page pagination__item--disabled">Previous</span><a class="pagination__item pagination__item--next-page" href="/my-page?page=2" rel="next">Next</a></nav>',
+            (new PagerfantaRuntime('sequential', $this->createViewFactory(), $this->createRouteGeneratorFactory()))->renderPagerfanta($this->createPagerfanta()),
+        );
+    }
+
+    public function testAPositionUrlCanBeGenerated(): void
+    {
+        $runtime = new PagerfantaRuntime('default', $this->createViewFactory(), $this->createPositionRouteGeneratorFactory());
+
+        $this->assertSame('/my-page?after=3', $runtime->getPositionUrl(new CursorPosition(new Cursor(['id' => 3]))));
+        $this->assertSame('/my-page?page=3', $runtime->getPositionUrl(new PagePosition(3)));
+    }
+
+    public function testAPagePositionUrlCanBeGeneratedWhenTheFactoryDoesNotSupportPositions(): void
+    {
+        $this->assertSame('/my-page?page=3', $this->extension->getPositionUrl(new PagePosition(3)));
+    }
+
+    public function testACursorPositionUrlCannotBeGeneratedWhenTheFactoryDoesNotSupportPositions(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->extension->getPositionUrl(new CursorPosition(new Cursor(['id' => 3])));
     }
 }
