@@ -1,4 +1,5 @@
 /.github export-ignore
+/adr export-ignore
 /bin export-ignore
 /docs export-ignore
 /lib/**/*/Tests export-ignore

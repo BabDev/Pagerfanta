@@ -10,13 +10,15 @@ use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfBoundsException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
+use Pagerfanta\Position\PagePosition;
 
 /**
  * @template T
  *
  * @implements PagerfantaInterface<T>
+ * @implements OffsetPagerInterface<T>
  */
-class Pagerfanta implements PagerfantaInterface, \JsonSerializable
+class Pagerfanta implements PagerfantaInterface, OffsetPagerInterface, \JsonSerializable
 {
     private bool $allowOutOfRangePages = false;
     private bool $normalizeOutOfRangePages = false;
@@ -378,6 +380,14 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
         return $this->currentPage - 1;
     }
 
+    /**
+     * @throws LogicException if there is no previous page
+     */
+    public function getPreviousPosition(): PagePosition
+    {
+        return new PagePosition($this->getPreviousPage());
+    }
+
     public function hasNextPage(): bool
     {
         return $this->currentPage < $this->getNbPages();
@@ -398,6 +408,20 @@ class Pagerfanta implements PagerfantaInterface, \JsonSerializable
     }
 
     /**
+     * @throws LogicException if there is no next page
+     */
+    public function getNextPosition(): PagePosition
+    {
+        return new PagePosition($this->getNextPage());
+    }
+
+    /**
+     * Returns the total number of results.
+     *
+     * Counting a Pagerfanta instance to get the total number of results is deprecated since 4.10. In 5.0, this will return
+     * the number of items on the current page to match the other pager implementations, use {@see getNbResults()}
+     * to get the total number of results.
+     *
      * @return int<0, max>
      */
     public function count(): int
