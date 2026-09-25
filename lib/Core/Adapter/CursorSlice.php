@@ -33,4 +33,41 @@ final class CursorSlice
             throw new InvalidArgumentException('The next cursor of a slice must have the next direction.');
         }
     }
+
+    /**
+     * Creates a slice from items fetched with one item of lookahead.
+     *
+     * @template TItem
+     *
+     * @param list<TItem>                        $items         The items fetched in the direction of the cursor, up to `$limit + 1` items
+     * @param positive-int                       $limit         The maximum number of items on the page
+     * @param Cursor|null                        $cursor        The cursor the items were fetched for, or null for the first page
+     * @param callable(TItem, Direction): Cursor $cursorFactory Creates the cursor pointing to an item
+     *
+     * @return self<TItem>
+     */
+    public static function fromLookahead(array $items, int $limit, ?Cursor $cursor, callable $cursorFactory): self
+    {
+        $reverse = $cursor instanceof Cursor && Direction::Previous === $cursor->direction;
+        $hasMore = \count($items) > $limit;
+
+        $items = \array_slice($items, 0, $limit);
+
+        if ($reverse) {
+            $items = array_reverse($items);
+        }
+
+        if ([] === $items) {
+            return new self([]);
+        }
+
+        $hasPrevious = $reverse ? $hasMore : $cursor instanceof Cursor;
+        $hasNext = $reverse || $hasMore;
+
+        return new self(
+            $items,
+            $hasPrevious ? $cursorFactory($items[0], Direction::Previous) : null,
+            $hasNext ? $cursorFactory($items[array_key_last($items)], Direction::Next) : null,
+        );
+    }
 }
