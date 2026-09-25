@@ -2,15 +2,30 @@
 
 namespace Pagerfanta\Twig\View;
 
+use Pagerfanta\CursorPagerInterface;
+use Pagerfanta\Exception\LessThan1CurrentPageException;
 use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\PagerInterface;
+use Pagerfanta\Position\PagePosition;
+use Pagerfanta\Position\Position;
+use Pagerfanta\RouteGenerator\PageRouteGeneratorWrapper;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorDecorator;
 use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
+use Pagerfanta\View\PagerViewInterface;
 use Pagerfanta\View\View;
 use Twig\BlockChain;
 use Twig\Environment;
 use Twig\TemplateWrapper;
 
-final class TwigView extends View
+/**
+ * View which renders a pager with Twig templates.
+ *
+ * Pagers implementing {@see PagerfantaInterface} are rendered with numbered page links, unless the "sequential" option is
+ * set. All other pagers are rendered with previous and next links, using the "sequential_pager" block of the template.
+ */
+final class TwigView extends View implements PagerViewInterface
 {
     public const DEFAULT_TEMPLATE = '@Pagerfanta/default.html.twig';
 
@@ -37,15 +52,25 @@ final class TwigView extends View
     }
 
     /**
-     * @param PagerfantaInterface<mixed>       $pagerfanta
-     * @param callable|RouteGeneratorInterface $routeGenerator
-     * @param array<string, mixed>             $options
-     *
-     * @phpstan-param callable(int $page): string|RouteGeneratorInterface $routeGenerator
+     * @param PagerfantaInterface<mixed>|PagerInterface<mixed, Position> $pager
      */
-    public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
+    public function supports(PagerfantaInterface|PagerInterface $pager): bool
     {
-        $this->initializePagerfanta($pagerfanta);
+        return true;
+    }
+
+    /**
+     * @param PagerfantaInterface<mixed>|PagerInterface<mixed, Position>                    $pager
+     * @param PositionRouteGeneratorInterface|RouteGeneratorInterface|callable(int): string $routeGenerator
+     * @param array<string, mixed>                                                          $options
+     */
+    public function render(PagerfantaInterface|PagerInterface $pager, callable $routeGenerator, array $options = []): string
+    {
+        if (!$pager instanceof PagerfantaInterface || true === ($options['sequential'] ?? false)) {
+            return $this->renderSequential($pager, $routeGenerator, $options);
+        }
+
+        $this->initializePagerfanta($pager);
         $this->initializeOptions($options);
 
         $this->calculateStartAndEndPage();
@@ -53,9 +78,10 @@ final class TwigView extends View
         return $this->loadTemplate($this->template)->renderBlock(
             'pager_widget',
             [
-                'pagerfanta' => $pagerfanta,
+                'pagerfanta' => $pager,
                 'route_generator' => $this->decorateRouteGenerator($routeGenerator),
                 'options' => $options,
+                'sequential' => false,
                 'start_page' => $this->startPage,
                 'end_page' => $this->endPage,
                 'current_page' => $this->currentPage,
@@ -65,10 +91,58 @@ final class TwigView extends View
     }
 
     /**
-     * @param (callable(int $page): string)|RouteGeneratorInterface $routeGenerator
+     * @param PagerfantaInterface<mixed>|PagerInterface<mixed, Position>                    $pager
+     * @param PositionRouteGeneratorInterface|RouteGeneratorInterface|callable(int): string $routeGenerator
+     * @param array<string, mixed>                                                          $options
      */
-    private function decorateRouteGenerator(callable|RouteGeneratorInterface $routeGenerator): RouteGeneratorDecorator
+    private function renderSequential(PagerfantaInterface|PagerInterface $pager, callable $routeGenerator, array $options): string
     {
+        $this->initializeOptions($options);
+
+        // Implementations of PagerfantaInterface are not required to implement the position API until 5.0
+        $previousPosition = match (true) {
+            !$pager->hasPreviousPage() => null,
+            $pager instanceof PagerInterface => $pager->getPreviousPosition(),
+            default => new PagePosition($pager->getPreviousPage()),
+        };
+
+        $nextPosition = match (true) {
+            !$pager->hasNextPage() => null,
+            $pager instanceof PagerInterface => $pager->getNextPosition(),
+            default => new PagePosition($pager->getNextPage()),
+        };
+
+        return $this->loadTemplate($this->template)->renderBlock(
+            'pager_widget',
+            [
+                'pagerfanta' => $pager,
+                'route_generator' => new PositionRouteGeneratorDecorator(PageRouteGeneratorWrapper::wrap($routeGenerator)),
+                'options' => $options,
+                'sequential' => true,
+                'supports_backward_navigation' => !$pager instanceof CursorPagerInterface || $pager->supportsBackwardNavigation(),
+                'previous_position' => $previousPosition,
+                'next_position' => $nextPosition,
+            ]
+        );
+    }
+
+    /**
+     * @param PositionRouteGeneratorInterface|RouteGeneratorInterface|callable(int): string $routeGenerator
+     */
+    private function decorateRouteGenerator(callable $routeGenerator): RouteGeneratorDecorator
+    {
+        // Numbered pages are linked with page numbers, so a position route generator is given page positions
+        if ($routeGenerator instanceof PositionRouteGeneratorInterface) {
+            return new RouteGeneratorDecorator(static function (int $page) use ($routeGenerator): string {
+                // A template may link to any page number, which must still be a valid page
+                if ($page < 1) {
+                    throw new LessThan1CurrentPageException();
+                }
+
+                return $routeGenerator(new PagePosition($page));
+            });
+        }
+
         return new RouteGeneratorDecorator($routeGenerator);
     }
 
