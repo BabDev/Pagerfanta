@@ -418,8 +418,9 @@ class Pagerfanta implements PagerfantaInterface, OffsetPagerInterface, \JsonSeri
     /**
      * Returns the total number of results.
      *
-     * In 5.0, this will return the number of items on the current page to match the other pager implementations,
-     * use {@see Pagerfanta::getNbResults()} to get the total number of results.
+     * Counting a Pagerfanta instance to get the total number of results is deprecated since 4.10. In 5.0, this will return
+     * the number of items on the current page to match the other pager implementations, use {@see getNbResults()}
+     * to get the total number of results.
      *
      * @return int<0, max>
      */
