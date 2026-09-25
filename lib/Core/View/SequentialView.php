@@ -44,42 +44,44 @@ final class SequentialView implements PagerViewInterface
      */
     public function render(PagerfantaInterface|PagerInterface $pager, callable $routeGenerator, array $options = []): string
     {
-        $this->template->setPositionRouteGenerator(PageRouteGeneratorWrapper::wrap($routeGenerator));
-        $this->template->setOptions($options);
+        // Render from a copy of the template so the options and route generator of this render are not reused by the next one
+        $template = clone $this->template;
+        $template->setPositionRouteGenerator(PageRouteGeneratorWrapper::wrap($routeGenerator));
+        $template->setOptions($options);
 
-        return str_replace('%pages%', $this->previous($pager).$this->next($pager), $this->template->container());
+        return str_replace('%pages%', $this->previous($template, $pager).$this->next($template, $pager), $template->container());
     }
 
     /**
      * @param PagerfantaInterface<mixed>|PagerInterface<mixed, Position> $pager
      */
-    private function previous(PagerfantaInterface|PagerInterface $pager): string
+    private function previous(SequentialTemplateInterface $template, PagerfantaInterface|PagerInterface $pager): string
     {
         if ($pager instanceof CursorPagerInterface && !$pager->supportsBackwardNavigation()) {
             return '';
         }
 
         if (!$pager->hasPreviousPage()) {
-            return $this->template->previousDisabled();
+            return $template->previousDisabled();
         }
 
         // Implementations of PagerfantaInterface are not required to implement the position API until 5.0
         $position = $pager instanceof PagerInterface ? $pager->getPreviousPosition() : new PagePosition($pager->getPreviousPage());
 
-        return $this->template->previousEnabledForPosition($position);
+        return $template->previousEnabledForPosition($position);
     }
 
     /**
      * @param PagerfantaInterface<mixed>|PagerInterface<mixed, Position> $pager
      */
-    private function next(PagerfantaInterface|PagerInterface $pager): string
+    private function next(SequentialTemplateInterface $template, PagerfantaInterface|PagerInterface $pager): string
     {
         if (!$pager->hasNextPage()) {
-            return $this->template->nextDisabled();
+            return $template->nextDisabled();
         }
 
         $position = $pager instanceof PagerInterface ? $pager->getNextPosition() : new PagePosition($pager->getNextPage());
 
-        return $this->template->nextEnabledForPosition($position);
+        return $template->nextEnabledForPosition($position);
     }
 }

@@ -262,4 +262,32 @@ final class SequentialViewTest extends TestCase
 
         (new DefaultTemplate())->nextEnabledForPosition(new PagePosition(2));
     }
+
+    public function testTheOptionsFromAPreviousRenderAreNotReused(): void
+    {
+        $view = new SequentialView(new DefaultTemplate());
+        $routeGenerator = static fn (int $page): string => '|'.$page.'|';
+
+        $this->assertStringContainsString('rel="prev">Newer</a>', $view->render($this->createOffsetPager(30, 2), $routeGenerator, ['prev_message' => 'Newer']));
+        $this->assertStringContainsString('rel="prev">Previous</a>', $view->render($this->createOffsetPager(30, 2), $routeGenerator));
+    }
+
+    public function testTheOptionsSetOnTheTemplateAreKeptForEachRender(): void
+    {
+        $template = new DefaultTemplate();
+        $template->setOptions(['prev_message' => 'Newer']);
+
+        $view = new SequentialView($template);
+        $routeGenerator = static fn (int $page): string => '|'.$page.'|';
+
+        $first = $view->render($this->createOffsetPager(30, 2), $routeGenerator, ['next_message' => 'Older']);
+
+        $this->assertStringContainsString('rel="prev">Newer</a>', $first);
+        $this->assertStringContainsString('rel="next">Older</a>', $first);
+
+        $second = $view->render($this->createOffsetPager(30, 2), $routeGenerator);
+
+        $this->assertStringContainsString('rel="prev">Newer</a>', $second);
+        $this->assertStringContainsString('rel="next">Next</a>', $second);
+    }
 }
