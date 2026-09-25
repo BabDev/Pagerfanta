@@ -65,11 +65,7 @@ final class TwigView extends View
      */
     protected function initializeOptions(array $options): void
     {
-        if (isset($options['template'])) {
-            $this->template = $options['template'];
-        } elseif (null !== $this->defaultTemplate) {
-            $this->template = $this->defaultTemplate;
-        }
+        $this->template = $options['template'] ?? $this->defaultTemplate ?? self::DEFAULT_TEMPLATE;
 
         parent::initializeOptions($options);
     }

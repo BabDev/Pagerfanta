@@ -443,6 +443,25 @@ final class TwigViewIntegrationTest extends TestCase
         );
     }
 
+    public function testDoesNotReuseATemplateFromTheOptionsOfAPreviousRender(): void
+    {
+        $view = new TwigView($this->twig);
+
+        $view->render(
+            $this->createPagerfanta(),
+            $this->createRouteGeneratorFactory()->create(),
+            ['template' => 'options.html.twig']
+        );
+
+        $this->assertStringStartsWith(
+            '<nav class="pagination">',
+            $view->render(
+                $this->createPagerfanta(),
+                $this->createRouteGeneratorFactory()->create()
+            )
+        );
+    }
+
     private function createRouteGeneratorFactory(): RouteGeneratorFactoryInterface
     {
         return new class implements RouteGeneratorFactoryInterface {

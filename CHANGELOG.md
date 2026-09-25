@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.9.1 (Unreleased)
+
+- Fix the Twig view reusing the template from a previous render's options when no default template is configured
+
 ## 4.9.0 (2026-09-08)
 
 - [#63](https://github.com/BabDev/Pagerfanta/issues/63) Add support for the new pagination API from `doctrine/orm` 3.7
