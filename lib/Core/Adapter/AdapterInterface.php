@@ -5,9 +5,13 @@ namespace Pagerfanta\Adapter;
 use Pagerfanta\Exception\NotValidResultCountException;
 
 /**
+ * An adapter supporting offset based pagination which can report the total number of results.
+ *
  * @template-covariant T
+ *
+ * @extends OffsetAdapterInterface<T>
  */
-interface AdapterInterface
+interface AdapterInterface extends OffsetAdapterInterface, CountableAdapterInterface
 {
     /**
      * Returns the number of results for the list.
