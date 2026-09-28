@@ -165,6 +165,37 @@ final class PagerfantaRuntimeTest extends TestCase
         $this->extension->getPageUrl($this->createPagerfanta(), 1000);
     }
 
+    public function testAPageUrlCannotBeGeneratedForPageZero(): void
+    {
+        $this->expectException(OutOfRangeCurrentPageException::class);
+        $this->expectExceptionMessage("Page '0' is out of bounds");
+
+        $this->extension->getPageUrl($this->createPagerfanta(), 0);
+    }
+
+    public function testAPageUrlIsGeneratedWithThePositionRouteGeneratorWhenTheFactorySupportsBothApis(): void
+    {
+        $factory = new class implements RouteGeneratorFactoryInterface, PositionRouteGeneratorFactoryInterface {
+            /**
+             * @param array<string, mixed> $options
+             */
+            public function create(array $options = []): RouteGeneratorInterface
+            {
+                throw new \LogicException('The page number based route generator should not be used.');
+            }
+
+            /**
+             * @param array<string, mixed> $options
+             */
+            public function createPositionRouteGenerator(array $options = []): PositionRouteGeneratorInterface
+            {
+                return new PositionRouteGeneratorDecorator(static fn (Position $position): string => '/my-page?page='.($position instanceof PagePosition ? $position->page : 0));
+            }
+        };
+
+        $this->assertSame('/my-page?page=3', (new PagerfantaRuntime('default', $this->createViewFactory(), $factory))->getPageUrl($this->createPagerfanta(), 3));
+    }
+
     private function assertViewOutputMatches(string $view, string $expected): void
     {
         $this->assertSame($this->removeWhitespacesBetweenTags($expected), $view);

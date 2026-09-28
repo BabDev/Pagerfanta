@@ -6,6 +6,7 @@ use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\PagerInterface;
+use Pagerfanta\Position\PagePosition;
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PageNumberRouteGenerator;
 use Pagerfanta\RouteGenerator\PageRouteGeneratorWrapper;
@@ -70,8 +71,12 @@ final class PagerfantaRuntime implements RuntimeExtensionInterface
      */
     public function getPageUrl(PagerfantaInterface $pagerfanta, int $page, array $options = []): string
     {
-        if ($page < 0 || $page > $pagerfanta->getNbPages()) {
+        if ($page < 1 || $page > $pagerfanta->getNbPages()) {
             throw new OutOfRangeCurrentPageException("Page '{$page}' is out of bounds");
+        }
+
+        if ($this->routeGeneratorFactory instanceof PositionRouteGeneratorFactoryInterface) {
+            return $this->routeGeneratorFactory->createPositionRouteGenerator($options)(new PagePosition($page));
         }
 
         $routeGenerator = $this->createRouteGenerator($options);
