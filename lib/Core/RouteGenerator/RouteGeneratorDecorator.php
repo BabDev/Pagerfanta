@@ -2,6 +2,9 @@
 
 namespace Pagerfanta\RouteGenerator;
 
+/**
+ * @deprecated since Pagerfanta 4.10, use {@see PositionRouteGeneratorDecorator} instead
+ */
 final class RouteGeneratorDecorator implements RouteGeneratorInterface
 {
     /**
@@ -14,6 +17,8 @@ final class RouteGeneratorDecorator implements RouteGeneratorInterface
      */
     public function __construct(callable $decorated)
     {
+        trigger_deprecation('pagerfanta/core', '4.10', 'The "%s" class is deprecated, use "%s" instead.', self::class, PositionRouteGeneratorDecorator::class);
+
         $this->decorated = $decorated;
     }
 

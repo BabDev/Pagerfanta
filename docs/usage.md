@@ -169,6 +169,29 @@ if ($pagerfanta->hasNextPage()) {
 }
 ```
 
+<div class="docs-note docs-note--new-feature">The position helpers were introduced in Pagerfanta 4.10.</div>
+
+You can also get the previous and next pages as a `Pagerfanta\Position\PagePosition` using the `getPreviousPosition` and `getNextPosition` methods respectively on the `Pagerfanta` instance. Positions describe a page independent of the pagination strategy, which allows code such as route generators and views to support both offset and [cursor pagination](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination).
+
+```php
+<?php
+
+use Pagerfanta\Adapter\NullAdapter;
+use Pagerfanta\Pagerfanta;
+
+$pagerfanta = new Pagerfanta(new NullAdapter(30));
+
+if ($pagerfanta->hasNextPage()) {
+    $pagerfanta->getNextPosition()->page; // Will return 2
+}
+```
+
+## Counting The Results
+
+The `Pagerfanta` class implements `\Countable`, and counting a `Pagerfanta` instance returns the total number of items in the list, the same as the `getNbResults` method.
+
+<div class="docs-note docs-note--deprecated-feature">In Pagerfanta 5.0, counting a <code>Pagerfanta</code> instance will return the number of items on the current page, which is how the cursor pagers are counted. Use the <code>getNbResults</code> method to get the total number of items in the list.</div>
+
 ## Retrieving The Adapter
 
 If needed, you can retrieve the underlying adapter using the `getAdapter` method on the `Pagerfanta` instance.
