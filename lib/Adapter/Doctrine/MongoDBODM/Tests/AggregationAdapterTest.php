@@ -109,4 +109,14 @@ final class AggregationAdapterTest extends TestCase
 
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
+
+    public function testGetSliceWithZeroLengthDoesNotExecuteTheAggregation(): void
+    {
+        // MongoDB rejects a $limit stage of 0, so the adapter must not run the aggregation
+        $this->aggregationBuilder->expects($this->never())
+            ->method('skip');
+
+        $this->assertSame([], $this->adapter->getSlice(0, 0));
+        $this->assertSame([], $this->adapter->getSlice(10, 0));
+    }
 }

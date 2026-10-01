@@ -73,4 +73,13 @@ final class QueryAdapterTest extends TestCase
 
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
+
+    public function testGetSliceWithZeroLengthDoesNotExecuteTheQuery(): void
+    {
+        $this->queryBuilder->expects($this->never())
+            ->method('getQuery');
+
+        $this->assertSame([], $this->adapter->getSlice(0, 0));
+        $this->assertSame([], $this->adapter->getSlice(10, 0));
+    }
 }
