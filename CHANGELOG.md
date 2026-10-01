@@ -5,6 +5,7 @@
 - Allow a list of templates to be used with the Twig view, their blocks are composed using `Twig\BlockChain` (requires `twig/twig` 3.29 or later)
 - Fix the Twig view reusing the template from a previous render's options when no default template is configured
 - Fix the template views reusing the options from a previous render
+- Add support for `ruflin/elastica` 9.x
 
 ## 4.9.0 (2026-09-08)
 
