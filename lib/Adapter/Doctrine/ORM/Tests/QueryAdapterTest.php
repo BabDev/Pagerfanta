@@ -78,6 +78,7 @@ final class QueryAdapterTest extends ORMTestCase
         yield '0 offset, 1 item' => [0, 1, 1];
         yield '0 offset, 10 items' => [0, 10, 2];
         yield '1 offset, 1 item' => [1, 1, 1];
+        yield '0 offset, 0 items' => [0, 0, 0];
     }
 
     /**
