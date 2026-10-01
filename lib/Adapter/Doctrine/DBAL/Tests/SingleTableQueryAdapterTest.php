@@ -56,4 +56,10 @@ final class SingleTableQueryAdapterTest extends DBALTestCase
 
         $this->assertSame($q->executeQuery()->fetchAllAssociative(), $this->adapter->getSlice($offset, $length));
     }
+
+    public function testGetSliceWithZeroLength(): void
+    {
+        $this->assertSame([], $this->adapter->getSlice(0, 0));
+        $this->assertSame([], $this->adapter->getSlice(30, 0));
+    }
 }

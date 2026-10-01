@@ -61,6 +61,14 @@ final class QueryAdapterTest extends DBALTestCase
         $this->assertSame($this->qb->executeQuery()->fetchAllAssociative(), $adapter->getSlice($offset, $length));
     }
 
+    public function testGetSliceWithZeroLength(): void
+    {
+        $adapter = new QueryAdapter($this->qb, static fn (QueryBuilder $qb): QueryBuilder => $qb);
+
+        $this->assertSame([], $adapter->getSlice(0, 0));
+        $this->assertSame([], $adapter->getSlice(30, 0));
+    }
+
     public function testTheAdapterUsesAClonedQuery(): void
     {
         $adapter = $this->createAdapterToTestGetNbResults();

@@ -38,4 +38,10 @@ final class CollectionAdapterTest extends TestCase
 
         $this->assertSame(array_values(range(6, 17)), array_values($slice));
     }
+
+    public function testGetSliceWithZeroLength(): void
+    {
+        $this->assertSame([], $this->adapter->getSlice(0, 0));
+        $this->assertSame([], $this->adapter->getSlice(5, 0));
+    }
 }
