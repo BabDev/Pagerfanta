@@ -2,8 +2,6 @@
 
 namespace Pagerfanta\Adapter;
 
-use Pagerfanta\Exception\NotValidResultCountException;
-
 /**
  * An adapter supporting offset based pagination which can report the total number of results.
  *
@@ -11,24 +9,4 @@ use Pagerfanta\Exception\NotValidResultCountException;
  *
  * @extends OffsetAdapterInterface<T>
  */
-interface AdapterInterface extends OffsetAdapterInterface, CountableAdapterInterface
-{
-    /**
-     * Returns the number of results for the list.
-     *
-     * @return int<0, max>
-     *
-     * @throws NotValidResultCountException if the number of results is less than zero
-     */
-    public function getNbResults(): int;
-
-    /**
-     * Returns a slice of the results representing the current page of items in the list.
-     *
-     * @param int<0, max> $offset
-     * @param int<0, max> $length
-     *
-     * @return iterable<array-key, T>
-     */
-    public function getSlice(int $offset, int $length): iterable;
-}
+interface AdapterInterface extends OffsetAdapterInterface, CountableAdapterInterface {}
