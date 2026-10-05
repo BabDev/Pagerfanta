@@ -7,8 +7,6 @@ use Pagerfanta\Position\PagePosition;
 
 /**
  * Generates the URL for a page by its number, from either a position based route generator or a page number based route generator.
- *
- * @internal
  */
 final class PageNumberRouteGenerator
 {
