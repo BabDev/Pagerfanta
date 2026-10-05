@@ -104,6 +104,36 @@ final class SolariumAdapterTest extends TestCase
         $this->assertSame($result, $adapter->getSlice(1, 200));
     }
 
+    /**
+     * A zero row count is valid for Solr, and the query must still run so the result set (i.e. facets) is available.
+     */
+    public function testGetSliceWithZeroLength(): void
+    {
+        $query = $this->createQueryMock();
+        $query->expects($this->once())
+            ->method('setStart')
+            ->with(0)
+            ->willReturnSelf();
+
+        $query->expects($this->once())
+            ->method('setRows')
+            ->with(0)
+            ->willReturnSelf();
+
+        $result = $this->createResultMock();
+
+        $client = $this->createClientMock();
+        $client->expects($this->once())
+            ->method('select')
+            ->with($query)
+            ->willReturn($result);
+
+        $adapter = new SolariumAdapter($client, $query);
+
+        $this->assertSame($result, $adapter->getSlice(0, 0));
+        $this->assertSame($result, $adapter->getResultSet());
+    }
+
     public function testGetSliceCannotUseACachedResultSet(): void
     {
         $query = $this->createQueryStub();

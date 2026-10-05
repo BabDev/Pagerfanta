@@ -41,6 +41,10 @@ class AggregationAdapter implements AdapterInterface
      */
     public function getSlice(int $offset, int $length): iterable
     {
+        if (0 === $length) {
+            return [];
+        }
+
         $aggregationBuilder = clone $this->aggregationBuilder;
 
         return $aggregationBuilder

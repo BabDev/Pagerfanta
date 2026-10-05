@@ -42,6 +42,14 @@ final class NullAdapterTest extends TestCase
         $this->assertSame($this->createNullArray(3), $adapter->getSlice(30, 10));
     }
 
+    public function testGetSliceShouldReturnAnEmptyArrayWithZeroLength(): void
+    {
+        $adapter = new NullAdapter(10);
+
+        $this->assertSame([], $adapter->getSlice(0, 0));
+        $this->assertSame([], $adapter->getSlice(5, 0));
+    }
+
     /**
      * @param int<0, max> $length
      *

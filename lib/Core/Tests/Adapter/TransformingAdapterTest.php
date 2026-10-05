@@ -37,6 +37,11 @@ final class TransformingAdapterTest extends TestCase
         $this->assertSame(['0 => 4', '1 => 5'], [...$this->adapter->getSlice(3, 2)]);
     }
 
+    public function testGetSliceWithZeroLength(): void
+    {
+        $this->assertSame([], [...$this->adapter->getSlice(0, 0)]);
+    }
+
     public function testCreateFromInvokable(): void
     {
         $this->adapter = new TransformingAdapter(

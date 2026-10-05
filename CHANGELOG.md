@@ -6,6 +6,7 @@
 - Fix the Twig view reusing the template from a previous render's options when no default template is configured
 - Fix the template views reusing the options from a previous render
 - Add support for `ruflin/elastica` 9.x
+- [#66](https://github.com/BabDev/Pagerfanta/issues/66) Improved handling of zero-length slices in the pagination adapters
 
 ## 4.9.0 (2026-09-08)
 

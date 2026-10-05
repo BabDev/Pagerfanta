@@ -47,4 +47,10 @@ final class ArrayAdapterTest extends TestCase
     {
         $this->assertSame(\array_slice($this->array, $offset, $length), $this->adapter->getSlice($offset, $length));
     }
+
+    public function testGetSliceWithZeroLength(): void
+    {
+        $this->assertSame([], $this->adapter->getSlice(0, 0));
+        $this->assertSame([], $this->adapter->getSlice(50, 0));
+    }
 }

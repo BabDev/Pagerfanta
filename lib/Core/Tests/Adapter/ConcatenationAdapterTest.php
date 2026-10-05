@@ -91,4 +91,34 @@ final class ConcatenationAdapterTest extends TestCase
         $this->assertSame([2, 3], $adapter->getSlice(1, 2));
         $this->assertSame([4, 5, 6], $adapter->getSlice(3, 3));
     }
+
+    public function testGetSliceWithZeroLength(): void
+    {
+        $adapter = new ConcatenationAdapter([
+            new ArrayAdapter([1, 2, 3]),
+            new ArrayAdapter([4, 5, 6]),
+        ]);
+
+        $this->assertSame([], $adapter->getSlice(0, 0));
+        $this->assertSame([], $adapter->getSlice(3, 0));
+    }
+
+    public function testGetSliceDoesNotRequestAZeroLengthSliceFromAnAdapterWithoutResults(): void
+    {
+        $emptyAdapter = new CallbackAdapter(
+            static fn () => 0,
+            function (int $offset, int $length): iterable {
+                $this->fail(\sprintf('The adapter without results should not be sliced, requested offset %d and length %d.', $offset, $length));
+            }
+        );
+
+        $adapter = new ConcatenationAdapter([
+            new ArrayAdapter([1, 2, 3]),
+            $emptyAdapter,
+            new ArrayAdapter([4, 5, 6]),
+        ]);
+
+        $this->assertSame([3, 4, 5], $adapter->getSlice(2, 3));
+        $this->assertSame([1, 2, 3, 4, 5, 6], $adapter->getSlice(0, 10));
+    }
 }

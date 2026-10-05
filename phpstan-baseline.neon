@@ -85,12 +85,6 @@ parameters:
 			path: lib/Adapter/Solarium/SolariumAdapter.php
 
 		-
-			message: '#^Parameter \#2 \$length of method Pagerfanta\\Adapter\\AdapterInterface\<T\>\:\:getSlice\(\) expects int\<0, max\>, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Core/Adapter/ConcatenationAdapter.php
-
-		-
 			message: '#^Property Pagerfanta\\Adapter\\ConcatenationAdapter\<T\>\:\:\$adaptersNbResultsCache \(list\<int\<0, max\>\>\|null\) does not accept non\-empty\-array\<int\<0, max\>, int\<0, max\>\>\.$#'
 			identifier: assign.propertyType
 			count: 1

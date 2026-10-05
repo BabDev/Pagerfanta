@@ -88,4 +88,17 @@ final class QueryAdapterTest extends TestCase
 
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
+
+    public function testGetSliceWithZeroLengthDoesNotExecuteTheQuery(): void
+    {
+        // A limit of 0 means "no limit" to MongoDB, so the adapter must not run the query
+        $this->queryBuilder->expects($this->never())
+            ->method('limit');
+
+        $this->queryBuilder->expects($this->never())
+            ->method('getQuery');
+
+        $this->assertSame([], $this->adapter->getSlice(0, 0));
+        $this->assertSame([], $this->adapter->getSlice(10, 0));
+    }
 }
