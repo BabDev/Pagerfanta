@@ -8,13 +8,19 @@ A route generator is any callable which accepts a single `$page` parameter (the 
 $routeGenerator = static fn (int $page): string => 'http://localhost/blog?page=' . $page;
 ```
 
+<div class="docs-note docs-note--deprecated-feature">Page number based route generators are deprecated since Pagerfanta 4.10. Use <a href="#position-route-generators">position route generators</a> instead, which support both offset and cursor pagination. In Pagerfanta 5.0, a callable route generator will be given a position instead of a page number.</div>
+
 ## Generator Interface
 
 It is recommended that route generators are classes which implement `Pagerfanta\RouteGenerator\RouteGeneratorInterface`.
 
+<div class="docs-note docs-note--deprecated-feature">The <code>RouteGeneratorInterface</code> is deprecated since Pagerfanta 4.10, implement the <code>Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface</code> instead.</div>
+
 ## Generator Factory
 
 Often, it is necessary to configure a route generator based on runtime information (such as data from the current request). The `Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface` defines a class which can assist in building your route generators.
+
+<div class="docs-note docs-note--deprecated-feature">The <code>RouteGeneratorFactoryInterface</code> is deprecated since Pagerfanta 4.10, implement the <a href="#position-route-generator-factory"><code>Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface</code></a> instead.</div>
 
 A basic example of how these factories can be used is with a Twig extension when rendering your pagination list.
 
@@ -62,6 +68,60 @@ final class PagerfantaExtension extends AbstractExtension
 
 Included in the core API is the `Pagerfanta\RouteGenerator\RouteGeneratorDecorator` class which can be used to decorate any route generator, whether the generator implements the interface or any callable.
 
+<div class="docs-note docs-note--deprecated-feature">The <code>RouteGeneratorDecorator</code> is deprecated since Pagerfanta 4.10, use the <code>Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator</code> instead.</div>
+
 The primary reason this class was created is to allow any generator to be used within Twig, but the decorator can also be used to enforce strict typehinting for generators.
 
 <div class="docs-note docs-note--tip">When using the Twig view, it will automatically decorate any route generator so you will not need to do this on your own.</div>
+
+## Position Route Generators
+
+<div class="docs-note docs-note--new-feature">Position route generators were introduced in Pagerfanta 4.10.</div>
+
+A page number cannot describe a page of a [cursor pager](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination), so pagers describe the pages they link to with a `Pagerfanta\Position\Position`: either a `Pagerfanta\Position\PagePosition` (holding a page number) or a `Pagerfanta\Position\CursorPosition` (holding a cursor). A position route generator implements `Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface` and builds the URL for a position.
+
+Cursors should be converted to strings with a [cursor encoder](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination#encoding-cursors) when building the URL. A route generator should throw a `Pagerfanta\Exception\InvalidArgumentException` for a position it does not support.
+
+```php
+<?php
+
+use Pagerfanta\Cursor\CursorEncoderInterface;
+use Pagerfanta\Exception\InvalidArgumentException;
+use Pagerfanta\Position\CursorPosition;
+use Pagerfanta\Position\PagePosition;
+use Pagerfanta\Position\Position;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
+
+final class BlogRouteGenerator implements PositionRouteGeneratorInterface
+{
+    public function __construct(
+        private readonly CursorEncoderInterface $cursorEncoder,
+    ) {}
+
+    public function __invoke(Position $position): string
+    {
+        return match (true) {
+            $position instanceof PagePosition => 'http://localhost/blog?page=' . $position->page,
+            $position instanceof CursorPosition => 'http://localhost/blog?cursor=' . $this->cursorEncoder->encode($position->cursor),
+            default => throw new InvalidArgumentException(sprintf('Unsupported position "%s".', get_debug_type($position))),
+        };
+    }
+}
+```
+
+<div class="docs-note">In Pagerfanta 4.x, a plain callable given as a route generator is always treated as a page number based route generator. To use a callable as a position route generator, decorate it with the <code>Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator</code> class, which also provides a <code>route()</code> method for use in Twig templates.</div>
+
+```php
+<?php
+
+use Pagerfanta\Position\Position;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;
+
+$routeGenerator = new PositionRouteGeneratorDecorator(static fn (Position $position): string => /* ... */);
+```
+
+All of the views provided by Pagerfanta accept position route generators. The numbered views give the route generator a `Pagerfanta\Position\PagePosition` for each page they link to.
+
+### Position Route Generator Factory
+
+Factories which can create position route generators implement `Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface`.

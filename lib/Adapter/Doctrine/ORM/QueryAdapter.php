@@ -63,6 +63,10 @@ class QueryAdapter implements AdapterInterface
      */
     public function getSlice(int $offset, int $length): iterable
     {
+        if ($length === 0) {
+            return new \EmptyIterator();
+        }
+
         $this->page = $this->paginator->paginate($this->query, new Window($offset, $length));
 
         return $this->page->getIterator();

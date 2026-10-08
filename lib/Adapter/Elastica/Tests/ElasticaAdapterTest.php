@@ -74,6 +74,20 @@ final class ElasticaAdapterTest extends TestCase
     }
 
     /**
+     * A zero size is valid for Elasticsearch, and the search must still run so the result set (i.e. aggregations) is available.
+     */
+    public function testGetSliceWithZeroLength(): void
+    {
+        $this->searchable->expects($this->once())
+            ->method('search')
+            ->with($this->query, ['from' => 0, 'size' => 0, 'option1' => 'value1', 'option2' => 'value2'])
+            ->willReturn($this->resultSet);
+
+        $this->assertSame($this->resultSet, $this->adapter->getSlice(0, 0));
+        $this->assertSame($this->resultSet, $this->adapter->getResultSet());
+    }
+
+    /**
      * Returns the number of results before search, use count() method if resultSet is empty.
      */
     #[AllowMockObjectsWithoutExpectations]

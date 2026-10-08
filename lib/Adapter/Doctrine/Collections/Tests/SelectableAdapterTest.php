@@ -2,6 +2,7 @@
 
 namespace Pagerfanta\Doctrine\Collections\Tests;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
 use Doctrine\Common\Collections\ReadableCollection;
@@ -91,5 +92,13 @@ final class SelectableAdapterTest extends TestCase
             ->willReturn($slice);
 
         $this->assertSame($slice, $this->adapter->getSlice(10, 20));
+    }
+
+    public function testGetSliceWithZeroLength(): void
+    {
+        $adapter = new SelectableAdapter(new ArrayCollection(range(1, 10)), Criteria::create(true));
+
+        $this->assertSame([], [...$adapter->getSlice(0, 0)]);
+        $this->assertSame([], [...$adapter->getSlice(5, 0)]);
     }
 }

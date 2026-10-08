@@ -7,7 +7,7 @@
     "require": {
         "php": "^8.4",
         "doctrine/collections": "^2.0 || ^3.0",
-        "pagerfanta/core": "^4.7 || ^5.0"
+        "pagerfanta/core": "^4.10 || ^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^12.5"
@@ -19,6 +19,11 @@
         "exclude-from-classmap": [
             "Tests/"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pagerfanta\\Doctrine\\Collections\\Tests\\": "Tests"
+        }
     },
     "minimum-stability": "dev"
 }

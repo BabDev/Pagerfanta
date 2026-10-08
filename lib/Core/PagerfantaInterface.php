@@ -8,13 +8,17 @@ use Pagerfanta\Exception\LessThan1MaxPagesException;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
+use Pagerfanta\Position\PagePosition;
 
 /**
  * @template-covariant T
  *
  * @extends \IteratorAggregate<T>
+ *
+ * @method PagePosition getPreviousPosition()
+ * @method PagePosition getNextPosition()
  */
-interface PagerfantaInterface extends \Countable, \IteratorAggregate
+interface PagerfantaInterface extends /* OffsetPagerInterface, */ \Countable, \IteratorAggregate
 {
     /**
      * @return AdapterInterface<T>
