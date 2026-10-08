@@ -2,7 +2,9 @@
 
 namespace Pagerfanta\View\Template;
 
-class DefaultTemplate extends Template
+use Pagerfanta\Position\Position;
+
+class DefaultTemplate extends Template implements SequentialTemplateInterface
 {
     /**
      * @return array<string, string>
@@ -49,8 +51,11 @@ class DefaultTemplate extends Template
 
     private function pageWithTextAndClass(int $page, string $text, string $class, ?string $rel = null): string
     {
-        $href = $this->generateRoute($page);
+        return $this->linkWithTextAndClass($this->generateRoute($page), $text, $class, $rel);
+    }
 
+    private function linkWithTextAndClass(string $href, string $text, string $class, ?string $rel = null): string
+    {
         $replace = [
             trim($this->option('css_item_class').' '.$class),
             $href,
@@ -83,6 +88,11 @@ class DefaultTemplate extends Template
         return $this->pageWithTextAndClass($page, $this->option('prev_message'), $this->option('css_prev_class'), $this->option('rel_previous'));
     }
 
+    public function previousEnabledForPosition(Position $position): string
+    {
+        return $this->linkWithTextAndClass($this->generateRouteForPosition($position), $this->option('prev_message'), $this->option('css_prev_class'), $this->option('rel_previous'));
+    }
+
     public function nextDisabled(): string
     {
         $class = trim(
@@ -102,6 +112,11 @@ class DefaultTemplate extends Template
     public function nextEnabled(int $page): string
     {
         return $this->pageWithTextAndClass($page, $this->option('next_message'), $this->option('css_next_class'), $this->option('rel_next'));
+    }
+
+    public function nextEnabledForPosition(Position $position): string
+    {
+        return $this->linkWithTextAndClass($this->generateRouteForPosition($position), $this->option('next_message'), $this->option('css_next_class'), $this->option('rel_next'));
     }
 
     public function first(): string

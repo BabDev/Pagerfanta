@@ -9,6 +9,7 @@ use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\Pagerfanta;
+use Pagerfanta\Position\PagePosition;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -477,6 +478,48 @@ final class PagerfantaTest extends TestCase
         $this->pagerfanta->setCurrentPage($this->pagerfanta->getNbPages());
 
         $this->pagerfanta->getNextPage();
+    }
+
+    public function testGetPreviousPositionShouldReturnThePreviousPagePosition(): void
+    {
+        $this->adapter->expects($this->atLeastOnce())
+            ->method('getNbResults')
+            ->willReturn(100);
+
+        $this->pagerfanta->setCurrentPage(3);
+
+        $this->assertEquals(new PagePosition(2), $this->pagerfanta->getPreviousPosition());
+    }
+
+    public function testGetPreviousPositionShouldThrowALogicExceptionIfThereIsNoPreviousPage(): void
+    {
+        $this->expectException(LogicException::class);
+
+        $this->pagerfanta->getPreviousPosition();
+    }
+
+    public function testGetNextPositionShouldReturnTheNextPagePosition(): void
+    {
+        $this->adapter->expects($this->atLeastOnce())
+            ->method('getNbResults')
+            ->willReturn(100);
+
+        $this->pagerfanta->setCurrentPage(3);
+
+        $this->assertEquals(new PagePosition(4), $this->pagerfanta->getNextPosition());
+    }
+
+    public function testGetNextPositionShouldThrowALogicExceptionIfTheCurrentPageIsTheLast(): void
+    {
+        $this->expectException(LogicException::class);
+
+        $this->adapter->expects($this->once())
+            ->method('getNbResults')
+            ->willReturn(100);
+
+        $this->pagerfanta->setCurrentPage($this->pagerfanta->getNbPages());
+
+        $this->pagerfanta->getNextPosition();
     }
 
     public function testThePagerCanBeCounted(): void

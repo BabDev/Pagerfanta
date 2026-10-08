@@ -7,6 +7,9 @@
 - Fix the template views reusing the options from a previous render
 - Add support for `ruflin/elastica` 9.x
 - [#66](https://github.com/BabDev/Pagerfanta/issues/66) Improved handling of zero-length slices in the pagination adapters
+- Add cursor pagination support
+- Add support for rendering sequential pagination views (previous/next links only)
+- Deprecate the page number based route generator and view APIs
 
 ## 4.9.0 (2026-09-08)
 
