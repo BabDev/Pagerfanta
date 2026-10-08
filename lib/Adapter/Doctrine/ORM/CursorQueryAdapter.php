@@ -16,7 +16,7 @@ use Pagerfanta\Exception\LogicException;
 /**
  * Adapter which calculates cursor based pagination from a Doctrine ORM Query or QueryBuilder.
  *
- * This adapter uses the cursor paginator from `doctrine/orm` 3.7 or later. The query's ORDER BY clause must be deterministic
+ * This adapter uses the cursor paginator from `doctrine/orm`. The query's ORDER BY clause must be deterministic
  * (i.e. end with a unique field such as the identifier) and every item in it must be a field of an entity. The cursor fields
  * are keyed by the DQL path of each ORDER BY item (e.g. "p.createdAt").
  *
@@ -34,18 +34,12 @@ class CursorQueryAdapter implements CursorAdapterInterface
     /**
      * @param bool      $fetchJoinCollection Whether the query joins a collection (true by default)
      * @param bool|null $useOutputWalkers    Flag indicating whether output walkers are used in the paginator
-     *
-     * @throws LogicException if the installed `doctrine/orm` version does not support cursor pagination
      */
     public function __construct(
         private readonly Query|QueryBuilder $query,
         private readonly bool $fetchJoinCollection = true,
         private readonly ?bool $useOutputWalkers = null,
-    ) {
-        if (!class_exists(CursorPaginator::class)) {
-            throw new LogicException(\sprintf('The "%s" class requires doctrine/orm 3.7 or later.', static::class));
-        }
-    }
+    ) {}
 
     public function supportsBackwardNavigation(): bool
     {

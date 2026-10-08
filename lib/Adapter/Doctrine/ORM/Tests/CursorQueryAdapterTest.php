@@ -2,7 +2,6 @@
 
 namespace Pagerfanta\Doctrine\ORM\Tests;
 
-use Doctrine\ORM\Tools\Pagination\CursorPaginator;
 use Doctrine\ORM\Tools\SchemaTool;
 use Pagerfanta\CountableCursorPagerfanta;
 use Pagerfanta\Cursor\Base64JsonCursorEncoder;
@@ -22,10 +21,6 @@ final class CursorQueryAdapterTest extends ORMTestCase
 {
     protected function setUp(): void
     {
-        if (!class_exists(CursorPaginator::class)) {
-            $this->markTestSkipped('Cursor pagination requires doctrine/orm 3.7 or later.');
-        }
-
         parent::setUp();
 
         $schemaTool = new SchemaTool($this->entityManager);
