@@ -26,6 +26,10 @@ abstract class TemplateView extends View
     public function __construct(?TemplateInterface $template = null)
     {
         $this->template = $this->baseTemplate = $template ?? $this->createDefaultTemplate();
+
+        if (!$this->baseTemplate instanceof SequentialTemplateInterface) {
+            trigger_deprecation('pagerfanta/core', '4.10', 'Using a template which does not implement "%s" with "%s" is deprecated, the "%s" template will be required to implement it in 5.0.', SequentialTemplateInterface::class, static::class, get_debug_type($this->baseTemplate));
+        }
     }
 
     abstract protected function createDefaultTemplate(): TemplateInterface;

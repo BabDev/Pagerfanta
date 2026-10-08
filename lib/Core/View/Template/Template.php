@@ -29,6 +29,8 @@ abstract class Template implements TemplateInterface
     /**
      * Sets the route generator used while rendering the template.
      *
+     * @deprecated since Pagerfanta 4.10, to be removed in 5.0.
+     *
      * @param callable(int): string $routeGenerator
      */
     public function setRouteGenerator(callable $routeGenerator): void
