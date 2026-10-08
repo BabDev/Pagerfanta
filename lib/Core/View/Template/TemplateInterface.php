@@ -7,6 +7,10 @@ use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 
 /**
+ * In 5.0, this interface will extend {@see SequentialTemplateInterface}, and the page number based {@see setRouteGenerator()},
+ * {@see previousEnabled()}, and {@see nextEnabled()} methods will be removed. Implement {@see SequentialTemplateInterface}
+ * to prepare for this change.
+ *
  * @method void   setPositionRouteGenerator(PositionRouteGeneratorInterface $routeGenerator)
  * @method string previousEnabledForPosition(Position $position)
  * @method string nextEnabledForPosition(Position $position)
@@ -15,6 +19,8 @@ interface TemplateInterface /* extends SequentialTemplateInterface */
 {
     /**
      * Sets the route generator used while rendering the template.
+     *
+     * @deprecated since Pagerfanta 4.10, to be removed in 5.0. Templates will be given a position route generator with {@see SequentialTemplateInterface::setPositionRouteGenerator()} instead.
      *
      * @param callable|RouteGeneratorInterface $routeGenerator
      *
@@ -53,6 +59,8 @@ interface TemplateInterface /* extends SequentialTemplateInterface */
 
     /**
      * Renders the enabled state of the previous page.
+     *
+     * @deprecated since Pagerfanta 4.10, to be removed in 5.0. Implement {@see SequentialTemplateInterface::previousEnabledForPosition()} instead.
      */
     public function previousEnabled(int $page): string;
 
@@ -63,6 +71,8 @@ interface TemplateInterface /* extends SequentialTemplateInterface */
 
     /**
      * Renders the enabled state of the next page.
+     *
+     * @deprecated since Pagerfanta 4.10, to be removed in 5.0. Implement {@see SequentialTemplateInterface::nextEnabledForPosition()} instead.
      */
     public function nextEnabled(int $page): string;
 

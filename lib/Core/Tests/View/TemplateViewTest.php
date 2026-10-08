@@ -13,6 +13,7 @@ use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;
 use Pagerfanta\Tests\CapturesDeprecations;
 use Pagerfanta\View\DefaultView;
 use Pagerfanta\View\Template\DefaultTemplate;
+use Pagerfanta\View\Template\TemplateInterface;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
@@ -81,6 +82,21 @@ final class TemplateViewTest extends TestCase
         $deprecations = $this->captureDeprecations(fn () => (new DefaultView())->render($this->createPagerfanta(), static fn (int $page): string => '|'.$page.'|'));
 
         $this->assertSame(['Since pagerfanta/core 4.10: Passing a page number based route generator to "Pagerfanta\\View\\DefaultView::render()" is deprecated, pass an instance of "Pagerfanta\\RouteGenerator\\PositionRouteGeneratorInterface" instead.'], $deprecations);
+    }
+
+    #[Group('legacy')]
+    public function testATemplateWhichDoesNotImplementTheSequentialTemplateInterfaceIsDeprecated(): void
+    {
+        $template = $this->createStub(TemplateInterface::class);
+
+        $deprecations = $this->captureDeprecations(static fn () => new DefaultView($template));
+
+        $this->assertSame([\sprintf('Since pagerfanta/core 4.10: Using a template which does not implement "Pagerfanta\\View\\Template\\SequentialTemplateInterface" with "Pagerfanta\\View\\DefaultView" is deprecated, the "%s" template will be required to implement it in 5.0.', $template::class)], $deprecations);
+    }
+
+    public function testATemplateWhichImplementsTheSequentialTemplateInterfaceIsNotDeprecated(): void
+    {
+        $this->assertSame([], $this->captureDeprecations(static fn () => new DefaultView(new DefaultTemplate())));
     }
 
     public function testANumberedViewOnlySupportsOffsetPagers(): void
