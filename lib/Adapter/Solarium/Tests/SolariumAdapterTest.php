@@ -111,6 +111,7 @@ final class SolariumAdapterTest extends TestCase
     /**
      * A zero row count is valid for Solr, and the query must still run so the result set (i.e. facets) is available.
      */
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetSliceWithZeroLength(): void
     {
         $query = $this->createQueryMock();

@@ -20,7 +20,7 @@ use Pagerfanta\Exception\InvalidCursorException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Position\CursorPosition;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 final class ElasticaCursorAdapterTest extends TestCase
@@ -37,9 +37,9 @@ final class ElasticaCursorAdapterTest extends TestCase
      *
      * @param list<array<string, int|string>> $documents
      */
-    private function createSearchable(array $documents): MockObject&SearchableInterface
+    private function createSearchable(array $documents): Stub&SearchableInterface
     {
-        $searchable = $this->createMock(SearchableInterface::class);
+        $searchable = $this->createStub(SearchableInterface::class);
 
         $searchable->method('search')
             ->willReturnCallback(function (Query $query, array $options) use ($documents): ResultSet {
@@ -83,7 +83,7 @@ final class ElasticaCursorAdapterTest extends TestCase
                     \array_slice($documents, 0, $body['size']),
                 );
 
-                $resultSet = $this->createMock(ResultSet::class);
+                $resultSet = $this->createStub(ResultSet::class);
                 $resultSet->method('getResults')->willReturn($results);
 
                 return $resultSet;
@@ -313,10 +313,10 @@ final class ElasticaCursorAdapterTest extends TestCase
     {
         $this->expectException(LogicException::class);
 
-        $resultSet = $this->createMock(ResultSet::class);
+        $resultSet = $this->createStub(ResultSet::class);
         $resultSet->method('getResults')->willReturn([new Result(['_id' => '1', '_source' => []]), new Result(['_id' => '2', '_source' => []])]);
 
-        $searchable = $this->createMock(SearchableInterface::class);
+        $searchable = $this->createStub(SearchableInterface::class);
         $searchable->method('search')->willReturn($resultSet);
 
         new ElasticaCursorAdapter($searchable, new Query(), ['id' => 'asc'])->getSlice(null, 1);

@@ -6,6 +6,7 @@ use Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder;
 use Doctrine\ODM\PHPCR\Query\Query;
 use Pagerfanta\Doctrine\PHPCRODM\QueryAdapter;
 use PHPCR\Query\QueryResultInterface;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -74,6 +75,7 @@ final class QueryAdapterTest extends TestCase
         $this->assertSame($slice, $this->adapter->getSlice($offset, $length));
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetSliceWithZeroLengthDoesNotExecuteTheQuery(): void
     {
         $this->queryBuilder->expects($this->never())

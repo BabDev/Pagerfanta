@@ -506,6 +506,7 @@ final class PagerfantaTest extends TestCase
         $this->assertEquals(new PagePosition(2), $this->pagerfanta->getPreviousPosition());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetPreviousPositionShouldThrowALogicExceptionIfThereIsNoPreviousPage(): void
     {
         $this->expectException(LogicException::class);

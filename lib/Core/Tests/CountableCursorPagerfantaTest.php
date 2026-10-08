@@ -11,6 +11,7 @@ use Pagerfanta\Cursor\Direction;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Position\CursorPosition;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -26,6 +27,7 @@ final class CountableCursorPagerfantaTest extends TestCase
         $this->adapter = $this->createMockForIntersectionOfInterfaces([CursorAdapterInterface::class, CountableAdapterInterface::class]);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testTheMaxPerPageMustBeAtLeast1(): void
     {
         $this->expectException(LessThan1MaxPerPageException::class);
@@ -80,6 +82,7 @@ final class CountableCursorPagerfantaTest extends TestCase
         $this->assertSame($next, $pager->getNextPosition()->cursor);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testThereIsNoNextPositionOnTheLastPage(): void
     {
         $this->adapter->method('getSlice')
@@ -90,6 +93,7 @@ final class CountableCursorPagerfantaTest extends TestCase
         new CountableCursorPagerfanta($this->adapter)->getNextPosition();
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testNavigatingReturnsANewCountablePager(): void
     {
         $next = new Cursor(['id' => 3]);
@@ -107,6 +111,7 @@ final class CountableCursorPagerfantaTest extends TestCase
         $this->assertSame([4], $nextPager->getCurrentPageResults());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testTheAutoPagingIteratorWalksEveryPage(): void
     {
         $this->adapter->method('getSlice')

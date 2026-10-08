@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Order;
 use Doctrine\Common\Collections\ReadableCollection;
 use Doctrine\Common\Collections\Selectable;
 use Pagerfanta\Doctrine\Collections\SelectableAdapter;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
@@ -94,6 +95,7 @@ final class SelectableAdapterTest extends TestCase
         $this->assertSame($slice, $this->adapter->getSlice(10, 20));
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetSliceWithZeroLength(): void
     {
         $adapter = new SelectableAdapter(new ArrayCollection(range(1, 10)), Criteria::create(true));

@@ -9,6 +9,7 @@ use Pagerfanta\Cursor\Cursor;
 use Pagerfanta\CursorPagerfanta;
 use Pagerfanta\CursorPagerfantaFactory;
 use Pagerfanta\Position\CursorPosition;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
 
 final class CursorPagerfantaFactoryTest extends TestCase
@@ -17,13 +18,14 @@ final class CursorPagerfantaFactoryTest extends TestCase
     {
         $position = new CursorPosition(new Cursor(['id' => 1]));
 
-        $pager = CursorPagerfantaFactory::create($this->createMock(CursorAdapterInterface::class), 5, $position);
+        $pager = CursorPagerfantaFactory::create($this->createStub(CursorAdapterInterface::class), 5, $position);
 
         $this->assertInstanceOf(CursorPagerfanta::class, $pager);
         $this->assertSame(5, $pager->getMaxPerPage());
         $this->assertSame($position, $pager->getCurrentPosition());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testACountableCursorPagerIsCreatedForACountableAdapter(): void
     {
         $position = new CursorPosition(new Cursor(['id' => 1]));

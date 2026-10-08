@@ -15,7 +15,7 @@ use Pagerfanta\Position\CursorPosition;
 use Pagerfanta\Solarium\SolariumAdapter;
 use Pagerfanta\Solarium\SolariumCursorAdapter;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Solarium\Core\Client\ClientInterface;
 use Solarium\Core\Query\DocumentInterface;
@@ -39,9 +39,9 @@ final class SolariumCursorAdapterTest extends TestCase
      *
      * @param bool $reportNumFound Whether the number of documents found is reported
      */
-    private function createClient(int $count, bool $reportNumFound = true): MockObject&ClientInterface
+    private function createClient(int $count, bool $reportNumFound = true): Stub&ClientInterface
     {
-        $client = $this->createMock(ClientInterface::class);
+        $client = $this->createStub(ClientInterface::class);
 
         $client->method('select')
             ->willReturnCallback(function (Query $query) use ($count, $reportNumFound): Result {
@@ -57,7 +57,7 @@ final class SolariumCursorAdapterTest extends TestCase
                     $documents[] = new Document(['id' => $id]);
                 }
 
-                $result = $this->createMock(Result::class);
+                $result = $this->createStub(Result::class);
                 $result->method('getDocuments')->willReturn($documents);
                 $result->method('getNextCursorMark')->willReturn($end === $start ? $cursorMark : 'mark-'.$end);
                 $result->method('getNumFound')->willReturn($reportNumFound ? $count : null);
@@ -165,11 +165,11 @@ final class SolariumCursorAdapterTest extends TestCase
     {
         $this->expectException(LogicException::class);
 
-        $result = $this->createMock(Result::class);
+        $result = $this->createStub(Result::class);
         $result->method('getDocuments')->willReturn([new Document(['id' => 1])]);
         $result->method('getNextCursorMark')->willReturn(null);
 
-        $client = $this->createMock(ClientInterface::class);
+        $client = $this->createStub(ClientInterface::class);
         $client->method('select')->willReturn($result);
 
         new SolariumCursorAdapter($client, new Query())->getSlice(null, 1);
@@ -200,7 +200,7 @@ final class SolariumCursorAdapterTest extends TestCase
 
     public function testTheEndpointIsPassedToTheClient(): void
     {
-        $result = $this->createMock(Result::class);
+        $result = $this->createStub(Result::class);
         $result->method('getDocuments')->willReturn([]);
 
         $client = $this->createMock(ClientInterface::class);

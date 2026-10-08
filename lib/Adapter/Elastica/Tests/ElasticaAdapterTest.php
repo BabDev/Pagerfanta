@@ -76,6 +76,7 @@ final class ElasticaAdapterTest extends TestCase
     /**
      * A zero size is valid for Elasticsearch, and the search must still run so the result set (i.e. aggregations) is available.
      */
+    #[AllowMockObjectsWithoutExpectations]
     public function testGetSliceWithZeroLength(): void
     {
         $this->searchable->expects($this->once())

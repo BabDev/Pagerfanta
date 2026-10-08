@@ -145,7 +145,7 @@ final class SequentialViewTest extends TestCase
      * @param \Closure(): SequentialTemplateInterface $template
      */
     #[DataProvider('dataThemes')]
-    public function testAnOffsetPagerIsRenderedWithAPageRouteGenerator(\Closure $template, string $container, string $previous, string $next): void
+    public function testAnOffsetPagerIsRenderedWithAPageRouteGenerator(\Closure $template, string $container, string $previous, string $next, string $previousDisabled, string $nextDisabled): void
     {
         $this->assertSame(
             \sprintf($container, \sprintf($previous, '|1|').\sprintf($next, '|3|')),
@@ -169,7 +169,7 @@ final class SequentialViewTest extends TestCase
      * @param \Closure(): SequentialTemplateInterface $template
      */
     #[DataProvider('dataThemes')]
-    public function testACursorPagerIsRenderedWithAPositionRouteGenerator(\Closure $template, string $container, string $previous, string $next): void
+    public function testACursorPagerIsRenderedWithAPositionRouteGenerator(\Closure $template, string $container, string $previous, string $next, string $previousDisabled, string $nextDisabled): void
     {
         $this->assertSame(
             \sprintf($container, \sprintf($previous, '|Previous:1|').\sprintf($next, '|Next:3|')),
@@ -181,7 +181,7 @@ final class SequentialViewTest extends TestCase
      * @param \Closure(): SequentialTemplateInterface $template
      */
     #[DataProvider('dataThemes')]
-    public function testAForwardOnlyCursorPagerIsRenderedWithoutAPreviousLink(\Closure $template, string $container, string $previous, string $next): void
+    public function testAForwardOnlyCursorPagerIsRenderedWithoutAPreviousLink(\Closure $template, string $container, string $previous, string $next, string $previousDisabled, string $nextDisabled): void
     {
         $this->assertSame(
             \sprintf($container, \sprintf($next, '|Next:3|')),

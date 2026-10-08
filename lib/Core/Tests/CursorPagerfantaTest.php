@@ -10,6 +10,7 @@ use Pagerfanta\CursorPagerfanta;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Position\CursorPosition;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -36,6 +37,7 @@ final class CursorPagerfantaTest extends TestCase
     }
 
     #[DataProvider('dataLessThan1')]
+    #[AllowMockObjectsWithoutExpectations]
     public function testTheMaxPerPageMustBeAtLeast1(int $maxPerPage): void
     {
         $this->expectException(LessThan1MaxPerPageException::class);
@@ -104,6 +106,7 @@ final class CursorPagerfantaTest extends TestCase
         $this->assertSame($next, $pager->getNextPosition()->cursor);
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testTheLastPageHasNoNextPage(): void
     {
         $this->adapter->method('getSlice')
@@ -123,6 +126,7 @@ final class CursorPagerfantaTest extends TestCase
         $pager->getNextPosition();
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testAnEmptyResultSetHasNoPages(): void
     {
         $this->adapter->method('getSlice')
@@ -140,6 +144,7 @@ final class CursorPagerfantaTest extends TestCase
         $this->assertFalse($pager->hasNextPage());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testAForwardOnlyAdapterNeverReportsAPreviousPage(): void
     {
         $this->adapter->method('getSlice')
@@ -158,6 +163,7 @@ final class CursorPagerfantaTest extends TestCase
         $pager->getPreviousPosition();
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testTheFirstPageHasNoPreviousPosition(): void
     {
         $this->adapter->method('getSlice')
@@ -171,6 +177,7 @@ final class CursorPagerfantaTest extends TestCase
         new CursorPagerfanta($this->adapter, 3)->getPreviousPosition();
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testAnAdapterReturningMoreItemsThanTheLimitIsRejected(): void
     {
         $this->adapter->method('getSlice')
@@ -200,6 +207,7 @@ final class CursorPagerfantaTest extends TestCase
         $this->assertSame([4], $nextPager->getCurrentPageResults());
     }
 
+    #[AllowMockObjectsWithoutExpectations]
     public function testTheAutoPagingIteratorWalksEveryPageFromTheCurrentPosition(): void
     {
         $this->adapter->method('getSlice')
