@@ -7,7 +7,7 @@
     "require": {
         "php": "^8.4",
         "doctrine/phpcr-odm": "^2.0",
-        "pagerfanta/core": "^4.10 || ^5.0"
+        "pagerfanta/core": "^5.0"
     },
     "require-dev": {
         "dg/bypass-finals": "^1.9",

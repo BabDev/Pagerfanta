@@ -24,17 +24,17 @@
         "ruflin/elastica": "^7.3 || ^8.0 || ^9.0",
         "solarium/solarium": "^6.2",
         "symfony/cache": "^6.4 || ^7.4 || ^8.1",
-        "twig/twig": "^3.21"
+        "twig/twig": "^3.29"
     },
     "conflict": {
         "doctrine/collections": "<2.0",
         "doctrine/dbal": "<3.10",
         "doctrine/mongodb-odm": "<2.11",
         "doctrine/orm": "<3.7",
-        "doctrine/phpcr-odm": "<1.7",
+        "doctrine/phpcr-odm": "<2.0",
         "ruflin/elastica": "<7.3",
         "solarium/solarium": "<6.2",
-        "twig/twig": "<3.21"
+        "twig/twig": "<3.29"
     },
     "suggest": {
         "twig/twig": "To integrate Pagerfanta with Twig"
