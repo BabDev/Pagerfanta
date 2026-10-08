@@ -70,12 +70,12 @@ final class CursorQueryAdapterTest extends DBALTestCase
 
     public function testTheAdapterSupportsBackwardNavigation(): void
     {
-        $this->assertTrue((new CursorQueryAdapter($this->createPostsQueryBuilder(), [new SortColumn('p.id')]))->supportsBackwardNavigation());
+        $this->assertTrue(new CursorQueryAdapter($this->createPostsQueryBuilder(), [new SortColumn('p.id')])->supportsBackwardNavigation());
     }
 
     public function testTheFirstPageIsReturnedWithoutACursor(): void
     {
-        $slice = (new CursorQueryAdapter($this->createPostsQueryBuilder(), [new SortColumn('p.id')]))->getSlice(null, 3);
+        $slice = new CursorQueryAdapter($this->createPostsQueryBuilder(), [new SortColumn('p.id')])->getSlice(null, 3);
 
         $this->assertSame([1, 2, 3], array_column($slice->items, 'id'));
         $this->assertNull($slice->previous);
@@ -101,7 +101,7 @@ final class CursorQueryAdapterTest extends DBALTestCase
 
     public function testThePreviousPageStopsAtTheStartOfTheList(): void
     {
-        $slice = (new CursorQueryAdapter($this->createPostsQueryBuilder(), [new SortColumn('p.id')]))->getSlice(new Cursor(['p.id' => 3], Direction::Previous), 3);
+        $slice = new CursorQueryAdapter($this->createPostsQueryBuilder(), [new SortColumn('p.id')])->getSlice(new Cursor(['p.id' => 3], Direction::Previous), 3);
 
         $this->assertSame([1, 2], array_column($slice->items, 'id'));
         $this->assertNull($slice->previous);
@@ -181,7 +181,7 @@ final class CursorQueryAdapterTest extends DBALTestCase
         $queryBuilder = $this->createPostsQueryBuilder();
         $sql = $queryBuilder->getSQL();
 
-        (new CursorQueryAdapter($queryBuilder, [new SortColumn('p.id')]))->getSlice(new Cursor(['p.id' => 3]), 3);
+        new CursorQueryAdapter($queryBuilder, [new SortColumn('p.id')])->getSlice(new Cursor(['p.id' => 3]), 3);
 
         $this->assertSame($sql, $queryBuilder->getSQL());
         $this->assertSame([], $queryBuilder->getParameters());
@@ -193,7 +193,7 @@ final class CursorQueryAdapterTest extends DBALTestCase
             ->select('p.id AS post_id')
             ->from('posts', 'p');
 
-        $slice = (new CursorQueryAdapter($queryBuilder, [new SortColumn('p.id', 'ASC', 'post_id')]))->getSlice(null, 2);
+        $slice = new CursorQueryAdapter($queryBuilder, [new SortColumn('p.id', 'ASC', 'post_id')])->getSlice(null, 2);
 
         $this->assertEquals(new Cursor(['p.id' => 2]), $slice->next);
     }
@@ -206,7 +206,7 @@ final class CursorQueryAdapterTest extends DBALTestCase
             ->select('p.username')
             ->from('posts', 'p');
 
-        (new CursorQueryAdapter($queryBuilder, [new SortColumn('p.id')]))->getSlice(null, 2);
+        new CursorQueryAdapter($queryBuilder, [new SortColumn('p.id')])->getSlice(null, 2);
     }
 
     public function testTheReservedParameterNamesCannotBeUsedByTheQuery(): void
@@ -217,7 +217,7 @@ final class CursorQueryAdapterTest extends DBALTestCase
             ->where('p.id > :pagerfanta_cursor_0')
             ->setParameter('pagerfanta_cursor_0', 1);
 
-        (new CursorQueryAdapter($queryBuilder, [new SortColumn('p.id')]))->getSlice(new Cursor(['p.id' => 3]), 2);
+        new CursorQueryAdapter($queryBuilder, [new SortColumn('p.id')])->getSlice(new Cursor(['p.id' => 3]), 2);
     }
 
     /**
@@ -240,7 +240,7 @@ final class CursorQueryAdapterTest extends DBALTestCase
             ->select('c.id', 'c.post_id')
             ->from('comments', 'c');
 
-        (new CursorQueryAdapter($queryBuilder, [new SortColumn('c.post_id', 'DESC'), new SortColumn('c.id')]))->getSlice($cursor, 3);
+        new CursorQueryAdapter($queryBuilder, [new SortColumn('c.post_id', 'DESC'), new SortColumn('c.id')])->getSlice($cursor, 3);
     }
 
     public function testTheResultsCanBeCountedWithAnOffsetAdapter(): void

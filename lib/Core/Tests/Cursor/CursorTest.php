@@ -12,7 +12,7 @@ final class CursorTest extends TestCase
 {
     public function testTheCursorDefaultsToTheNextDirection(): void
     {
-        $this->assertSame(Direction::Next, (new Cursor(['_id' => 'abc']))->direction);
+        $this->assertSame(Direction::Next, new Cursor(['_id' => 'abc'])->direction);
     }
 
     public function testTheCursorSupportsMultipleFields(): void

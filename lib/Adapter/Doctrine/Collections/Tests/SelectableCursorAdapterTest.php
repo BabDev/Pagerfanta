@@ -34,7 +34,7 @@ final class SelectableCursorAdapterTest extends TestCase
     {
         // The SortDirection enum replaces the Order enum in doctrine/collections 3.1, which replaced strings in 2.2
         // @phpstan-ignore-next-line function.alreadyNarrowedType
-        if (enum_exists(\SortDirection::class) && method_exists(Criteria::class, 'getOrderings') && (new \ReflectionMethod(Criteria::class, 'getOrderings'))->hasReturnType()) {
+        if (enum_exists(\SortDirection::class) && method_exists(Criteria::class, 'getOrderings') && new \ReflectionMethod(Criteria::class, 'getOrderings')->hasReturnType()) {
             return \SortDirection::Descending;
         }
 
@@ -113,12 +113,12 @@ final class SelectableCursorAdapterTest extends TestCase
 
     public function testTheAdapterSupportsBackwardNavigation(): void
     {
-        $this->assertTrue((new SelectableCursorAdapter(new ArrayCollection(), $this->createCriteria(), ['id' => 'ASC']))->supportsBackwardNavigation());
+        $this->assertTrue(new SelectableCursorAdapter(new ArrayCollection(), $this->createCriteria(), ['id' => 'ASC'])->supportsBackwardNavigation());
     }
 
     public function testTheFirstPageIsReturnedWithoutACursor(): void
     {
-        $slice = (new SelectableCursorAdapter($this->createCollection(10, 20, 30, 40, 50), $this->createCriteria(), ['id' => 'ASC']))->getSlice(null, 2);
+        $slice = new SelectableCursorAdapter($this->createCollection(10, 20, 30, 40, 50), $this->createCriteria(), ['id' => 'ASC'])->getSlice(null, 2);
 
         $this->assertSame([1, 2], $this->ids($slice->items));
         $this->assertNull($slice->previous);
@@ -246,7 +246,7 @@ final class SelectableCursorAdapterTest extends TestCase
     {
         $this->expectException(LogicException::class);
 
-        (new SelectableCursorAdapter($this->createCollection(10, null), $this->createCriteria(), ['score' => 'ASC', 'id' => 'ASC']))->getSlice(null, 1);
+        new SelectableCursorAdapter($this->createCollection(10, null), $this->createCriteria(), ['score' => 'ASC', 'id' => 'ASC'])->getSlice(null, 1);
     }
 
     /**
@@ -265,7 +265,7 @@ final class SelectableCursorAdapterTest extends TestCase
     {
         $this->expectException(InvalidCursorException::class);
 
-        (new SelectableCursorAdapter($this->createCollection(80, 90), $this->createCriteria(), ['score' => 'DESC', 'id' => 'ASC']))->getSlice($cursor, 2);
+        new SelectableCursorAdapter($this->createCollection(80, 90), $this->createCriteria(), ['score' => 'DESC', 'id' => 'ASC'])->getSlice($cursor, 2);
     }
 
     public function testTheResultsCanBeCountedWithAnOffsetAdapter(): void

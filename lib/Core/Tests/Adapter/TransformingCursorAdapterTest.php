@@ -29,7 +29,7 @@ final class TransformingCursorAdapterTest extends TestCase
     {
         $transformer = static fn (mixed $item): mixed => $item;
 
-        $this->assertTrue((new TransformingCursorAdapter(new ArrayCursorAdapter([], static fn (mixed $item): array => ['id' => 1]), $transformer))->supportsBackwardNavigation());
-        $this->assertFalse((new TransformingCursorAdapter(new CallbackCursorAdapter(static fn (): CursorSlice => new CursorSlice([])), $transformer))->supportsBackwardNavigation());
+        $this->assertTrue(new TransformingCursorAdapter(new ArrayCursorAdapter([], static fn (mixed $item): array => ['id' => 1]), $transformer)->supportsBackwardNavigation());
+        $this->assertFalse(new TransformingCursorAdapter(new CallbackCursorAdapter(static fn (): CursorSlice => new CursorSlice([])), $transformer)->supportsBackwardNavigation());
     }
 }

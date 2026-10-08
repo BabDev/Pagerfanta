@@ -149,7 +149,7 @@ final class SequentialViewTest extends TestCase
     {
         $this->assertSame(
             \sprintf($container, \sprintf($previous, '|1|').\sprintf($next, '|3|')),
-            (new SequentialView($template()))->render($this->createOffsetPager(30, 2), $this->createPageRouteGenerator()),
+            new SequentialView($template())->render($this->createOffsetPager(30, 2), $this->createPageRouteGenerator()),
         );
     }
 
@@ -161,7 +161,7 @@ final class SequentialViewTest extends TestCase
     {
         $this->assertSame(
             \sprintf($container, $previousDisabled.$nextDisabled),
-            (new SequentialView($template()))->render($this->createOffsetPager(5, 1), $this->createPageRouteGenerator()),
+            new SequentialView($template())->render($this->createOffsetPager(5, 1), $this->createPageRouteGenerator()),
         );
     }
 
@@ -173,7 +173,7 @@ final class SequentialViewTest extends TestCase
     {
         $this->assertSame(
             \sprintf($container, \sprintf($previous, '|Previous:1|').\sprintf($next, '|Next:3|')),
-            (new SequentialView($template()))->render($this->createCursorPager(true), $this->createPositionRouteGenerator()),
+            new SequentialView($template())->render($this->createCursorPager(true), $this->createPositionRouteGenerator()),
         );
     }
 
@@ -185,7 +185,7 @@ final class SequentialViewTest extends TestCase
     {
         $this->assertSame(
             \sprintf($container, \sprintf($next, '|Next:3|')),
-            (new SequentialView($template()))->render($this->createCursorPager(false), $this->createPositionRouteGenerator()),
+            new SequentialView($template())->render($this->createCursorPager(false), $this->createPositionRouteGenerator()),
         );
     }
 
@@ -205,7 +205,7 @@ final class SequentialViewTest extends TestCase
     {
         $this->assertSame(
             '<nav class="pagination"><a class="pagination__item pagination__item--previous-page" href="|page:1|" rel="prev">Previous</a><a class="pagination__item pagination__item--next-page" href="|page:3|" rel="next">Next</a></nav>',
-            (new SequentialView(new DefaultTemplate()))->render($this->createOffsetPager(30, 2), $this->createPositionRouteGenerator()),
+            new SequentialView(new DefaultTemplate())->render($this->createOffsetPager(30, 2), $this->createPositionRouteGenerator()),
         );
     }
 
@@ -213,7 +213,7 @@ final class SequentialViewTest extends TestCase
     {
         $this->assertSame(
             '<nav class="pagination"><a class="pagination__item pagination__item--previous-page" href="|1|" rel="prev">Newer</a><a class="pagination__item pagination__item--next-page" href="|3|" rel="next">Older</a></nav>',
-            (new SequentialView(new DefaultTemplate()))->render($this->createOffsetPager(30, 2), $this->createPageRouteGenerator(), ['prev_message' => 'Newer', 'next_message' => 'Older']),
+            new SequentialView(new DefaultTemplate())->render($this->createOffsetPager(30, 2), $this->createPageRouteGenerator(), ['prev_message' => 'Newer', 'next_message' => 'Older']),
         );
     }
 
@@ -221,28 +221,28 @@ final class SequentialViewTest extends TestCase
     {
         $template = new DefaultTemplate();
 
-        (new SequentialView($template))->render($this->createCursorPager(true), $this->createPositionRouteGenerator());
+        new SequentialView($template)->render($this->createCursorPager(true), $this->createPositionRouteGenerator());
 
         $this->assertSame(
             '<nav class="pagination"><a class="pagination__item pagination__item--previous-page" href="|1|" rel="prev">Previous</a><a class="pagination__item" href="|1|">1</a><span class="pagination__item pagination__item--current-page">2</span><a class="pagination__item" href="|3|">3</a><a class="pagination__item pagination__item--next-page" href="|3|" rel="next">Next</a></nav>',
-            (new DefaultView($template))->render($this->createOffsetPager(30, 2), $this->createPageRouteGenerator()),
+            new DefaultView($template)->render($this->createOffsetPager(30, 2), $this->createPageRouteGenerator()),
             'The numbered view uses its own page route generator',
         );
     }
 
     public function testTheViewSupportsEveryPagerAndHasAConfigurableName(): void
     {
-        $this->assertTrue((new SequentialView(new DefaultTemplate()))->supports($this->createCursorPager(true)));
-        $this->assertTrue((new SequentialView(new DefaultTemplate()))->supports($this->createOffsetPager(5, 1)));
-        $this->assertSame('sequential', (new SequentialView(new DefaultTemplate()))->getName());
-        $this->assertSame('twitter_bootstrap5_sequential', (new SequentialView(new TwitterBootstrap5Template(), 'twitter_bootstrap5_sequential'))->getName());
+        $this->assertTrue(new SequentialView(new DefaultTemplate())->supports($this->createCursorPager(true)));
+        $this->assertTrue(new SequentialView(new DefaultTemplate())->supports($this->createOffsetPager(5, 1)));
+        $this->assertSame('sequential', new SequentialView(new DefaultTemplate())->getName());
+        $this->assertSame('twitter_bootstrap5_sequential', new SequentialView(new TwitterBootstrap5Template(), 'twitter_bootstrap5_sequential')->getName());
     }
 
     public function testATemplateCannotRenderAPositionLinkWithoutAPositionRouteGenerator(): void
     {
         $this->expectException(RuntimeException::class);
 
-        (new DefaultTemplate())->nextEnabledForPosition(new PagePosition(2));
+        new DefaultTemplate()->nextEnabledForPosition(new PagePosition(2));
     }
 
     public function testTheOptionsFromAPreviousRenderAreNotReused(): void

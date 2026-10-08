@@ -29,17 +29,13 @@ final class TwigView extends View
      */
     private string|array $template = self::DEFAULT_TEMPLATE;
 
-    private readonly bool $useBlockChain;
-
     /**
-     * @param string|list<string>|null $defaultTemplate A template name, or a list of template names ordered from highest to lowest precedence whose blocks are composed together (requires twig/twig 3.29 or later)
+     * @param string|list<string>|null $defaultTemplate A template name, or a list of template names ordered from highest to lowest precedence whose blocks are composed together
      */
     public function __construct(
         private readonly Environment $twig,
         private readonly string|array|null $defaultTemplate = null,
-    ) {
-        $this->useBlockChain = class_exists(BlockChain::class);
-    }
+    ) {}
 
     public function getName(): string
     {
@@ -112,17 +108,11 @@ final class TwigView extends View
 
     /**
      * @param string|list<string> $template
-     *
-     * @throws \LogicException if a list of templates is given and the installed Twig version does not support block chains
      */
     private function loadTemplate(string|array $template): TemplateWrapper|BlockChain
     {
         if (\is_string($template)) {
             return $this->twig->load($template);
-        }
-
-        if (!$this->useBlockChain) {
-            throw new \LogicException('Rendering a pager with a list of templates requires twig/twig 3.29 or later, try running "composer require twig/twig:^3.29".');
         }
 
         // Fall back to the default templates for any block not defined by the given templates, keeping the highest precedence position of repeated templates

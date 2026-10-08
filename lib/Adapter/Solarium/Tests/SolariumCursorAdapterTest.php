@@ -101,7 +101,7 @@ final class SolariumCursorAdapterTest extends TestCase
 
     public function testTheAdapterDoesNotSupportBackwardNavigation(): void
     {
-        $this->assertFalse((new SolariumCursorAdapter($this->createClient(0), new Query()))->supportsBackwardNavigation());
+        $this->assertFalse(new SolariumCursorAdapter($this->createClient(0), new Query())->supportsBackwardNavigation());
     }
 
     public function testTheFirstPageIsSelectedWithTheInitialCursorMark(): void
@@ -128,7 +128,7 @@ final class SolariumCursorAdapterTest extends TestCase
 
     public function testTheNextPageIsSelectedWithTheCursorMark(): void
     {
-        $slice = (new SolariumCursorAdapter($this->createClient(5), new Query()))->getSlice(new Cursor(['cursorMark' => 'mark-2', 'offset' => 2]), 2);
+        $slice = new SolariumCursorAdapter($this->createClient(5), new Query())->getSlice(new Cursor(['cursorMark' => 'mark-2', 'offset' => 2]), 2);
 
         $this->assertSame([3, 4], $this->ids($slice->items));
         $this->assertNull($slice->previous);
@@ -172,7 +172,7 @@ final class SolariumCursorAdapterTest extends TestCase
         $client = $this->createMock(ClientInterface::class);
         $client->method('select')->willReturn($result);
 
-        (new SolariumCursorAdapter($client, new Query()))->getSlice(null, 1);
+        new SolariumCursorAdapter($client, new Query())->getSlice(null, 1);
     }
 
     /**
@@ -195,7 +195,7 @@ final class SolariumCursorAdapterTest extends TestCase
     {
         $this->expectException(InvalidCursorException::class);
 
-        (new SolariumCursorAdapter($this->createClient(5), new Query()))->getSlice($cursor, 2);
+        new SolariumCursorAdapter($this->createClient(5), new Query())->getSlice($cursor, 2);
     }
 
     public function testTheEndpointIsPassedToTheClient(): void
@@ -209,7 +209,7 @@ final class SolariumCursorAdapterTest extends TestCase
             ->with($this->isInstanceOf(Query::class), 'replica')
             ->willReturn($result);
 
-        (new SolariumCursorAdapter($client, new Query()))->setEndpoint('replica')->getSlice(null, 2);
+        new SolariumCursorAdapter($client, new Query())->setEndpoint('replica')->getSlice(null, 2);
     }
 
     public function testTheResultsCanBeCountedWithAnOffsetAdapter(): void

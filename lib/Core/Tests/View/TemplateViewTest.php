@@ -43,7 +43,7 @@ final class TemplateViewTest extends TestCase
     {
         $this->assertSame(
             '<nav class="pagination"><a class="pagination__item pagination__item--previous-page" href="|1|" rel="prev">Previous</a><a class="pagination__item" href="|1|">1</a><span class="pagination__item pagination__item--current-page">2</span><a class="pagination__item" href="|3|">3</a><a class="pagination__item pagination__item--next-page" href="|3|" rel="next">Next</a></nav>',
-            (new DefaultView())->render($this->createPagerfanta(), $this->createPageRouteGenerator()),
+            new DefaultView()->render($this->createPagerfanta(), $this->createPageRouteGenerator()),
         );
     }
 
@@ -79,6 +79,6 @@ final class TemplateViewTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The "Pagerfanta\\View\\DefaultView" view can only render pagers implementing "Pagerfanta\\OffsetPagerInterface", "Pagerfanta\\CursorPagerfanta" given.');
 
-        (new DefaultView())->render(new CursorPagerfanta(new CallbackCursorAdapter(static fn (): CursorSlice => new CursorSlice([]))), $this->createPageRouteGenerator());
+        new DefaultView()->render(new CursorPagerfanta(new CallbackCursorAdapter(static fn (): CursorSlice => new CursorSlice([]))), $this->createPageRouteGenerator());
     }
 }

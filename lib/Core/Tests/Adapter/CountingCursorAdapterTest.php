@@ -36,7 +36,7 @@ final class CountingCursorAdapterTest extends TestCase
         $this->expectException(NotValidResultCountException::class);
 
         // @phpstan-ignore-next-line argument.type
-        (new CountingCursorAdapter(new CallbackCursorAdapter(static fn (): CursorSlice => new CursorSlice([])), static fn (): int => -1))->getNbResults();
+        new CountingCursorAdapter(new CallbackCursorAdapter(static fn (): CursorSlice => new CursorSlice([])), static fn (): int => -1)->getNbResults();
     }
 
     public function testTheSliceAndBackwardNavigationSupportComeFromTheDecoratedAdapter(): void

@@ -90,7 +90,7 @@ final class CursorQueryAdapterTest extends ORMTestCase
 
     public function testTheAdapterSupportsBackwardNavigation(): void
     {
-        $this->assertTrue((new CursorQueryAdapter($this->entityManager->createQuery('SELECT p FROM '.Post::class.' p ORDER BY p.id ASC')))->supportsBackwardNavigation());
+        $this->assertTrue(new CursorQueryAdapter($this->entityManager->createQuery('SELECT p FROM '.Post::class.' p ORDER BY p.id ASC'))->supportsBackwardNavigation());
     }
 
     public function testTheFirstPageIsReturnedWithoutACursor(): void

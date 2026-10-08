@@ -87,7 +87,7 @@ final class CountableCursorPagerfantaTest extends TestCase
 
         $this->expectException(LogicException::class);
 
-        (new CountableCursorPagerfanta($this->adapter))->getNextPosition();
+        new CountableCursorPagerfanta($this->adapter)->getNextPosition();
     }
 
     public function testNavigatingReturnsANewCountablePager(): void
@@ -112,6 +112,6 @@ final class CountableCursorPagerfantaTest extends TestCase
         $this->adapter->method('getSlice')
             ->willReturnCallback(static fn (?Cursor $cursor, int $limit): CursorSlice => $cursor instanceof Cursor ? new CursorSlice([3]) : new CursorSlice([1, 2], null, new Cursor(['id' => 2])));
 
-        $this->assertSame([1, 2, 3], iterator_to_array((new CountableCursorPagerfanta($this->adapter, 2))->autoPagingIterator(), false));
+        $this->assertSame([1, 2, 3], iterator_to_array(new CountableCursorPagerfanta($this->adapter, 2)->autoPagingIterator(), false));
     }
 }

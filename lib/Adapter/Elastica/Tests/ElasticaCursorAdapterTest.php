@@ -171,7 +171,7 @@ final class ElasticaCursorAdapterTest extends TestCase
 
     public function testTheAdapterSupportsBackwardNavigation(): void
     {
-        $this->assertTrue((new ElasticaCursorAdapter($this->createSearchable([]), new Query(), ['id' => 'asc']))->supportsBackwardNavigation());
+        $this->assertTrue(new ElasticaCursorAdapter($this->createSearchable([]), new Query(), ['id' => 'asc'])->supportsBackwardNavigation());
     }
 
     public function testTheFirstPageIsSearchedWithoutSearchAfter(): void
@@ -306,7 +306,7 @@ final class ElasticaCursorAdapterTest extends TestCase
     {
         $this->expectException(InvalidCursorException::class);
 
-        (new ElasticaCursorAdapter($this->createSearchable([]), new Query(), ['score' => 'desc', 'id' => 'asc']))->getSlice($cursor, 2);
+        new ElasticaCursorAdapter($this->createSearchable([]), new Query(), ['score' => 'desc', 'id' => 'asc'])->getSlice($cursor, 2);
     }
 
     public function testADocumentWithoutSortValuesIsRejected(): void
@@ -319,7 +319,7 @@ final class ElasticaCursorAdapterTest extends TestCase
         $searchable = $this->createMock(SearchableInterface::class);
         $searchable->method('search')->willReturn($resultSet);
 
-        (new ElasticaCursorAdapter($searchable, new Query(), ['id' => 'asc']))->getSlice(null, 1);
+        new ElasticaCursorAdapter($searchable, new Query(), ['id' => 'asc'])->getSlice(null, 1);
     }
 
     public function testTheResultsCanBeCountedWithAnOffsetAdapter(): void

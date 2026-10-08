@@ -46,7 +46,7 @@ final class Base64JsonCursorEncoderTest extends TestCase
     {
         $decoded = $this->encoder->decode($this->encoder->encode(new Cursor(['p.score' => 1.0])));
 
-        $this->assertEqualsWithDelta(1.0, $decoded->fields['p.score'], PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(1.0, $decoded->fields['p.score'], \PHP_FLOAT_EPSILON);
     }
 
     /**
@@ -90,7 +90,7 @@ final class Base64JsonCursorEncoderTest extends TestCase
         yield 'excessive nesting' => [$encode('{"f":{"p.id":[[1]]},"d":"n"}')];
         yield 'unknown direction' => [$encode('{"f":{"p.id":1},"d":"x"}')];
         yield 'direction not a string' => [$encode('{"f":{"p.id":1},"d":true}')];
-        yield 'tampered payload' => [substr((new Base64JsonCursorEncoder())->encode(new Cursor(['p.id' => 1])), 0, -3)];
+        yield 'tampered payload' => [substr(new Base64JsonCursorEncoder()->encode(new Cursor(['p.id' => 1])), 0, -3)];
     }
 
     #[DataProvider('dataInvalidCursors')]

@@ -12,6 +12,6 @@ final class CursorPositionTest extends TestCase
     {
         $cursor = new Cursor(['p.id' => 10]);
 
-        $this->assertSame($cursor, (new CursorPosition($cursor))->cursor);
+        $this->assertSame($cursor, new CursorPosition($cursor)->cursor);
     }
 }

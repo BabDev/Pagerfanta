@@ -18,18 +18,18 @@ final class SortColumnTest extends TestCase
 
     public function testTheOrderIsNormalized(): void
     {
-        $this->assertSame('DESC', (new SortColumn('p.id', 'desc'))->order);
+        $this->assertSame('DESC', new SortColumn('p.id', 'desc')->order);
     }
 
     public function testTheResultKeyDefaultsToTheColumnName(): void
     {
-        $this->assertSame('created_at', (new SortColumn('p.created_at'))->resultKey);
-        $this->assertSame('created_at', (new SortColumn('created_at'))->resultKey);
+        $this->assertSame('created_at', new SortColumn('p.created_at')->resultKey);
+        $this->assertSame('created_at', new SortColumn('created_at')->resultKey);
     }
 
     public function testTheResultKeyCanBeSet(): void
     {
-        $this->assertSame('post_created_at', (new SortColumn('p.created_at', 'ASC', 'post_created_at'))->resultKey);
+        $this->assertSame('post_created_at', new SortColumn('p.created_at', 'ASC', 'post_created_at')->resultKey);
     }
 
     public function testTheOrderMustBeValid(): void

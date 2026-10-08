@@ -30,12 +30,12 @@ final class CallbackCursorAdapterTest extends TestCase
 
     public function testBackwardNavigationIsNotSupportedByDefault(): void
     {
-        $this->assertFalse((new CallbackCursorAdapter(static fn (): CursorSlice => new CursorSlice([])))->supportsBackwardNavigation());
+        $this->assertFalse(new CallbackCursorAdapter(static fn (): CursorSlice => new CursorSlice([]))->supportsBackwardNavigation());
     }
 
     public function testBackwardNavigationSupportCanBeEnabled(): void
     {
-        $this->assertTrue((new CallbackCursorAdapter(static fn (): CursorSlice => new CursorSlice([]), true))->supportsBackwardNavigation());
+        $this->assertTrue(new CallbackCursorAdapter(static fn (): CursorSlice => new CursorSlice([]), true)->supportsBackwardNavigation());
     }
 
     public function testAForwardOnlyAdapterHasNoPreviousPageInThePager(): void
@@ -54,6 +54,6 @@ final class CallbackCursorAdapterTest extends TestCase
         $this->expectException(LogicException::class);
 
         // @phpstan-ignore-next-line argument.type
-        (new CallbackCursorAdapter(static fn (): array => [1, 2]))->getSlice(null, 2);
+        new CallbackCursorAdapter(static fn (): array => [1, 2])->getSlice(null, 2);
     }
 }

@@ -11,7 +11,7 @@ final class PagePositionTest extends TestCase
 {
     public function testThePageIsExposed(): void
     {
-        $this->assertSame(3, (new PagePosition(3))->page);
+        $this->assertSame(3, new PagePosition(3)->page);
     }
 
     /**

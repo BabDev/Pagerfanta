@@ -28,6 +28,6 @@ final class PageNumberRouteGeneratorTest extends TestCase
     {
         $this->expectException(LessThan1CurrentPageException::class);
 
-        (new PageNumberRouteGenerator($this->createPositionRouteGenerator()))->route(0);
+        new PageNumberRouteGenerator($this->createPositionRouteGenerator())->route(0);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Pagerfanta;
 
-use Pagerfanta\Cursor\Cursor;
 use Pagerfanta\Adapter\CursorAdapterInterface;
 use Pagerfanta\Adapter\CursorSlice;
+use Pagerfanta\Cursor\Cursor;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Position\CursorPosition;

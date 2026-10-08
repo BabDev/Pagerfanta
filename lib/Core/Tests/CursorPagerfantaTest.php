@@ -168,7 +168,7 @@ final class CursorPagerfantaTest extends TestCase
 
         $this->expectException(LogicException::class);
 
-        (new CursorPagerfanta($this->adapter, 3))->getPreviousPosition();
+        new CursorPagerfanta($this->adapter, 3)->getPreviousPosition();
     }
 
     public function testAnAdapterReturningMoreItemsThanTheLimitIsRejected(): void
@@ -178,7 +178,7 @@ final class CursorPagerfantaTest extends TestCase
 
         $this->expectException(LogicException::class);
 
-        (new CursorPagerfanta($this->adapter, 3))->getCurrentPageResults();
+        new CursorPagerfanta($this->adapter, 3)->getCurrentPageResults();
     }
 
     public function testNavigatingReturnsANewPagerWithTheSameConfiguration(): void

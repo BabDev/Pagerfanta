@@ -63,7 +63,7 @@ class QueryAdapter implements AdapterInterface
      */
     public function getSlice(int $offset, int $length): iterable
     {
-        if ($length === 0) {
+        if (0 === $length) {
             return new \EmptyIterator();
         }
 

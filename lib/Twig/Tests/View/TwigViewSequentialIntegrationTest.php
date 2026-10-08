@@ -21,7 +21,6 @@ use Pagerfanta\Twig\View\TwigView;
 use Pagerfanta\View\ViewFactory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Twig\BlockChain;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\ChainLoader;
@@ -176,14 +175,14 @@ final class TwigViewSequentialIntegrationTest extends TestCase
     #[DataProvider('dataThemes')]
     public function testACursorPagerIsRenderedWithEachTheme(string $template, string $expected): void
     {
-        $this->assertViewOutputMatches($expected, (new TwigView($this->twig))->render($this->createCursorPager(), $this->createPositionRouteGenerator(), ['template' => $template]));
+        $this->assertViewOutputMatches($expected, new TwigView($this->twig)->render($this->createCursorPager(), $this->createPositionRouteGenerator(), ['template' => $template]));
     }
 
     public function testAForwardOnlyCursorPagerIsRenderedWithoutAPreviousLink(): void
     {
         $this->assertViewOutputMatches(
             '<nav class="pagination"><a class="pagination__item pagination__item--next-page" href="/posts?after=2" rel="next">Next</a></nav>',
-            (new TwigView($this->twig))->render($this->createCursorPager(false), $this->createPositionRouteGenerator()),
+            new TwigView($this->twig)->render($this->createCursorPager(false), $this->createPositionRouteGenerator()),
         );
     }
 
@@ -191,7 +190,7 @@ final class TwigViewSequentialIntegrationTest extends TestCase
     {
         $this->assertViewOutputMatches(
             '<nav class="pagination"><span class="pagination__item pagination__item--previous-page pagination__item--disabled">Previous</span><a class="pagination__item pagination__item--next-page" href="/posts?after=2" rel="next">Next</a></nav>',
-            (new TwigView($this->twig))->render($this->createCursorPager(true, false), $this->createPositionRouteGenerator()),
+            new TwigView($this->twig)->render($this->createCursorPager(true, false), $this->createPositionRouteGenerator()),
         );
     }
 
@@ -199,19 +198,15 @@ final class TwigViewSequentialIntegrationTest extends TestCase
     {
         $this->assertViewOutputMatches(
             '<nav class="pagination"><a class="pagination__item pagination__item--previous-page" href="/posts?page=1" rel="prev">Previous</a><a class="pagination__item pagination__item--next-page" href="/posts?page=3" rel="next">Next</a></nav>',
-            (new TwigView($this->twig))->render($this->createOffsetPager(), $this->createPositionRouteGenerator(), ['sequential' => true]),
+            new TwigView($this->twig)->render($this->createOffsetPager(), $this->createPositionRouteGenerator(), ['sequential' => true]),
         );
     }
 
     public function testTheMessagesCanBeCustomizedWithAChainOfTemplates(): void
     {
-        if (!class_exists(BlockChain::class)) {
-            $this->markTestSkipped('This test requires twig/twig 3.29 or later.');
-        }
-
         $this->assertViewOutputMatches(
             '<ul class="pagination"><li class="page-item"><a class="page-link" href="/posts?before=2" rel="prev">Back</a></li><li class="page-item"><a class="page-link" href="/posts?after=2" rel="next">Forward</a></li></ul>',
-            (new TwigView($this->twig))->render($this->createCursorPager(), $this->createPositionRouteGenerator(), ['template' => ['messages.html.twig', '@Pagerfanta/twitter_bootstrap5.html.twig']]),
+            new TwigView($this->twig)->render($this->createCursorPager(), $this->createPositionRouteGenerator(), ['template' => ['messages.html.twig', '@Pagerfanta/twitter_bootstrap5.html.twig']]),
         );
     }
 

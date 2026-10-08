@@ -16,7 +16,6 @@ use Pagerfanta\Twig\View\TwigView;
 use Pagerfanta\View\ViewFactory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Twig\BlockChain;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\ChainLoader;
@@ -480,8 +479,6 @@ final class TwigViewIntegrationTest extends TestCase
 
     public function testRendersWithAChainOfTemplatesSpecifiedInTheOptions(): void
     {
-        $this->skipIfBlockChainIsNotSupported();
-
         $pagerfanta = $this->createPagerfanta();
         $pagerfanta->setCurrentPage(5);
 
@@ -505,13 +502,11 @@ final class TwigViewIntegrationTest extends TestCase
 
     public function testRendersWithAChainOfTemplatesSpecifiedInTheConstructor(): void
     {
-        $this->skipIfBlockChainIsNotSupported();
-
         $pagerfanta = $this->createPagerfanta();
         $pagerfanta->setCurrentPage(5);
 
         $this->assertViewOutputMatches(
-            (new TwigView($this->twig, ['messages.html.twig']))->render(
+            new TwigView($this->twig, ['messages.html.twig'])->render(
                 $pagerfanta,
                 $this->createRouteGeneratorFactory()->createPositionRouteGenerator(['omitFirstPage' => true]),
                 ['omitFirstPage' => true]
@@ -534,11 +529,9 @@ final class TwigViewIntegrationTest extends TestCase
 
     public function testRendersWithAChainOfTemplatesFromTheOptionsFallingBackToTheTemplateFromTheConstructor(): void
     {
-        $this->skipIfBlockChainIsNotSupported();
-
         $this->assertSame(
             'Twig template from constructor',
-            (new TwigView($this->twig, 'constructor.html.twig'))->render(
+            new TwigView($this->twig, 'constructor.html.twig')->render(
                 $this->createPagerfanta(),
                 $this->createRouteGeneratorFactory()->createPositionRouteGenerator(),
                 ['template' => ['messages.html.twig']]
@@ -548,39 +541,14 @@ final class TwigViewIntegrationTest extends TestCase
 
     public function testRendersWithAChainOfTemplatesContainingDuplicates(): void
     {
-        $this->skipIfBlockChainIsNotSupported();
-
         $this->assertSame(
             'Twig template from options',
-            (new TwigView($this->twig, ['constructor.html.twig', '@Pagerfanta/default.html.twig']))->render(
+            new TwigView($this->twig, ['constructor.html.twig', '@Pagerfanta/default.html.twig'])->render(
                 $this->createPagerfanta(),
                 $this->createRouteGeneratorFactory()->createPositionRouteGenerator(),
                 ['template' => ['options.html.twig', 'messages.html.twig', 'options.html.twig', '@Pagerfanta/default.html.twig']]
             )
         );
-    }
-
-    public function testRejectsAChainOfTemplatesWhenBlockChainIsNotSupported(): void
-    {
-        if (class_exists(BlockChain::class)) {
-            $this->markTestSkipped('This test requires twig/twig older than 3.29.');
-        }
-
-        $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage('Rendering a pager with a list of templates requires twig/twig 3.29 or later');
-
-        (new TwigView($this->twig))->render(
-            $this->createPagerfanta(),
-            $this->createRouteGeneratorFactory()->createPositionRouteGenerator(),
-            ['template' => ['messages.html.twig']]
-        );
-    }
-
-    private function skipIfBlockChainIsNotSupported(): void
-    {
-        if (!class_exists(BlockChain::class)) {
-            $this->markTestSkipped('This test requires twig/twig 3.29 or later.');
-        }
     }
 
     private function createRouteGeneratorFactory(): PositionRouteGeneratorFactoryInterface

@@ -195,7 +195,7 @@ final class PagerfantaRuntimeTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('configure a default sequential view');
 
-        (new PagerfantaRuntime('default', $this->createViewFactory(), $this->createRouteGeneratorFactory()))->renderPagerfanta($this->createCursorPager());
+        new PagerfantaRuntime('default', $this->createViewFactory(), $this->createRouteGeneratorFactory())->renderPagerfanta($this->createCursorPager());
     }
 
     public function testAPagerWhichTheDefaultViewCannotRenderIsRenderedWithTheDefaultSequentialView(): void
@@ -203,7 +203,7 @@ final class PagerfantaRuntimeTest extends TestCase
         // The callback adapter is forward-only by default, so there is no previous link
         $this->assertSame(
             '<nav class="pagination"><a class="pagination__item pagination__item--next-page" href="/my-page?after=1" rel="next">Next</a></nav>',
-            (new PagerfantaRuntime('default', $this->createViewFactory(), $this->createRouteGeneratorFactory(), 'sequential'))->renderPagerfanta($this->createCursorPager()),
+            new PagerfantaRuntime('default', $this->createViewFactory(), $this->createRouteGeneratorFactory(), 'sequential')->renderPagerfanta($this->createCursorPager()),
         );
     }
 
@@ -211,7 +211,7 @@ final class PagerfantaRuntimeTest extends TestCase
     {
         $this->assertStringContainsString(
             '<span class="pagination__item pagination__item--current-page">1</span>',
-            (new PagerfantaRuntime('default', $this->createViewFactory(), $this->createRouteGeneratorFactory(), 'sequential'))->renderPagerfanta($this->createPagerfanta()),
+            new PagerfantaRuntime('default', $this->createViewFactory(), $this->createRouteGeneratorFactory(), 'sequential')->renderPagerfanta($this->createPagerfanta()),
         );
     }
 
@@ -219,14 +219,14 @@ final class PagerfantaRuntimeTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        (new PagerfantaRuntime('sequential', $this->createViewFactory(), $this->createRouteGeneratorFactory(), 'sequential'))->renderPagerfanta($this->createCursorPager(), 'default');
+        new PagerfantaRuntime('sequential', $this->createViewFactory(), $this->createRouteGeneratorFactory(), 'sequential')->renderPagerfanta($this->createCursorPager(), 'default');
     }
 
     public function testAnOffsetPagerIsRenderedWithANamedSequentialView(): void
     {
         $this->assertSame(
             '<nav class="pagination"><span class="pagination__item pagination__item--previous-page pagination__item--disabled">Previous</span><a class="pagination__item pagination__item--next-page" href="/my-page?page=2" rel="next">Next</a></nav>',
-            (new PagerfantaRuntime('sequential', $this->createViewFactory(), $this->createRouteGeneratorFactory()))->renderPagerfanta($this->createPagerfanta()),
+            new PagerfantaRuntime('sequential', $this->createViewFactory(), $this->createRouteGeneratorFactory())->renderPagerfanta($this->createPagerfanta()),
         );
     }
 

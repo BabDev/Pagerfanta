@@ -79,7 +79,7 @@ final class OptionableViewTest extends TestCase
 
         $this->assertStringContainsString(
             'href="|3|" rel="next">Siguiente</a>',
-            (new OptionableView(new DefaultView(), ['next_message' => 'Siguiente']))->render($pagerfanta, $this->createPositionRouteGenerator()),
+            new OptionableView(new DefaultView(), ['next_message' => 'Siguiente'])->render($pagerfanta, $this->createPositionRouteGenerator()),
         );
     }
 
@@ -87,8 +87,8 @@ final class OptionableViewTest extends TestCase
     {
         $cursorPager = new CursorPagerfanta(new CallbackCursorAdapter(static fn (): CursorSlice => new CursorSlice([])));
 
-        $this->assertTrue((new OptionableView(new DefaultView(), []))->supports($this->pagerfanta));
-        $this->assertFalse((new OptionableView(new DefaultView(), []))->supports($cursorPager));
-        $this->assertTrue((new OptionableView(new SequentialView(new DefaultTemplate()), []))->supports($cursorPager));
+        $this->assertTrue(new OptionableView(new DefaultView(), [])->supports($this->pagerfanta));
+        $this->assertFalse(new OptionableView(new DefaultView(), [])->supports($cursorPager));
+        $this->assertTrue(new OptionableView(new SequentialView(new DefaultTemplate()), [])->supports($cursorPager));
     }
 }
