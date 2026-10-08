@@ -16,9 +16,8 @@ use Pagerfanta\Position\PagePosition;
  * @template T
  *
  * @implements PagerfantaInterface<T>
- * @implements OffsetPagerInterface<T>
  */
-class Pagerfanta implements PagerfantaInterface, OffsetPagerInterface, \JsonSerializable
+class Pagerfanta implements PagerfantaInterface, \JsonSerializable
 {
     private bool $allowOutOfRangePages = false;
     private bool $normalizeOutOfRangePages = false;
@@ -416,17 +415,20 @@ class Pagerfanta implements PagerfantaInterface, OffsetPagerInterface, \JsonSeri
     }
 
     /**
-     * Returns the total number of results.
-     *
-     * Counting a Pagerfanta instance to get the total number of results is deprecated since 4.10. In 5.0, this will return
-     * the number of items on the current page to match the other pager implementations, use {@see getNbResults()}
-     * to get the total number of results.
+     * Returns the number of items on the current page.
      *
      * @return int<0, max>
      */
     public function count(): int
     {
-        return $this->getNbResults();
+        $results = $this->getCurrentPageResults();
+
+        if (!is_countable($results)) {
+            // Counting consumes an iterator, so the results are kept as an array to remain usable later
+            $this->currentPageResults = $results = iterator_to_array($results);
+        }
+
+        return \count($results);
     }
 
     /**

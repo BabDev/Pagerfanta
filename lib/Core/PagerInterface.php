@@ -8,16 +8,15 @@ use Pagerfanta\Position\Position;
 /**
  * The root pager API, independent of the pagination strategy.
  *
- * This interface intentionally does not extend {@see \Countable} as the meaning of `count()` differs between the
- * existing offset pager (the total number of results) and the cursor pagers (the number of items on the current page).
- * In 5.0, this interface will extend {@see \Countable} with `count()` returning the number of items on the current page.
+ * Counting a pager returns the number of items on the current page. The total number of results is only available from
+ * pagers implementing {@see CountablePagerInterface}.
  *
  * @template-covariant T
  * @template-covariant TPosition of Position
  *
  * @extends \IteratorAggregate<T>
  */
-interface PagerInterface extends \IteratorAggregate /* , \Countable */
+interface PagerInterface extends \Countable, \IteratorAggregate
 {
     /**
      * @return iterable<array-key, T>

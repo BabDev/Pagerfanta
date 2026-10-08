@@ -16,7 +16,7 @@ use Pagerfanta\Position\CursorPosition;
  * @implements CursorPagerInterface<T>
  * @implements CountablePagerInterface<T, CursorPosition>
  */
-final class CountableCursorPagerfanta implements CursorPagerInterface, CountablePagerInterface, \Countable, \JsonSerializable
+final class CountableCursorPagerfanta implements CursorPagerInterface, CountablePagerInterface, \JsonSerializable
 {
     /**
      * @var CursorPagerfanta<T>

@@ -5,7 +5,6 @@ namespace Pagerfanta\Twig\View;
 use Pagerfanta\CursorPagerInterface;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\PagerInterface;
-use Pagerfanta\Position\PagePosition;
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PageNumberRouteGenerator;
 use Pagerfanta\RouteGenerator\PageRouteGeneratorWrapper;
@@ -102,18 +101,8 @@ final class TwigView extends View implements PagerViewInterface
     {
         $this->initializeOptions($options);
 
-        // Implementations of PagerfantaInterface are not required to implement the position API until 5.0
-        $previousPosition = match (true) {
-            !$pager->hasPreviousPage() => null,
-            $pager instanceof PagerInterface => $pager->getPreviousPosition(),
-            default => new PagePosition($pager->getPreviousPage()),
-        };
-
-        $nextPosition = match (true) {
-            !$pager->hasNextPage() => null,
-            $pager instanceof PagerInterface => $pager->getNextPosition(),
-            default => new PagePosition($pager->getNextPage()),
-        };
+        $previousPosition = $pager->hasPreviousPage() ? $pager->getPreviousPosition() : null;
+        $nextPosition = $pager->hasNextPage() ? $pager->getNextPosition() : null;
 
         return $this->loadTemplate($this->template)->renderBlock(
             'pager_widget',

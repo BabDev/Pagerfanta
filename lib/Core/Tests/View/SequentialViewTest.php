@@ -11,7 +11,6 @@ use Pagerfanta\CursorPagerfanta;
 use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Exception\RuntimeException;
 use Pagerfanta\Pagerfanta;
-use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\Position\CursorPosition;
 use Pagerfanta\Position\PagePosition;
 use Pagerfanta\Position\Position;
@@ -215,20 +214,6 @@ final class SequentialViewTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         (new SequentialView(new DefaultTemplate()))->render($this->createCursorPager(true), static fn (int $page): string => '|'.$page.'|');
-    }
-
-    public function testAPagerOnlyImplementingTheLegacyInterfaceIsRenderedWithPagePositions(): void
-    {
-        $pager = $this->createMock(PagerfantaInterface::class);
-        $pager->method('hasPreviousPage')->willReturn(true);
-        $pager->method('getPreviousPage')->willReturn(4);
-        $pager->method('hasNextPage')->willReturn(true);
-        $pager->method('getNextPage')->willReturn(6);
-
-        $this->assertSame(
-            '<nav class="pagination"><a class="pagination__item pagination__item--previous-page" href="|4|" rel="prev">Previous</a><a class="pagination__item pagination__item--next-page" href="|6|" rel="next">Next</a></nav>',
-            (new SequentialView(new DefaultTemplate()))->render($pager, static fn (int $page): string => '|'.$page.'|'),
-        );
     }
 
     public function testTheOptionsArePassedToTheTemplate(): void

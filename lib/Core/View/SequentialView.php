@@ -5,7 +5,6 @@ namespace Pagerfanta\View;
 use Pagerfanta\CursorPagerInterface;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\PagerInterface;
-use Pagerfanta\Position\PagePosition;
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PageRouteGeneratorWrapper;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
@@ -69,10 +68,7 @@ final class SequentialView implements PagerViewInterface
             return $template->previousDisabled();
         }
 
-        // Implementations of PagerfantaInterface are not required to implement the position API until 5.0
-        $position = $pager instanceof PagerInterface ? $pager->getPreviousPosition() : new PagePosition($pager->getPreviousPage());
-
-        return $template->previousEnabledForPosition($position);
+        return $template->previousEnabledForPosition($pager->getPreviousPosition());
     }
 
     /**
@@ -84,8 +80,6 @@ final class SequentialView implements PagerViewInterface
             return $template->nextDisabled();
         }
 
-        $position = $pager instanceof PagerInterface ? $pager->getNextPosition() : new PagePosition($pager->getNextPage());
-
-        return $template->nextEnabledForPosition($position);
+        return $template->nextEnabledForPosition($pager->getNextPosition());
     }
 }

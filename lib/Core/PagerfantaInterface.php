@@ -8,17 +8,13 @@ use Pagerfanta\Exception\LessThan1MaxPagesException;
 use Pagerfanta\Exception\LessThan1MaxPerPageException;
 use Pagerfanta\Exception\LogicException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
-use Pagerfanta\Position\PagePosition;
 
 /**
  * @template-covariant T
  *
- * @extends \IteratorAggregate<T>
- *
- * @method PagePosition getPreviousPosition()
- * @method PagePosition getNextPosition()
+ * @extends OffsetPagerInterface<T>
  */
-interface PagerfantaInterface extends /* OffsetPagerInterface, */ \Countable, \IteratorAggregate
+interface PagerfantaInterface extends OffsetPagerInterface
 {
     /**
      * @return AdapterInterface<T>
@@ -47,27 +43,12 @@ interface PagerfantaInterface extends /* OffsetPagerInterface, */ \Countable, \I
     public function setMaxPerPage(int $maxPerPage): self;
 
     /**
-     * @return positive-int
-     */
-    public function getMaxPerPage(): int;
-
-    /**
      * @return $this
      *
      * @throws LessThan1CurrentPageException  if the current page is less than 1
      * @throws OutOfRangeCurrentPageException if It is not allowed out of range pages and they are not normalized
      */
     public function setCurrentPage(int $currentPage): self;
-
-    /**
-     * @return positive-int
-     */
-    public function getCurrentPage(): int;
-
-    /**
-     * @return iterable<array-key, T>
-     */
-    public function getCurrentPageResults(): iterable;
 
     /**
      * @return int<0, max>
@@ -78,16 +59,6 @@ interface PagerfantaInterface extends /* OffsetPagerInterface, */ \Countable, \I
      * @return int<0, max>
      */
     public function getCurrentPageOffsetEnd(): int;
-
-    /**
-     * @return int<0, max>
-     */
-    public function getNbResults(): int;
-
-    /**
-     * @return positive-int
-     */
-    public function getNbPages(): int;
 
     /**
      * @return $this
@@ -101,10 +72,6 @@ interface PagerfantaInterface extends /* OffsetPagerInterface, */ \Countable, \I
      */
     public function resetMaxNbPages(): self;
 
-    public function haveToPaginate(): bool;
-
-    public function hasPreviousPage(): bool;
-
     /**
      * @return positive-int
      *
@@ -112,23 +79,12 @@ interface PagerfantaInterface extends /* OffsetPagerInterface, */ \Countable, \I
      */
     public function getPreviousPage(): int;
 
-    public function hasNextPage(): bool;
-
     /**
      * @return positive-int
      *
      * @throws LogicException if there is no next page
      */
     public function getNextPage(): int;
-
-    /**
-     * Get page number of the item at specified position (1-based index).
-     *
-     * @param positive-int $position
-     *
-     * @return positive-int
-     */
-    public function getPageNumberForItemAtPosition(int $position): int;
 
     /**
      * Generates an iterator to automatically iterate over all pages in a result set.

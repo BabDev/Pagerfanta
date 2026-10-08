@@ -537,13 +537,38 @@ final class PagerfantaTest extends TestCase
         $this->pagerfanta->getNextPosition();
     }
 
-    public function testThePagerCanBeCounted(): void
+    public function testCountingThePagerReturnsTheNumberOfItemsOnTheCurrentPage(): void
+    {
+        $this->adapter->expects($this->never())
+            ->method('getNbResults');
+
+        $this->adapter->expects($this->once())
+            ->method('getSlice')
+            ->willReturn(['foo', 'bar', 'baz']);
+
+        $this->assertCount(3, $this->pagerfanta);
+    }
+
+    public function testThePagerCanBeCountedWhenTheAdapterReturnsACountableIterator(): void
+    {
+        $currentPageResults = new \ArrayIterator(['foo', 'bar']);
+
+        $this->adapter->expects($this->once())
+            ->method('getSlice')
+            ->willReturn($currentPageResults);
+
+        $this->assertCount(2, $this->pagerfanta);
+        $this->assertSame($currentPageResults, $this->pagerfanta->getCurrentPageResults());
+    }
+
+    public function testThePagerCanBeCountedAndIteratedWhenTheAdapterReturnsAGenerator(): void
     {
         $this->adapter->expects($this->once())
-            ->method('getNbResults')
-            ->willReturn(100);
+            ->method('getSlice')
+            ->willReturn((static fn (): \Generator => yield from ['a' => 'foo', 'b' => 'bar'])());
 
-        $this->assertCount(100, $this->pagerfanta);
+        $this->assertCount(2, $this->pagerfanta);
+        $this->assertSame(['a' => 'foo', 'b' => 'bar'], iterator_to_array($this->pagerfanta));
     }
 
     public function testThePagerCanBeIteratedWithTheCurrentPageResultsWhenTheAdapterReturnsAnIterator(): void
