@@ -3,7 +3,9 @@
 namespace Pagerfanta\View\Template;
 
 use Pagerfanta\Exception\InvalidArgumentException;
+use Pagerfanta\Exception\LessThan1CurrentPageException;
 use Pagerfanta\Exception\RuntimeException;
+use Pagerfanta\Position\PagePosition;
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 
@@ -14,11 +16,6 @@ abstract class Template implements TemplateInterface
      */
     private array $options;
 
-    /**
-     * @var (callable(int): string)|null
-     */
-    private $routeGenerator;
-
     private ?PositionRouteGeneratorInterface $positionRouteGenerator = null;
 
     public function __construct()
@@ -27,21 +24,7 @@ abstract class Template implements TemplateInterface
     }
 
     /**
-     * Sets the route generator used while rendering the template.
-     *
-     * @deprecated since Pagerfanta 4.10, to be removed in 5.0.
-     *
-     * @param callable(int): string $routeGenerator
-     */
-    public function setRouteGenerator(callable $routeGenerator): void
-    {
-        $this->routeGenerator = $routeGenerator;
-    }
-
-    /**
      * Sets the position based route generator used while rendering the template.
-     *
-     * This is used by templates which implement {@see SequentialTemplateInterface}.
      */
     public function setPositionRouteGenerator(PositionRouteGeneratorInterface $routeGenerator): void
     {
@@ -60,12 +43,17 @@ abstract class Template implements TemplateInterface
 
     /**
      * Generate the route (URL) for the given page.
+     *
+     * @throws LessThan1CurrentPageException if the page is less than 1
+     * @throws RuntimeException              if the position route generator has not been set
      */
     protected function generateRoute(int $page): string
     {
-        $generator = $this->getRouteGenerator();
+        if ($page < 1) {
+            throw new LessThan1CurrentPageException();
+        }
 
-        return $generator($page);
+        return $this->generateRouteForPosition(new PagePosition($page));
     }
 
     /**
@@ -88,16 +76,6 @@ abstract class Template implements TemplateInterface
     protected function getDefaultOptions(): array
     {
         return [];
-    }
-
-    /**
-     * @return callable(int): string
-     *
-     * @throws RuntimeException if the route generator has not been set
-     */
-    private function getRouteGenerator(): callable
-    {
-        return $this->routeGenerator ?? throw new RuntimeException(\sprintf('The route generator was not set to the template, ensure you call %s::setRouteGenerator().', static::class));
     }
 
     /**

@@ -6,7 +6,6 @@ use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\OffsetPagerInterface;
 use Pagerfanta\PagerInterface;
 use Pagerfanta\Position\Position;
-use Pagerfanta\RouteGenerator\PageNumberRouteGenerator;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 use Pagerfanta\View\Template\TemplateInterface;
 
@@ -26,10 +25,6 @@ abstract class TemplateView extends View
     public function __construct(?TemplateInterface $template = null)
     {
         $this->template = $this->baseTemplate = $template ?? $this->createDefaultTemplate();
-
-        if (!$this->baseTemplate instanceof SequentialTemplateInterface) {
-            trigger_deprecation('pagerfanta/core', '4.10', 'Using a template which does not implement "%s" with "%s" is deprecated, the "%s" template will be required to implement it in 5.0.', SequentialTemplateInterface::class, static::class, get_debug_type($this->baseTemplate));
-        }
     }
 
     abstract protected function createDefaultTemplate(): TemplateInterface;
@@ -51,19 +46,17 @@ abstract class TemplateView extends View
         $this->initializePagerfanta($pager);
         $this->initializeOptions($options);
 
-        // The numbered templates link to pages by their number
-        $this->configureTemplate(new PageNumberRouteGenerator($routeGenerator), $options);
+        $this->configureTemplate($routeGenerator, $options);
 
         return $this->generate();
     }
 
     /**
-     * @param callable(int): string $routeGenerator
-     * @param array<string, mixed>  $options
+     * @param array<string, mixed> $options
      */
-    private function configureTemplate(callable $routeGenerator, array $options): void
+    private function configureTemplate(PositionRouteGeneratorInterface $routeGenerator, array $options): void
     {
-        $this->template->setRouteGenerator($routeGenerator);
+        $this->template->setPositionRouteGenerator($routeGenerator);
         $this->template->setOptions($options);
     }
 
@@ -95,7 +88,7 @@ abstract class TemplateView extends View
     private function previous(): string
     {
         if ($this->pagerfanta->hasPreviousPage()) {
-            return $this->template->previousEnabled($this->pagerfanta->getPreviousPosition()->page);
+            return $this->template->previousEnabledForPosition($this->pagerfanta->getPreviousPosition());
         }
 
         return $this->template->previousDisabled();
@@ -181,7 +174,7 @@ abstract class TemplateView extends View
     private function next(): string
     {
         if ($this->pagerfanta->hasNextPage()) {
-            return $this->template->nextEnabled($this->pagerfanta->getNextPosition()->page);
+            return $this->template->nextEnabledForPosition($this->pagerfanta->getNextPosition());
         }
 
         return $this->template->nextDisabled();
