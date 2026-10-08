@@ -4,6 +4,10 @@ namespace Pagerfanta\Tests\View;
 
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Pagerfanta;
+use Pagerfanta\Position\PagePosition;
+use Pagerfanta\Position\Position;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 use Pagerfanta\View\ViewInterface;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
@@ -63,12 +67,9 @@ abstract class ViewTestCase extends TestCase
         return $this->view->render($this->pagerfanta, $routeGenerator, $options);
     }
 
-    /**
-     * @return \Closure(int $page): string
-     */
-    protected function createRouteGenerator(): \Closure
+    protected function createRouteGenerator(): PositionRouteGeneratorInterface
     {
-        return static fn (int $page) => '|'.$page.'|';
+        return new PositionRouteGeneratorDecorator(static fn (Position $position): string => '|'.($position instanceof PagePosition ? $position->page : 'cursor').'|');
     }
 
     protected function assertRenderedView(string $expected, string $result): void

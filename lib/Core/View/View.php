@@ -2,16 +2,16 @@
 
 namespace Pagerfanta\View;
 
-use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\OffsetPagerInterface;
 use Pagerfanta\PagerInterface;
 use Pagerfanta\Position\Position;
 
 abstract class View implements ViewInterface
 {
     /**
-     * @var PagerfantaInterface<mixed>
+     * @var OffsetPagerInterface<mixed>
      */
-    protected PagerfantaInterface $pagerfanta;
+    protected OffsetPagerInterface $pagerfanta;
 
     /**
      * @var positive-int|null
@@ -37,17 +37,17 @@ abstract class View implements ViewInterface
     /**
      * Checks whether this view can render the given pager, numbered views can only render offset pagers.
      *
-     * @param PagerfantaInterface<mixed>|PagerInterface<mixed, Position> $pager
+     * @param PagerInterface<mixed, Position> $pager
      */
-    public function supports(PagerfantaInterface|PagerInterface $pager): bool
+    public function supports(PagerInterface $pager): bool
     {
-        return $pager instanceof PagerfantaInterface;
+        return $pager instanceof OffsetPagerInterface;
     }
 
     /**
-     * @param PagerfantaInterface<mixed> $pagerfanta
+     * @param OffsetPagerInterface<mixed> $pagerfanta
      */
-    protected function initializePagerfanta(PagerfantaInterface $pagerfanta): void
+    protected function initializePagerfanta(OffsetPagerInterface $pagerfanta): void
     {
         $this->pagerfanta = $pagerfanta;
 

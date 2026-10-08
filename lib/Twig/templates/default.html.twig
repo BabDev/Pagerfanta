@@ -11,8 +11,8 @@
     {%- else -%}
         {# Previous Page Link #}
         {%- if pagerfanta.hasPreviousPage() -%}
-            {%- set path = route_generator.route(pagerfanta.getPreviousPage()) -%}
-            {%- set page = pagerfanta.getPreviousPage() -%}
+            {%- set page = pagerfanta.getPreviousPosition().page -%}
+            {%- set path = route_generator.route(page) -%}
             {{- block('previous_page_link') -}}
         {%- else -%}
             {{- block('previous_page_link_disabled') -}}
@@ -68,8 +68,8 @@
 
         {# Next Page Link #}
         {%- if pagerfanta.hasNextPage() -%}
-            {%- set path = route_generator.route(pagerfanta.getNextPage()) -%}
-            {%- set page = pagerfanta.getNextPage() -%}
+            {%- set page = pagerfanta.getNextPosition().page -%}
+            {%- set path = route_generator.route(page) -%}
             {{- block('next_page_link') -}}
         {%- else -%}
             {{- block('next_page_link_disabled') -}}

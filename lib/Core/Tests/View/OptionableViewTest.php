@@ -30,23 +30,12 @@ final class OptionableViewTest extends TestCase
      */
     private Stub&PagerfantaInterface $pagerfanta;
 
-    /**
-     * @phpstan-var \Closure(int $page): string
-     */
-    private \Closure $routeGenerator;
+    private PositionRouteGeneratorInterface $routeGenerator;
 
     protected function setUp(): void
     {
         $this->pagerfanta = $this->createStub(PagerfantaInterface::class);
-        $this->routeGenerator = $this->createRouteGenerator();
-    }
-
-    /**
-     * @return \Closure(int $page): string
-     */
-    private function createRouteGenerator(): \Closure
-    {
-        return static fn (int $page) => '';
+        $this->routeGenerator = $this->createPositionRouteGenerator();
     }
 
     public function testRenderShouldDelegateToTheView(): void
@@ -84,7 +73,7 @@ final class OptionableViewTest extends TestCase
         return new PositionRouteGeneratorDecorator(static fn (Position $position): string => '|'.($position instanceof PagePosition ? $position->page : 'cursor').'|');
     }
 
-    public function testAPositionRouteGeneratorIsGivenToAViewAcceptingIt(): void
+    public function testTheDefaultOptionsAreUsedByTheDecoratedView(): void
     {
         $pagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage(new ArrayAdapter(range(1, 30)), 2, 10);
 
@@ -94,20 +83,6 @@ final class OptionableViewTest extends TestCase
         );
     }
 
-    public function testAPositionRouteGeneratorIsAdaptedForAViewWhichOnlyAcceptsPageNumbers(): void
-    {
-        $view = $this->createMock(ViewInterface::class);
-        $view->expects($this->once())
-            ->method('render')
-            ->willReturnCallback(function (PagerfantaInterface $pagerfanta, callable $routeGenerator): string {
-                $this->assertNotInstanceOf(PositionRouteGeneratorInterface::class, $routeGenerator);
-
-                return $routeGenerator(4);
-            });
-
-        $this->assertSame('|4|', (new OptionableView($view, []))->render($this->pagerfanta, $this->createPositionRouteGenerator()));
-    }
-
     public function testTheSupportedPagersComeFromTheDecoratedView(): void
     {
         $cursorPager = new CursorPagerfanta(new CallbackCursorAdapter(static fn (): CursorSlice => new CursorSlice([])));
@@ -115,6 +90,5 @@ final class OptionableViewTest extends TestCase
         $this->assertTrue((new OptionableView(new DefaultView(), []))->supports($this->pagerfanta));
         $this->assertFalse((new OptionableView(new DefaultView(), []))->supports($cursorPager));
         $this->assertTrue((new OptionableView(new SequentialView(new DefaultTemplate()), []))->supports($cursorPager));
-        $this->assertFalse((new OptionableView($this->createMock(ViewInterface::class), []))->supports($cursorPager), 'A view without a supports() method only supports offset pagers');
     }
 }

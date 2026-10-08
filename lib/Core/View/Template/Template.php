@@ -6,7 +6,6 @@ use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Exception\RuntimeException;
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
-use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 
 abstract class Template implements TemplateInterface
 {
@@ -16,7 +15,7 @@ abstract class Template implements TemplateInterface
     private array $options;
 
     /**
-     * @var (callable(int): string)|RouteGeneratorInterface|null
+     * @var (callable(int): string)|null
      */
     private $routeGenerator;
 
@@ -30,7 +29,7 @@ abstract class Template implements TemplateInterface
     /**
      * Sets the route generator used while rendering the template.
      *
-     * @param (callable(int): string)|RouteGeneratorInterface $routeGenerator
+     * @param callable(int): string $routeGenerator
      */
     public function setRouteGenerator(callable $routeGenerator): void
     {
@@ -90,7 +89,7 @@ abstract class Template implements TemplateInterface
     }
 
     /**
-     * @return (callable(int): string)|RouteGeneratorInterface
+     * @return callable(int): string
      *
      * @throws RuntimeException if the route generator has not been set
      */

@@ -3,15 +3,12 @@
 namespace Pagerfanta\Twig\View;
 
 use Pagerfanta\CursorPagerInterface;
-use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\OffsetPagerInterface;
 use Pagerfanta\PagerInterface;
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PageNumberRouteGenerator;
-use Pagerfanta\RouteGenerator\PageRouteGeneratorWrapper;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
-use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
-use Pagerfanta\View\PagerViewInterface;
 use Pagerfanta\View\View;
 use Twig\BlockChain;
 use Twig\Environment;
@@ -20,10 +17,10 @@ use Twig\TemplateWrapper;
 /**
  * View which renders a pager with Twig templates.
  *
- * Pagers implementing {@see PagerfantaInterface} are rendered with numbered page links, unless the "sequential" option is
+ * Pagers implementing {@see OffsetPagerInterface} are rendered with numbered page links, unless the "sequential" option is
  * set. All other pagers are rendered with previous and next links, using the "sequential_pager" block of the template.
  */
-final class TwigView extends View implements PagerViewInterface
+final class TwigView extends View
 {
     public const string DEFAULT_TEMPLATE = '@Pagerfanta/default.html.twig';
 
@@ -50,25 +47,21 @@ final class TwigView extends View implements PagerViewInterface
     }
 
     /**
-     * @param PagerfantaInterface<mixed>|PagerInterface<mixed, Position> $pager
+     * @param PagerInterface<mixed, Position> $pager
      */
-    public function supports(PagerfantaInterface|PagerInterface $pager): bool
+    #[\Override]
+    public function supports(PagerInterface $pager): bool
     {
         return true;
     }
 
     /**
-     * @param PagerfantaInterface<mixed>|PagerInterface<mixed, Position>                    $pager
-     * @param PositionRouteGeneratorInterface|RouteGeneratorInterface|callable(int): string $routeGenerator
-     * @param array<string, mixed>                                                          $options
+     * @param PagerInterface<mixed, Position> $pager
+     * @param array<string, mixed>            $options
      */
-    public function render(PagerfantaInterface|PagerInterface $pager, callable $routeGenerator, array $options = []): string
+    public function render(PagerInterface $pager, PositionRouteGeneratorInterface $routeGenerator, array $options = []): string
     {
-        if (!$routeGenerator instanceof PositionRouteGeneratorInterface) {
-            trigger_deprecation('pagerfanta/twig', '4.10', 'Passing a page number based route generator to "%s::render()" is deprecated, pass an instance of "%s" instead.', self::class, PositionRouteGeneratorInterface::class);
-        }
-
-        if (!$pager instanceof PagerfantaInterface || true === ($options['sequential'] ?? false)) {
+        if (!$pager instanceof OffsetPagerInterface || true === ($options['sequential'] ?? false)) {
             return $this->renderSequential($pager, $routeGenerator, $options);
         }
 
@@ -93,11 +86,10 @@ final class TwigView extends View implements PagerViewInterface
     }
 
     /**
-     * @param PagerfantaInterface<mixed>|PagerInterface<mixed, Position>                    $pager
-     * @param PositionRouteGeneratorInterface|RouteGeneratorInterface|callable(int): string $routeGenerator
-     * @param array<string, mixed>                                                          $options
+     * @param PagerInterface<mixed, Position> $pager
+     * @param array<string, mixed>            $options
      */
-    private function renderSequential(PagerfantaInterface|PagerInterface $pager, callable $routeGenerator, array $options): string
+    private function renderSequential(PagerInterface $pager, PositionRouteGeneratorInterface $routeGenerator, array $options): string
     {
         $this->initializeOptions($options);
 
@@ -108,7 +100,7 @@ final class TwigView extends View implements PagerViewInterface
             'pager_widget',
             [
                 'pagerfanta' => $pager,
-                'route_generator' => new PositionRouteGeneratorDecorator(PageRouteGeneratorWrapper::wrap($routeGenerator)),
+                'route_generator' => new PositionRouteGeneratorDecorator($routeGenerator),
                 'options' => $options,
                 'sequential' => true,
                 'supports_backward_navigation' => !$pager instanceof CursorPagerInterface || $pager->supportsBackwardNavigation(),

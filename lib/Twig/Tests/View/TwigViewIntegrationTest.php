@@ -3,9 +3,13 @@
 namespace Pagerfanta\Twig\Tests\View;
 
 use Pagerfanta\Adapter\FixedAdapter;
+use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
-use Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface;
-use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
+use Pagerfanta\Position\PagePosition;
+use Pagerfanta\Position\Position;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 use Pagerfanta\Twig\Extension\PagerfantaExtension;
 use Pagerfanta\Twig\Extension\PagerfantaRuntime;
 use Pagerfanta\Twig\View\TwigView;
@@ -50,7 +54,7 @@ final class TwigViewIntegrationTest extends TestCase
         {%- endblock next_page_message -%}
         TWIG;
 
-    public RouteGeneratorFactoryInterface $routeGeneratorFactory;
+    public PositionRouteGeneratorFactoryInterface $routeGeneratorFactory;
     public Environment $twig;
 
     protected function setUp(): void
@@ -428,7 +432,7 @@ final class TwigViewIntegrationTest extends TestCase
     {
         $this->assertNotEmpty(new TwigView($this->twig)->render(
             $this->createPagerfanta(),
-            $this->createRouteGeneratorFactory()->create()
+            $this->createRouteGeneratorFactory()->createPositionRouteGenerator()
         ));
     }
 
@@ -438,7 +442,7 @@ final class TwigViewIntegrationTest extends TestCase
             'Twig template from options',
             new TwigView($this->twig, 'constructor.html.twig')->render(
                 $this->createPagerfanta(),
-                $this->createRouteGeneratorFactory()->create(),
+                $this->createRouteGeneratorFactory()->createPositionRouteGenerator(),
                 ['template' => 'options.html.twig']
             )
         );
@@ -450,7 +454,7 @@ final class TwigViewIntegrationTest extends TestCase
             'Twig template from constructor',
             new TwigView($this->twig, 'constructor.html.twig')->render(
                 $this->createPagerfanta(),
-                $this->createRouteGeneratorFactory()->create()
+                $this->createRouteGeneratorFactory()->createPositionRouteGenerator()
             )
         );
     }
@@ -461,7 +465,7 @@ final class TwigViewIntegrationTest extends TestCase
 
         $view->render(
             $this->createPagerfanta(),
-            $this->createRouteGeneratorFactory()->create(),
+            $this->createRouteGeneratorFactory()->createPositionRouteGenerator(),
             ['template' => 'options.html.twig']
         );
 
@@ -469,7 +473,7 @@ final class TwigViewIntegrationTest extends TestCase
             '<nav class="pagination">',
             $view->render(
                 $this->createPagerfanta(),
-                $this->createRouteGeneratorFactory()->create()
+                $this->createRouteGeneratorFactory()->createPositionRouteGenerator()
             )
         );
     }
@@ -509,7 +513,7 @@ final class TwigViewIntegrationTest extends TestCase
         $this->assertViewOutputMatches(
             (new TwigView($this->twig, ['messages.html.twig']))->render(
                 $pagerfanta,
-                $this->createRouteGeneratorFactory()->create(['omitFirstPage' => true]),
+                $this->createRouteGeneratorFactory()->createPositionRouteGenerator(['omitFirstPage' => true]),
                 ['omitFirstPage' => true]
             ),
             '<nav class="pagination">
@@ -536,7 +540,7 @@ final class TwigViewIntegrationTest extends TestCase
             'Twig template from constructor',
             (new TwigView($this->twig, 'constructor.html.twig'))->render(
                 $this->createPagerfanta(),
-                $this->createRouteGeneratorFactory()->create(),
+                $this->createRouteGeneratorFactory()->createPositionRouteGenerator(),
                 ['template' => ['messages.html.twig']]
             )
         );
@@ -550,7 +554,7 @@ final class TwigViewIntegrationTest extends TestCase
             'Twig template from options',
             (new TwigView($this->twig, ['constructor.html.twig', '@Pagerfanta/default.html.twig']))->render(
                 $this->createPagerfanta(),
-                $this->createRouteGeneratorFactory()->create(),
+                $this->createRouteGeneratorFactory()->createPositionRouteGenerator(),
                 ['template' => ['options.html.twig', 'messages.html.twig', 'options.html.twig', '@Pagerfanta/default.html.twig']]
             )
         );
@@ -567,7 +571,7 @@ final class TwigViewIntegrationTest extends TestCase
 
         (new TwigView($this->twig))->render(
             $this->createPagerfanta(),
-            $this->createRouteGeneratorFactory()->create(),
+            $this->createRouteGeneratorFactory()->createPositionRouteGenerator(),
             ['template' => ['messages.html.twig']]
         );
     }
@@ -579,33 +583,27 @@ final class TwigViewIntegrationTest extends TestCase
         }
     }
 
-    private function createRouteGeneratorFactory(): RouteGeneratorFactoryInterface
+    private function createRouteGeneratorFactory(): PositionRouteGeneratorFactoryInterface
     {
-        return new class implements RouteGeneratorFactoryInterface {
+        return new class implements PositionRouteGeneratorFactoryInterface {
             /**
              * @param array<string, mixed> $options
              */
-            public function create(array $options = []): RouteGeneratorInterface
+            public function createPositionRouteGenerator(array $options = []): PositionRouteGeneratorInterface
             {
-                return new readonly class($options) implements RouteGeneratorInterface {
-                    /**
-                     * @param array<string, mixed> $options
-                     */
-                    public function __construct(
-                        private array $options,
-                    ) {}
-
-                    public function __invoke(int $page): string
-                    {
-                        $omitFirstPage = $this->options['omitFirstPage'] ?? false;
-
-                        if ($page > 1 || (1 === $page && !$omitFirstPage)) {
-                            return '/pagerfanta-view?page='.$page;
-                        }
-
-                        return '/pagerfanta-view';
+                return new PositionRouteGeneratorDecorator(static function (Position $position) use ($options): string {
+                    if (!$position instanceof PagePosition) {
+                        throw new InvalidArgumentException('Only page positions are supported.');
                     }
-                };
+
+                    $omitFirstPage = $options['omitFirstPage'] ?? false;
+
+                    if ($position->page > 1 || !$omitFirstPage) {
+                        return '/pagerfanta-view?page='.$position->page;
+                    }
+
+                    return '/pagerfanta-view';
+                });
             }
         };
     }

@@ -2,10 +2,12 @@
 
 namespace Pagerfanta\View;
 
-use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\Exception\InvalidArgumentException;
+use Pagerfanta\OffsetPagerInterface;
+use Pagerfanta\PagerInterface;
+use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PageNumberRouteGenerator;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
-use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 use Pagerfanta\View\Template\TemplateInterface;
 
 abstract class TemplateView extends View
@@ -29,32 +31,31 @@ abstract class TemplateView extends View
     abstract protected function createDefaultTemplate(): TemplateInterface;
 
     /**
-     * @param PagerfantaInterface<mixed>                                                    $pagerfanta
-     * @param PositionRouteGeneratorInterface|RouteGeneratorInterface|callable(int): string $routeGenerator
-     * @param array<string, mixed>                                                          $options
+     * @param PagerInterface<mixed, Position> $pager
+     * @param array<string, mixed>            $options
+     *
+     * @throws InvalidArgumentException if the pager is not an offset pager
      */
-    public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
+    public function render(PagerInterface $pager, PositionRouteGeneratorInterface $routeGenerator, array $options = []): string
     {
-        if ($routeGenerator instanceof PositionRouteGeneratorInterface) {
-            // The numbered templates link to pages by their number
-            $routeGenerator = new PageNumberRouteGenerator($routeGenerator);
-        } else {
-            trigger_deprecation('pagerfanta/core', '4.10', 'Passing a page number based route generator to "%s::render()" is deprecated, pass an instance of "%s" instead.', static::class, PositionRouteGeneratorInterface::class);
+        if (!$pager instanceof OffsetPagerInterface) {
+            throw new InvalidArgumentException(\sprintf('The "%s" view can only render pagers implementing "%s", "%s" given.', static::class, OffsetPagerInterface::class, get_debug_type($pager)));
         }
 
         $this->template = clone $this->baseTemplate;
 
-        $this->initializePagerfanta($pagerfanta);
+        $this->initializePagerfanta($pager);
         $this->initializeOptions($options);
 
-        $this->configureTemplate($routeGenerator, $options);
+        // The numbered templates link to pages by their number
+        $this->configureTemplate(new PageNumberRouteGenerator($routeGenerator), $options);
 
         return $this->generate();
     }
 
     /**
-     * @param callable(int): string|RouteGeneratorInterface $routeGenerator
-     * @param array<string, mixed>                          $options
+     * @param callable(int): string $routeGenerator
+     * @param array<string, mixed>  $options
      */
     private function configureTemplate(callable $routeGenerator, array $options): void
     {
@@ -90,7 +91,7 @@ abstract class TemplateView extends View
     private function previous(): string
     {
         if ($this->pagerfanta->hasPreviousPage()) {
-            return $this->template->previousEnabled($this->pagerfanta->getPreviousPage());
+            return $this->template->previousEnabled($this->pagerfanta->getPreviousPosition()->page);
         }
 
         return $this->template->previousDisabled();
@@ -176,7 +177,7 @@ abstract class TemplateView extends View
     private function next(): string
     {
         if ($this->pagerfanta->hasNextPage()) {
-            return $this->template->nextEnabled($this->pagerfanta->getNextPage());
+            return $this->template->nextEnabled($this->pagerfanta->getNextPosition()->page);
         }
 
         return $this->template->nextDisabled();

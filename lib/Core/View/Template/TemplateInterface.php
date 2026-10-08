@@ -4,7 +4,6 @@ namespace Pagerfanta\View\Template;
 
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
-use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 
 /**
  * @method void   setPositionRouteGenerator(PositionRouteGeneratorInterface $routeGenerator)
@@ -16,7 +15,7 @@ interface TemplateInterface /* extends SequentialTemplateInterface */
     /**
      * Sets the route generator used while rendering the template.
      *
-     * @param (callable(int): string)|RouteGeneratorInterface $routeGenerator
+     * @param callable(int): string $routeGenerator
      */
     public function setRouteGenerator(callable $routeGenerator): void;
 

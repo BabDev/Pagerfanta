@@ -16,7 +16,7 @@ final class PageNumberRouteGeneratorTest extends TestCase
         return new PositionRouteGeneratorDecorator(static fn (Position $position): string => $position instanceof PagePosition ? '/posts?page='.$position->page : '/posts');
     }
 
-    public function testAPositionRouteGeneratorIsGivenAPagePosition(): void
+    public function testTheRouteGeneratorIsGivenAPagePosition(): void
     {
         $generator = new PageNumberRouteGenerator($this->createPositionRouteGenerator());
 
@@ -24,18 +24,10 @@ final class PageNumberRouteGeneratorTest extends TestCase
         $this->assertSame('/posts?page=3', $generator->route(3));
     }
 
-    public function testAPositionRouteGeneratorCannotBeGivenAPageLessThan1(): void
+    public function testAPageLessThan1CannotBeRouted(): void
     {
         $this->expectException(LessThan1CurrentPageException::class);
 
         (new PageNumberRouteGenerator($this->createPositionRouteGenerator()))->route(0);
-    }
-
-    public function testAPageNumberRouteGeneratorIsGivenThePageAsIs(): void
-    {
-        $generator = new PageNumberRouteGenerator(static fn (int $page): string => '/posts?page='.$page);
-
-        $this->assertSame('/posts?page=2', $generator(2));
-        $this->assertSame('/posts?page=0', $generator->route(0));
     }
 }

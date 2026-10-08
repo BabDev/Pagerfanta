@@ -2,28 +2,25 @@
 
 namespace Pagerfanta\View;
 
-use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\PagerInterface;
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
-use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
 
-/**
- * In 5.0, the render() method will accept any {@see PagerInterface} and a {@see PositionRouteGeneratorInterface}, and the
- * supports() method will be added. Implement {@see PagerViewInterface} to prepare for this change.
- *
- * @method bool supports(PagerfantaInterface<mixed>|PagerInterface<mixed, Position> $pager)
- */
 interface ViewInterface
 {
     /**
-     * Passing a page number based route generator is deprecated since 4.10, views should accept a {@see PositionRouteGeneratorInterface}.
+     * @param PagerInterface<mixed, Position> $pager
+     * @param array<string, mixed>            $options
      *
-     * @param PagerfantaInterface<mixed>                                                    $pagerfanta
-     * @param PositionRouteGeneratorInterface|RouteGeneratorInterface|callable(int): string $routeGenerator
-     * @param array<string, mixed>                                                          $options
+     * @throws InvalidArgumentException if the pager is not supported by this view
      */
-    public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string;
+    public function render(PagerInterface $pager, PositionRouteGeneratorInterface $routeGenerator, array $options = []): string;
+
+    /**
+     * @param PagerInterface<mixed, Position> $pager
+     */
+    public function supports(PagerInterface $pager): bool;
 
     public function getName(): string;
 }

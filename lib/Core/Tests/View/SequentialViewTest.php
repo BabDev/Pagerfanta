@@ -8,14 +8,12 @@ use Pagerfanta\Adapter\CursorSlice;
 use Pagerfanta\Cursor\Cursor;
 use Pagerfanta\Cursor\Direction;
 use Pagerfanta\CursorPagerfanta;
-use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Exception\RuntimeException;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Position\CursorPosition;
 use Pagerfanta\Position\PagePosition;
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;
-use Pagerfanta\Tests\CapturesDeprecations;
 use Pagerfanta\View\DefaultView;
 use Pagerfanta\View\SequentialView;
 use Pagerfanta\View\Template\DefaultTemplate;
@@ -27,13 +25,10 @@ use Pagerfanta\View\Template\TwitterBootstrap4Template;
 use Pagerfanta\View\Template\TwitterBootstrap5Template;
 use Pagerfanta\View\Template\TwitterBootstrapTemplate;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 final class SequentialViewTest extends TestCase
 {
-    use CapturesDeprecations;
-
     /**
      * The markup of each theme, as sprintf formats: the container (with the links), the enabled previous and next links (with the URL), and the disabled previous and next links.
      *
@@ -132,6 +127,11 @@ final class SequentialViewTest extends TestCase
         return new CursorPagerfanta($adapter, 1, new CursorPosition(new Cursor(['id' => 1])));
     }
 
+    private function createPageRouteGenerator(): PositionRouteGeneratorDecorator
+    {
+        return new PositionRouteGeneratorDecorator(static fn (Position $position): string => '|'.($position instanceof PagePosition ? $position->page : 'cursor').'|');
+    }
+
     private function createPositionRouteGenerator(): PositionRouteGeneratorDecorator
     {
         return new PositionRouteGeneratorDecorator(static fn (Position $position): string => match (true) {
@@ -149,7 +149,7 @@ final class SequentialViewTest extends TestCase
     {
         $this->assertSame(
             \sprintf($container, \sprintf($previous, '|1|').\sprintf($next, '|3|')),
-            (new SequentialView($template()))->render($this->createOffsetPager(30, 2), static fn (int $page): string => '|'.$page.'|'),
+            (new SequentialView($template()))->render($this->createOffsetPager(30, 2), $this->createPageRouteGenerator()),
         );
     }
 
@@ -161,7 +161,7 @@ final class SequentialViewTest extends TestCase
     {
         $this->assertSame(
             \sprintf($container, $previousDisabled.$nextDisabled),
-            (new SequentialView($template()))->render($this->createOffsetPager(5, 1), static fn (int $page): string => '|'.$page.'|'),
+            (new SequentialView($template()))->render($this->createOffsetPager(5, 1), $this->createPageRouteGenerator()),
         );
     }
 
@@ -209,18 +209,11 @@ final class SequentialViewTest extends TestCase
         );
     }
 
-    public function testAPageRouteGeneratorCannotRenderACursorPager(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        (new SequentialView(new DefaultTemplate()))->render($this->createCursorPager(true), static fn (int $page): string => '|'.$page.'|');
-    }
-
     public function testTheOptionsArePassedToTheTemplate(): void
     {
         $this->assertSame(
             '<nav class="pagination"><a class="pagination__item pagination__item--previous-page" href="|1|" rel="prev">Newer</a><a class="pagination__item pagination__item--next-page" href="|3|" rel="next">Older</a></nav>',
-            (new SequentialView(new DefaultTemplate()))->render($this->createOffsetPager(30, 2), static fn (int $page): string => '|'.$page.'|', ['prev_message' => 'Newer', 'next_message' => 'Older']),
+            (new SequentialView(new DefaultTemplate()))->render($this->createOffsetPager(30, 2), $this->createPageRouteGenerator(), ['prev_message' => 'Newer', 'next_message' => 'Older']),
         );
     }
 
@@ -232,7 +225,7 @@ final class SequentialViewTest extends TestCase
 
         $this->assertSame(
             '<nav class="pagination"><a class="pagination__item pagination__item--previous-page" href="|1|" rel="prev">Previous</a><a class="pagination__item" href="|1|">1</a><span class="pagination__item pagination__item--current-page">2</span><a class="pagination__item" href="|3|">3</a><a class="pagination__item pagination__item--next-page" href="|3|" rel="next">Next</a></nav>',
-            (new DefaultView($template))->render($this->createOffsetPager(30, 2), static fn (int $page): string => '|'.$page.'|'),
+            (new DefaultView($template))->render($this->createOffsetPager(30, 2), $this->createPageRouteGenerator()),
             'The numbered view uses its own page route generator',
         );
     }
@@ -255,7 +248,7 @@ final class SequentialViewTest extends TestCase
     public function testTheOptionsFromAPreviousRenderAreNotReused(): void
     {
         $view = new SequentialView(new DefaultTemplate());
-        $routeGenerator = static fn (int $page): string => '|'.$page.'|';
+        $routeGenerator = $this->createPageRouteGenerator();
 
         $this->assertStringContainsString('rel="prev">Newer</a>', $view->render($this->createOffsetPager(30, 2), $routeGenerator, ['prev_message' => 'Newer']));
         $this->assertStringContainsString('rel="prev">Previous</a>', $view->render($this->createOffsetPager(30, 2), $routeGenerator));
@@ -267,7 +260,7 @@ final class SequentialViewTest extends TestCase
         $template->setOptions(['prev_message' => 'Newer']);
 
         $view = new SequentialView($template);
-        $routeGenerator = static fn (int $page): string => '|'.$page.'|';
+        $routeGenerator = $this->createPageRouteGenerator();
 
         $first = $view->render($this->createOffsetPager(30, 2), $routeGenerator, ['next_message' => 'Older']);
 
@@ -278,18 +271,5 @@ final class SequentialViewTest extends TestCase
 
         $this->assertStringContainsString('rel="prev">Newer</a>', $second);
         $this->assertStringContainsString('rel="next">Next</a>', $second);
-    }
-
-    #[Group('legacy')]
-    public function testAPageNumberRouteGeneratorIsDeprecated(): void
-    {
-        $deprecations = $this->captureDeprecations(fn () => (new SequentialView(new DefaultTemplate()))->render($this->createOffsetPager(30, 2), static fn (int $page): string => '|'.$page.'|'));
-
-        $this->assertSame(['Since pagerfanta/core 4.10: Passing a page number based route generator to "Pagerfanta\\View\\SequentialView::render()" is deprecated, pass an instance of "Pagerfanta\\RouteGenerator\\PositionRouteGeneratorInterface" instead.'], $deprecations);
-    }
-
-    public function testAPositionRouteGeneratorIsNotDeprecated(): void
-    {
-        $this->assertSame([], $this->captureDeprecations(fn () => (new SequentialView(new DefaultTemplate()))->render($this->createCursorPager(true), $this->createPositionRouteGenerator())));
     }
 }
