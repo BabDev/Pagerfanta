@@ -9,6 +9,7 @@
         <testsuite name="Pagerfanta Test Suite">
             <directory>./lib/Adapter/**/Tests</directory>
             <directory>./lib/Core/Tests</directory>
+            <directory>./lib/Twig/Tests</directory>
         </testsuite>
     </testsuites>
 
@@ -19,6 +20,7 @@
         <exclude>
             <directory>./lib/Adapter/**/Tests</directory>
             <directory>./lib/Core/Tests</directory>
+            <directory>./lib/Twig/Tests</directory>
         </exclude>
     </source>
 </phpunit>
