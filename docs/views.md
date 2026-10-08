@@ -2,30 +2,34 @@
 
 Pagerfanta defines `Pagerfanta\View\ViewInterface` which is the abstraction layer for rendering a pagination list.
 
-The interface requires two methods to be implemented:
+The interface requires three methods to be implemented:
 
 - `render`: Generates the markup for the pagination list
-- `getName`: Retrieves the unique name of the view 
+- `supports`: Checks whether the view can render a pager
+- `getName`: Retrieves the unique name of the view
 
 ```php
 <?php
 
 namespace Pagerfanta\View;
 
-use Pagerfanta\PagerfantaInterface;
+use Pagerfanta\PagerInterface;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 
 interface ViewInterface
 {
     /**
-     * @param callable $routeGenerator callable with a signature of `function (int $page): string {}`, or a `Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface`
+     * @throws \Pagerfanta\Exception\InvalidArgumentException if the pager is not supported by this view
      */
-    public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string;
+    public function render(PagerInterface $pager, PositionRouteGeneratorInterface $routeGenerator, array $options = []): string;
+
+    public function supports(PagerInterface $pager): bool;
 
     public function getName(): string;
 }
 ```
 
-<div class="docs-note docs-note--deprecated-feature">Passing a page number based route generator to a view is deprecated since Pagerfanta 4.10, all of the views provided by Pagerfanta accept a <a href="/open-source/packages/pagerfanta/docs/4.x/route-generator#position-route-generators">position route generator</a>. In Pagerfanta 5.0, the <code>render</code> method will accept any pager and a position route generator, and a <code>supports</code> method will be added to check whether a view can render a pager. Implement the <code>Pagerfanta\View\PagerViewInterface</code> to prepare for this change.</div>
+Views are given a [route generator](/open-source/packages/pagerfanta/docs/5.x/route-generator) to build the URL for each page they link to.
 
 ## Base Classes
 
@@ -33,7 +37,7 @@ Pagerfanta provides two base classes to build upon to assist in creating custom 
 
 ### `Pagerfanta\View\View`
 
-The `View` class is the base class that is recommended for use. It contains all of the logic necessary for calculating the page items to be displayed in the pagination list.
+The `View` class is the base class that is recommended for use when rendering numbered page links. It contains all of the logic necessary for calculating the page items to be displayed in the pagination list, and supports any offset pager (a pager implementing `Pagerfanta\OffsetPagerInterface`, such as the `Pagerfanta\Pagerfanta` class).
 
 ### `Pagerfanta\View\TemplateView`
 
@@ -41,7 +45,7 @@ The `TemplateView` class is an extension of the `View` class and provides suppor
 
 ## Available Views
 
-Below is a list of the views that are available with this package, and the corresponding template class.
+Below is a list of the views that are available with this package, and the corresponding template class. These views render numbered page links for offset pagers.
 
 | View Name            | View Class Name                         | Template Class Name                                  |
 |----------------------|-----------------------------------------|------------------------------------------------------|
@@ -55,27 +59,7 @@ Below is a list of the views that are available with this package, and the corre
 
 ## Sequential Views
 
-<div class="docs-note docs-note--new-feature">Sequential views were introduced in Pagerfanta 4.10.</div>
-
-The views above render numbered page links, which requires the total number of pages and is only possible with offset pagers. Sequential views only render links to the previous and next pages, so they can render any pager, including [cursor pagers](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination).
-
-Views which can render any pager implement `Pagerfanta\View\PagerViewInterface`, which extends `ViewInterface` with a `render` method accepting any pager and a `supports` method to check whether the view can render a pager.
-
-```php
-<?php
-
-namespace Pagerfanta\View;
-
-use Pagerfanta\PagerfantaInterface;
-use Pagerfanta\PagerInterface;
-
-interface PagerViewInterface extends ViewInterface
-{
-    public function render(PagerfantaInterface|PagerInterface $pager, callable $routeGenerator, array $options = []): string;
-
-    public function supports(PagerfantaInterface|PagerInterface $pager): bool;
-}
-```
+The views above render numbered page links, which requires the total number of pages and is only possible with offset pagers. Sequential views only render links to the previous and next pages, so they can render any pager, including [cursor pagers](/open-source/packages/pagerfanta/docs/5.x/cursor-pagination).
 
 The `Pagerfanta\View\SequentialView` renders the previous and next links using any template implementing `Pagerfanta\View\Template\SequentialTemplateInterface`, which all of the templates listed above do. The view name defaults to `sequential` and can be changed with the second argument.
 
@@ -92,7 +76,22 @@ echo $view->render($pager, $routeGenerator, ['prev_message' => 'Newer', 'next_me
 
 The previous link is disabled when there is no previous page, and omitted entirely for cursor pagers which do not support backward navigation.
 
-<div class="docs-note">To render a cursor pager, the route generator must be a position route generator, see the <a href="/open-source/packages/pagerfanta/docs/4.x/route-generator#position-route-generators">route generator documentation</a>. A plain callable is treated as a page number based route generator, which can only render offset pagers.</div>
+Use the `supports` method to check whether a view can render a pager.
+
+```php
+<?php
+
+use Pagerfanta\View\DefaultView;
+use Pagerfanta\View\SequentialView;
+use Pagerfanta\View\Template\DefaultTemplate;
+
+$numberedView = new DefaultView();
+$sequentialView = new SequentialView(new DefaultTemplate());
+
+$view = $numberedView->supports($pager) ? $numberedView : $sequentialView;
+
+echo $view->render($pager, $routeGenerator);
+```
 
 ## Twig View
 
@@ -156,9 +155,7 @@ $environment->addExtension(new PagerfantaExtension());
 
 ### Rendering Cursor Pagers
 
-<div class="docs-note docs-note--new-feature">Rendering cursor pagers with the Twig view was introduced in Pagerfanta 4.10.</div>
-
-The Twig view implements `Pagerfanta\View\PagerViewInterface`. Offset pagers are rendered with numbered page links, and all other pagers (such as cursor pagers) are rendered with previous and next links using the same templates. To render an offset pager with only previous and next links, set the `sequential` option.
+The Twig view supports every pager. Offset pagers are rendered with numbered page links, and all other pagers (such as cursor pagers) are rendered with previous and next links using the same templates. To render an offset pager with only previous and next links, set the `sequential` option.
 
 ```twig
 {{ pagerfanta(pager, 'twig', {'sequential': true}) }}
@@ -174,9 +171,7 @@ The `pagerfanta_position_url()` function generates the URL for a position, such 
 {% endif %}
 ```
 
-When the route generator factory given to the runtime implements `Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface`, it is used to create the route generators for the views and for the `pagerfanta_position_url()` function. Views which only accept page number based route generators are given one adapted from the position route generator.
-
-<div class="docs-note docs-note--deprecated-feature">Giving the runtime a route generator factory which does not implement the <code>PositionRouteGeneratorFactoryInterface</code> is deprecated since Pagerfanta 4.10. Until then, its page number based route generators are adapted, which only support offset pagers.</div>
+The [route generator factory](/open-source/packages/pagerfanta/docs/5.x/route-generator#generator-factory) given to the runtime is used to create the route generators for the views and for the `pagerfanta_page_url()` and `pagerfanta_position_url()` functions.
 
 ### Creating a Twig View Template
 
@@ -188,9 +183,8 @@ The `pager` block is designed to hold the structure of the pager and generally s
 
 When rendering a Twig view, the following options are passed into the template for use. Note that for the most part, only the `pager` block will use these variables.
 
-- `pagerfanta` - The `Pagerfanta\PagerfantaInterface` object
-- `route_generator` - A `Pagerfanta\RouteGenerator\RouteGeneratorDecorator` object which decorates the route generator created by the `pagerfanta()` Twig function
-    - The decorator is required because Twig does not allow direct execution of Closures within templates
+- `pagerfanta` - The pager, a `Pagerfanta\OffsetPagerInterface` object when rendering numbered page links
+- `route_generator` - A `Pagerfanta\RouteGenerator\PageNumberRouteGenerator` object, whose `route()` method generates the URL for a page number using the route generator created by the `pagerfanta()` Twig function
 - `options` - The options array passed through the `pagerfanta()` Twig function
 - `start_page` - The calculated start page for the list of items displayed between separators, this is based on the `proximity` option and the total number of pages
 - `end_page` - The calculated end page for the list of items displayed between separators, this is based on the `proximity` option and the total number of pages
@@ -216,7 +210,7 @@ If you want to create your own Twig template, the quickest and easiest way to do
 
 ### Composing Templates
 
-When using Twig 3.29 or later, the `template` option (and the default template given to the `Pagerfanta\Twig\View\TwigView` constructor) also accepts a list of template names, ordered from highest to lowest precedence. The blocks of these templates are composed together, so a template only needs to define the blocks it overrides and does not need to extend another template. This allows a set of overrides to be reused across any of the supplied templates.
+The `template` option (and the default template given to the `Pagerfanta\Twig\View\TwigView` constructor) also accepts a list of template names, ordered from highest to lowest precedence. The blocks of these templates are composed together, so a template only needs to define the blocks it overrides and does not need to extend another template. This allows a set of overrides to be reused across any of the supplied templates.
 
 For example, a `pager_messages.html.twig` template containing only the `previous_page_message` and `next_page_message` blocks can be combined with the Bootstrap 5 template:
 

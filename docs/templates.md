@@ -1,40 +1,40 @@
 # Templates
 
-Pagerfanta defines `Pagerfanta\View\Template\TemplateInterface` which is an abstraction layer for building the markup for different sections of a pagination list.
+Pagerfanta defines two interfaces which are an abstraction layer for building the markup for different sections of a pagination list:
+
+- `Pagerfanta\View\Template\SequentialTemplateInterface` for rendering the previous and next links of any pager
+- `Pagerfanta\View\Template\TemplateInterface`, which extends the sequential template interface for rendering numbered page links
+
+All of the templates provided by Pagerfanta implement the `TemplateInterface`, so they can be used with both the numbered and the sequential views.
+
+## Sequential Templates
+
+The `Pagerfanta\View\Template\SequentialTemplateInterface` is used by the [sequential view](/open-source/packages/pagerfanta/docs/5.x/views#sequential-views) to render the previous and next links of any pager, using [positions](/open-source/packages/pagerfanta/docs/5.x/route-generator) instead of page numbers.
 
 The interface requires several methods to be implemented:
 
-- `setRouteGenerator`: Injects the route generator to use while rendering the template
+- `setPositionRouteGenerator`: Injects the route generator to use while rendering the template
 - `setOptions`: Sets options for the template
 - `container`: Generates the wrapping container for the pagination list
-- `page`: Generates the markup for a single page in the pagination list 
-- `pageWithText`: Generates the markup for a single page with the specified text label 
-- `previousDisabled`: Generates the markup for the previous page button in the disabled state 
-- `previousEnabled`: Generates the markup for the previous page button in the enabled state 
-- `nextDisabled`: Generates the markup for the next page button in the disabled state 
-- `nextEnabled`: Generates the markup for the next page button in the enabled state 
-- `first`: Generates the markup for the first page button 
-- `last`: Generates the markup for the last page button 
-- `current`: Generates the markup for the current page button 
-- `separator`: Generates the markup for a separator button, used to represent a break in a list of pages (i.e. 1, 2, ..., 6, 7) 
-
-<div class="docs-note docs-note--deprecated-feature">In Pagerfanta 5.0, the <code>TemplateInterface</code> will extend the <a href="#sequential-templates"><code>SequentialTemplateInterface</code></a>, which adds the <code>setPositionRouteGenerator</code>, <code>previousEnabledForPosition</code>, and <code>nextEnabledForPosition</code> methods. These replace the page number based <code>setRouteGenerator</code>, <code>previousEnabled</code>, and <code>nextEnabled</code> methods, which are deprecated since Pagerfanta 4.10 and will be removed in 5.0. Using a template which does not implement the <code>SequentialTemplateInterface</code> with a view is deprecated.</div>
+- `previousDisabled`: Generates the markup for the previous page button in the disabled state
+- `previousEnabledForPosition`: Generates the markup for the previous page button in the enabled state, linking to the given position
+- `nextDisabled`: Generates the markup for the next page button in the disabled state
+- `nextEnabledForPosition`: Generates the markup for the next page button in the enabled state, linking to the given position
 
 ```php
 <?php
 
 namespace Pagerfanta\View\Template;
 
-use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
+use Pagerfanta\Position\Position;
+use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 
-interface TemplateInterface
+interface SequentialTemplateInterface
 {
     /**
-     * Sets the route generator used while rendering the template.
-     *
-     * @param callable|RouteGeneratorInterface $routeGenerator
+     * Sets the position based route generator used while rendering the template.
      */
-    public function setRouteGenerator(callable $routeGenerator): void;
+    public function setPositionRouteGenerator(PositionRouteGeneratorInterface $routeGenerator): void;
 
     /**
      * Sets the options for the template, overwriting keys that were previously set.
@@ -44,10 +44,52 @@ interface TemplateInterface
     /**
      * Renders the container for the pagination.
      *
-     * The %pages% placeholder will be replaced by the rendering of pages.
+     * The %pages% placeholder will be replaced by the rendering of the links.
      */
     public function container(): string;
 
+    /**
+     * Renders the disabled state of the previous page.
+     */
+    public function previousDisabled(): string;
+
+    /**
+     * Renders the enabled state of the previous page, linking to the given position.
+     */
+    public function previousEnabledForPosition(Position $position): string;
+
+    /**
+     * Renders the disabled state of the next page.
+     */
+    public function nextDisabled(): string;
+
+    /**
+     * Renders the enabled state of the next page, linking to the given position.
+     */
+    public function nextEnabledForPosition(Position $position): string;
+}
+```
+
+## Numbered Templates
+
+The `Pagerfanta\View\Template\TemplateInterface` is used by the [numbered views](/open-source/packages/pagerfanta/docs/5.x/views#available-views) to render a list of numbered page links for an offset pager, along with the previous and next links.
+
+In addition to the methods of the `SequentialTemplateInterface`, the interface requires several methods to be implemented:
+
+- `page`: Generates the markup for a single page in the pagination list
+- `pageWithText`: Generates the markup for a single page with the specified text label
+- `first`: Generates the markup for the first page button
+- `last`: Generates the markup for the last page button
+- `current`: Generates the markup for the current page button
+- `separator`: Generates the markup for a separator button, used to represent a break in a list of pages (i.e. 1, 2, ..., 6, 7)
+
+```php
+<?php
+
+namespace Pagerfanta\View\Template;
+
+interface TemplateInterface extends SequentialTemplateInterface
+{
     /**
      * Renders a given page.
      */
@@ -57,26 +99,6 @@ interface TemplateInterface
      * Renders a given page with a specified text.
      */
     public function pageWithText(int $page, string $text, ?string $rel = null): string;
-
-    /**
-     * Renders the disabled state of the previous page.
-     */
-    public function previousDisabled(): string;
-
-    /**
-     * Renders the enabled state of the previous page.
-     */
-    public function previousEnabled(int $page): string;
-
-    /**
-     * Renders the disabled state of the next page.
-     */
-    public function nextDisabled(): string;
-
-    /**
-     * Renders the enabled state of the next page.
-     */
-    public function nextEnabled(int $page): string;
 
     /**
      * Renders the first page.
@@ -100,46 +122,11 @@ interface TemplateInterface
 }
 ```
 
-## Sequential Templates
+## Base Class
 
-<div class="docs-note docs-note--new-feature">Sequential templates were introduced in Pagerfanta 4.10.</div>
+The `Pagerfanta\View\Template\Template` base class is recommended for use when creating a custom template. It implements the `setPositionRouteGenerator()` and `setOptions()` methods, and provides the following helpers:
 
-Pagerfanta defines `Pagerfanta\View\Template\SequentialTemplateInterface` which is used by the [sequential view](/open-source/packages/pagerfanta/docs/4.x/views#sequential-views) to render the previous and next links of any pager, using positions instead of page numbers.
-
-The interface requires several methods to be implemented:
-
-- `setPositionRouteGenerator`: Injects the position route generator to use while rendering the template
-- `setOptions`: Sets options for the template
-- `container`: Generates the wrapping container for the pagination list
-- `previousDisabled`: Generates the markup for the previous page button in the disabled state
-- `previousEnabledForPosition`: Generates the markup for the previous page button in the enabled state, linking to the given position
-- `nextDisabled`: Generates the markup for the next page button in the disabled state
-- `nextEnabledForPosition`: Generates the markup for the next page button in the enabled state, linking to the given position
-
-All of the templates provided by Pagerfanta implement both the `TemplateInterface` and the `SequentialTemplateInterface`, so they can be used with both the numbered and the sequential views. The `Pagerfanta\View\Template\Template` base class provides the `setPositionRouteGenerator()` method and a `generateRouteForPosition()` helper, so a custom template extending it only needs to declare the `SequentialTemplateInterface` and implement the `previousEnabledForPosition()` and `nextEnabledForPosition()` methods to support the sequential view.
-
-```php
-<?php
-
-namespace Pagerfanta\View\Template;
-
-use Pagerfanta\Position\Position;
-use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
-
-interface SequentialTemplateInterface
-{
-    public function setPositionRouteGenerator(PositionRouteGeneratorInterface $routeGenerator): void;
-
-    public function setOptions(array $options): void;
-
-    public function container(): string;
-
-    public function previousDisabled(): string;
-
-    public function previousEnabledForPosition(Position $position): string;
-
-    public function nextDisabled(): string;
-
-    public function nextEnabledForPosition(Position $position): string;
-}
-```
+- `getDefaultOptions`: Override this method to define the default options for the template
+- `option`: Retrieves the value of an option
+- `generateRoute`: Generates the URL for a page number
+- `generateRouteForPosition`: Generates the URL for a position

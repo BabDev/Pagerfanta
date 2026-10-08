@@ -1,7 +1,5 @@
 # Cursor Pagination
 
-<div class="docs-note docs-note--new-feature">Cursor pagination was introduced in Pagerfanta 4.10.</div>
-
 Pagerfanta supports two pagination strategies:
 
 - **Offset pagination** (the `Pagerfanta\Pagerfanta` class) identifies a page by its number, and fetches the items for a page by skipping the items on the pages before it. It always knows the total number of items and pages, so it can link to any page.
@@ -39,7 +37,7 @@ function describe(PagerInterface $pager): void
 
 ## Creating A Cursor Pager
 
-Cursor pagers are created with a cursor adapter (see the [available adapters](/open-source/packages/pagerfanta/docs/4.x/adapters)), the maximum number of items per page, and the position of the current page (or null for the first page).
+Cursor pagers are created with a cursor adapter (see the [available adapters](/open-source/packages/pagerfanta/docs/5.x/adapters)), the maximum number of items per page, and the position of the current page (or null for the first page).
 
 The `Pagerfanta\CursorPagerfantaFactory` creates the right pager for the adapter: a `Pagerfanta\CountableCursorPagerfanta` if the adapter can count its results (it implements `Pagerfanta\Adapter\CountableAdapterInterface`), otherwise a `Pagerfanta\CursorPagerfanta`. Check for `Pagerfanta\CountablePagerInterface` to find out whether the total number of results is available.
 
@@ -59,7 +57,7 @@ if ($pager instanceof CountablePagerInterface) {
 }
 ```
 
-<div class="docs-note">Unlike the <code>Pagerfanta</code> class, the <code>count()</code> method of the cursor pagers returns the number of items on the current page. Use <code>getNbResults()</code> on a countable pager for the total number of results.</div>
+<div class="docs-note">Counting a pager with the <code>count()</code> method returns the number of items on the current page. Use <code>getNbResults()</code> on a countable pager for the total number of results.</div>
 
 Cursor pagers are immutable. To move to another page, create a new pager for its position with the `withPosition()` method, which keeps the adapter and the maximum number of items per page.
 
@@ -97,7 +95,7 @@ Some data sources can only move forward through a cursor (for example, Solr's cu
 
 ### Auto-Pagination
 
-The cursor pagers support [auto-pagination](/open-source/packages/pagerfanta/docs/4.x/usage#auto-pagination), iterating over the items on every page from the current position onwards. As the pagers are immutable, the pager is not changed by the iteration.
+The cursor pagers support [auto-pagination](/open-source/packages/pagerfanta/docs/5.x/usage#auto-pagination), iterating over the items on every page from the current position onwards. As the pagers are immutable, the pager is not changed by the iteration.
 
 ```php
 <?php
@@ -139,4 +137,4 @@ try {
 
 ## Rendering Cursor Pagers
 
-Cursor pagers can only link to the previous and next pages, so they are rendered with a sequential view instead of a view with numbered page links. See the [views documentation](/open-source/packages/pagerfanta/docs/4.x/views#sequential-views) for details, and the [route generator documentation](/open-source/packages/pagerfanta/docs/4.x/route-generator#position-route-generators) for generating the URLs for cursors.
+Cursor pagers can only link to the previous and next pages, so they are rendered with a sequential view instead of a view with numbered page links. See the [views documentation](/open-source/packages/pagerfanta/docs/5.x/views#sequential-views) for details, and the [route generator documentation](/open-source/packages/pagerfanta/docs/5.x/route-generator) for generating the URLs for cursors.

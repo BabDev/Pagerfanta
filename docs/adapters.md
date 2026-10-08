@@ -75,9 +75,7 @@ $adapter = new SelectableAdapter($user->getGroups(), $criteria);
 
 ##### Cursor Pagination
 
-<div class="docs-note docs-note--new-feature">The <code>SelectableCursorAdapter</code> was introduced in Pagerfanta 4.10.</div>
-
-The `SelectableCursorAdapter` supports [cursor pagination](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination) on a class which implements `Doctrine\Common\Collection\Selectable`.
+The `SelectableCursorAdapter` supports [cursor pagination](/open-source/packages/pagerfanta/docs/5.x/cursor-pagination) on a class which implements `Doctrine\Common\Collection\Selectable`.
 
 The class constructor requires the `Selectable` instance, a `Doctrine\Common\Collections\Criteria` instance, and the fields to sort the items by, in order of precedence, mapped to their sort order (either `'ASC'`/`'DESC'`, a `Doctrine\Common\Collections\Order` case, or a `\SortDirection` case). The sort fields replace any orderings on the criteria, and together they must uniquely identify each item (i.e. the last field should be the identifier). The sort fields must have scalar, non-null values.
 
@@ -162,9 +160,7 @@ $adapter = new QueryAdapter($query, $countQueryBuilderModifier);
 
 ##### Cursor Pagination
 
-<div class="docs-note docs-note--new-feature">The DBAL <code>CursorQueryAdapter</code> was introduced in Pagerfanta 4.10.</div>
-
-The `CursorQueryAdapter` supports [cursor pagination](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination) (also known as keyset pagination) on a `Doctrine\DBAL\Query\QueryBuilder`.
+The `CursorQueryAdapter` supports [cursor pagination](/open-source/packages/pagerfanta/docs/5.x/cursor-pagination) (also known as keyset pagination) on a `Doctrine\DBAL\Query\QueryBuilder`.
 
 As the query builder cannot be inspected for its ORDER BY clause, the class constructor requires a list of `Pagerfanta\Doctrine\DBAL\SortColumn` instances describing the columns to sort the query by, in order of precedence. The adapter replaces any ORDER BY clause on the query with these columns, and together they must uniquely identify each row (i.e. the last column should be the primary key). The sort columns must be selected by the query and must not contain null values.
 
@@ -260,9 +256,7 @@ $adapter = new QueryAdapter($query);
 
 ##### Cursor Pagination
 
-<div class="docs-note docs-note--new-feature">The ORM <code>CursorQueryAdapter</code> was introduced in Pagerfanta 4.10.</div>
-
-The `CursorQueryAdapter` supports [cursor pagination](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination) using the [cursor paginator](https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/pagination.html) from Doctrine ORM 3.7 or later.
+The `CursorQueryAdapter` supports [cursor pagination](/open-source/packages/pagerfanta/docs/5.x/cursor-pagination) using the [cursor paginator](https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/pagination.html) from Doctrine ORM 3.7 or later.
 
 The class constructor requires either a `Doctrine\ORM\Query` or `Doctrine\ORM\QueryBuilder` instance, and accepts the same options as the `QueryAdapter`. The query's ORDER BY clause must be deterministic (i.e. end with a unique field such as the identifier), and every item in it must be a field of an entity. The cursor fields are keyed by the DQL path of each ORDER BY item (such as `p.createdAt`).
 
@@ -337,9 +331,7 @@ $adapter = new ElasticaAdapter($searchable, $query);
 
 #### Cursor Pagination
 
-<div class="docs-note docs-note--new-feature">The <code>ElasticaCursorAdapter</code> was introduced in Pagerfanta 4.10.</div>
-
-The `ElasticaCursorAdapter` supports [cursor pagination](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination) using Elasticsearch's `search_after` parameter, which is not limited by the maximum result window.
+The `ElasticaCursorAdapter` supports [cursor pagination](/open-source/packages/pagerfanta/docs/5.x/cursor-pagination) using Elasticsearch's `search_after` parameter, which is not limited by the maximum result window.
 
 The class constructor requires the searchable object, the query, and the fields to sort the documents by, in order of precedence, mapped to their sort order (`'asc'` or `'desc'`) or to their sort options (which must include the `order`). The sort fields replace any sort on the query, and together they must uniquely identify each document (i.e. the last field should be a unique tiebreaker field). Search options can be given as the last argument.
 
@@ -383,9 +375,7 @@ $adapter = new SolariumAdapter($solarium, $query);
 
 #### Cursor Pagination
 
-<div class="docs-note docs-note--new-feature">The <code>SolariumCursorAdapter</code> was introduced in Pagerfanta 4.10.</div>
-
-The `SolariumCursorAdapter` supports [cursor pagination](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination) using Solr's `cursorMark`. The query's sort must include the collection's `uniqueKey` field.
+The `SolariumCursorAdapter` supports [cursor pagination](/open-source/packages/pagerfanta/docs/5.x/cursor-pagination) using Solr's `cursorMark`. The query's sort must include the collection's `uniqueKey` field.
 
 ```php
 <?php
@@ -422,9 +412,7 @@ $adapter = new ArrayAdapter([]);
 
 #### Cursor Pagination
 
-<div class="docs-note docs-note--new-feature">The <code>ArrayCursorAdapter</code> was introduced in Pagerfanta 4.10.</div>
-
-The `ArrayCursorAdapter` is used for [cursor pagination](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination) of a pre-sorted array of items. It takes the array and a callable which returns the cursor fields for an item (the values of the fields the array is sorted by), with a signature of `function (mixed $item): array {}`. The fields must uniquely identify each item.
+The `ArrayCursorAdapter` is used for [cursor pagination](/open-source/packages/pagerfanta/docs/5.x/cursor-pagination) of a pre-sorted array of items. It takes the array and a callable which returns the cursor fields for an item (the values of the fields the array is sorted by), with a signature of `function (mixed $item): array {}`. The fields must uniquely identify each item.
 
 ```php
 <?php
@@ -456,9 +444,7 @@ $adapter = new CallbackAdapter(
 
 #### Cursor Pagination
 
-<div class="docs-note docs-note--new-feature">The <code>CallbackCursorAdapter</code> was introduced in Pagerfanta 4.10.</div>
-
-The `CallbackCursorAdapter` uses a callable to process [cursor pagination](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination). The callable should have a signature of `function (?Cursor $cursor, int $limit): CursorSlice {}` and follow the [cursor adapter contract](/open-source/packages/pagerfanta/docs/4.x/adapter#cursor-adapters). Backward navigation is not supported unless enabled with the second argument.
+The `CallbackCursorAdapter` uses a callable to process [cursor pagination](/open-source/packages/pagerfanta/docs/5.x/cursor-pagination). The callable should have a signature of `function (?Cursor $cursor, int $limit): CursorSlice {}` and follow the [cursor adapter contract](/open-source/packages/pagerfanta/docs/5.x/adapter#cursor-adapters). Backward navigation is not supported unless enabled with the second argument.
 
 ```php
 <?php
@@ -474,8 +460,6 @@ $adapter = new CallbackCursorAdapter(
 ```
 
 ### Counting
-
-<div class="docs-note docs-note--new-feature">The <code>CountingCursorAdapter</code> was introduced in Pagerfanta 4.10.</div>
 
 The `CountingCursorAdapter` is a cursor adapter decorator which adds the total number of results to a cursor adapter, using either a callable with a signature of `function (): int {}` or an adapter implementing `Pagerfanta\Adapter\CountableAdapterInterface` (such as the offset adapter for the same data source).
 
@@ -552,8 +536,6 @@ if (!$shouldQuery) {
 
 #### Cursor Pagination
 
-<div class="docs-note docs-note--new-feature">The <code>EmptyCursorAdapter</code> was introduced in Pagerfanta 4.10.</div>
-
 The `EmptyCursorAdapter` is the cursor pagination equivalent of the `EmptyAdapter`.
 
 ```php
@@ -611,8 +593,6 @@ $adapter = new TransformingAdapter(
 ```
 
 #### Cursor Pagination
-
-<div class="docs-note docs-note--new-feature">The <code>TransformingCursorAdapter</code> was introduced in Pagerfanta 4.10.</div>
 
 The `TransformingCursorAdapter` is the cursor pagination equivalent of the `TransformingAdapter`. The cursors are created by the decorated adapter from the untransformed items, so the transformation does not affect navigation.
 

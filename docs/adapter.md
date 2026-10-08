@@ -38,9 +38,7 @@ The `AdapterInterface` is composed of two smaller interfaces, which describe the
 
 ## Cursor Adapters
 
-<div class="docs-note docs-note--new-feature">Cursor adapters were introduced in Pagerfanta 4.10.</div>
-
-Pagerfanta defines `Pagerfanta\Adapter\CursorAdapterInterface` which is the abstraction layer for any system to provide data to a [cursor pager](/open-source/packages/pagerfanta/docs/4.x/cursor-pagination).
+Pagerfanta defines `Pagerfanta\Adapter\CursorAdapterInterface` which is the abstraction layer for any system to provide data to a [cursor pager](/open-source/packages/pagerfanta/docs/5.x/cursor-pagination).
 
 The interface requires two methods to be implemented:
 
