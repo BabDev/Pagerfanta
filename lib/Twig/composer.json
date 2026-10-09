@@ -10,7 +10,7 @@
         "twig/twig": "^3.29"
     },
     "require-dev": {
-        "phpunit/phpunit": "^12.5"
+        "phpunit/phpunit": "^12.5.8"
     },
     "autoload": {
         "psr-4": {

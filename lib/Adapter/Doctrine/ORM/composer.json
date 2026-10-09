@@ -10,7 +10,7 @@
         "pagerfanta/core": "^5.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^12.5",
+        "phpunit/phpunit": "^12.5.8",
         "symfony/cache": "^6.4 || ^7.4 || ^8.1"
     },
     "autoload": {
