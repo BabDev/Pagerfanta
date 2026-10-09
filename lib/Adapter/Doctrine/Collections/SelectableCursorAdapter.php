@@ -37,7 +37,7 @@ class SelectableCursorAdapter implements CursorAdapterInterface
     private readonly array $sortFields;
 
     /**
-     * @param Selectable<TKey, T>                            $selectable
+     * @param Selectable<TKey, T>                                           $selectable
      * @param array<string, 'ASC'|'DESC'|'asc'|'desc'|Order|\SortDirection> $sortFields The fields to sort the items by, in order of precedence, mapped to their sort order
      *
      * @throws InvalidArgumentException if no sort fields are given or a sort order is not valid

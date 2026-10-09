@@ -74,7 +74,7 @@ class QueryAdapter implements AdapterInterface
     public function getSlice(int $offset, int $length): iterable
     {
         if ($this->paginator instanceof OffsetPaginator) {
-            if ($length === 0) {
+            if (0 === $length) {
                 return new \EmptyIterator();
             }
 

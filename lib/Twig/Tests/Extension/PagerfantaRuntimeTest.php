@@ -19,14 +19,14 @@ use Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface;
 use Pagerfanta\RouteGenerator\RouteGeneratorInterface;
-use Pagerfanta\Twig\Tests\CapturesDeprecations;
 use Pagerfanta\Twig\Extension\PagerfantaRuntime;
+use Pagerfanta\Twig\Tests\CapturesDeprecations;
 use Pagerfanta\View\DefaultView;
 use Pagerfanta\View\SequentialView;
 use Pagerfanta\View\Template\DefaultTemplate;
+use Pagerfanta\View\ViewFactory;
 use Pagerfanta\View\ViewInterface;
 use PHPUnit\Framework\Attributes\Group;
-use Pagerfanta\View\ViewFactory;
 use PHPUnit\Framework\TestCase;
 
 final class PagerfantaRuntimeTest extends TestCase

@@ -46,7 +46,7 @@ final class Base64JsonCursorEncoderTest extends TestCase
     {
         $decoded = $this->encoder->decode($this->encoder->encode(new Cursor(['p.score' => 1.0])));
 
-        $this->assertEqualsWithDelta(1.0, $decoded->fields['p.score'], PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(1.0, $decoded->fields['p.score'], \PHP_FLOAT_EPSILON);
     }
 
     /**
