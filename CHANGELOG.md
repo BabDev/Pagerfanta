@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.10.0 (Unreleased)
+## 4.10.0 (2026-10-09)
 
 - Allow a list of templates to be used with the Twig view, their blocks are composed using `Twig\BlockChain` (requires `twig/twig` 3.29 or later)
 - Fix the Twig view reusing the template from a previous render's options when no default template is configured
