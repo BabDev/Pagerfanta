@@ -4,6 +4,9 @@ namespace Pagerfanta\RouteGenerator;
 
 use Pagerfanta\Exception\RuntimeException;
 
+/**
+ * Creates the route generators that views use to build the URL for each position of a paginated list.
+ */
 interface PositionRouteGeneratorFactoryInterface
 {
     /**
