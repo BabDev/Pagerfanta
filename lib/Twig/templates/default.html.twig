@@ -13,6 +13,7 @@
         {%- if pagerfanta.hasPreviousPage() -%}
             {%- set path = route_generator.route(pagerfanta.getPreviousPage()) -%}
             {%- set page = pagerfanta.getPreviousPage() -%}
+            {%- set relation = 'previous' -%}
             {{- block('previous_page_link') -}}
         {%- else -%}
             {{- block('previous_page_link_disabled') -}}
@@ -22,6 +23,7 @@
         {%- if start_page > 1 -%}
             {%- set page = 1 -%}
             {%- set path = route_generator.route(page) -%}
+            {%- set relation = 'page' -%}
             {{- block('page_link') -}}
         {%- endif -%}
 
@@ -29,6 +31,7 @@
         {%- if start_page == 3 -%}
             {%- set page = 2 -%}
             {%- set path = route_generator.route(page) -%}
+            {%- set relation = 'page' -%}
             {{- block('page_link') -}}
         {%- endif -%}
 
@@ -43,6 +46,7 @@
             {%- if page == current_page -%}
                 {{- block('current_page_link') -}}
             {%- else -%}
+                {%- set relation = 'page' -%}
                 {{- block('page_link') -}}
             {%- endif -%}
         {%- endfor -%}
@@ -56,6 +60,7 @@
         {%- if end_page == (nb_pages - 2) -%}
             {%- set page = (nb_pages - 1) -%}
             {%- set path = route_generator.route(page) -%}
+            {%- set relation = 'page' -%}
             {{- block('page_link') -}}
         {%- endif -%}
 
@@ -63,6 +68,7 @@
         {%- if nb_pages > end_page -%}
             {%- set page = nb_pages -%}
             {%- set path = route_generator.route(page) -%}
+            {%- set relation = 'page' -%}
             {{- block('page_link') -}}
         {%- endif -%}
 
@@ -70,6 +76,7 @@
         {%- if pagerfanta.hasNextPage() -%}
             {%- set path = route_generator.route(pagerfanta.getNextPage()) -%}
             {%- set page = pagerfanta.getNextPage() -%}
+            {%- set relation = 'next' -%}
             {{- block('next_page_link') -}}
         {%- else -%}
             {{- block('next_page_link_disabled') -}}
@@ -82,6 +89,9 @@
     {%- if supports_backward_navigation -%}
         {%- if previous_position is not null -%}
             {%- set path = route_generator.route(previous_position) -%}
+            {%- set relation = 'previous' -%}
+            {%- set position = previous_position -%}
+            {%- set page = previous_page -%}
             {{- block('previous_page_link') -}}
         {%- else -%}
             {{- block('previous_page_link_disabled') -}}
@@ -91,6 +101,9 @@
     {# Next Page Link #}
     {%- if next_position is not null -%}
         {%- set path = route_generator.route(next_position) -%}
+        {%- set relation = 'next' -%}
+        {%- set position = next_position -%}
+        {%- set page = next_page -%}
         {{- block('next_page_link') -}}
     {%- else -%}
         {{- block('next_page_link_disabled') -}}
@@ -98,7 +111,7 @@
 {%- endblock sequential_pager -%}
 
 {%- block page_link -%}
-    <a class="pagination__item" href="{{- path -}}">{{- page -}}</a>
+    <a class="pagination__item" href="{{- path -}}"{{- block('link_attributes') -}}>{{- page -}}</a>
 {%- endblock page_link -%}
 
 {%- block current_page_link -%}
@@ -106,7 +119,7 @@
 {%- endblock current_page_link -%}
 
 {%- block previous_page_link -%}
-    <a class="pagination__item pagination__item--previous-page" href="{{- path -}}" rel="prev">{{- block('previous_page_message') -}}</a>
+    <a class="pagination__item pagination__item--previous-page" href="{{- path -}}" rel="prev"{{- block('link_attributes') -}}>{{- block('previous_page_message') -}}</a>
 {%- endblock previous_page_link -%}
 
 {%- block previous_page_link_disabled -%}
@@ -122,7 +135,7 @@
 {%- endblock previous_page_message -%}
 
 {%- block next_page_link -%}
-    <a class="pagination__item pagination__item--next-page" href="{{- path -}}" rel="next">{{- block('next_page_message') -}}</a>
+    <a class="pagination__item pagination__item--next-page" href="{{- path -}}" rel="next"{{- block('link_attributes') -}}>{{- block('next_page_message') -}}</a>
 {%- endblock next_page_link -%}
 
 {%- block next_page_link_disabled -%}
@@ -136,6 +149,9 @@
         Next
     {%- endif -%}
 {%- endblock next_page_message -%}
+
+{# Additional attributes for the link being rendered, rendered at the end of the link's opening tag #}
+{%- block link_attributes -%}{%- endblock link_attributes -%}
 
 {%- block ellipsis -%}
     <span class="pagination__item pagination__item--separator">&hellip;</span>

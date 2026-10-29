@@ -89,6 +89,7 @@ final class TwigView extends View implements PagerViewInterface
                 'end_page' => $this->endPage,
                 'current_page' => $this->currentPage,
                 'nb_pages' => $this->nbPages,
+                'position' => null,
             ]
         );
     }
@@ -125,6 +126,8 @@ final class TwigView extends View implements PagerViewInterface
                 'supports_backward_navigation' => !$pager instanceof CursorPagerInterface || $pager->supportsBackwardNavigation(),
                 'previous_position' => $previousPosition,
                 'next_position' => $nextPosition,
+                'previous_page' => $previousPosition instanceof PagePosition ? $previousPosition->page : null,
+                'next_page' => $nextPosition instanceof PagePosition ? $nextPosition->page : null,
             ]
         );
     }

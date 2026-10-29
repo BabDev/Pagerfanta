@@ -226,6 +226,39 @@ For example, a `pager_messages.html.twig` template containing only the `previous
 
 The default template given to the `Pagerfanta\Twig\View\TwigView` constructor and the `@Pagerfanta/default.html.twig` template are always appended to the list, so any block not defined by the listed templates falls back to them. If a template appears more than once, only its highest precedence position is used.
 
+### Link Attributes
+
+<div class="docs-note docs-note--new-feature">Link attributes were introduced in Pagerfanta 4.11.</div>
+
+All of the supplied templates render the `link_attributes` block at the end of the opening tag of each link, which renders nothing by default. Override this block to add attributes to the links without having to override the markup of each link.
+
+The block is rendered with the variables of the link being rendered:
+
+- `relation` - The relation of the link to the current page: `previous`, `page`, or `next` (the first, last, and numbered page links use `page`)
+- `page` - The page number the link points to, or null for links to a cursor position
+- `position` - The `Pagerfanta\Position\Position` the link points to when rendering with only previous and next links, or null when rendering numbered page links
+- `path` - The generated URL for the link
+
+The rendered attributes must start with a space. For example, a `pager_link_attributes.html.twig` template can be combined with any of the supplied templates with a [list of templates](#composing-templates):
+
+```twig
+{%- block link_attributes %} data-relation="{{ relation }}"{% if page is not null %} data-page="{{ page }}"{% endif %}{% endblock link_attributes -%}
+```
+
+```twig
+{{ pagerfanta(pager, 'twig', {'template': ['pager_link_attributes.html.twig', '@Pagerfanta/twitter_bootstrap5.html.twig']}) }}
+```
+
+The block can also be overridden in a template extending one of the supplied templates, which is supported by all Twig versions.
+
+```twig
+{%- extends '@Pagerfanta/twitter_bootstrap5.html.twig' -%}
+
+{%- block link_attributes %} data-relation="{{ relation }}"{% if page is not null %} data-page="{{ page }}"{% endif %}{% endblock link_attributes -%}
+```
+
+<div class="docs-note">Always quote the attribute values so they are escaped by Twig's autoescaping, and do not build attribute names from user input. The <code>href</code>, <code>rel</code>, and <code>class</code> attributes are rendered by the link markup blocks and should not be added with the <code>link_attributes</code> block. If your template overrides a link markup block (such as <code>page_link</code>), render the <code>link_attributes</code> block in its opening tag to support link attributes.</div>
+
 ## Reusable View Configurations
 
 Sometimes you want to reuse options for a view in your project and you don't want to repeat those options each time you render a view, or you have different configurations for a view and you want to save those configurations to be able to change them easily.
