@@ -143,3 +143,65 @@ interface SequentialTemplateInterface
     public function nextEnabledForPosition(Position $position): string;
 }
 ```
+
+## Link Attributes
+
+<div class="docs-note docs-note--new-feature">Link attributes were introduced in Pagerfanta 4.11.</div>
+
+The `Pagerfanta\View\Template\Template` base class allows additional attributes to be added to the links rendered by a template. All of the templates provided by Pagerfanta support link attributes.
+
+To add attributes, extend a template and override the `linkAttributes()` method. The method receives the relation of the link to the current page (`previous`, `page`, or `next`) and the `Pagerfanta\Position\Position` the link points to, and returns the attributes to add to the link. The first, last, and numbered page links use the `page` relation, and numbered pagers give a `Pagerfanta\Position\PagePosition` for each link, while cursor pagers rendered with a [sequential view](/open-source/packages/pagerfanta/docs/4.x/views#sequential-views) give a `Pagerfanta\Position\CursorPosition` for the previous and next links.
+
+```php
+<?php
+
+namespace App\Pagination;
+
+use Pagerfanta\Position\PagePosition;
+use Pagerfanta\Position\Position;
+use Pagerfanta\View\Template\TwitterBootstrap5Template;
+
+final class TrackedTwitterBootstrap5Template extends TwitterBootstrap5Template
+{
+    protected function linkAttributes(string $relation, Position $position): array
+    {
+        return [
+            'data-relation' => $relation,
+            'data-page' => $position instanceof PagePosition ? $position->page : null,
+        ];
+    }
+}
+```
+
+The attribute values are escaped when rendered. A `true` value renders a boolean attribute, and a `false` or `null` value omits the attribute. The `href`, `rel`, and `class` attributes are controlled by the template and cannot be set, use the template's options to change the CSS classes and `rel` values.
+
+<div class="docs-note">Attribute names are not escaped and must be valid HTML attribute names, an exception is thrown otherwise. Do not build attribute names from user input.</div>
+
+### Custom Link Markup
+
+A template extending the base class renders its links inside the `renderLink()` method, which makes the link's relation and position available while the markup is built, and adds the attributes to the link's opening tag with the `renderLinkAttributes()` method. When a link is identified by its page number, the `renderPageLink()` method can be used instead of `renderLink()`.
+
+```php
+<?php
+
+namespace App\Pagination;
+
+use Pagerfanta\Position\Position;
+use Pagerfanta\View\Template\DefaultTemplate;
+
+final class ButtonTemplate extends DefaultTemplate
+{
+    public function nextEnabledForPosition(Position $position): string
+    {
+        return $this->renderLink(
+            'next',
+            $position,
+            fn (): string => sprintf('<a class="button" href="%s"%s>Load more</a>', $this->generateRouteForPosition($position), $this->renderLinkAttributes()),
+        );
+    }
+}
+```
+
+When overriding the methods which render the link markup of the provided templates, such as the `linkLi()` method of the Twitter Bootstrap templates, call the `renderLinkAttributes()` method in the overridden method to keep supporting link attributes. The `DefaultTemplate` renders the link attributes with the `%attributes%` placeholder of its `page_template` option.
+
+<div class="docs-note">In Pagerfanta 5.0, the link being rendered will be passed to the methods rendering the link markup instead of being made available with the <code>renderLink()</code> method.</div>

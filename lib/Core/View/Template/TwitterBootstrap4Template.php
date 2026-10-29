@@ -12,7 +12,7 @@ class TwitterBootstrap4Template extends TwitterBootstrap3Template
         $liClass = implode(' ', array_filter(['page-item', $class]));
         $rel = $rel ? \sprintf(' rel="%s"', $rel) : '';
 
-        return \sprintf('<li class="%s"><a class="page-link" href="%s"%s>%s</a></li>', $liClass, $href, $rel, $text);
+        return \sprintf('<li class="%s"><a class="page-link" href="%s"%s%s>%s</a></li>', $liClass, $href, $rel, $this->renderLinkAttributes(), $text);
     }
 
     /**
