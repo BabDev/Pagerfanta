@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.11.0 (Unreleased)
+
+- Allow adding attributes to the links rendered by templates
+
 ## 4.10.0 (2026-10-09)
 
 - Allow a list of templates to be used with the Twig view, their blocks are composed using `Twig\BlockChain` (requires `twig/twig` 3.29 or later)
