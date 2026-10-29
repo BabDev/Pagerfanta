@@ -130,12 +130,22 @@ The `Pagerfanta\View\Template\Template` base class is recommended for use when c
 - `option`: Retrieves the value of an option
 - `generateRoute`: Generates the URL for a page number
 - `generateRouteForPosition`: Generates the URL for a position
+- `createLink`: Creates a [link](#link-attributes) to a position
+- `createPageLink`: Creates a [link](#link-attributes) to a page number
 
 ## Link Attributes
 
 The `Pagerfanta\View\Template\Template` base class allows additional attributes to be added to the links rendered by a template. All of the templates provided by Pagerfanta support link attributes.
 
-To add attributes, extend a template and override the `linkAttributes()` method. The method receives the relation of the link to the current page (`previous`, `page`, or `next`) and the `Pagerfanta\Position\Position` the link points to, and returns the attributes to add to the link. The first, last, and numbered page links use the `page` relation, and numbered pagers give a `Pagerfanta\Position\PagePosition` for each link, while cursor pagers rendered with a [sequential view](/open-source/packages/pagerfanta/docs/5.x/views#sequential-views) give a `Pagerfanta\Position\CursorPosition` for the previous and next links.
+Each link rendered by a template is described by a `Pagerfanta\View\Template\Link`, which has the following properties:
+
+- `relation`: The relation of the link to the current page, as a `Pagerfanta\View\Template\LinkRelation` (`Previous`, `Page`, or `Next`); the first, last, and numbered page links use the `Page` relation
+- `position`: The `Pagerfanta\Position\Position` the link points to; numbered pagers give a `Pagerfanta\Position\PagePosition` for each link, while cursor pagers rendered with a [sequential view](/open-source/packages/pagerfanta/docs/5.x/views#sequential-views) give a `Pagerfanta\Position\CursorPosition` for the previous and next links
+- `href`: The URL of the link
+- `text`: The text of the link, which may contain markup
+- `rel`: The `rel` attribute of the link, or null when the link does not have one
+
+To add attributes, extend a template and override the `linkAttributes()` method. The method receives the `Link` being rendered, and returns the attributes to add to it.
 
 ```php
 <?php
@@ -143,20 +153,23 @@ To add attributes, extend a template and override the `linkAttributes()` method.
 namespace App\Pagination;
 
 use Pagerfanta\Position\PagePosition;
-use Pagerfanta\Position\Position;
+use Pagerfanta\View\Template\Link;
 use Pagerfanta\View\Template\TwitterBootstrap5Template;
 
 final class TrackedTwitterBootstrap5Template extends TwitterBootstrap5Template
 {
-    protected function linkAttributes(string $relation, Position $position): array
+    #[\Override]
+    protected function linkAttributes(Link $link): array
     {
         return [
-            'data-relation' => $relation,
-            'data-page' => $position instanceof PagePosition ? $position->page : null,
+            'data-relation' => $link->relation->value,
+            'data-page' => $link->position instanceof PagePosition ? $link->position->page : null,
         ];
     }
 }
 ```
+
+The values of the `LinkRelation` cases (`previous`, `page`, and `next`) match the `relation` variable given to the [Twig templates](/open-source/packages/pagerfanta/docs/5.x/views#link-attributes), so the same attributes can be rendered by both.
 
 The attribute values are escaped when rendered. A `true` value renders a boolean attribute, and a `false` or `null` value omits the attribute. The `href`, `rel`, and `class` attributes are controlled by the template and cannot be set, use the template's options to change the CSS classes and `rel` values.
 
@@ -164,7 +177,7 @@ The attribute values are escaped when rendered. A `true` value renders a boolean
 
 ### Custom Link Markup
 
-A template extending the base class renders its links inside the `renderLink()` method, which makes the link's relation and position available while the markup is built, and adds the attributes to the link's opening tag with the `renderLinkAttributes()` method. When a link is identified by its page number, the `renderPageLink()` method can be used instead of `renderLink()`.
+A template extending the base class creates its links with the `createLink()` or `createPageLink()` method, and adds the attributes to the link's opening tag by giving the link to the `renderLinkAttributes()` method.
 
 ```php
 <?php
@@ -173,18 +186,18 @@ namespace App\Pagination;
 
 use Pagerfanta\Position\Position;
 use Pagerfanta\View\Template\DefaultTemplate;
+use Pagerfanta\View\Template\LinkRelation;
 
 final class ButtonTemplate extends DefaultTemplate
 {
+    #[\Override]
     public function nextEnabledForPosition(Position $position): string
     {
-        return $this->renderLink(
-            'next',
-            $position,
-            fn (): string => sprintf('<a class="button" href="%s"%s>Load more</a>', $this->generateRouteForPosition($position), $this->renderLinkAttributes()),
-        );
+        $link = $this->createLink(LinkRelation::Next, $position, 'Load more');
+
+        return sprintf('<a class="button" href="%s"%s>%s</a>', $link->href, $this->renderLinkAttributes($link), $link->text);
     }
 }
 ```
 
-When overriding the methods which render the link markup of the provided templates, such as the `linkLi()` method of the Twitter Bootstrap templates, call the `renderLinkAttributes()` method in the overridden method to keep supporting link attributes. The `DefaultTemplate` renders the link attributes with the `%attributes%` placeholder of its `page_template` option.
+The methods rendering the link markup of the provided templates, such as the `linkLi()` method of the Twitter Bootstrap templates, receive the CSS class and the `Link` being rendered. When overriding these methods, give the link to the `renderLinkAttributes()` method to keep supporting link attributes. The `DefaultTemplate` renders the link attributes with the `%attributes%` placeholder of its `page_template` option.

@@ -175,8 +175,6 @@ The [route generator factory](/open-source/packages/pagerfanta/docs/5.x/route-ge
 
 #### Encoding Cursors
 
-<div class="docs-note docs-note--new-feature">The <code>pagerfanta_encode_cursor()</code> function was introduced in Pagerfanta 4.11.</div>
-
 The `pagerfanta_encode_cursor()` function encodes a `Pagerfanta\Position\CursorPosition` or `Pagerfanta\Cursor\Cursor` to a string, for when a cursor needs to be passed to something other than a URL, such as a JavaScript library or a form field.
 
 ```twig
@@ -235,8 +233,6 @@ For example, a `pager_messages.html.twig` template containing only the `previous
 The default template given to the `Pagerfanta\Twig\View\TwigView` constructor and the `@Pagerfanta/default.html.twig` template are always appended to the list, so any block not defined by the listed templates falls back to them. If a template appears more than once, only its highest precedence position is used.
 
 ### Link Attributes
-
-<div class="docs-note docs-note--new-feature">Link attributes were introduced in Pagerfanta 4.11.</div>
 
 All of the supplied templates render the `link_attributes` block at the end of the opening tag of each link, which renders nothing by default. Override this block to add attributes to the links without having to override the markup of each link.
 
