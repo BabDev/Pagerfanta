@@ -380,6 +380,10 @@ jobs:
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
             patch-packages: true
+          - php: '8.1'
+            solarium: '^6.2'
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
 
     name: Solarium${{ matrix.solarium != '' && format(' {0}', matrix.solarium) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
