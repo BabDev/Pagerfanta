@@ -85,11 +85,6 @@ class DefaultTemplate extends Template
         return $this->generateSpan($class, $this->option('prev_message'));
     }
 
-    public function previousEnabled(int $page): string
-    {
-        return $this->renderPageLink('previous', $page, fn (): string => $this->pageWithTextAndClass($page, $this->option('prev_message'), $this->option('css_prev_class'), $this->option('rel_previous')));
-    }
-
     public function previousEnabledForPosition(Position $position): string
     {
         return $this->renderLink('previous', $position, fn (): string => $this->linkWithTextAndClass($this->generateRouteForPosition($position), $this->option('prev_message'), $this->option('css_prev_class'), $this->option('rel_previous')));
@@ -109,11 +104,6 @@ class DefaultTemplate extends Template
         );
 
         return $this->generateSpan($class, $this->option('next_message'));
-    }
-
-    public function nextEnabled(int $page): string
-    {
-        return $this->renderPageLink('next', $page, fn (): string => $this->pageWithTextAndClass($page, $this->option('next_message'), $this->option('css_next_class'), $this->option('rel_next')));
     }
 
     public function nextEnabledForPosition(Position $position): string

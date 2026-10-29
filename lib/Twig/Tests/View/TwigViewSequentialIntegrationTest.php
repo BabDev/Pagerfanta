@@ -229,7 +229,7 @@ final class TwigViewSequentialIntegrationTest extends TestCase
     {
         $this->assertEquals(
             new Cursor(['id' => 2]),
-            (new Base64JsonCursorEncoder())->decode($this->twig->render('encode_cursor.html.twig', ['pager' => $this->createCursorPager()])),
+            new Base64JsonCursorEncoder()->decode($this->twig->render('encode_cursor.html.twig', ['pager' => $this->createCursorPager()])),
         );
     }
 

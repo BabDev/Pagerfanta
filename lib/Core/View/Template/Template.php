@@ -155,15 +155,15 @@ abstract class Template implements TemplateInterface
     /**
      * Renders a link to a page by its number, see {@see renderLink()}.
      *
-     * A link to a page less than 1 is rendered without attributes, as it does not have a position.
-     *
      * @param 'previous'|'page'|'next' $relation
      * @param \Closure(): string       $render
+     *
+     * @throws LessThan1CurrentPageException if the page is less than 1
      */
     protected function renderPageLink(string $relation, int $page, \Closure $render): string
     {
         if ($page < 1) {
-            return $render();
+            throw new LessThan1CurrentPageException();
         }
 
         return $this->renderLink($relation, new PagePosition($page), $render);

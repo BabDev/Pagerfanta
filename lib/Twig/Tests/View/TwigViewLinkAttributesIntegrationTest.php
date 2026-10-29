@@ -78,7 +78,7 @@ final class TwigViewLinkAttributesIntegrationTest extends TestCase
     #[DataProvider('dataThemes')]
     public function testTheAttributesAreRenderedOnTheNumberedLinksOfATemplateExtendingTheTheme(string $theme): void
     {
-        $rendered = (new TwigView($this->twig))->render($this->createOffsetPager(), $this->createPositionRouteGenerator(), ['template' => 'extends/'.$theme]);
+        $rendered = new TwigView($this->twig)->render($this->createOffsetPager(), $this->createPositionRouteGenerator(), ['template' => 'extends/'.$theme]);
 
         $this->assertNumberedLinksHaveTheAttributes($rendered);
     }
@@ -88,7 +88,7 @@ final class TwigViewLinkAttributesIntegrationTest extends TestCase
     {
         $this->skipIfBlockChainIsNotSupported();
 
-        $rendered = (new TwigView($this->twig))->render($this->createOffsetPager(), $this->createPositionRouteGenerator(), ['template' => ['link_attributes.html.twig', '@Pagerfanta/'.$theme]]);
+        $rendered = new TwigView($this->twig)->render($this->createOffsetPager(), $this->createPositionRouteGenerator(), ['template' => ['link_attributes.html.twig', '@Pagerfanta/'.$theme]]);
 
         $this->assertNumberedLinksHaveTheAttributes($rendered);
     }
@@ -98,7 +98,7 @@ final class TwigViewLinkAttributesIntegrationTest extends TestCase
     {
         $this->skipIfBlockChainIsNotSupported();
 
-        $rendered = (new TwigView($this->twig))->render($this->createCursorPager(), $this->createPositionRouteGenerator(), ['template' => ['link_attributes.html.twig', '@Pagerfanta/'.$theme]]);
+        $rendered = new TwigView($this->twig)->render($this->createCursorPager(), $this->createPositionRouteGenerator(), ['template' => ['link_attributes.html.twig', '@Pagerfanta/'.$theme]]);
 
         $this->assertStringContainsString('href="/posts?before=1" rel="prev"', $rendered);
         $this->assertStringContainsString(' data-relation="previous" data-cursor="Previous:1">', $rendered);
@@ -110,7 +110,7 @@ final class TwigViewLinkAttributesIntegrationTest extends TestCase
     #[DataProvider('dataThemes')]
     public function testTheAttributesAreRenderedOnTheLinksOfAnOffsetPagerRenderedSequentially(string $theme): void
     {
-        $rendered = (new TwigView($this->twig))->render($this->createOffsetPager(), $this->createPositionRouteGenerator(), ['template' => 'extends/'.$theme, 'sequential' => true]);
+        $rendered = new TwigView($this->twig)->render($this->createOffsetPager(), $this->createPositionRouteGenerator(), ['template' => 'extends/'.$theme, 'sequential' => true]);
 
         $this->assertStringContainsString(' data-relation="previous" data-page="1">', $rendered);
         $this->assertStringContainsString(' data-relation="next" data-page="3">', $rendered);
@@ -132,7 +132,7 @@ final class TwigViewLinkAttributesIntegrationTest extends TestCase
 
         $this->assertStringContainsString(
             ' data-value="&quot;&lt;&amp;&gt;">',
-            (new TwigView($this->twig))->render($this->createOffsetPager(), $this->createPositionRouteGenerator(), ['template' => 'escaped.html.twig', 'value' => '"<&>']),
+            new TwigView($this->twig)->render($this->createOffsetPager(), $this->createPositionRouteGenerator(), ['template' => 'escaped.html.twig', 'value' => '"<&>']),
         );
     }
 

@@ -5,6 +5,7 @@ namespace Pagerfanta\Twig\View;
 use Pagerfanta\CursorPagerInterface;
 use Pagerfanta\OffsetPagerInterface;
 use Pagerfanta\PagerInterface;
+use Pagerfanta\Position\PagePosition;
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PageNumberRouteGenerator;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;

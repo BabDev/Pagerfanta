@@ -241,17 +241,12 @@ final class PagerfantaRuntimeTest extends TestCase
         $this->assertSame('/my-page?page=3', $runtime->getPositionUrl(new PagePosition(3)));
     }
 
-    public function testAPagePositionUrlCanBeGeneratedWhenTheFactoryDoesNotSupportPositions(): void
-    {
-        $this->assertSame('/my-page?page=3', $this->extension->getPositionUrl(new PagePosition(3)));
-    }
-
     public function testACursorIsEncodedWithTheDefaultEncoder(): void
     {
         $cursor = new Cursor(['id' => 3], Direction::Previous);
 
-        $this->assertEquals($cursor, (new Base64JsonCursorEncoder())->decode($this->extension->encodeCursor($cursor)));
-        $this->assertEquals($cursor, (new Base64JsonCursorEncoder())->decode($this->extension->encodeCursor(new CursorPosition($cursor))));
+        $this->assertEquals($cursor, new Base64JsonCursorEncoder()->decode($this->extension->encodeCursor($cursor)));
+        $this->assertEquals($cursor, new Base64JsonCursorEncoder()->decode($this->extension->encodeCursor(new CursorPosition($cursor))));
     }
 
     public function testACursorIsEncodedWithTheGivenEncoder(): void
@@ -268,65 +263,8 @@ final class PagerfantaRuntimeTest extends TestCase
             }
         };
 
-        $runtime = new PagerfantaRuntime('default', $this->createViewFactory(), $this->createPositionRouteGeneratorFactory(), null, $cursorEncoder);
+        $runtime = new PagerfantaRuntime('default', $this->createViewFactory(), $this->createRouteGeneratorFactory(), null, $cursorEncoder);
 
         $this->assertSame('encoded:{"id":3}', $runtime->encodeCursor(new CursorPosition(new Cursor(['id' => 3]))));
-    }
-
-    public function testACursorPositionUrlCannotBeGeneratedWhenTheFactoryDoesNotSupportPositions(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        $this->extension->getPositionUrl(new CursorPosition(new Cursor(['id' => 3])));
-    }
-
-    #[Group('legacy')]
-    public function testARouteGeneratorFactoryWithoutPositionSupportIsDeprecated(): void
-    {
-        $deprecations = $this->captureDeprecations(fn () => new PagerfantaRuntime('default', $this->createViewFactory(), $this->createRouteGeneratorFactory()));
-
-        $this->assertSame(['Since pagerfanta/twig 4.10: Using a route generator factory which does not implement "Pagerfanta\\RouteGenerator\\PositionRouteGeneratorFactoryInterface" with "Pagerfanta\\Twig\\Extension\\PagerfantaRuntime" is deprecated.'], $deprecations);
-    }
-
-    public function testRenderingWithAPositionRouteGeneratorFactoryIsNotDeprecated(): void
-    {
-        $this->assertSame([], $this->captureDeprecations(function (): void {
-            $runtime = new PagerfantaRuntime('default', $this->createViewFactory(), $this->createPositionRouteGeneratorFactory(), 'sequential');
-
-            $runtime->renderPagerfanta($this->createPagerfanta());
-            $runtime->renderPagerfanta($this->createCursorPager());
-            $runtime->getPageUrl($this->createPagerfanta(), 2);
-        }));
-    }
-
-    public function testAViewWhichOnlyAcceptsPageNumbersIsGivenAPageNumberRouteGenerator(): void
-    {
-        $view = $this->createMock(ViewInterface::class);
-        $view->method('render')
-            ->willReturnCallback(function (PagerfantaInterface $pagerfanta, callable $routeGenerator): string {
-                $this->assertNotInstanceOf(PositionRouteGeneratorInterface::class, $routeGenerator);
-
-                return $routeGenerator(2);
-            });
-
-        $viewFactory = new ViewFactory();
-        $viewFactory->set('legacy', $view);
-
-        $this->assertSame('/my-page?page=2', (new PagerfantaRuntime('legacy', $viewFactory, $this->createPositionRouteGeneratorFactory()))->renderPagerfanta($this->createPagerfanta()));
-    }
-
-    public function testAPageUrlCanBeGeneratedWithAFactoryOnlySupportingPositions(): void
-    {
-        $factory = new class implements PositionRouteGeneratorFactoryInterface {
-            /**
-             * @param array<string, mixed> $options
-             */
-            public function createPositionRouteGenerator(array $options = []): PositionRouteGeneratorInterface
-            {
-                return new PositionRouteGeneratorDecorator(static fn (Position $position): string => '/my-page?page='.($position instanceof PagePosition ? $position->page : 0));
-            }
-        };
-
-        $this->assertSame('/my-page?page=3', (new PagerfantaRuntime('default', $this->createViewFactory(), $factory))->getPageUrl($this->createPagerfanta(), 3));
     }
 }

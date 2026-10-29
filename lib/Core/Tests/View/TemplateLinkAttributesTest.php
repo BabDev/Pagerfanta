@@ -9,6 +9,7 @@ use Pagerfanta\Cursor\Cursor;
 use Pagerfanta\Cursor\Direction;
 use Pagerfanta\CursorPagerfanta;
 use Pagerfanta\Exception\InvalidArgumentException;
+use Pagerfanta\Exception\LessThan1CurrentPageException;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Position\CursorPosition;
 use Pagerfanta\Position\PagePosition;
@@ -70,7 +71,7 @@ final class TemplateLinkAttributesTest extends TestCase
     #[DataProvider('dataTemplates')]
     public function testTheAttributesAreRenderedOnTheNumberedLinks(\Closure $template): void
     {
-        $rendered = (new DefaultView($template()))->render($this->createPagerfanta(), $this->createPositionRouteGenerator());
+        $rendered = new DefaultView($template())->render($this->createPagerfanta(), $this->createPositionRouteGenerator());
 
         $this->assertStringContainsString('href="|page:4|" rel="prev" data-relation="previous" data-page="4" data-live>', $rendered);
         $this->assertStringContainsString('href="|page:1|" data-relation="page" data-page="1" data-live>', $rendered);
@@ -88,7 +89,7 @@ final class TemplateLinkAttributesTest extends TestCase
     #[DataProvider('dataTemplates')]
     public function testTheAttributesAreRenderedOnTheSequentialLinks(\Closure $template): void
     {
-        $rendered = (new SequentialView($template()))->render($this->createCursorPager(), $this->createPositionRouteGenerator());
+        $rendered = new SequentialView($template())->render($this->createCursorPager(), $this->createPositionRouteGenerator());
 
         $this->assertStringContainsString('href="|Previous:1|" rel="prev" data-relation="previous" data-cursor="Previous:1" data-live>', $rendered);
         $this->assertStringContainsString('href="|Next:3|" rel="next" data-relation="next" data-cursor="Next:3" data-live>', $rendered);
@@ -101,7 +102,7 @@ final class TemplateLinkAttributesTest extends TestCase
 
         $this->assertStringContainsString(
             'data-value="&quot;&lt;&amp;&gt;&#039;">',
-            (new DefaultView($template))->render($this->createPagerfanta(), $this->createPositionRouteGenerator()),
+            new DefaultView($template)->render($this->createPagerfanta(), $this->createPositionRouteGenerator()),
         );
     }
 
@@ -126,7 +127,7 @@ final class TemplateLinkAttributesTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        (new DefaultView($this->createTemplateWithAttributes([$name => 'value'])))->render($this->createPagerfanta(), $this->createPositionRouteGenerator());
+        new DefaultView($this->createTemplateWithAttributes([$name => 'value']))->render($this->createPagerfanta(), $this->createPositionRouteGenerator());
     }
 
     public function testTheOuterLinkIsKeptWhenALinkIsRenderedWhileRenderingAnotherLink(): void
@@ -134,15 +135,19 @@ final class TemplateLinkAttributesTest extends TestCase
         $template = new class extends DefaultTemplate {
             use AddsTestLinkAttributes;
 
-            public function previousEnabled(int $page): string
+            public function previousEnabledForPosition(Position $position): string
             {
-                return $this->renderPageLink('previous', $page, fn (): string => $this->pageWithText($page, 'Back', 'prev'));
+                if (!$position instanceof PagePosition) {
+                    throw new \LogicException('Only page positions are rendered by this template.');
+                }
+
+                return $this->renderLink('previous', $position, fn (): string => $this->pageWithText($position->page, 'Back', 'prev'));
             }
         };
 
         $this->assertStringContainsString(
             'href="|page:4|" rel="prev" data-relation="previous" data-page="4" data-live>Back</a>',
-            (new DefaultView($template))->render($this->createPagerfanta(), $this->createPositionRouteGenerator()),
+            new DefaultView($template)->render($this->createPagerfanta(), $this->createPositionRouteGenerator()),
         );
     }
 
@@ -157,21 +162,23 @@ final class TemplateLinkAttributesTest extends TestCase
             }
         };
 
-        $template->setRouteGenerator(static fn (int $page): string => '|'.$page.'|');
+        $template->setPositionRouteGenerator($this->createPositionRouteGenerator());
 
         $this->assertStringContainsString('data-live', $template->page(1));
         $this->assertSame('', $template->renderAttributesOutsideOfALink());
     }
 
-    public function testALinkToAPageLessThan1IsRenderedWithoutTheAttributes(): void
+    public function testALinkToAPageLessThan1CannotBeRendered(): void
     {
         $template = new class extends DefaultTemplate {
             use AddsTestLinkAttributes;
         };
 
-        $template->setRouteGenerator(static fn (int $page): string => '|'.$page.'|');
+        $template->setPositionRouteGenerator($this->createPositionRouteGenerator());
 
-        $this->assertSame('<a class="pagination__item" href="|0|">0</a>', $template->page(0));
+        $this->expectException(LessThan1CurrentPageException::class);
+
+        $template->page(0);
     }
 
     public function testATemplateOverridingTheLinkMarkupIsRenderedWithoutTheAttributes(): void
@@ -185,7 +192,7 @@ final class TemplateLinkAttributesTest extends TestCase
             }
         };
 
-        $rendered = (new DefaultView($template))->render($this->createPagerfanta(), $this->createPositionRouteGenerator());
+        $rendered = new DefaultView($template)->render($this->createPagerfanta(), $this->createPositionRouteGenerator());
 
         $this->assertStringContainsString('<li><a href="|page:4|">Previous</a></li>', $rendered);
         $this->assertStringNotContainsString('data-', $rendered);
