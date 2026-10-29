@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.11.0 (Unreleased)
+## 4.11.0 (2026-10-29)
 
 - Allow adding attributes to the links rendered by templates
 - Add the `pagerfanta_encode_cursor()` Twig function
