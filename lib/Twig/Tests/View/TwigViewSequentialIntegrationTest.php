@@ -5,6 +5,7 @@ namespace Pagerfanta\Twig\Tests\View;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Adapter\CallbackCursorAdapter;
 use Pagerfanta\Adapter\CursorSlice;
+use Pagerfanta\Cursor\Base64JsonCursorEncoder;
 use Pagerfanta\Cursor\Cursor;
 use Pagerfanta\Cursor\Direction;
 use Pagerfanta\CursorPagerfanta;
@@ -55,6 +56,7 @@ final class TwigViewSequentialIntegrationTest extends TestCase
                 new ArrayLoader([
                     'integration.html.twig' => '{{ pagerfanta(pager, options) }}',
                     'position_url.html.twig' => '{{ pagerfanta_position_url(pager.nextPosition) }}',
+                    'encode_cursor.html.twig' => '{{ pagerfanta_encode_cursor(pager.nextPosition) }}',
                     'messages.html.twig' => self::MESSAGES_TEMPLATE,
                 ]),
                 $filesystemLoader,
@@ -221,6 +223,14 @@ final class TwigViewSequentialIntegrationTest extends TestCase
     public function testAPositionUrlIsGeneratedWithTheTwigFunction(): void
     {
         $this->assertSame('/posts?after=2', $this->twig->render('position_url.html.twig', ['pager' => $this->createCursorPager()]));
+    }
+
+    public function testACursorIsEncodedWithTheTwigFunction(): void
+    {
+        $this->assertEquals(
+            new Cursor(['id' => 2]),
+            (new Base64JsonCursorEncoder())->decode($this->twig->render('encode_cursor.html.twig', ['pager' => $this->createCursorPager()])),
+        );
     }
 
     private function assertViewOutputMatches(string $expected, string $view): void

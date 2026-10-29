@@ -27,7 +27,7 @@ class DefaultTemplate extends Template
             'container_template' => '<nav class="%s">%%pages%%</nav>',
             'rel_previous' => 'prev',
             'rel_next' => 'next',
-            'page_template' => '<a class="%class%" href="%href%"%rel%>%text%</a>',
+            'page_template' => '<a class="%class%" href="%href%"%rel%%attributes%>%text%</a>',
             'span_template' => '<span class="%class%">%text%</span>',
         ];
     }
@@ -47,7 +47,7 @@ class DefaultTemplate extends Template
 
     public function pageWithText(int $page, string $text, ?string $rel = null): string
     {
-        return $this->pageWithTextAndClass($page, $text, '', $rel);
+        return $this->renderPageLink('page', $page, fn (): string => $this->pageWithTextAndClass($page, $text, '', $rel));
     }
 
     private function pageWithTextAndClass(int $page, string $text, string $class, ?string $rel = null): string
@@ -64,8 +64,9 @@ class DefaultTemplate extends Template
         ];
 
         $replace[] = $rel ? \sprintf(' rel="%s"', $rel) : '';
+        $replace[] = $this->renderLinkAttributes();
 
-        return str_replace(['%class%', '%href%', '%text%', '%rel%'], $replace, $this->option('page_template'));
+        return str_replace(['%class%', '%href%', '%text%', '%rel%', '%attributes%'], $replace, $this->option('page_template'));
     }
 
     public function previousDisabled(): string
@@ -84,9 +85,14 @@ class DefaultTemplate extends Template
         return $this->generateSpan($class, $this->option('prev_message'));
     }
 
+    public function previousEnabled(int $page): string
+    {
+        return $this->renderPageLink('previous', $page, fn (): string => $this->pageWithTextAndClass($page, $this->option('prev_message'), $this->option('css_prev_class'), $this->option('rel_previous')));
+    }
+
     public function previousEnabledForPosition(Position $position): string
     {
-        return $this->linkWithTextAndClass($this->generateRouteForPosition($position), $this->option('prev_message'), $this->option('css_prev_class'), $this->option('rel_previous'));
+        return $this->renderLink('previous', $position, fn (): string => $this->linkWithTextAndClass($this->generateRouteForPosition($position), $this->option('prev_message'), $this->option('css_prev_class'), $this->option('rel_previous')));
     }
 
     public function nextDisabled(): string
@@ -105,9 +111,14 @@ class DefaultTemplate extends Template
         return $this->generateSpan($class, $this->option('next_message'));
     }
 
+    public function nextEnabled(int $page): string
+    {
+        return $this->renderPageLink('next', $page, fn (): string => $this->pageWithTextAndClass($page, $this->option('next_message'), $this->option('css_next_class'), $this->option('rel_next')));
+    }
+
     public function nextEnabledForPosition(Position $position): string
     {
-        return $this->linkWithTextAndClass($this->generateRouteForPosition($position), $this->option('next_message'), $this->option('css_next_class'), $this->option('rel_next'));
+        return $this->renderLink('next', $position, fn (): string => $this->linkWithTextAndClass($this->generateRouteForPosition($position), $this->option('next_message'), $this->option('css_next_class'), $this->option('rel_next')));
     }
 
     public function first(): string

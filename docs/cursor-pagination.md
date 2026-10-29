@@ -61,6 +61,8 @@ if ($pager instanceof CountablePagerInterface) {
 
 Cursor pagers are immutable. To move to another page, create a new pager for its position with the `withPosition()` method, which keeps the adapter and the maximum number of items per page.
 
+<div class="docs-note">The <code>withPosition()</code> method is implemented by the cursor pagers provided by Pagerfanta, and will be added to the <code>Pagerfanta\CursorPagerInterface</code> in Pagerfanta 5.0. Custom cursor pagers should implement it to prepare for this change.</div>
+
 ```php
 <?php
 

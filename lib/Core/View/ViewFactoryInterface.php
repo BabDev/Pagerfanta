@@ -4,6 +4,9 @@ namespace Pagerfanta\View;
 
 use Pagerfanta\Exception\InvalidArgumentException;
 
+/**
+ * Holds the views that render the pagination controls, indexed by unique names.
+ */
 interface ViewFactoryInterface
 {
     /**

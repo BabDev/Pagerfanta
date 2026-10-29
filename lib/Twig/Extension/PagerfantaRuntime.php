@@ -2,10 +2,14 @@
 
 namespace Pagerfanta\Twig\Extension;
 
+use Pagerfanta\Cursor\Base64JsonCursorEncoder;
+use Pagerfanta\Cursor\Cursor;
+use Pagerfanta\Cursor\CursorEncoderInterface;
 use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\OffsetPagerInterface;
 use Pagerfanta\PagerInterface;
+use Pagerfanta\Position\CursorPosition;
 use Pagerfanta\Position\PagePosition;
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface;
@@ -16,13 +20,15 @@ use Twig\Extension\RuntimeExtensionInterface;
 final readonly class PagerfantaRuntime implements RuntimeExtensionInterface
 {
     /**
-     * @param string|null $defaultSequentialView The name of the view to render pagers which the default view cannot render (i.e. cursor pagers with a numbered view)
+     * @param string|null            $defaultSequentialView The name of the view to render pagers which the default view cannot render (i.e. cursor pagers with a numbered view)
+     * @param CursorEncoderInterface $cursorEncoder         The encoder for the cursors given to the encode cursor function, this should be the same encoder used by the route generators
      */
     public function __construct(
         private string $defaultView,
         private ViewFactoryInterface $viewFactory,
         private PositionRouteGeneratorFactoryInterface $routeGeneratorFactory,
         private ?string $defaultSequentialView = null,
+        private CursorEncoderInterface $cursorEncoder = new Base64JsonCursorEncoder(),
     ) {}
 
     /**
@@ -67,6 +73,16 @@ final readonly class PagerfantaRuntime implements RuntimeExtensionInterface
         $routeGenerator = $this->routeGeneratorFactory->createPositionRouteGenerator($options);
 
         return $routeGenerator($position);
+    }
+
+    /**
+     * Encodes a cursor, such as for passing the cursor of a link to a JavaScript library.
+     *
+     * @throws InvalidArgumentException if the cursor cannot be encoded
+     */
+    public function encodeCursor(Cursor|CursorPosition $cursor): string
+    {
+        return $this->cursorEncoder->encode($cursor instanceof CursorPosition ? $cursor->cursor : $cursor);
     }
 
     /**
