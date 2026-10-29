@@ -5,7 +5,10 @@ namespace Pagerfanta\Twig\Tests\Extension;
 use Pagerfanta\Adapter\CallbackCursorAdapter;
 use Pagerfanta\Adapter\CursorSlice;
 use Pagerfanta\Adapter\FixedAdapter;
+use Pagerfanta\Cursor\Base64JsonCursorEncoder;
 use Pagerfanta\Cursor\Cursor;
+use Pagerfanta\Cursor\CursorEncoderInterface;
+use Pagerfanta\Cursor\Direction;
 use Pagerfanta\CursorPagerfanta;
 use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
@@ -308,6 +311,33 @@ final class PagerfantaRuntimeTest extends TestCase
     public function testAPagePositionUrlCanBeGeneratedWhenTheFactoryDoesNotSupportPositions(): void
     {
         $this->assertSame('/my-page?page=3', $this->extension->getPositionUrl(new PagePosition(3)));
+    }
+
+    public function testACursorIsEncodedWithTheDefaultEncoder(): void
+    {
+        $cursor = new Cursor(['id' => 3], Direction::Previous);
+
+        $this->assertEquals($cursor, (new Base64JsonCursorEncoder())->decode($this->extension->encodeCursor($cursor)));
+        $this->assertEquals($cursor, (new Base64JsonCursorEncoder())->decode($this->extension->encodeCursor(new CursorPosition($cursor))));
+    }
+
+    public function testACursorIsEncodedWithTheGivenEncoder(): void
+    {
+        $cursorEncoder = new class implements CursorEncoderInterface {
+            public function encode(Cursor $cursor): string
+            {
+                return 'encoded:'.json_encode($cursor->fields, \JSON_THROW_ON_ERROR);
+            }
+
+            public function decode(string $encoded): Cursor
+            {
+                throw new \BadMethodCallException('Not used by the runtime');
+            }
+        };
+
+        $runtime = new PagerfantaRuntime('default', $this->createViewFactory(), $this->createPositionRouteGeneratorFactory(), null, $cursorEncoder);
+
+        $this->assertSame('encoded:{"id":3}', $runtime->encodeCursor(new CursorPosition(new Cursor(['id' => 3]))));
     }
 
     public function testACursorPositionUrlCannotBeGeneratedWhenTheFactoryDoesNotSupportPositions(): void

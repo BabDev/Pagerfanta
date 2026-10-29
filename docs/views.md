@@ -178,6 +178,20 @@ When the route generator factory given to the runtime implements `Pagerfanta\Rou
 
 <div class="docs-note docs-note--deprecated-feature">Giving the runtime a route generator factory which does not implement the <code>PositionRouteGeneratorFactoryInterface</code> is deprecated since Pagerfanta 4.10. Until then, its page number based route generators are adapted, which only support offset pagers.</div>
 
+#### Encoding Cursors
+
+<div class="docs-note docs-note--new-feature">The <code>pagerfanta_encode_cursor()</code> function was introduced in Pagerfanta 4.11.</div>
+
+The `pagerfanta_encode_cursor()` function encodes a `Pagerfanta\Position\CursorPosition` or `Pagerfanta\Cursor\Cursor` to a string, for when a cursor needs to be passed to something other than a URL, such as a JavaScript library or a form field.
+
+```twig
+{% if pager.hasNextPage() %}
+    <button type="button" data-cursor="{{ pagerfanta_encode_cursor(pager.nextPosition) }}">Load more</button>
+{% endif %}
+```
+
+The cursors are encoded with the `Pagerfanta\Cursor\CursorEncoderInterface` given to the `Pagerfanta\Twig\Extension\PagerfantaRuntime` constructor, which defaults to the `Pagerfanta\Cursor\Base64JsonCursorEncoder`.
+
 ### Creating a Twig View Template
 
 If creating a custom template, you are encouraged to extend the `@Pagerfanta/default.html.twig` template and override only the blocks needed.

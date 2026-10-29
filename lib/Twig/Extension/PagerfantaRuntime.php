@@ -2,10 +2,14 @@
 
 namespace Pagerfanta\Twig\Extension;
 
+use Pagerfanta\Cursor\Base64JsonCursorEncoder;
+use Pagerfanta\Cursor\Cursor;
+use Pagerfanta\Cursor\CursorEncoderInterface;
 use Pagerfanta\Exception\InvalidArgumentException;
 use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\PagerInterface;
+use Pagerfanta\Position\CursorPosition;
 use Pagerfanta\Position\PagePosition;
 use Pagerfanta\Position\Position;
 use Pagerfanta\RouteGenerator\PageNumberRouteGenerator;
@@ -22,13 +26,15 @@ use Twig\Extension\RuntimeExtensionInterface;
 final class PagerfantaRuntime implements RuntimeExtensionInterface
 {
     /**
-     * @param string|null $defaultSequentialView The name of the view to render pagers which the default view cannot render (i.e. cursor pagers with a numbered view)
+     * @param string|null            $defaultSequentialView The name of the view to render pagers which the default view cannot render (i.e. cursor pagers with a numbered view)
+     * @param CursorEncoderInterface $cursorEncoder         The encoder for the cursors given to the encode cursor function, this should be the same encoder used by the route generators
      */
     public function __construct(
         private readonly string $defaultView,
         private readonly ViewFactoryInterface $viewFactory,
         private readonly RouteGeneratorFactoryInterface|PositionRouteGeneratorFactoryInterface $routeGeneratorFactory,
         private readonly ?string $defaultSequentialView = null,
+        private readonly CursorEncoderInterface $cursorEncoder = new Base64JsonCursorEncoder(),
     ) {
         if (!$routeGeneratorFactory instanceof PositionRouteGeneratorFactoryInterface) {
             trigger_deprecation('pagerfanta/twig', '4.10', 'Using a route generator factory which does not implement "%s" with "%s" is deprecated.', PositionRouteGeneratorFactoryInterface::class, self::class);
@@ -94,6 +100,16 @@ final class PagerfantaRuntime implements RuntimeExtensionInterface
         $routeGenerator = $this->createPositionRouteGenerator($options);
 
         return $routeGenerator($position);
+    }
+
+    /**
+     * Encodes a cursor, such as for passing the cursor of a link to a JavaScript library.
+     *
+     * @throws InvalidArgumentException if the cursor cannot be encoded
+     */
+    public function encodeCursor(Cursor|CursorPosition $cursor): string
+    {
+        return $this->cursorEncoder->encode($cursor instanceof CursorPosition ? $cursor->cursor : $cursor);
     }
 
     /**
