@@ -26,6 +26,7 @@ Pagerfanta 5.0 removes the page number based route generator, view, and template
 - `Pagerfanta\PagerInterface` now extends `Countable`
 - `Pagerfanta\PagerfantaInterface` now extends `Pagerfanta\OffsetPagerInterface`, implementations are required to implement the `count()`, `getPreviousPosition()`, and `getNextPosition()` methods
 - `Pagerfanta\PagerfantaInterface` now requires the `autoPagingIterator` method to be implemented
+- `Pagerfanta\CursorPagerInterface` now requires the `withPosition()` method to be implemented, which returns a new pager for the given position
 
 ### Route Generators
 

@@ -14,8 +14,6 @@ use Pagerfanta\Position\CursorPosition;
  * @template-covariant T
  *
  * @extends PagerInterface<T, CursorPosition>
- *
- * @method CursorPagerInterface<T> withPosition(?CursorPosition $position)
  */
 interface CursorPagerInterface extends PagerInterface
 {
@@ -25,4 +23,13 @@ interface CursorPagerInterface extends PagerInterface
     public function getCurrentPosition(): ?CursorPosition;
 
     public function supportsBackwardNavigation(): bool;
+
+    /**
+     * Returns a new pager for the given position, keeping this pager's configuration.
+     *
+     * @param CursorPosition|null $position The position of the page, or null for the first page
+     *
+     * @return self<T>
+     */
+    public function withPosition(?CursorPosition $position): self;
 }
