@@ -16,7 +16,6 @@ use Pagerfanta\RouteGenerator\PositionRouteGeneratorDecorator;
 use Pagerfanta\Twig\View\TwigView;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Twig\BlockChain;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\ChainLoader;
@@ -86,8 +85,6 @@ final class TwigViewLinkAttributesIntegrationTest extends TestCase
     #[DataProvider('dataThemes')]
     public function testTheAttributesAreRenderedOnTheNumberedLinksWithAChainOfTemplates(string $theme): void
     {
-        $this->skipIfBlockChainIsNotSupported();
-
         $rendered = new TwigView($this->twig)->render($this->createOffsetPager(), $this->createPositionRouteGenerator(), ['template' => ['link_attributes.html.twig', '@Pagerfanta/'.$theme]]);
 
         $this->assertNumberedLinksHaveTheAttributes($rendered);
@@ -96,8 +93,6 @@ final class TwigViewLinkAttributesIntegrationTest extends TestCase
     #[DataProvider('dataThemes')]
     public function testTheAttributesAreRenderedOnTheLinksOfACursorPager(string $theme): void
     {
-        $this->skipIfBlockChainIsNotSupported();
-
         $rendered = new TwigView($this->twig)->render($this->createCursorPager(), $this->createPositionRouteGenerator(), ['template' => ['link_attributes.html.twig', '@Pagerfanta/'.$theme]]);
 
         $this->assertStringContainsString('href="/posts?before=1" rel="prev"', $rendered);
@@ -179,12 +174,5 @@ final class TwigViewLinkAttributesIntegrationTest extends TestCase
             $position instanceof PagePosition => '/posts?page='.$position->page,
             default => throw new \UnexpectedValueException('Unexpected position'),
         });
-    }
-
-    private function skipIfBlockChainIsNotSupported(): void
-    {
-        if (!class_exists(BlockChain::class)) {
-            $this->markTestSkipped('This test requires twig/twig 3.29 or later.');
-        }
     }
 }
