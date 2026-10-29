@@ -14,6 +14,8 @@ use Pagerfanta\Position\CursorPosition;
  * @template-covariant T
  *
  * @extends PagerInterface<T, CursorPosition>
+ *
+ * @method CursorPagerInterface<T> withPosition(?CursorPosition $position)
  */
 interface CursorPagerInterface extends PagerInterface
 {

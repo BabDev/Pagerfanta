@@ -4,6 +4,7 @@
 
 - Allow adding attributes to the links rendered by templates
 - Add the `pagerfanta_encode_cursor()` Twig function
+- Declare the `withPosition()` method on `Pagerfanta\CursorPagerInterface`, it will be required in 5.0
 
 ## 4.10.0 (2026-10-09)
 
