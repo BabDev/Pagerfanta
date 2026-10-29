@@ -1,0 +1,15 @@
+{%- block previous_page_message -%}
+    {%- if options['prev_message'] is defined -%}
+        {{- options['prev_message'] -}}
+    {%- else -%}
+        Previous
+    {%- endif -%}
+{%- endblock previous_page_message -%}
+
+{%- block next_page_message -%}
+    {%- if options['next_message'] is defined -%}
+        {{- options['next_message'] -}}
+    {%- else -%}
+        Next
+    {%- endif -%}
+{%- endblock next_page_message -%}

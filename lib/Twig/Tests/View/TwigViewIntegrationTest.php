@@ -53,6 +53,14 @@ final class TwigViewIntegrationTest extends TestCase
         {%- endblock next_page_message -%}
         TWIG;
 
+    private const string EXTENDED_MESSAGE_TEMPLATE = <<<TWIG
+        {%- extends '@Pagerfanta/twitter_bootstrap5.html.twig' -%}
+
+        {%- block next_page_message -%}
+            Onward
+        {%- endblock next_page_message -%}
+        TWIG;
+
     public PositionRouteGeneratorFactoryInterface $routeGeneratorFactory;
     public Environment $twig;
 
@@ -68,6 +76,7 @@ final class TwigViewIntegrationTest extends TestCase
                     'options.html.twig' => self::OPTIONS_TEMPLATE,
                     'constructor.html.twig' => self::CONSTRUCTOR_TEMPLATE,
                     'messages.html.twig' => self::MESSAGES_TEMPLATE,
+                    'extended_message.html.twig' => self::EXTENDED_MESSAGE_TEMPLATE,
                 ]),
                 $filesystemLoader,
             ])
@@ -547,6 +556,60 @@ final class TwigViewIntegrationTest extends TestCase
                 $this->createPagerfanta(),
                 $this->createRouteGeneratorFactory()->createPositionRouteGenerator(),
                 ['template' => ['options.html.twig', 'messages.html.twig', 'options.html.twig', '@Pagerfanta/default.html.twig']]
+            )
+        );
+    }
+
+    public function testRendersATemplateFromTheOptionsWithTheMessagesFromTheChainOfTemplatesInTheConstructor(): void
+    {
+        $pagerfanta = $this->createPagerfanta();
+        $pagerfanta->setCurrentPage(5);
+
+        $this->assertViewOutputMatches(
+            new TwigView($this->twig, ['@Pagerfanta/default.html.twig', 'messages.html.twig'])->render(
+                $pagerfanta,
+                $this->createRouteGeneratorFactory()->createPositionRouteGenerator(['omitFirstPage' => true]),
+                ['omitFirstPage' => true, 'template' => '@Pagerfanta/twitter_bootstrap5.html.twig']
+            ),
+            '<ul class="pagination">
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=4" rel="prev">Back</a></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view">1</a></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=2">2</a></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=3">3</a></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=4">4</a></li>
+    <li class="page-item active" aria-current="page"><span class="page-link">5</span></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=6">6</a></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=7">7</a></li>
+    <li class="page-item disabled"><span class="page-link">&hellip;</span></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=10">10</a></li>
+    <li class="page-item"><a class="page-link" href="/pagerfanta-view?page=6" rel="next">Forward</a></li>
+</ul>'
+        );
+    }
+
+    public function testAMessageOverriddenByATemplateFromTheOptionsTakesPrecedenceOverTheChainOfTemplatesInTheConstructor(): void
+    {
+        $pagerfanta = $this->createPagerfanta();
+        $pagerfanta->setCurrentPage(5);
+
+        $rendered = new TwigView($this->twig, ['@Pagerfanta/default.html.twig', 'messages.html.twig'])->render(
+            $pagerfanta,
+            $this->createRouteGeneratorFactory()->createPositionRouteGenerator(),
+            ['template' => 'extended_message.html.twig']
+        );
+
+        $this->assertStringContainsString('rel="prev">Back</a>', $rendered);
+        $this->assertStringContainsString('rel="next">Onward</a>', $rendered);
+    }
+
+    public function testRendersATemplateFromTheOptionsFallingBackToTheTemplateFromTheConstructor(): void
+    {
+        $this->assertSame(
+            'Twig template from constructor',
+            new TwigView($this->twig, 'constructor.html.twig')->render(
+                $this->createPagerfanta(),
+                $this->createRouteGeneratorFactory()->createPositionRouteGenerator(),
+                ['template' => 'messages.html.twig']
             )
         );
     }

@@ -58,6 +58,10 @@ Pagerfanta 5.0 removes the page number based route generator, view, and template
 - `Pagerfanta\Twig\Extension\PagerfantaRuntime` now requires a `Pagerfanta\RouteGenerator\PositionRouteGeneratorFactoryInterface` as the route generator factory
 - `Pagerfanta\Twig\Extension\PagerfantaRuntime::getPageUrl()` (the `pagerfanta_page_url()` Twig function) now accepts any `Pagerfanta\OffsetPagerInterface`
 - The `pager` block of the `@Pagerfanta/default.html.twig` template now reads the previous and next page numbers from `pagerfanta.getPreviousPosition().page` and `pagerfanta.getNextPosition().page`; templates overriding this block should do the same to support every offset pager
+- The `previous_page_message` and `next_page_message` blocks moved from the `@Pagerfanta/default.html.twig` template to the new `@Pagerfanta/messages.html.twig` template
+    - Templates overriding these blocks continue to work, but the overrides can no longer call the `parent()` function
+    - The supplied templates can no longer be rendered on their own (i.e. with `Twig\Environment::load()` and `renderBlock()`), render them with `Pagerfanta\Twig\View\TwigView` or include the messages template in a `Twig\BlockChain`
+- `Pagerfanta\Twig\View\TwigView` now always renders with a `Twig\BlockChain`, a single template given to the `template` option or the constructor now falls back to the default template given to the constructor, the `@Pagerfanta/default.html.twig` template, and the `@Pagerfanta/messages.html.twig` template for any block it does not define
 
 ## Removed Features
 

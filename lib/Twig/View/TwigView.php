@@ -13,7 +13,6 @@ use Pagerfanta\RouteGenerator\PositionRouteGeneratorInterface;
 use Pagerfanta\View\View;
 use Twig\BlockChain;
 use Twig\Environment;
-use Twig\TemplateWrapper;
 
 /**
  * View which renders a pager with Twig templates.
@@ -25,13 +24,15 @@ final class TwigView extends View
 {
     public const string DEFAULT_TEMPLATE = '@Pagerfanta/default.html.twig';
 
+    public const string MESSAGES_TEMPLATE = '@Pagerfanta/messages.html.twig';
+
     /**
      * @var string|list<string>
      */
     private string|array $template = self::DEFAULT_TEMPLATE;
 
     /**
-     * @param string|list<string>|null $defaultTemplate A template name, or a list of template names ordered from highest to lowest precedence whose blocks are composed together
+     * @param string|list<string>|null $defaultTemplate A template name, or a list of template names ordered from highest to lowest precedence whose blocks are composed together, used when the "template" option is not given and as the fallback for any block not defined by the "template" option
      */
     public function __construct(
         private readonly Environment $twig,
@@ -113,14 +114,10 @@ final class TwigView extends View
     /**
      * @param string|list<string> $template
      */
-    private function loadTemplate(string|array $template): TemplateWrapper|BlockChain
+    private function loadTemplate(string|array $template): BlockChain
     {
-        if (\is_string($template)) {
-            return $this->twig->load($template);
-        }
-
         // Fall back to the default templates for any block not defined by the given templates, keeping the highest precedence position of repeated templates
-        return new BlockChain($this->twig, array_values(array_unique([...$template, ...(array) $this->defaultTemplate, self::DEFAULT_TEMPLATE])));
+        return new BlockChain($this->twig, array_values(array_unique([...(array) $template, ...(array) $this->defaultTemplate, self::DEFAULT_TEMPLATE, self::MESSAGES_TEMPLATE])));
     }
 
     /**

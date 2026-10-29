@@ -126,14 +126,6 @@
     <span class="pagination__item pagination__item--previous-page pagination__item--disabled">{{- block('previous_page_message') -}}</span>
 {%- endblock previous_page_link_disabled -%}
 
-{%- block previous_page_message -%}
-    {%- if options['prev_message'] is defined -%}
-        {{- options['prev_message'] -}}
-    {%- else -%}
-        Previous
-    {%- endif -%}
-{%- endblock previous_page_message -%}
-
 {%- block next_page_link -%}
     <a class="pagination__item pagination__item--next-page" href="{{- path -}}" rel="next"{{- block('link_attributes') -}}>{{- block('next_page_message') -}}</a>
 {%- endblock next_page_link -%}
@@ -141,14 +133,6 @@
 {%- block next_page_link_disabled -%}
     <span class="pagination__item pagination__item--next-page pagination__item--disabled">{{- block('next_page_message') -}}</span>
 {%- endblock next_page_link_disabled -%}
-
-{%- block next_page_message -%}
-    {%- if options['next_message'] is defined -%}
-        {{- options['next_message'] -}}
-    {%- else -%}
-        Next
-    {%- endif -%}
-{%- endblock next_page_message -%}
 
 {# Additional attributes for the link being rendered, rendered at the end of the link's opening tag #}
 {%- block link_attributes -%}{%- endblock link_attributes -%}

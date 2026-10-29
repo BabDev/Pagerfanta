@@ -220,6 +220,8 @@ Additionally, for most page blocks (`previous_page_link`, `page_link`, `current_
 
 If you want to create your own Twig template, the quickest and easiest way to do that is to extend one of the supplied templates (typically the default one). Have a look at `semantic_ui.html.twig` to see the blocks you will likely want to override.
 
+The `previous_page_message` and `next_page_message` blocks, which render the labels of the previous and next links, are defined by the `@Pagerfanta/messages.html.twig` template instead of the `@Pagerfanta/default.html.twig` template. The Twig view always composes the messages template after every other template, so these blocks can be overridden by any template being rendered. As the messages are not part of the template's inheritance chain, an override of these blocks cannot call the `parent()` function.
+
 ### Composing Templates
 
 The `template` option (and the default template given to the `Pagerfanta\Twig\View\TwigView` constructor) also accepts a list of template names, ordered from highest to lowest precedence. The blocks of these templates are composed together, so a template only needs to define the blocks it overrides and does not need to extend another template. This allows a set of overrides to be reused across any of the supplied templates.
@@ -230,7 +232,22 @@ For example, a `pager_messages.html.twig` template containing only the `previous
 {{ pagerfanta(pager, 'twig', {'template': ['pager_messages.html.twig', '@Pagerfanta/twitter_bootstrap5.html.twig']}) }}
 ```
 
-The default template given to the `Pagerfanta\Twig\View\TwigView` constructor and the `@Pagerfanta/default.html.twig` template are always appended to the list, so any block not defined by the listed templates falls back to them. If a template appears more than once, only its highest precedence position is used.
+The default template given to the `Pagerfanta\Twig\View\TwigView` constructor, the `@Pagerfanta/default.html.twig` template, and the `@Pagerfanta/messages.html.twig` template are always appended to the template from the `template` option (whether it is a single template or a list), so any block not defined by the given templates falls back to them. If a template appears more than once, only its highest precedence position is used.
+
+As each template is composed with the templates it extends before the next template in the list, a block defined by a template extending one of the supplied templates takes precedence over the same block in a later template. Because the supplied templates do not define the message blocks, the default template given to the constructor can provide the messages for every template, such as to translate them:
+
+```php
+<?php
+
+use Pagerfanta\Twig\View\TwigView;
+
+$view = new TwigView($twig, ['@Pagerfanta/default.html.twig', 'pager_messages.html.twig']);
+```
+
+```twig
+{# Rendered with the Bootstrap 5 markup and the messages from pager_messages.html.twig #}
+{{ pagerfanta(pager, 'twig', {'template': '@Pagerfanta/twitter_bootstrap5.html.twig'}) }}
+```
 
 ### Link Attributes
 
@@ -253,7 +270,7 @@ The rendered attributes must start with a space. For example, a `pager_link_attr
 {{ pagerfanta(pager, 'twig', {'template': ['pager_link_attributes.html.twig', '@Pagerfanta/twitter_bootstrap5.html.twig']}) }}
 ```
 
-The block can also be overridden in a template extending one of the supplied templates, which is supported by all Twig versions.
+The block can also be overridden in a template extending one of the supplied templates.
 
 ```twig
 {%- extends '@Pagerfanta/twitter_bootstrap5.html.twig' -%}
