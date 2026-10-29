@@ -48,6 +48,10 @@ Pagerfanta 5.0 removes the page number based route generator, view, and template
 - The template views now render the previous and next page links with the `previousEnabledForPosition()` and `nextEnabledForPosition()` methods
     - A template which extends one of the templates provided by Pagerfanta and overrides the `previousEnabled()` or `nextEnabled()` method must override the `previousEnabledForPosition()` or `nextEnabledForPosition()` method instead, **the old methods are no longer called and no error is raised**
 - `Pagerfanta\View\Template\Template::generateRoute()` now generates the route with the position route generator and throws a `Pagerfanta\Exception\LessThan1CurrentPageException` for a page number less than 1
+- The links rendered by the templates are now described by a `Pagerfanta\View\Template\Link`, with its relation to the current page given as a `Pagerfanta\View\Template\LinkRelation`, which is created with the `createLink()` or `createPageLink()` method of `Pagerfanta\View\Template\Template` and passed to the methods rendering the link markup
+    - `Pagerfanta\View\Template\Template::linkAttributes()` now receives the `Link` being rendered instead of the link's relation and position, the relation is a `LinkRelation` instead of a string
+    - `Pagerfanta\View\Template\Template::renderLinkAttributes()` now requires the `Link` being rendered
+    - The `linkLi()` methods of `Pagerfanta\View\Template\TwitterBootstrapTemplate`, `Pagerfanta\View\Template\TwitterBootstrap4Template`, and `Pagerfanta\View\Template\Foundation6Template` now receive the CSS class and the `Link` being rendered instead of the URL, text, and `rel` attribute of the link
 
 ### Twig
 
@@ -63,3 +67,4 @@ Pagerfanta 5.0 removes the page number based route generator, view, and template
 - Removed `Pagerfanta\View\Template\TemplateInterface::setRouteGenerator()`, templates are given a position route generator with `setPositionRouteGenerator()` instead
 - Removed `Pagerfanta\View\Template\TemplateInterface::previousEnabled()`, implement `previousEnabledForPosition()` instead
 - Removed `Pagerfanta\View\Template\TemplateInterface::nextEnabled()`, implement `nextEnabledForPosition()` instead
+- Removed `Pagerfanta\View\Template\Template::renderLink()` and `Pagerfanta\View\Template\Template::renderPageLink()`, create the link with `createLink()` or `createPageLink()` and pass it to the methods rendering the link markup instead

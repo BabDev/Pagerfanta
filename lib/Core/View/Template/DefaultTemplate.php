@@ -47,24 +47,19 @@ class DefaultTemplate extends Template
 
     public function pageWithText(int $page, string $text, ?string $rel = null): string
     {
-        return $this->renderPageLink('page', $page, fn (): string => $this->pageWithTextAndClass($page, $text, '', $rel));
+        return $this->linkWithClass('', $this->createPageLink(LinkRelation::Page, $page, $text, $rel));
     }
 
-    private function pageWithTextAndClass(int $page, string $text, string $class, ?string $rel = null): string
-    {
-        return $this->linkWithTextAndClass($this->generateRoute($page), $text, $class, $rel);
-    }
-
-    private function linkWithTextAndClass(string $href, string $text, string $class, ?string $rel = null): string
+    private function linkWithClass(string $class, Link $link): string
     {
         $replace = [
             trim($this->option('css_item_class').' '.$class),
-            $href,
-            $text,
+            $link->href,
+            $link->text,
         ];
 
-        $replace[] = $rel ? \sprintf(' rel="%s"', $rel) : '';
-        $replace[] = $this->renderLinkAttributes();
+        $replace[] = $link->rel ? \sprintf(' rel="%s"', $link->rel) : '';
+        $replace[] = $this->renderLinkAttributes($link);
 
         return str_replace(['%class%', '%href%', '%text%', '%rel%', '%attributes%'], $replace, $this->option('page_template'));
     }
@@ -87,7 +82,7 @@ class DefaultTemplate extends Template
 
     public function previousEnabledForPosition(Position $position): string
     {
-        return $this->renderLink('previous', $position, fn (): string => $this->linkWithTextAndClass($this->generateRouteForPosition($position), $this->option('prev_message'), $this->option('css_prev_class'), $this->option('rel_previous')));
+        return $this->linkWithClass($this->option('css_prev_class'), $this->createLink(LinkRelation::Previous, $position, $this->option('prev_message'), $this->option('rel_previous')));
     }
 
     public function nextDisabled(): string
@@ -108,7 +103,7 @@ class DefaultTemplate extends Template
 
     public function nextEnabledForPosition(Position $position): string
     {
-        return $this->renderLink('next', $position, fn (): string => $this->linkWithTextAndClass($this->generateRouteForPosition($position), $this->option('next_message'), $this->option('css_next_class'), $this->option('rel_next')));
+        return $this->linkWithClass($this->option('css_next_class'), $this->createLink(LinkRelation::Next, $position, $this->option('next_message'), $this->option('rel_next')));
     }
 
     public function first(): string

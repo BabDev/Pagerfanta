@@ -18,13 +18,6 @@ abstract class Template implements TemplateInterface
 
     private ?PositionRouteGeneratorInterface $positionRouteGenerator = null;
 
-    /**
-     * The relation and position of the link being rendered, used to resolve its attributes.
-     *
-     * @var array{'previous'|'page'|'next', Position}|null
-     */
-    private ?array $link = null;
-
     public function __construct()
     {
         $this->options = $this->getDefaultOptions();
@@ -78,37 +71,53 @@ abstract class Template implements TemplateInterface
     }
 
     /**
+     * Creates a link to the given position.
+     *
+     * @throws RuntimeException if the position route generator has not been set
+     */
+    protected function createLink(LinkRelation $relation, Position $position, string $text, ?string $rel = null): Link
+    {
+        return new Link($relation, $position, $this->generateRouteForPosition($position), $text, $rel);
+    }
+
+    /**
+     * Creates a link to the given page by its number.
+     *
+     * @throws LessThan1CurrentPageException if the page is less than 1
+     * @throws RuntimeException              if the position route generator has not been set
+     */
+    protected function createPageLink(LinkRelation $relation, int $page, string $text, ?string $rel = null): Link
+    {
+        if ($page < 1) {
+            throw new LessThan1CurrentPageException();
+        }
+
+        return $this->createLink($relation, new PagePosition($page), $text, $rel);
+    }
+
+    /**
      * Returns the additional attributes for a link, override this method to add attributes to the links of a template.
      *
      * Values are escaped when rendered, a true value renders a boolean attribute and a false or null value omits the attribute.
      * The "href", "rel", and "class" attributes are controlled by the template and cannot be set.
      *
-     * @param 'previous'|'page'|'next' $relation The relation of the link to the current page, the first, last, and numbered page links use "page"
-     * @param Position                 $position The position the link points to, numbered page links are given a {@see PagePosition}
-     *
      * @return array<string, string|int|bool|null>
      */
-    protected function linkAttributes(string $relation, Position $position): array
+    protected function linkAttributes(Link $link): array
     {
         return [];
     }
 
     /**
-     * Renders the attributes of the link being rendered, with a leading space, for use inside the link's opening tag.
-     *
-     * An empty string is returned when called outside of {@see renderLink()}.
+     * Renders the additional attributes of a link, with a leading space, for use inside the link's opening tag.
      *
      * @throws InvalidArgumentException if an attribute name is not valid or is controlled by the template
      */
-    protected function renderLinkAttributes(): string
+    protected function renderLinkAttributes(Link $link): string
     {
-        if (null === $this->link) {
-            return '';
-        }
-
         $html = '';
 
-        foreach ($this->linkAttributes(...$this->link) as $name => $value) {
+        foreach ($this->linkAttributes($link) as $name => $value) {
             $name = (string) $name;
 
             if (1 !== preg_match('/^[a-zA-Z_:][a-zA-Z0-9_:.-]*$/', $name)) {
@@ -127,46 +136,6 @@ abstract class Template implements TemplateInterface
         }
 
         return $html;
-    }
-
-    /**
-     * Renders a link, making its relation and position available to {@see renderLinkAttributes()}.
-     *
-     * When called while another link is being rendered, the outer link is kept.
-     *
-     * @param 'previous'|'page'|'next' $relation
-     * @param \Closure(): string       $render
-     */
-    protected function renderLink(string $relation, Position $position, \Closure $render): string
-    {
-        if (null !== $this->link) {
-            return $render();
-        }
-
-        $this->link = [$relation, $position];
-
-        try {
-            return $render();
-        } finally {
-            $this->link = null;
-        }
-    }
-
-    /**
-     * Renders a link to a page by its number, see {@see renderLink()}.
-     *
-     * @param 'previous'|'page'|'next' $relation
-     * @param \Closure(): string       $render
-     *
-     * @throws LessThan1CurrentPageException if the page is less than 1
-     */
-    protected function renderPageLink(string $relation, int $page, \Closure $render): string
-    {
-        if ($page < 1) {
-            throw new LessThan1CurrentPageException();
-        }
-
-        return $this->renderLink($relation, new PagePosition($page), $render);
     }
 
     /**

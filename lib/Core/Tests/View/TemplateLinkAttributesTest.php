@@ -19,6 +19,8 @@ use Pagerfanta\View\DefaultView;
 use Pagerfanta\View\SequentialView;
 use Pagerfanta\View\Template\DefaultTemplate;
 use Pagerfanta\View\Template\Foundation6Template;
+use Pagerfanta\View\Template\Link;
+use Pagerfanta\View\Template\LinkRelation;
 use Pagerfanta\View\Template\SemanticUiTemplate;
 use Pagerfanta\View\Template\SequentialTemplateInterface;
 use Pagerfanta\View\Template\Template;
@@ -130,42 +132,38 @@ final class TemplateLinkAttributesTest extends TestCase
         new DefaultView($this->createTemplateWithAttributes([$name => 'value']))->render($this->createPagerfanta(), $this->createPositionRouteGenerator());
     }
 
-    public function testTheOuterLinkIsKeptWhenALinkIsRenderedWhileRenderingAnotherLink(): void
+    public function testTheAttributesAreResolvedFromTheLink(): void
     {
         $template = new class extends DefaultTemplate {
-            use AddsTestLinkAttributes;
-
-            public function previousEnabledForPosition(Position $position): string
+            protected function linkAttributes(Link $link): array
             {
-                if (!$position instanceof PagePosition) {
-                    throw new \LogicException('Only page positions are rendered by this template.');
-                }
-
-                return $this->renderLink('previous', $position, fn (): string => $this->pageWithText($position->page, 'Back', 'prev'));
+                return ['data-url' => $link->href, 'data-label' => $link->text];
             }
         };
 
         $this->assertStringContainsString(
-            'href="|page:4|" rel="prev" data-relation="previous" data-page="4" data-live>Back</a>',
+            'href="|page:6|" rel="next" data-url="|page:6|" data-label="Next">Next</a>',
             new DefaultView($template)->render($this->createPagerfanta(), $this->createPositionRouteGenerator()),
         );
     }
 
-    public function testTheAttributesAreNotRenderedOutsideOfALink(): void
+    public function testACustomLinkIsRenderedWithTheAttributes(): void
     {
         $template = new class extends DefaultTemplate {
             use AddsTestLinkAttributes;
 
-            public function renderAttributesOutsideOfALink(): string
+            public function nextEnabledForPosition(Position $position): string
             {
-                return $this->renderLinkAttributes();
+                $link = $this->createLink(LinkRelation::Next, $position, 'Load more');
+
+                return \sprintf('<a class="button" href="%s"%s>%s</a>', $link->href, $this->renderLinkAttributes($link), $link->text);
             }
         };
 
-        $template->setPositionRouteGenerator($this->createPositionRouteGenerator());
-
-        $this->assertStringContainsString('data-live', $template->page(1));
-        $this->assertSame('', $template->renderAttributesOutsideOfALink());
+        $this->assertStringContainsString(
+            '<a class="button" href="|page:6|" data-relation="next" data-page="6" data-live>Load more</a>',
+            new DefaultView($template)->render($this->createPagerfanta(), $this->createPositionRouteGenerator()),
+        );
     }
 
     public function testALinkToAPageLessThan1CannotBeRendered(): void
@@ -186,9 +184,9 @@ final class TemplateLinkAttributesTest extends TestCase
         $template = new class extends TwitterBootstrap4Template {
             use AddsTestLinkAttributes;
 
-            protected function linkLi(string $class, string $href, $text, ?string $rel = null): string
+            protected function linkLi(string $class, Link $link): string
             {
-                return \sprintf('<li><a href="%s">%s</a></li>', $href, $text);
+                return \sprintf('<li><a href="%s">%s</a></li>', $link->href, $link->text);
             }
         };
 
@@ -212,7 +210,7 @@ final class TemplateLinkAttributesTest extends TestCase
                 parent::__construct();
             }
 
-            protected function linkAttributes(string $relation, Position $position): array
+            protected function linkAttributes(Link $link): array
             {
                 return $this->attributes;
             }

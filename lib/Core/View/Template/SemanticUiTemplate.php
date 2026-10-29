@@ -45,12 +45,7 @@ class SemanticUiTemplate extends Template
 
     public function pageWithText(int $page, string $text, ?string $rel = null): string
     {
-        return $this->renderPageLink('page', $page, fn (): string => $this->pageWithTextAndClass($page, $text, '', $rel));
-    }
-
-    private function pageWithTextAndClass(int $page, string $text, string $class, ?string $rel = null): string
-    {
-        return $this->link($class, $this->generateRoute($page), $text, $rel);
+        return $this->link('', $this->createPageLink(LinkRelation::Page, $page, $text, $rel));
     }
 
     public function previousDisabled(): string
@@ -65,7 +60,7 @@ class SemanticUiTemplate extends Template
 
     public function previousEnabledForPosition(Position $position): string
     {
-        return $this->renderLink('previous', $position, fn (): string => $this->link($this->option('css_prev_class'), $this->generateRouteForPosition($position), $this->option('prev_message'), $this->option('rel_previous')));
+        return $this->link($this->option('css_prev_class'), $this->createLink(LinkRelation::Previous, $position, $this->option('prev_message'), $this->option('rel_previous')));
     }
 
     public function nextDisabled(): string
@@ -80,7 +75,7 @@ class SemanticUiTemplate extends Template
 
     public function nextEnabledForPosition(Position $position): string
     {
-        return $this->renderLink('next', $position, fn (): string => $this->link($this->option('css_next_class'), $this->generateRouteForPosition($position), $this->option('next_message'), $this->option('rel_next')));
+        return $this->link($this->option('css_next_class'), $this->createLink(LinkRelation::Next, $position, $this->option('next_message'), $this->option('rel_next')));
     }
 
     public function first(): string
@@ -105,11 +100,11 @@ class SemanticUiTemplate extends Template
         return $this->div($this->option('css_dots_class'), $this->option('dots_message'));
     }
 
-    private function link(string $class, string $href, int|string $text, ?string $rel = null): string
+    private function link(string $class, Link $link): string
     {
-        $rel = $rel ? \sprintf(' rel="%s"', $rel) : '';
+        $rel = $link->rel ? \sprintf(' rel="%s"', $link->rel) : '';
 
-        return \sprintf('<a class="%s %s" href="%s"%s%s>%s</a>', $this->option('css_item_class'), $class, $href, $rel, $this->renderLinkAttributes(), $text);
+        return \sprintf('<a class="%s %s" href="%s"%s%s>%s</a>', $this->option('css_item_class'), $class, $link->href, $rel, $this->renderLinkAttributes($link), $link->text);
     }
 
     private function div(string $class, int|string $text): string
