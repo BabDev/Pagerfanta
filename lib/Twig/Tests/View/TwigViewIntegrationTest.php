@@ -20,7 +20,7 @@ use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
-use Twig\RuntimeLoader\RuntimeLoaderInterface;
+use Twig\RuntimeLoader\FactoryRuntimeLoader;
 
 /**
  * Integration tests which simulates a real Twig environment to validate templates are correctly generated.
@@ -82,9 +82,15 @@ final class TwigViewIntegrationTest extends TestCase
             ])
         );
         $this->twig->addExtension(new PagerfantaExtension());
-        $this->twig->addRuntimeLoader($this->createRuntimeLoader());
-
         $this->routeGeneratorFactory = $this->createRouteGeneratorFactory();
+        $this->twig->addRuntimeLoader(new FactoryRuntimeLoader([
+            PagerfantaRuntime::class => function (): PagerfantaRuntime {
+                $viewFactory = new ViewFactory();
+                $viewFactory->set('twig', new TwigView($this->twig));
+
+                return new PagerfantaRuntime('twig', $viewFactory, $this->routeGeneratorFactory);
+            },
+        ]));
     }
 
     /**
@@ -635,38 +641,6 @@ final class TwigViewIntegrationTest extends TestCase
 
                     return '/pagerfanta-view';
                 });
-            }
-        };
-    }
-
-    private function createRuntimeLoader(): RuntimeLoaderInterface
-    {
-        return new readonly class($this) implements RuntimeLoaderInterface {
-            public function __construct(
-                private TwigViewIntegrationTest $testCase,
-            ) {}
-
-            /**
-             * @param string $class
-             *
-             * @return object|null
-             */
-            public function load($class)
-            {
-                switch ($class) {
-                    case PagerfantaRuntime::class:
-                        $viewFactory = new ViewFactory();
-                        $viewFactory->set('twig', new TwigView($this->testCase->twig));
-
-                        return new PagerfantaRuntime(
-                            'twig',
-                            $viewFactory,
-                            $this->testCase->routeGeneratorFactory
-                        );
-
-                    default:
-                        return null;
-                }
             }
         };
     }

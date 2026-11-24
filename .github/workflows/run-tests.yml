@@ -413,6 +413,10 @@ jobs:
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
             patch-packages: true
+          - php: '8.5'
+            twig: '^4.0@beta'
+            composer-flags: '--prefer-stable --prefer-dist'
+            next-php: false
 
     name: Twig${{ matrix.twig != '' && format(' {0}', matrix.twig) || '' }} - PHP ${{ matrix.php }} - Composer ${{ matrix.composer-flags }}${{ matrix.patch-packages && ' (Patched Packages)' || '' }}
 
