@@ -358,7 +358,7 @@ jobs:
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
             patch-packages: true
-          - php: '8.1'
+          - php: '8.4'
             solarium: '^6.2'
             composer-flags: '--prefer-stable --prefer-dist'
             next-php: false
