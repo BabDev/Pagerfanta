@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.12.0 (????-??-??)
+
+- [#68](https://github.com/BabDev/Pagerfanta/pull/68) Add support for `twig/twig` 4.x
+
 ## 4.11.0 (2026-10-29)
 
 - Allow adding attributes to the links rendered by templates
